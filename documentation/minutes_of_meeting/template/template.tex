@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
+
+\pagestyle{plain}
+\usepackage{tikz}
+
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+
+\begin{document}
+
+% title && subtitles
+\includegraphics[width=0.1\linewidth]{./uc3m.jpg}
+
+\vspace{-1cm}
+\begin{minipage}[b]{1\linewidth}
+	\begin{center}
+	{\Huge \bfseries{Minutes of Meeting}}\\
+	\line(1,0){250}\\[1cm]
+	{\LARGE \textbf{Bachelor's Thesis: 3D Object Recognition Using Kinect}}\\[0.5cm]
+	%date
+	{\large \today}
+	\end{center}
+\end {minipage}
+
+
+
+% Author and supervisor
+\begin{minipage}{0.55\textwidth}
+\begin{flushleft} \large
+\textbf{{Author:}\\}
+Irene Sanz Nieto, 100282826\\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\textbf{Supervisor: }\\
+Victor González Pacheco
+\end{flushright}\end{minipage}
+
+\begin{center}
+\line(1,0){500}
+\end{center}
+\vspace{1cm}
+
+%Points discussed
+\paragraph{\LARGE Points discussed: }
+	\begin{itemize}
+		\item\textbf{}
+	\end{itemize}
+	
+\vspace{1cm}
+%Decisions made	
+\paragraph{\LARGE Decisions made:}
+	\begin{itemize}
+		\item\textbf{}
+	\end{itemize}
+
+
+\end{document}
