@@ -12,6 +12,18 @@
 \pgfsetlayers{background,main}
 
 
+\newenvironment{myindentpar}[1]%
+ {\begin{list}{}%
+         {\setlength{\leftmargin}{#1}}%
+         \item[]%
+ }
+ {\end{list}}
+ 
+ 
+ 
+ 
+
+
 \begin{document}
 
 % title && subtitles
@@ -46,39 +58,37 @@ Victor González Pacheco [VGP]
 \begin{center}
 \line(1,0){500}
 \end{center}
-\vspace{1cm}
+
+\renewcommand{\thesubsection}
+{\hspace*{1cm} \arabic{section}.\arabic{subsection}}
+
+
 
 %Points discussed
-\paragraph{\LARGE Points discussed: }
-	\begin{itemize}
-		\item\textbf{}
-					
-	\end{itemize}
-	
-\vspace{1cm}
+\section{\LARGE Points discussed: }
+	\subsection{}
+		\begin{myindentpar}{1cm} 
+		
+		\end{myindentpar}
+
 
 
 %Decisions made	
-\paragraph{\LARGE Decisions made:}
-	\begin{itemize}
-		\item\textbf{}\\
-			
-	\end{itemize}
-
-
-\vspace{1cm}
-%To-Do List
-\paragraph{\LARGE To-Do List: }
-
-
-	\begin{itemize}
-		\item\textbf{ }\\
+\section{\LARGE Decisions made:}
+	\subsection{}
+		\begin{myindentpar}{1cm} 
 		
-			
-	\end{itemize}
+		\end{myindentpar}
+
+
+%To-Do List
+\section{\LARGE To-Do List: }
+	\subsection{}
+		\begin{myindentpar}{1cm} 
+		
+		\end{myindentpar}
 	
-	
-\vspace{1cm}
+
 
 %Next meeting	
 \begin {center}
