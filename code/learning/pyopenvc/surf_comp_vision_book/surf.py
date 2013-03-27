@@ -19,12 +19,10 @@ def surf_process (name):
 	#the image may be returned to color inverting : cv2.COLOR_RGB2GRAY to cv2.COLOR_GRAY2BGR ;)
 	final=cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
-
 	#print the keypoints:
 	for k in keypoints[::10]:
 		cv2.circle(final, (int(k.pt[0]), int(k.pt[1])), 2, (0,255,0),-1) 
 		cv2.circle(final, (int(k.pt[0]), int(k.pt[1])), int(k.size), (0,255,0),2) 
-
 
 	#different stages of the image processing: 
 
@@ -34,22 +32,20 @@ def surf_process (name):
 	#cv2.imshow('LOCAL DESCRIPTORS',final)
 	return final
 
-
+'''
+	Here finishes the method implementation
+'''
 im1=surf_process('test1.jpg')
 #cv2.imshow('FIRST TEST', im1)
 im2=surf_process('test2.jpg')
 #cv2.imshow('SECOND TEST', im2)
 
 
+'''
+	FROM NOW ON, THE COMPARISON BETWEEN im1 && im2 is carried out
+'''
 
-'''
-print "The dot product is: ", dotprod
-if(dotprod)>'2': 
-	print "nothing in relation"
-else:
-	print "detected!"
-'''
+
+
 #common to all programs part wich waits for the user to press any key and then close all opened windows
 cv2.waitKey()
-
-
