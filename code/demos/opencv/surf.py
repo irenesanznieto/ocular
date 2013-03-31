@@ -53,6 +53,9 @@ def compare_images (image, template):
 
 	cv2.imshow('img',img)
 	cv2.imshow('tm',template)
+	
+	
+
 
 
 
