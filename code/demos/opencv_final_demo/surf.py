@@ -1,6 +1,19 @@
 import cv2
 import numpy as np
 
+def compute_laplacian(im_gray):
+
+	kernel_size = 3
+	scale = 1
+	delta = 0
+	ddepth = cv2.CV_16S
+
+	gray_lap = cv2.Laplacian(im_gray,ddepth,ksize = kernel_size,scale = scale,delta = delta)
+	imgg = cv2.convertScaleAbs(gray_lap)
+	return imgg
+	#cv2.imshow('LAPLACIAN',imgg)
+
+
 def compare_images (image, template_without_path, distance): 
 
 	template='templates_data/'+template_without_path
@@ -8,7 +21,11 @@ def compare_images (image, template_without_path, distance):
 	img =cv2.imread(image)
 
 	# Convert them to grayscale
-	imgg =cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+	im_gray =cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+	#LAPLACIAN
+	imgg=compute_laplacian(im_gray)
+
 
 	# SURF extraction
 	surf = cv2.FeatureDetector_create("SURF")
@@ -26,7 +43,10 @@ def compare_images (image, template_without_path, distance):
 
 	# Now loading a template image and searching for similar keypoints
 	template = cv2.imread(template)
-	templateg= cv2.cvtColor(template,cv2.COLOR_BGR2GRAY)
+	tempg= cv2.cvtColor(template,cv2.COLOR_BGR2GRAY)
+	#LAPLACIAN
+	templateg=compute_laplacian(tempg)
+
 	keys = surf.detect(templateg)
 	keys,desc  = surfDescriptorExtractor.compute(templateg,keys)
 

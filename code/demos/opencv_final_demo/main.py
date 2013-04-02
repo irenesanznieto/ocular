@@ -69,7 +69,7 @@ num=0
 percentage=[]
 while num<templates_num:
 	name='template'+str(num)+'.jpg'
-	percentage.append(surf.compare_images('dummy.jpg',name, 0.1))
+	percentage.append(surf.compare_images('dummy.jpg',name, 0.05))
 	num+=1
 
 
