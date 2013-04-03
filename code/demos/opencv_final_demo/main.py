@@ -42,6 +42,7 @@ if (choice =='1'):
 			name+='.jpg'
 			cv2.imwrite(name, im)
 			num+=1
+			print 'TEMPLATE', num, 'CAPTURED'
 	cv2.destroyWindow('TEMPLATE OBJECTS CAPTURE')
 
 else: 
@@ -51,7 +52,7 @@ else:
 #Match objects
 init=time.time()
 
-print 'To capture each new object, please press the space bar'
+print 'To capture the new object, please press the space bar'
 
 while True: 
 	ret, im=cap.read()
@@ -61,30 +62,42 @@ while True:
 		break
 	if key ==ord(' '): 
 		cv2.imwrite('dummy.jpg', im)
+		print 'Object CAPTURED'
 		break
 
 #Comparison of the obtained image with the templates
 num=0
 
-percentage=[]
+lap_per=[] #laplacian percentage
+nor_per=[] #normal percentage	
+accuracy=0.1
+
 while num<templates_num:
 	name='template'+str(num)+'.jpg'
-	percentage.append(surf.compare_images('dummy.jpg',name, 0.05))
+	lap_per.append(surf.compare_images('dummy.jpg',name, accuracy, True))
+	nor_per.append(surf.compare_images('dummy.jpg',name, accuracy, False))
 	num+=1
 
-
-id_object = np.argmax(percentage)
+id_lap=np.argmax(lap_per)
+id_nor=np.argmax(nor_per)
 
 end=time.time()
 
 cv2.destroyWindow('MATCHING OBJECTS')
 
 
+#Print result
+print '\n\n\nRESULTS\n.............\nThe ratios of similarity are the following:\nComputing the Laplacian of the image: ', lap_per, '\nObtaining the descriptors directly from the image: ', nor_per, '\n\nThe object is more similar to:\nLaplacian: template', id_lap, lap_per[id_lap], '\nNormal: template', id_nor, nor_per[id_nor],'\n\nTotal computing time: ', (end-init), 's'
+
+
 #Show result
-print '\n\n\nRESULTS\n.............\nThe ratios of similarity are the following: ', percentage, 'The object is more similar to template', id_object,  '\nTotal computing time: ', (end-init), 's'
 cv2.imshow('New Object',cv2.imread('templates_data/temporal/dummy.jpg'))
-template_path='templates_data/temporal/template'+str(id_object)+'.jpg'
-cv2.imshow('Template Match',cv2.imread(template_path))
+
+template_lap='templates_data/temporal/template'+str(id_lap)+'.jpg'
+cv2.imshow('Template Match LAPLACIAN',cv2.imread(template_lap))
+
+template_nor='templates_data/temporal/template'+str(id_nor)+'.jpg'
+cv2.imshow('Template Match NORMAL',cv2.imread(template_nor))
 
 #remove dummy files
 os.remove("dummy.jpg")
@@ -93,8 +106,4 @@ rmfiles_in_folder("templates_data/temporal/")
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-
-
-
 

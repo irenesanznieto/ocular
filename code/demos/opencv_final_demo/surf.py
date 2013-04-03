@@ -14,7 +14,7 @@ def compute_laplacian(im_gray):
 	#cv2.imshow('LAPLACIAN',imgg)
 
 
-def compare_images (image, template_without_path, distance): 
+def compare_images (image, template_without_path, distance, laplacian): 
 
 	template='templates_data/'+template_without_path
 	# Load the images
@@ -23,8 +23,11 @@ def compare_images (image, template_without_path, distance):
 	# Convert them to grayscale
 	im_gray =cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
-	#LAPLACIAN
-	imgg=compute_laplacian(im_gray)
+	if (laplacian==True):
+		#LAPLACIAN
+		imgg=compute_laplacian(im_gray)
+	else: 
+		imgg=im_gray
 
 
 	# SURF extraction
@@ -44,8 +47,12 @@ def compare_images (image, template_without_path, distance):
 	# Now loading a template image and searching for similar keypoints
 	template = cv2.imread(template)
 	tempg= cv2.cvtColor(template,cv2.COLOR_BGR2GRAY)
-	#LAPLACIAN
-	templateg=compute_laplacian(tempg)
+
+	if(laplacian==True):
+		#LAPLACIAN
+		templateg=compute_laplacian(tempg)
+	else:
+		templateg=tempg
 
 	keys = surf.detect(templateg)
 	keys,desc  = surfDescriptorExtractor.compute(templateg,keys)
@@ -80,6 +87,11 @@ def compare_images (image, template_without_path, distance):
 
 	image_='templates_data/temporal/'
 	template_=image_
+
+	if(laplacian==True): 
+		image_+='laplacian_'
+		template_+='laplacian_'
+
 	image_+=image
 	template_+=template_without_path
 
