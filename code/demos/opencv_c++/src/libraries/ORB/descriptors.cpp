@@ -1,65 +1,97 @@
 #include "descriptors.h"
 
 //extract descriptors
-void descriptors (string ima)
+void descriptors (Mat & image, Mat & f_descr, vector <KeyPoint> & f_keyp)
 {
-	Mat image, gimage; 
+	Mat  gimage; 
 
 	//read image
-	image=imread(ima);
+	//image=imread(ima);
 	cvtColor(image, gimage, CV_BGR2GRAY);
 
 	Mat mask, descriptors;
 	vector <KeyPoint> keypoints; 
 	
-	DescriptorExtractor * orb; 
-	orb=new OrbFeatureDetector; 
-
-
-	orb->compute(gimage, keypoints, descriptors); 
-	delete orb; 
-
+	ORB orb;  
+	orb(gimage, mask,  keypoints, descriptors); 
 	
-	//drawing circles in the keypoints && saving to file
+	//drawing circles in the keypoints 
+/*
 	for (int i=0; i<keypoints.size(); i++)
 	{
 		circle(image, keypoints[i].pt, keypoints[i].size, Scalar(0,0,255), 1); 
 
 	}
-
-	//FileStorage myfile ("trial.txt"); 
-	cvLoad("trial.txt", descriptors);
-//void* cvLoad(const char* filename, CvMemStorage* memstorage=NULL, const char* name=NULL, const char** real_name=NULL )¶
-
-	//SHOW IMAGES
-	imshow ("Image", image); 
-	//imshow ("Grey image", gimage); 
-
-}
-
-/*
-void comp_descr()
-{
-	cv::Mat results;
-	cv::Mat dists;
-	int k=2; // find the 2 nearest neighbors
-	if(objectDescriptors.type()==CV_8U)
-	{
-		    // Binary descriptors detected (from ORB or Brief)
-
-		    // Create Flann LSH index
-		    cv::flann::Index flannIndex(sceneDescriptors, cv::flann::LshIndexParams(12, 20, 2), cvflann::FLANN_DIST_HAMMING);
-		    results = cv::Mat(objectDescriptors.rows, k, CV_32SC1); // Results index
-		    dists = cv::Mat(objectDescriptors.rows, k, CV_32FC1); // Distance results are CV_32FC1 ?!?!? NOTE OpenCV doc is not clear about that...
-
-		    // search (nearest neighbor)
-		    flannIndex.knnSearch(objectDescriptors, results, dists, k, cv::flann::SearchParams() );
-	}
-
-}
 */
+	//SHOW IMAGES
+	//imshow ("Image", image); 
+	//imshow ("Grey image", gimage);
 
-void save_descr(Mat descriptors)
-{
+
+	//Assign output variables
+	f_descr=descriptors; 
+	f_keyp=keypoints;  
 	
+}
+
+void save_descr(Mat &descriptors, string filename)
+{
+	filename+= "_d.yml"; 
+	FileStorage fs(filename, FileStorage::WRITE);
+	fs <<"descriptors"<< descriptors;	
 } 
+
+void save_keypoints(vector <KeyPoint> & keyp, string filename)
+{
+	filename+= "_k.yml"; 
+	FileStorage fs(filename, FileStorage::WRITE);
+	fs <<"keypoints"<< keyp;	
+}
+
+
+Mat load_descr (string filename)
+{
+
+	FileStorage fr (filename, FileStorage::READ); 
+	Mat descriptor; 
+	fr["descriptors"]>>descriptor; 
+
+	//Mat A = loadMat("mymat.xml"); // See function loadMat in the question!
+	//descriptor.convertTo(descriptor, DataType<float>::type);
+	//imshow("TRIAL", descriptor); 
+	return descriptor; 
+
+}
+
+vector <KeyPoint> load_keypoints (string filename)
+{
+	FileStorage fr (filename, FileStorage::READ); 
+	vector <KeyPoint> keypoints; 
+	read(fr["keypoints"],keypoints); 
+	return keypoints; 
+}
+
+
+void templates_extractor(Mat saved_image)
+{	
+	string im_path="../data/"; 
+	cout <<"What is the name of the current image?"<<endl; 
+	string name; 
+	cin >> name; 
+	string im_data=im_path+name; //path of the xml/yam files
+	im_path+= name+".jpg"; //path of the image 
+
+	//save the pattern image--> necessary?!
+	imwrite(im_path, saved_image); 
+
+
+	Mat descriptor; 
+	vector <KeyPoint> keypoints;
+
+	//descriptors && keypoints extraction
+	descriptors (saved_image, descriptor, keypoints); 
+	save_keypoints(keypoints, im_data);
+	save_descr(descriptor, im_data); 
+}
+
+
