@@ -23,10 +23,6 @@ void descriptors (Mat & image, Mat & f_descr, vector <KeyPoint> & f_keyp)
 
 	}
 */
-	//SHOW IMAGES
-	//imshow ("Image", image); 
-	//imshow ("Grey image", gimage);
-
 
 	//Assign output variables
 	f_descr=descriptors; 
@@ -72,26 +68,28 @@ vector <KeyPoint> load_keypoints (string filename)
 }
 
 
-void templates_extractor(Mat saved_image)
+void templates_extractor(vector <Mat> &saved_image, vector <string>&saved_name)
 {	
-	string im_path="../data/"; 
-	cout <<"What is the name of the current image?"<<endl; 
-	string name; 
-	cin >> name; 
-	string im_data=im_path+name; //path of the xml/yam files
-	im_path+= name+".jpg"; //path of the image 
+	for (int i=0; i<saved_name.size(); i++)
+	{
+		string im_path="../data/"; 
 
-	//save the pattern image--> necessary?!
-	imwrite(im_path, saved_image); 
+		string im_data=im_path+saved_name[i]; //path of the xml/yam files
+		im_path+= saved_name[i]+".jpg"; //path of the image 
 
+		cout <<"Trial!!"<<endl<<saved_name[i]<<endl<< im_path<<endl<<im_data<<endl; 
 
-	Mat descriptor; 
-	vector <KeyPoint> keypoints;
+		//save the pattern image--> not necessary, but useful for the final comparison
+		imwrite(im_path, saved_image[i]); 
 
-	//descriptors && keypoints extraction
-	descriptors (saved_image, descriptor, keypoints); 
-	save_keypoints(keypoints, im_data);
-	save_descr(descriptor, im_data); 
+		Mat descriptor; 
+		vector <KeyPoint> keypoints;
+
+		//descriptors && keypoints extraction
+ 
+		descriptors (saved_image[i], descriptor, keypoints); 
+
+		save_keypoints(keypoints, im_data);
+		save_descr(descriptor, im_data); 
+	}
 }
-
-

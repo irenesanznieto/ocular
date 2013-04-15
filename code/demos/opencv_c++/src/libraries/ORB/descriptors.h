@@ -12,7 +12,7 @@ void descriptors (Mat &, Mat &, vector<KeyPoint> &);
 void save_descr(Mat &, string); 
 void save_keypoints(vector <KeyPoint> &, string); 
 
-void templates_extractor(Mat); 
+void templates_extractor(vector <Mat> &, vector <string> &); 
 
 Mat  load_descr(string); 
 vector <KeyPoint>  load_keypoints(string); 
