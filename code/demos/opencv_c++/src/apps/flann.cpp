@@ -1,4 +1,3 @@
-#include "../libraries/ORB/descriptors.h"
 #include "../libraries/functions.h"
 
 int main (int argc, char * argv[])
@@ -26,23 +25,25 @@ int main (int argc, char * argv[])
 
 
 
-  //Draw good matches: 
+	//Draw good matches: 
+	
+	float dummy; //dummy variable that will store the ratio of matched/all descriptors--> this is used in the main program
 
-  vector <DMatch> final_matches=flann_comparison(desc1, desc2, 10);
-  Mat img_matches;
-  drawMatches( img1, keyp1, img2, keyp2,final_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
-               vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+	vector <DMatch> final_matches=flann_comparison(desc1, desc2,dummy, 10);
+	Mat img_matches;
+	drawMatches( img1, keyp1, img2, keyp2,final_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
+		       vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
 
 
-  //-- Show detected matches
-  imshow( "Good Matches", img_matches );
+	//-- Show detected matches
+	imshow( "Good Matches", img_matches );
 
-  for( int i = 0; i < (int)final_matches.size(); i++ )
-  { 
+	for( int i = 0; i < (int)final_matches.size(); i++ )
+	{ 
 	cout<< "-- Good Match ["<<i<<"] Keypoint 1: "<<final_matches[i].queryIdx<<"  -- Keypoint 2: "<< final_matches[i].trainIdx<<endl;
 
-  }
+	}
 
  	waitKey(0);                                      
     return 0;
