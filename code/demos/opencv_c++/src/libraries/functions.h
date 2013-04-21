@@ -1,5 +1,7 @@
-#include <iostream>
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
+#include <iostream>
 #include<opencv2/opencv.hpp>
 #include<vector>
 #include <fstream>
@@ -12,8 +14,9 @@ using namespace std;
 
 using namespace std; 
 
-//void capture_image_bs(int);
-void capture_image(int, vector <Mat> &, vector <string> &);
+
+void capture_image(int, vector <Mat> &, vector <string> &, bool);
+void capture_image(int, vector <Mat> &, bool);
 
 vector <DMatch> flann_comparison (Mat & , Mat &,float &,  float);
 
@@ -30,4 +33,5 @@ void templates_extractor(vector <Mat> &, vector <string> &);
 Mat  load_desc(string); 
 vector <KeyPoint>  load_keyp(string); 
 
-//void draw_matches(Mat, Mat,  
+#endif//FUNCTIONS_H
+

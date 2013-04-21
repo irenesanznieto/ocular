@@ -1,82 +1,126 @@
 #include "functions.h"
-/*
-void capture_image_bs (int number, bool temp)
+
+void capture_image (int number, vector <Mat> & cap_images, bool no_back)
 {
 
-	//Initialization of the needed parameters
-    Mat frame, saved_image, fore, back;
-
-    VideoCapture cap(0);
-  	cv::BackgroundSubtractorMOG2 bg ;
-    bg.set("nmixtures",3);// set number of gaussian mixtures
-    bg.set("detectShadows", false); //if false: turn shadow detection off
-
-	int counter=0; 
-	bool onetimec=true; 
-
-	//The first thing to do is capture the background to remove it from the final image
-	cout << "Locate correctly the web cam and tipe c to continue"<<endl; 
-	string ans1; 
-	cin >>ans1; 
-	if (ans1=="c")
+	class myBackgroundSubstractor: public BackgroundSubtractorMOG2
 	{
-
-	 	while (counter != number)
-		{
-		    cap >> frame;
-
-			char key=waitKey(30); 
-		
-			//if (key=='c' && onetimec==true){
-				bg.operator ()(frame,fore, 0);
-				bg.getBackgroundImage(back);
-			  	cv::erode(fore,fore,cv::Mat());
-				cv::dilate(fore,fore,cv::Mat());
-				frame.copyTo(fore,fore);
-				onetimec=false; 
-
-		   // imshow("CAPTURE OF IMAGES",fore);
-			imshow("CAPTURE OF IMAGES", frame); 
+	public:
+		void setbackgroundRatio(float a){backgroundRatio = a;}
+	};
 
 
-			if (key==' ')
-			{
-				saved_image=fore; 
-//				cvDestroyWindow("CAPTURE OF IMAGES");
-				templates_extractor(saved_image, temp); 
-				counter ++;
-			}
-		}
-	}
-	
-}
-
-*/
-
-void capture_image (int number, vector <Mat> & cap_images, vector <string> &cap_names)
-{
 	//Initialization of the needed parameters
-    Mat frame;
+    Mat frame, back, fore;
 
 	cap_images.resize(number); 
-	cap_names.resize(number); 
-
-	//namedWindow("CAPTURE"); 
+	namedWindow("CAPTURE"); 
     VideoCapture cap(0);
+	cap.set(CV_CAP_PROP_BRIGHTNESS,1);
   	int counter=0; 
 
-	//The first thing to do is capture the background to remove it from the final image
-	cout << "Locate correctly the web cam and press the space bar to capture the image"<<endl; 
+  	myBackgroundSubstractor bg ;
+    bg.set("nmixtures",3);
+    bg.set("detectShadows", true); 
+	bg.setbackgroundRatio(0.0001);
+
+	cout << "Locate correctly the web cam and type c to continue"<<endl; 
+	string ans; 
+	cin>>ans; 
+	if (ans=="c")
+	{
+	cout <<"Press the space bar to capture each image"<<endl; 
 
 	 	while (counter < number)
 		{
 		    cap >> frame;
-			imshow("CAPTURE", frame); 
+			
+		    bg.operator ()(frame,fore);
+		    bg.getBackgroundImage(back);
+		  	erode(fore,fore,cv::Mat());
+		    dilate(fore,fore,cv::Mat());
+
+		    frame.copyTo(fore,fore);
+		
+
+			if (no_back)
+				imshow("CAPTURE", fore); 
+			else
+				imshow("CAPTURE", frame);
+
+
 			if (waitKey(30)==' ')
 			{
 				//the image is stored in the output array
-				cap_images[counter]=frame.clone();
-				//imwrite("dummy.jpg", cap_images[counter]); 
+				if(no_back)
+					cap_images[counter]=fore.clone();
+				else
+					cap_images[counter]=frame.clone();
+
+				counter ++;
+			}
+		}
+	}
+	cvDestroyWindow("CAPTURE"); 
+	cvWaitKey(1); 
+	cvWaitKey(1); 
+}
+
+void capture_image (int number, vector <Mat> & cap_images, vector <string> &cap_names, bool no_back)
+{
+
+	class myBackgroundSubstractor: public BackgroundSubtractorMOG2
+	{
+	public:
+		void setbackgroundRatio(float a){backgroundRatio = a;}
+	};
+
+
+	//Initialization of the needed parameters
+    Mat frame, back, fore;
+
+	cap_images.resize(number); 
+	cap_names.resize(number); 
+	namedWindow("CAPTURE"); 
+    VideoCapture cap(0);
+	cap.set(CV_CAP_PROP_BRIGHTNESS,1);
+  	int counter=0; 
+
+  	myBackgroundSubstractor bg ;
+    bg.set("nmixtures",3);
+    bg.set("detectShadows", true); 
+	bg.setbackgroundRatio(0.0001);
+
+	cout << "Locate correctly the web cam and type c to continue"<<endl; 
+	string ans; 
+	cin>>ans; 
+	if (ans=="c")
+	{
+	cout <<"Press the space bar to capture each image"<<endl; 
+
+	 	while (counter < number)
+		{
+		    cap >> frame;
+			
+		    bg.operator ()(frame,fore);
+		    bg.getBackgroundImage(back);
+		  	erode(fore,fore,cv::Mat());
+		    dilate(fore,fore,cv::Mat());
+
+		    frame.copyTo(fore,fore);
+		
+			if (no_back)
+				imshow("CAPTURE", fore); 
+			else
+				imshow("CAPTURE", frame); 
+				
+			if (waitKey(30)==' ')
+			{
+				//the image is stored in the output array
+				if(no_back)
+					cap_images[counter]=fore.clone();
+				else
+					cap_images[counter]=frame.clone();
 
 				//name storage: 
 				cout <<"What is the name of the current image?"<<endl; 
@@ -86,8 +130,10 @@ void capture_image (int number, vector <Mat> & cap_images, vector <string> &cap_
 				counter ++;
 			}
 		}
-		waitKey(20); 
-		cvDestroyAllWindows; 
+	}
+	cvDestroyWindow("CAPTURE"); 
+	cvWaitKey(1); 
+	cvWaitKey(1); 
 }
 
 vector <DMatch> flann_comparison (Mat  &desc1, 	Mat  &desc2, float & ratio, float threshold)
@@ -103,35 +149,22 @@ vector <DMatch> flann_comparison (Mat  &desc1, 	Mat  &desc2, float & ratio, floa
 
 	double max_dist = 0; double min_dist = 100;
 
-	//-- Quick calculation of max and min distances between keypoints
-	for( int i = 0; i < desc1.rows; i++ )
-	{
-		double dist = matches[i].distance;
-
-		if( dist < min_dist ) min_dist = dist;
-		if( dist > max_dist ) max_dist = dist;
-	}
-
-	//cout<<"-- Max dist : "<<max_dist<<endl;
-	//cout<<"-- Min dist : "<< min_dist<<endl;
-
-
 	//Store good matches, using the threshold ratio 
 	std::vector< DMatch > good_matches;
-
+	
 	for( int i = 0; i < desc1.rows; i++ )
 	{ 
-		if( matches[i].distance < threshold*min_dist )
+		if( matches[i].distance < threshold )
 			good_matches.push_back( matches[i]);
 	}
 	
 
 	//cout <<good_matches.size()<<endl<<matches.size()<<endl; 
 
-	//This ratio will help define the correct match for each photo--> CHECK THIS IS OK!!
+	//This ratio will help define the correct match for each photo
 
 	ratio=(float)(good_matches.size())/(float)(matches.size()); 
-	//cout << ratio<<endl; 
+
 	return good_matches; 
 }
 
@@ -163,9 +196,6 @@ vector <string> getTemplates (string path)
 void descriptors (Mat & image, Mat & f_descr, vector <KeyPoint> & f_keyp)
 {
 	Mat  gimage; 
-
-	//read image
-	//image=imread(ima);
 	cvtColor(image, gimage, CV_BGR2GRAY);
 
 	Mat mask, descriptors;
