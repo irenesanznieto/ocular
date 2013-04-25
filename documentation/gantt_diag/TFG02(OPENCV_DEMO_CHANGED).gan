@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Bachelor's Thesis: 3D Object Recognition Using Kinect " company="UC3M" webLink="" view-date="2013-02-01" view-index="0" gantt-divider-location="354" resource-divider-location="380" version="2.0" locale="en_GB">
+<project name="Bachelor's Thesis: 3D Object Recognition Using Kinect " company="UC3M" webLink="" view-date="2012-11-01" view-index="0" gantt-divider-location="354" resource-divider-location="380" version="2.0" locale="en_GB">
     <description><![CDATA[This Bachelor’s Thesis will consist in the design and development of an open 3D Object Recognition Software.
 The code will be mainly built using the libraries OpenCV and PCL, both of which are included in the ROS (Robotic
 Operating System). This framework will be used in order to obtain a software that could be included in a complex
@@ -73,34 +73,34 @@ In the following section the organization of the Thesis will be presented and ex
             <depend id="1" type="2" difference="0" hardness="Strong"/>
             <depend id="8" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="1" name="Learning Phase" color="#8cb6ce" meeting="false" start="2013-02-26" duration="99" complete="15" expand="true">
+        <task id="1" name="Learning Phase" color="#8cb6ce" meeting="false" start="2013-02-26" duration="120" complete="48" expand="true">
             <notes><![CDATA[It will consist in a study of the different libraries and frameworks needed for the project (OpenCV, PCL and ROS).
 The study of each library will be demonstrated with a demo.]]></notes>
-            <task id="2" name="OpenCV" color="#8cb6ce" meeting="false" start="2013-02-26" duration="37" complete="46" expand="true">
+            <task id="2" name="OpenCV" color="#8cb6ce" meeting="false" start="2013-02-26" duration="58" complete="100" expand="true">
                 <notes><![CDATA[Learning of the OpenCV python bindings and the OpenCV library itself. 
 ]]></notes>
                 <depend id="3" type="2" difference="0" hardness="Strong"/>
                 <depend id="4" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="3" name="OpenCV Demo" color="#8cb6ce" meeting="true" start="2013-04-04" duration="0" complete="0" expand="true">
+            <task id="3" name="OpenCV Demo" color="#8cb6ce" meeting="true" start="2013-04-25" duration="0" complete="0" expand="true">
                 <notes><![CDATA[It will consist in the recognition of brands. ]]></notes>
             </task>
-            <task id="4" name="PCL" color="#8cb6ce" meeting="false" start="2013-04-04" duration="34" complete="0" expand="true">
+            <task id="4" name="PCL" color="#8cb6ce" meeting="false" start="2013-04-25" duration="34" complete="0" expand="true">
                 <depend id="5" type="2" difference="0" hardness="Strong"/>
                 <depend id="6" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="5" name="PCL Demo" color="#8cb6ce" meeting="true" start="2013-05-09" duration="0" complete="0" expand="true">
+            <task id="5" name="PCL Demo" color="#8cb6ce" meeting="true" start="2013-05-30" duration="0" complete="0" expand="true">
                 <notes><![CDATA[It will consist in the recognition of geometric 3D figures such as spheres or cylinders. ]]></notes>
             </task>
-            <task id="6" name="ROS" color="#8cb6ce" meeting="false" start="2013-05-09" duration="28" complete="0" expand="true">
+            <task id="6" name="ROS" color="#8cb6ce" meeting="false" start="2013-05-30" duration="28" complete="0" expand="true">
                 <depend id="7" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="7" name="ROS Demo" color="#8cb6ce" meeting="true" start="2013-06-06" duration="0" complete="0" expand="true">
+            <task id="7" name="ROS Demo" color="#8cb6ce" meeting="true" start="2013-06-27" duration="0" complete="0" expand="true">
                 <notes><![CDATA[It will consist in the integration of the previous two demos, so the program could be able to recognize cans or balls for example and its bland. ]]></notes>
                 <depend id="9" type="2" difference="0" hardness="Strong"/>
             </task>
         </task>
-        <task id="9" name="Project Objectives Definition" color="#8cb6ce" meeting="false" start="2013-06-06" duration="10" complete="0" expand="true">
+        <task id="9" name="Project Objectives Definition" color="#8cb6ce" meeting="false" start="2013-06-27" duration="10" complete="0" expand="true">
             <notes><![CDATA[This part will actually define the objectives of the Bachelor’s Thesis. It will probably change the Gantt Diagrams
 here presented.
 ]]></notes>

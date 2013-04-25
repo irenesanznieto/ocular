@@ -53,15 +53,15 @@ int main (int argc, char * argv[])
 
 	for (int i=0; i<temp_keyp.size(); i++)
 	{
-		final_matches.push_back(flann_comparison(im_desc, temp_desc[i],ratio[i],400)); //obtain the vector with the final matches for every template
+		final_matches.push_back(flann_comparison(im_desc, temp_desc[i],ratio[i],300)); //obtain the vector with the final matches for every template
 	}
 
 
 	int max_elem=distance(ratio.begin(), max_element (ratio.begin(),ratio.end()));
 
-	cout <<"Maximum element ratio: "<<max_elem<<endl<<"All element ratios:"<<endl;
-	for (int i=0; i<ratio.size(); i++)
-		cout <<ratio[i]<<endl; 
+	//cout <<"Maximum element ratio: "<<max_elem<<endl<<"All element ratios:"<<endl;
+	//for (int i=0; i<ratio.size(); i++)
+		//cout <<ratio[i]<<endl; 
 
 
 	Mat temp=imread(names_t[max_elem]); 
@@ -70,8 +70,8 @@ int main (int argc, char * argv[])
 	drawMatches( im[0], im_keyp, temp, temp_keyp[max_elem],final_matches[max_elem], results, Scalar::all(-1), Scalar::all(-1),vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
 	//-- Show detected matches
-	namedWindow( "Results" ); 
-	imshow( "Results", results );
+	string nameofwindow="Matched with: "+names_t[max_elem];
+	imshow(nameofwindow , results );
 	cvWaitKey(0);
                       
     return 0;

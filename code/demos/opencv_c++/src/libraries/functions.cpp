@@ -1,7 +1,5 @@
 #include "functions.h"
 
-void capture_image (int number, vector <Mat> & cap_images, bool no_back)
-{
 
 	class myBackgroundSubstractor: public BackgroundSubtractorMOG2
 	{
@@ -9,14 +7,14 @@ void capture_image (int number, vector <Mat> & cap_images, bool no_back)
 		void setbackgroundRatio(float a){backgroundRatio = a;}
 	};
 
-
+void capture_image (int number, vector <Mat> & cap_images, bool no_back)
+{
 	//Initialization of the needed parameters
     Mat frame, back, fore;
 
 	cap_images.resize(number); 
 	namedWindow("CAPTURE"); 
     VideoCapture cap(0);
-	cap.set(CV_CAP_PROP_BRIGHTNESS,1);
   	int counter=0; 
 
   	myBackgroundSubstractor bg ;
@@ -36,10 +34,6 @@ void capture_image (int number, vector <Mat> & cap_images, bool no_back)
 		    cap >> frame;
 			
 		    bg.operator ()(frame,fore);
-		    bg.getBackgroundImage(back);
-		  	erode(fore,fore,cv::Mat());
-		    dilate(fore,fore,cv::Mat());
-
 		    frame.copyTo(fore,fore);
 		
 
@@ -68,14 +62,6 @@ void capture_image (int number, vector <Mat> & cap_images, bool no_back)
 
 void capture_image (int number, vector <Mat> & cap_images, vector <string> &cap_names, bool no_back)
 {
-
-	class myBackgroundSubstractor: public BackgroundSubtractorMOG2
-	{
-	public:
-		void setbackgroundRatio(float a){backgroundRatio = a;}
-	};
-
-
 	//Initialization of the needed parameters
     Mat frame, back, fore;
 
@@ -83,7 +69,6 @@ void capture_image (int number, vector <Mat> & cap_images, vector <string> &cap_
 	cap_names.resize(number); 
 	namedWindow("CAPTURE"); 
     VideoCapture cap(0);
-	cap.set(CV_CAP_PROP_BRIGHTNESS,1);
   	int counter=0; 
 
   	myBackgroundSubstractor bg ;
@@ -103,10 +88,6 @@ void capture_image (int number, vector <Mat> & cap_images, vector <string> &cap_
 		    cap >> frame;
 			
 		    bg.operator ()(frame,fore);
-		    bg.getBackgroundImage(back);
-		  	erode(fore,fore,cv::Mat());
-		    dilate(fore,fore,cv::Mat());
-
 		    frame.copyTo(fore,fore);
 		
 			if (no_back)
