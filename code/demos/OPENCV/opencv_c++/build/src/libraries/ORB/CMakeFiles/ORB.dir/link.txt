@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../../../lib/libORB.a  CMakeFiles/ORB.dir/descriptors.cpp.o
+/usr/bin/ranlib ../../../../lib/libORB.a

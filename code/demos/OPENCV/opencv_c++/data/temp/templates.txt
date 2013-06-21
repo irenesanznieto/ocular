@@ -1,0 +1,5 @@
+../data/botella.jpg
+../data/crema.jpg
+../data/kleenex.jpg
+../data/movil.jpg
+../data/yoda.jpg

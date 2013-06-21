@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/peko/tfg_git/code/demos/opencv_c++/src/libraries/functions.cpp
+functions.h
+/home/peko/tfg_git/code/demos/opencv_c++/src/libraries/functions.h
+
+/home/peko/tfg_git/code/demos/opencv_c++/src/libraries/functions.h
+iostream
+-
+opencv2/opencv.hpp
+-
+vector
+-
+fstream
+-
+

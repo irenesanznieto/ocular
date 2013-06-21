@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../../lib/libfunctions.a  CMakeFiles/functions.dir/functions.cpp.o
+/usr/bin/ranlib ../../../lib/libfunctions.a
