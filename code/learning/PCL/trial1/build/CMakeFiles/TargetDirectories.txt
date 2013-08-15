@@ -1,6 +1,0 @@
-/home/peko/tfg_git/code/learning/PCL/trial1/build/CMakeFiles/clean_test_results.dir
-/home/peko/tfg_git/code/learning/PCL/trial1/build/CMakeFiles/doxygen.dir
-/home/peko/tfg_git/code/learning/PCL/trial1/build/gtest/CMakeFiles/gtest.dir
-/home/peko/tfg_git/code/learning/PCL/trial1/build/gtest/CMakeFiles/gtest_main.dir
-/home/peko/tfg_git/code/learning/PCL/trial1/build/CMakeFiles/run_tests.dir
-/home/peko/tfg_git/code/learning/PCL/trial1/build/CMakeFiles/tests.dir
