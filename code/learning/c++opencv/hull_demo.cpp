@@ -16,7 +16,7 @@
 using namespace cv;
 using namespace std;
 
-Mat src; Mat src_gr
+Mat src; Mat src_gray;
 int thresh = 100;
 int max_thresh = 255;
 RNG rng(12345);
