@@ -1,0 +1,19 @@
+<package>
+  <description brief="colour_tracker">
+
+     colour_tracker
+
+  </description>
+  <author>peko</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/colour_tracker</url>
+  <depend package="sensor_msgs"/>
+  <depend package="cv_bridge"/>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+  <depend package="image_transport"/>
+
+</package>
+
+

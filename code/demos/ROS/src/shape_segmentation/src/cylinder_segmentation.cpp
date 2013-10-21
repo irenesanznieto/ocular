@@ -6,7 +6,8 @@
 //PCL's includes
 #include <pcl/ModelCoefficients.h>
 #include <pcl/io/pcd_io.h>
-#include <pcl/io/png_io.h>
+
+//#include </usr/include/pcl-1.7/pcl/io/png_io.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/passthrough.h>
