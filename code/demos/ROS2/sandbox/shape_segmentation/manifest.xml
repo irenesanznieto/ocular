@@ -1,0 +1,17 @@
+<package>
+  <description brief="shape_segmentation">
+
+     shape_segmentation
+
+  </description>
+  <author>peko</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/shape_segmentation</url>
+  <depend package="pcl"/>
+  <depend package="pcl_ros"/>
+  <depend package="roscpp"/>
+
+</package>
+
+

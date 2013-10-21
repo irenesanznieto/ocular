@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "pcl_ros_tutorial")
-set(pcl_ros_tutorial_MAINTAINER "peko <peko@todo.todo>")
-set(pcl_ros_tutorial_DEPRECATED "")
-set(pcl_ros_tutorial_VERSION "0.0.0")
-set(pcl_ros_tutorial_BUILD_DEPENDS "pcl" "pcl_ros" "roscpp" "sensor_msgs")
-set(pcl_ros_tutorial_RUN_DEPENDS "pcl" "pcl_ros" "roscpp" "sensor_msgs")
-set(pcl_ros_tutorial_BUILDTOOL_DEPENDS "catkin")
