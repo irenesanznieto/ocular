@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
+
+\pagestyle{empty}
+\usepackage{tikz}
+
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\renewcommand{\thesubsection}
+{\hspace*{1cm} \arabic{section}.\arabic{subsection}}
+
+\newenvironment{myindentpar}[1]%
+ {\begin{list}{}%
+         {\setlength{\leftmargin}{#1}}%
+         \item[]%
+ }
+ {\end{list}}
+
+\begin{document}
+
+% title && subtitles
+\includegraphics[width=0.1\linewidth]{/home/peko/tfg_git/documentation/minutes_of_meeting/template/uc3m.jpg}
+
+
+\vspace{-1cm}
+\begin{minipage}[b]{1\linewidth}
+	\begin{center}
+	{\Huge \bfseries{Minutes of Meeting}}\\
+	\line(1,0){250}\\[1cm]
+	{\LARGE \textbf{Bachelor's Thesis: 3D Object Recognition Using Kinect}}\\[0.5cm]
+	%date
+	{\large \today}
+	\end{center}
+\end {minipage}
+
+
+
+% Author and supervisor
+\begin{minipage}{0.55\textwidth}
+\begin{flushleft} \large
+\textbf{{Author:}\\}
+Irene Sanz Nieto [ISN]\\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\textbf{Supervisor: }\\
+Victor González Pacheco [VGP]
+\end{flushright}\end{minipage}
+
+\begin{center}
+\line(1,0){500}
+\end{center}
+
+
+
+
+
+
+%Points discussed
+
+\section{\LARGE Points discussed: }
+
+		\subsection{First Demo Content:}
+		\begin{myindentpar}{1cm}
+		It was considered the possibility of extending the initial size of the first derivable. The initial idea was to recognize simple images using the contour. The decision is specified in the next section.
+		\end{myindentpar}
+		\subsection{Algorithms:}
+		\begin{myindentpar}{1cm}
+		It was discussed that it was not necessary for the first demo to implement or use an existing machine learning algorithm. It was commented as well the existence of the SIFT algorithm, which was used in Raúl Pérula's Thesis. 
+		\end{myindentpar}
+		\subsection{Python:}
+		\begin{myindentpar}{1cm}
+		It was discussed the usefulness of iPython, and also the possibility of consulting the book \underline{Learning Python} as well as the Python documentation to solve issues.  
+		\end{myindentpar}		
+
+		\subsection{Computer Programming Courses:}
+		\begin{myindentpar}{1cm}
+		It was discussed the possibility of taking various computer programming courses to complete the knowledge in the matter.
+		\end{myindentpar}
+			
+
+	
+
+
+
+
+%Decisions made	
+\section{\LARGE Decisions made:}
+
+		\subsection{First Demo Content: }
+		\begin{myindentpar}{1cm}
+			The first demo will finally consist on the recognition of three different objects using a web cam. The deadline for this demo is the 4$^{th}$ of April. 
+		\end{myindentpar}
+
+
+
+%To-Do List
+\section{\LARGE To-Do List: }
+
+
+		\subsection{Design and program the first deliverable [ISN]}
+		\subsection{Obtain Raúl Pérula's Master's Thesis and send it to ISN [VGP]}
+		
+			
+
+	
+	
+
+
+\vspace{1cm}
+%Next meeting	
+\begin {center}
+{\Large \textbf{Next Meeting: April 4}}
+\end{center}
+
+
+
+
+\end{document}

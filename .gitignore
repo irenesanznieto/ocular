@@ -7,3 +7,4 @@ devel/
 *.log
 *.synctex.gz
 *.tex.bak
+*.pdf
