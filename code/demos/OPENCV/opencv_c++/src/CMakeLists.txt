@@ -1,7 +1,0 @@
-#CMAKEFILES: src/
-
-add_subdirectory(libraries)
-add_subdirectory(apps)
-
-
-

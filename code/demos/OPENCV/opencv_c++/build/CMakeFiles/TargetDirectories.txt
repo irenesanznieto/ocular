@@ -1,5 +1,0 @@
-/home/peko/tfg_git/code/demos/opencv_c++/build/src/libraries/CMakeFiles/functions.dir
-/home/peko/tfg_git/code/demos/opencv_c++/build/src/apps/CMakeFiles/images_matching.dir
-/home/peko/tfg_git/code/demos/opencv_c++/build/src/apps/CMakeFiles/no_background.dir
-/home/peko/tfg_git/code/demos/opencv_c++/build/src/apps/CMakeFiles/static_matching.dir
-/home/peko/tfg_git/code/demos/opencv_c++/build/src/apps/CMakeFiles/templates.dir
