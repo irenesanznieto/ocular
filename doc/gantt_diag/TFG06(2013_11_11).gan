@@ -98,12 +98,12 @@ The section of the code regarding hand localization and segmentation will be imp
                 <notes><![CDATA[The code that will extract features (both in PCL and OpenCV) will be implemented.]]></notes>
                 <depend id="74" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="74" name="Dataset" color="#8cb6ce" meeting="false" start="2013-12-31" duration="10" complete="0" expand="true">
+            <task id="74" name="Dataset Construction" color="#8cb6ce" meeting="false" start="2013-12-31" duration="25" complete="0" expand="true">
                 <notes><![CDATA[Implementation of database of the objects that will be recognized by the algorithm
 ]]></notes>
                 <depend id="75" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="75" name="Algorithm Training" color="#8cb6ce" meeting="false" start="2014-01-10" duration="25" complete="0" expand="true">
+            <task id="75" name="Algorithm Training" color="#8cb6ce" meeting="false" start="2014-01-25" duration="10" complete="0" expand="true">
                 <notes><![CDATA[The algorithm that will recognize and identify the different objects will be implemented. ]]></notes>
                 <depend id="51" type="2" difference="0" hardness="Strong"/>
             </task>

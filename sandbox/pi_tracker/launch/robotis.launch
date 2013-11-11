@@ -1,0 +1,10 @@
+<launch>
+  <node name="robotis_joint_controller" pkg="pi_tracker" type="robotis_joint_controller.py" output="screen">
+    <!-- NOTE: Commented out on March 12, 2013 since the robotis package no longer seems to read
+               these parameters.  To change the baud or port, edit the lib_robotis.py file
+               in the robotis package src/robotis directory.
+    <rosparam command="load" file="$(find pi_tracker)/params/robotis_params.yaml" />
+    -->
+  </node>
+</launch>
+    

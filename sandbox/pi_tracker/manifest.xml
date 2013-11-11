@@ -1,0 +1,16 @@
+<package>
+  <description brief="pi_tracker">
+
+     pi_tracker
+
+  </description>
+  <author>peko</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pi_tracker</url>
+  <depend package="kdl_conversions"/>
+  <depend package="kdl_parser"/>
+
+</package>
+
+
