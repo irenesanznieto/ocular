@@ -8,3 +8,4 @@ devel/
 *.synctex.gz
 *.tex.bak
 *.pdf
+*.toc

@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
+
+% This is for the fancy title in each page
+\usepackage{fancyhdr}
+\lhead{}
+\chead{}
+\rhead{First Session: Combinational Design}
+\pagestyle{fancy}
+
+% This is for the karnaugh maps
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+
+\begin{document}
+
+%%%% FRONTPAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+
+\begin{center}
+%\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
+\textsc{\LARGE Universidad Carlos III de Madrid}\\[0.5cm]
+\textsc{\Large Digital Electronics}\\[4cm]
+
+
+% Title
+{\huge \bfseries{Homework 4: Frequency Analysis -Bode Diagram-}\\[8cm]}
+
+
+% Author and supervisor
+\begin{minipage}{0.55\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+Irene Sanz Nieto, 100282826\\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Teacher:}\\
+Irene Pérez Encinar
+\end{flushright}\end{minipage}\vfill
+
+% Bottom of the page
+{\large \today}
+
+\end{center}
+\end{titlepage}
+
+%
+\newpage
+%
+%%%%%%Table of contents%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\newpage
+
+%%%%%%Report Itself%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Functional requirements}
+\section{Performance requirements}
+\section{Interface requirements}
+\section{Operational requirements}
+\section{Resource requirements}
+\section{Verification requirements}
+\section{Acceptance testing requirements}
+\section{Documentation requirements}
+\section{Security requirements}
+\section{Portability requirements}
+\section{Quality requirements}
+\section{Reliability requirements}
+\section{Maintainability requirements}
+\section{Safety requirements}
+
+
+\end{document}
