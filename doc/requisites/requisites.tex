@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
+ \usepackage{listings}
 \usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
 
 % This is for the fancy title in each page
@@ -28,26 +29,28 @@
 
 \begin{center}
 %\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
-\textsc{\LARGE Universidad Carlos III de Madrid}\\[0.5cm]
-\textsc{\Large Digital Electronics}\\[4cm]
+\textsc{\huge Bachelor's Thesis:\\[0.5cm]In-hand object detection and tracking using\\[0.5cm]2D and 3D
+information }\\[4cm]
 
 
 % Title
-{\huge \bfseries{Homework 4: Frequency Analysis -Bode Diagram-}\\[8cm]}
+{\Huge\bfseries{Software Requirements Specification}\\[2cm]}
+
+\Large{Version 0.1}
+\\[11cm]
 
 
 % Author and supervisor
 \begin{minipage}{0.55\textwidth}
 \begin{flushleft} \large
 \emph{Author:}\\
-Irene Sanz Nieto, 100282826\\
+Irene Sanz Nieto\\
 \end{flushleft}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
-\emph{Teacher:}\\
-Irene Pérez Encinar
-\end{flushright}\end{minipage}\vfill
+\emph{Supervisor:}\\
+Victor González Pacheco\end{flushright}\end{minipage}\vfill
 
 % Bottom of the page
 {\large \today}
@@ -63,22 +66,154 @@ Irene Pérez Encinar
 \tableofcontents
 \newpage
 
-%%%%%%Report Itself%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%Document%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\hspace{0.5cm}The project consists on an in-hand object recognition software. 
+%\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
+\\
+
+There will be two different nodes in the software:
+
+\subsection{Learning Mode}
+
+\hspace{0.5cm}In this node, a new object will be presented to the software. 3D and 2D information will be extracted and written to a file. Then, two algorithms will be trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm will be stored in a file and a name to that information will be given. There will be hence one file per learned object and one file per algorithm.
+\\
+
+The learning of the objects will be done in-hand. This will allow a more intuitive interaction human-robot. The triggering of the learning mode will be to extend the hand in front of the body, showing the new object to the RGB-D sensor. When the user returns the arm to a position which is closer to the body, the algorithm will start learning the new object and after the learning, it will come back to the recognizing mode, which is the default. 
+
+
+\subsection{Recognizing Mode} 
+\hspace{0.5cm}In this node, a handheld object will be presented. As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be shown on the screen. 
+
+%\subsection{Third Party Packages}
+
+
 \section{Functional requirements}
-\section{Performance requirements}
+
+\subsection{General requirements}
+\begin{itemize}
+
+\item The software will be developed under the ROS (Robotic Operating System), using the Groovy distro and rosbuild.
+\item The software will have an interface. Its requirements are specified in the following "Interface Requirements" section. 
+\item The software will accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
+\item The output of the system will be a node specifying the name of the detected object. 
+ 
+\end{itemize}
+ 
+\subsection{Conversion Node}
+\begin{itemize}
+\item This node will convert the messages from other ROS packages to the internal message format used within the code. 
+\item The information will be received subscribing to the topics of the different third-party packages. 
+\item The information will be sent to the rest of the code publishing on an internal topic. 
+\item The internal message format will have the following structure: \\[0.3cm]
+\textit{
+std\_ msgs/Header header\\[0.1cm]
+int32 id\\[0.1cm]
+geometry\_ msgs/Vector3[] position\\
+\hspace*{0.5cm}float64 x\\
+\hspace*{0.5cm}float64 y\\
+\hspace*{0.5cm}float64 z\\
+}
+\end{itemize}
+
+\subsection{Feature Extractor}
+\begin{itemize}
+\item This node will extract both 3D and 2D features. 
+\item The 2D features will be expressed as a vector of descriptors, using the ORB approach. 
+\item The 3D features will be expressed as a vector of features, using the Line-Mod approach.
+\item The 2D and 3D features of all the views of each object will be stored in a file, using the following node.  
+\end{itemize}
+
+\subsection{Object Template Parser}
+\begin{itemize}
+\item This node will compress the features obtained to have one data file per object with all the information.
+ 
+\item It has to be able to create a new file for storing the features of a new object. 
+\item It has to be able to delete certain views or a complete file of the dataset. 
+\item It has to be able to add another view to a previously stored object. 
+
+\item This node will also parse the created files to extract the different informations of each object. 
+
+\item The information organization will be as follows: 
+	\begin{enumerate}
+	\item The name of the file will be the one given to the object. 
+	\item The datafile structure will be: \\
+		\begin{lstlisting}
+	<view1>
+		<2D>
+			[descriptor information ..]
+		</2D>
+		<3D>
+			[template information ..]
+		</3D>
+	</view1>	
+	...
+	...
+	...		
+			
+	<viewN>
+		<2D>
+			[descriptor information ..]
+		</2D>
+		<3D>
+			[template information ..]
+		</3D>
+	</viewN>	
+		
+		\end{lstlisting}
+	\end{enumerate}
+	
+\end{itemize}
+
+
+%%%%%%%% COMO *** LLAMO A ESTO??
+\subsection{Feature Trainer and Matcher}
+\begin{itemize}
+\item There will be a different algorithm being used for 2D and 3D. 
+\item The 2D algorithm will be cv::DescriptorMatcher.
+\item The 3D algorithm will be the pcl::LINEMOD 
+%http://docs.pointclouds.org/1.7.0/classpcl_1_1_l_i_n_e_m_o_d.html 
+
+\end{itemize}
+
 \section{Interface requirements}
-\section{Operational requirements}
-\section{Resource requirements}
-\section{Verification requirements}
+
+\begin{itemize}
+\item The program will have one window with the output of the camera of the kinect sensor. 
+\item The information as to what mode the program is in will be shown in the title of the window.
+\item In the recognition mode, the interface will show a square around the detected object and a text label indicating the object's name. Also, two points will be drawn in each of the hands. 
+\item The learning mode will open a new window where an shpere will appear. The sphere will show a different colour when a template of that zone is made. On the main window, a square will be placed around the new object. 
+
+\end{itemize}
+
+
+
+
+
+\section{Performance requirements}
+
+\begin{itemize}
+\item The recognition must run on real time.
+\item The learning must run on real time. 
+\end{itemize}
+
+
+%\section{Operational requirements}
+%\section{Resource requirements}
+%\section{Verification requirements}
 \section{Acceptance testing requirements}
-\section{Documentation requirements}
-\section{Security requirements}
-\section{Portability requirements}
-\section{Quality requirements}
-\section{Reliability requirements}
-\section{Maintainability requirements}
-\section{Safety requirements}
+
+%\section{Documentation requirements}
+%\section{Security requirements}
+%\section{Portability requirements}
+%\section{Quality requirements}
+%\section{Reliability requirements}
+%\section{Maintainability requirements}
+%\section{Safety requirements}
+
+%\section{Time Schedule}
 
 
 \end{document}

@@ -9,3 +9,7 @@ devel/
 *.tex.bak
 *.pdf
 *.toc
+*.bbl
+*.toc.bak
+*.blg
+
