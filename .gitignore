@@ -12,4 +12,6 @@ devel/
 *.bbl
 *.toc.bak
 *.blg
+*.png
+*.svg
 
