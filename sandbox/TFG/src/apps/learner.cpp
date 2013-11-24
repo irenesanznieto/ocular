@@ -1,4 +1,7 @@
 #include <iostream>
 
 int main ()
-{}
+{
+
+
+}
