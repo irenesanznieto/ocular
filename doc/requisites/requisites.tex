@@ -62,7 +62,7 @@ Victor González Pacheco\end{flushright}\end{minipage}\vfill
 %%%%%%Document%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-\hspace{0.5cm}The project consists on an in-hand object recognition software. 
+\hspace{0.5cm}The project consists on an in-hand object learning and recognition software. 
 %\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
 \\
 
@@ -70,7 +70,7 @@ There will be two different nodes in the software:
 
 \subsection{Learning Mode}
 
-\hspace{0.5cm}In this node, a new object will be presented to the software. 3D and 2D information will be extracted and written to a file. Then, two algorithms will be trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm will be stored in a file and a name to that information will be given. There will be hence one file per learned object and one file per algorithm.
+\hspace{0.5cm}In this node, a new object will be presented to the software. 3D and 2D information will be extracted and written to a file. Then, two algorithms will be trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm will be stored in a file. There will be hence one file per learned object and one file per algorithm.
 \\
 
 The learning of the objects will be done in-hand. This will allow a more intuitive interaction human-robot. The triggering of the learning mode will be to extend the hand in front of the body, showing the new object to the RGB-D sensor. When the user returns the arm to a position which is closer to the body, the algorithm will start learning the new object and after the learning, it will come back to the recognizing mode, which is the default. 
@@ -79,15 +79,16 @@ The learning of the objects will be done in-hand. This will allow a more intuiti
 \subsection{Recognizing Mode} 
 \hspace{0.5cm}In this node, a handheld object will be presented. As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be shown on the screen. 
 
-%\subsection{Third Party Packages}
 
+\subsection{Third Party Packages}
+\hspace{0.5cm}Initially only one third party ROS package will be used, to track the hand's position: pi\_ tracker. This software publishes the hand's position and there will a node in the proposed software (Conversion Node, whose requirements are specified in the next section) that converts the information returned by pi\_ tracker to the custom message used in the rest of the code.  
 
 \section{Functional requirements}
 
 \subsection{General requirements}
 \begin{itemize}
 
-\item The software will be developed under the ROS (Robotic Operating System), using the Groovy distro and rosbuild.
+\item The software will be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
 \item The software will have an interface. Its requirements are specified in the following "Interface Requirements" section. 
 \item The software will accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
 \item The output of the system will be a node specifying the name of the detected object. 
@@ -110,15 +111,24 @@ geometry\_ msgs/Vector3[] position\\
 }
 \end{itemize}
 
+
+\subsection{ROI Segmenter}
+\begin{itemize}
+	\item This node will segment the Region Of Interest both in 2D (image) and in 3D (point cloud). 
+	\item In this case, the ROI will be a box around the hand. The original point cloud will be filtered using a depth filter to eliminate the background. After that, the dimensions of the box will be obtained locating the maximum and minimum points in the x, y and z axis. 
+\end{itemize}
+
+
 \subsection{Feature Extractor}
 \begin{itemize}
 \item This node will extract both 3D and 2D features. 
 \item The 2D features will be expressed as a vector of descriptors, using the ORB approach. 
 \item The 3D features will be expressed as a vector of features, using the Line-Mod approach.
+
 \item The 2D and 3D features of all the views of each object will be stored in a file, using the following node.  
 \end{itemize}
 
-\subsection{Object Template Parser}
+\subsection{Data Parser}
 \begin{itemize}
 \item This node will compress the features obtained to have one data file per object with all the information.
  
@@ -159,14 +169,18 @@ geometry\_ msgs/Vector3[] position\\
 	
 \end{itemize}
 
-
-%%%%%%%% COMO *** LLAMO A ESTO??
-\subsection{Feature Trainer and Matcher}
+\subsection{Trainer}
 \begin{itemize}
-\item There will be a different algorithm being used for 2D and 3D. 
-\item The 2D algorithm will be cv::DescriptorMatcher.
-\item The 3D algorithm will be the pcl::LINEMOD 
-%http://docs.pointclouds.org/1.7.0/classpcl_1_1_l_i_n_e_m_o_d.html 
+	\item This node will find both 2D and 3D features. 
+	\item Each algorithm will be trained with those extracted features. 
+\end{itemize}
+
+\subsection{Matcher}
+\begin{itemize}
+	\item This node will find both 2D and 3D features of the current frame. 
+	\item A matching will be done between those features and the learned ones. 
+	\item A weighting will be made to the output of the matching process. This will help reduce the false positives and negatives by modelling occlusions depending on the hand-elbow relative positions. 
+	\item Another weighting will be made depending on the amount of texture possessed by each object to decide which matching should have more importance, the 2D or the 3D one. 
 
 \end{itemize}
 

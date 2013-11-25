@@ -1,31 +1,38 @@
 #include "../src/libraries/trigger.h"
+#include "../src/libraries/display.h"
 #include <unistd.h>
 #include <iostream>
 
 void instructions();
+void learner();
+void recognizer();
 
-
-int main ()
+int main (int argc, char * argv[])
 {
 	instructions(); 
-	Trigger trigger; 
 	
-	while (1)
+	ros::init(argc, argv, "TFG");
+	Trigger trigger; 
+	Display display; 
+
+    while (ros::ok())
 	{
 
 		if (trigger.on)
 		{
-			execlp("learner", "learner", NULL);
+			//execlp("learner", "learner", NULL);
+			learner(); 
 			std::cout<<"LEARNING MODE"<<std::endl; 
 		}
 		else
 		{
-			execlp("recognizer", "recognizer", NULL);
+			//execlp("recognizer", "recognizer", NULL);
+			recognizer(); 
 			std::cout <<"RECOGNITION MODE"<<std::endl; 
 		}
-	
-	}
 
+		ros::spinOnce(); 	
+	}
 }
 
 void instructions()
@@ -34,5 +41,15 @@ void instructions()
 				<<"The default mode is the recognition mode" <<std::endl
 				<< "To activate the learning mode, move the hand towards the kinect sensor"<<std::endl; 
 
+
+}
+
+void learner()
+{
+
+}
+
+void recognizer()
+{
 
 }
