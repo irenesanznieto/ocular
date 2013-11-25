@@ -3,7 +3,7 @@
 
 #include "roisegmenter.h"
 
-class RoiSegmenter3D:: public RoiSegmenter
+class RoiSegmenter3D: public RoiSegmenter
 {
 	public: 
 		void extract_roi(); 

@@ -12,17 +12,19 @@ int main ()
 	
 	while (1)
 	{
-		execlp("recognizer", "recognizer", NULL);
-		std::cout <<"RECOGNITION MODE"<<std::endl; 
-		
+
 		if (trigger.on)
 		{
 			execlp("learner", "learner", NULL);
 			std::cout<<"LEARNING MODE"<<std::endl; 
 		}
+		else
+		{
+			execlp("recognizer", "recognizer", NULL);
+			std::cout <<"RECOGNITION MODE"<<std::endl; 
+		}
 	
 	}
-
 
 }
 

@@ -82,7 +82,7 @@ here presented.
 ]]></notes>
             <depend id="57" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="57" name="Design" color="#8cb6ce" meeting="false" start="2013-11-08" duration="14" complete="0" expand="true">
+        <task id="57" name="Design" color="#8cb6ce" meeting="false" start="2013-11-08" duration="14" complete="100" expand="true">
             <notes><![CDATA[Design of the general structure of the Thesis. ]]></notes>
             <depend id="60" type="2" difference="0" hardness="Strong"/>
             <depend id="76" type="2" difference="0" hardness="Strong"/>

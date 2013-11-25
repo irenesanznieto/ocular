@@ -7,9 +7,9 @@ class DataParser
 	
 		DataParser(); 
 		
-		write();
+		void write();
 		
-		read(); 
+		void read(); 
 
 };
 #endif //DATAPARSER_H

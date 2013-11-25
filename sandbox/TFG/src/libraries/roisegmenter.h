@@ -4,7 +4,6 @@
 class RoiSegmenter
 {
 	public: 
-		virtual void extract_roi(); 
 
 };
 #endif //ROI_SEGMENTER_H

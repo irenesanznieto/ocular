@@ -5,7 +5,7 @@ class FeatureExtractor
 {
 	public: 
 	
-		virtual void extract_features(); 
+		//virtual void extract_features(); 
 
 };
 

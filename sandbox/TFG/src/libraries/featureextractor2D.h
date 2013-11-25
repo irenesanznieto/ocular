@@ -2,12 +2,16 @@
 #define FEATURE_EXTRACTOR_2D_H
 
 #include "featureextractor.h"
+#include "roisegmenter2D.h"
+
+#include <opencv2/opencv.hpp>
+#include <iostream>
 
 class FeatureExtractor2D: public FeatureExtractor
 {
 	public: 
 	
-		void extract_features(); 
+		std::pair <cv::Mat, std::vector<cv::KeyPoint> >  extract_features(); 
 
 };
 
