@@ -14,7 +14,7 @@ int main (int argc, char * argv[])
 	ros::init(argc, argv, "TFG");
 	Trigger trigger; 
 	Display display; 
-
+        
     while (ros::ok())
 	{
 

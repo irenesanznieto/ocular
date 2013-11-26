@@ -83,15 +83,33 @@ The learning of the objects will be done in-hand. This will allow a more intuiti
 \subsection{Third Party Packages}
 \hspace{0.5cm}Initially only one third party ROS package will be used, to track the hand's position: pi\_ tracker. This software publishes the hand's position and there will a node in the proposed software (Conversion Node, whose requirements are specified in the next section) that converts the information returned by pi\_ tracker to the custom message used in the rest of the code.  
 
+\subsection{Flowchart}
+\begin{center}
+\includegraphics[scale=0.35]{../diagrams/flowcharts.jpeg}
+\end{center}
+
+\subsection{Sequence Diagram}
+\begin{center}
+\includegraphics[scale=0.5]{../diagrams/sequence.jpeg}
+\end{center}
+
+\subsection{Use Case Diagram}
+\begin{center}
+\includegraphics[scale=0.4]{../diagrams/use_case.jpeg}
+\end{center}
+
+
+
 \section{Functional requirements}
 
 \subsection{General requirements}
 \begin{itemize}
 
-\item The software will be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
-\item The software will have an interface. Its requirements are specified in the following "Interface Requirements" section. 
-\item The software will accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
-\item The output of the system will be a node specifying the name of the detected object. 
+	\item The software will be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
+	\item A version control system will be used (GIT) and all the code will be periodically updated in the following github repository:  $https://github.com/irenesanznieto/TFG$
+	\item The software will have an interface. Its requirements are specified in the following "Interface Requirements" section. 
+	\item The software will accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
+	\item The output of the system will be a node specifying the name of the detected object. 
  
 \end{itemize}
  
@@ -99,7 +117,6 @@ The learning of the objects will be done in-hand. This will allow a more intuiti
 \begin{itemize}
 \item This node will convert the messages from other ROS packages to the internal message format used within the code. 
 \item The information will be received subscribing to the topics of the different third-party packages. 
-\item The information will be sent to the rest of the code publishing on an internal topic. 
 \item The internal message format will have the following structure: \\[0.3cm]
 \textit{
 std\_ msgs/Header header\\[0.1cm]
@@ -171,8 +188,8 @@ geometry\_ msgs/Vector3[] position\\
 
 \subsection{Trainer}
 \begin{itemize}
-	\item This node will find both 2D and 3D features. 
-	\item Each algorithm will be trained with those extracted features. 
+	\item This node will find both 2D and 3D features using the Feature Extractor node. 
+	\item Each algorithm (for 2 and 3D) will be trained with those extracted features. 
 \end{itemize}
 
 \subsection{Matcher}
@@ -201,22 +218,36 @@ geometry\_ msgs/Vector3[] position\\
 \section{Performance requirements}
 
 \begin{itemize}
-\item The recognition must run on real time.
-\item The learning must run on real time. 
+\item The recognition must run on the lowest amount of time possible, to allow a fluid human-robot interaction.
+\item The learning must run on the lowest amount of time possible, to allow a fluid human-robot interaction.
 \end{itemize}
 
 
 %\section{Operational requirements}
 %\section{Resource requirements}
 %\section{Verification requirements}
-\section{Acceptance testing requirements}
+%\section{Acceptance testing requirements}	%This is a validation activity; did we build the right thing? Is this what the customer really needs? 
 
-%\section{Documentation requirements}
+\section{Documentation requirements}
+\begin{itemize}
+	\item The code must be completely documented, i.e. each class, class function , class member and piece of code should have comments explaining all the aspects. 
+	\item The documentation will be made using Doxygen notation, through the rosdoc\_ lite 
+	% $[http://wiki.ros.org/rosdoc\_lite]$ 
+	ROS package. 
+	\item All the documentation must be available at the git repository. 
+\end{itemize}
+
 %\section{Security requirements}
 %\section{Portability requirements}
 %\section{Quality requirements}
 %\section{Reliability requirements}
-%\section{Maintainability requirements}
+\section{Maintainability requirements}
+\begin{itemize}
+	\item The code must be as modular as possible. 
+	\item All the classes' variables that are susceptible of being modified through a inheritance will be declared as protected. 
+	
+\end{itemize}
+
 %\section{Safety requirements}
 
 %\section{Time Schedule}

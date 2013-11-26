@@ -14,4 +14,7 @@ devel/
 *.blg
 *.png
 *.svg
+*.jpeg
+*.dia~
+*.txt.user
 
