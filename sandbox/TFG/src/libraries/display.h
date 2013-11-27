@@ -23,7 +23,7 @@ class Display
 		Display();
 		~Display();
 
-		void display(const sensor_msgs::ImageConstPtr& msg);
+        void display(const sensor_msgs::ImageConstPtr& msg);
 
 	private: 
 	

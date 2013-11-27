@@ -3,8 +3,7 @@
 Display::Display(): it_(nh_)
 {
 
-//CHANGE THIS TO SELECT THE NODE TO WHICH THE SUBSCRIBER SUBSCRIBES
-	sub_node="image_raw";
+    sub_node="/camera/rgb/image_color";
 	image_sub_ = it_.subscribe(sub_node, 1, &Display::display, this);
 
 	WINDOW="Recognition mode";
@@ -30,7 +29,9 @@ void Display::display(const sensor_msgs::ImageConstPtr& msg)
 	}
 
 	cv::imshow(WINDOW, cv_ptr->image);
-	cv::waitKey(3);
+
+    if (cv::waitKey(3)=='q' ||cv::waitKey(3)==27)
+        exit(0);
 }
 
 

@@ -22,14 +22,15 @@ int main (int argc, char * argv[])
 		{
 			//execlp("learner", "learner", NULL);
 			learner(); 
-			std::cout<<"LEARNING MODE"<<std::endl; 
+            //std::cout<<"LEARNING MODE"<<std::endl;
 		}
 		else
 		{
 			//execlp("recognizer", "recognizer", NULL);
 			recognizer(); 
-			std::cout <<"RECOGNITION MODE"<<std::endl; 
+            //std::cout <<"RECOGNITION MODE"<<std::endl;
 		}
+
 
 		ros::spinOnce(); 	
 	}
@@ -37,9 +38,10 @@ int main (int argc, char * argv[])
 
 void instructions()
 {
-	std::cout 	<<"IN-HAND OBJECT LEARNING AND RECOGNITION "<<std::endl
-				<<"The default mode is the recognition mode" <<std::endl
-				<< "To activate the learning mode, move the hand towards the kinect sensor"<<std::endl; 
+    std::cout 	<< "IN-HAND OBJECT LEARNING AND RECOGNITION "<<std::endl
+                << "The default mode is the recognition mode" <<std::endl
+                << "To activate the learning mode, move the hand towards the kinect sensor"<<std::endl
+                << "To exit, press q or ESC"<<std::endl;
 
 
 }
