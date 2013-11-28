@@ -12,7 +12,7 @@ class FeatureExtractor3D: public FeatureExtractor
 
 	private: 
 	
-		RoiSegmenter3D roi_seg; 
+        RoiSegmenter3D roi_seg;
 };
 
 #endif //FEATURE_EXTRACTOR_3D_H

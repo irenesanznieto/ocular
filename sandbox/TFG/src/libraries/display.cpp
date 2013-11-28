@@ -30,7 +30,7 @@ void Display::display(const sensor_msgs::ImageConstPtr& msg)
 
 	cv::imshow(WINDOW, cv_ptr->image);
 
-    if (cv::waitKey(3)=='q' ||cv::waitKey(3)==27)
+    if (cv::waitKey(20)=='q' || cv::waitKey(20)==27)
         exit(0);
 }
 

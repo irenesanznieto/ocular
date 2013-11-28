@@ -28,7 +28,6 @@ rosbuild_gensrv()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
-
 include_directories(/usr/include/openni /usr/include/nite /usr/include/ni)
 rosbuild_add_executable(skeleton_tracker src/skeleton_tracker.cpp src/KinectController.cpp src/KinectDisplay.cpp)
-target_link_libraries(skeleton_tracker glut OpenNI -L/usr/lib -lglut -lGL tf)
+target_link_libraries(skeleton_tracker glut OpenNI orocos-kdl)

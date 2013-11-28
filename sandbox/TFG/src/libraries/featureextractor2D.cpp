@@ -2,8 +2,8 @@
 
 std::pair <cv::Mat , std::vector<cv::KeyPoint> > extract_features()
 { 
-	RoiSegmenter2D roiseg; 
-	cv::Mat roi_image = roiseg.segment(); 
+    RoiSegmenter2D roiseg;
+    cv::Mat roi_image = roiseg.segment();
 	cv::Mat  gimage; 
 	cvtColor(roi_image, gimage, CV_BGR2GRAY);
 

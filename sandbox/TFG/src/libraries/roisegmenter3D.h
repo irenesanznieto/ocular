@@ -1,12 +1,15 @@
-#ifndef ROI_SEGMENTER_3D_H
-#define ROI_SEGMENTER_3D_H
+#ifndef ROISEGMENTER3D_H
+#define ROISEGMENTER3D_H
 
 #include "roisegmenter.h"
 
-class RoiSegmenter3D: public RoiSegmenter
+class RoiSegmenter3D : public RoiSegmenter
 {
-	public: 
-		void extract_roi(); 
+
+public:
+    RoiSegmenter3D();
+    
 
 };
-#endif //ROI_SEGMENTER_3D_H
+
+#endif // ROISEGMENTER3D_H

@@ -200,6 +200,8 @@ int main(int argc, char** argv)
   np.param<bool>("load_recording", is_a_recording, false);      
 
   g_skeleton_tracker.init();
+  
+  //here is where the app crashes: the file does not exist!!
   g_kinect_controller.init(filepath.c_str(), is_a_recording);
   
   glutInit(&argc, argv);
@@ -223,5 +225,3 @@ int main(int argc, char** argv)
   
   return 0;
 }
-
-
