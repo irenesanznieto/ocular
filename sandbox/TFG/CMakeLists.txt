@@ -30,9 +30,9 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #target_link_libraries(example ${PROJECT_NAME})
 
 #EXECUTABLES: 
-#rosbuild_add_executable(recognizer src/apps/recognizer.cpp)
-#rosbuild_add_executable(learner src/apps/learner.cpp)
-rosbuild_add_executable(main src/apps/main.cpp)
+rosbuild_add_executable(recognizer src/apps/recognizer.cpp)
+rosbuild_add_executable(learner src/apps/learner.cpp)
+
 
 #LIBRARIES: 
 FILE(GLOB LIBRARIES_SRCS src/libraries/*.cpp)
@@ -41,6 +41,6 @@ rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 #rosbuild_add_library(trigger src/libraries/trigger.cpp)
 
 #LINKING:
-target_link_libraries(main custom_libs)
-#target_link_libraries(recognizer custom_libs)
-#target_link_libraries(learner custom_libs)
+
+target_link_libraries(recognizer custom_libs)
+target_link_libraries(learner custom_libs)

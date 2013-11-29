@@ -12,6 +12,20 @@
 \rhead{First Session: Combinational Design}
 \pagestyle{fancy}
 
+\usepackage{enumitem}
+
+
+\makeatletter
+\def\threedigits#1{\expandafter\@threedigits\csname c@#1\endcsname}
+\def\@threedigits#1{%
+  \ifnum#1<100 0\fi
+  \ifnum#1<10 0\fi
+  \number#1}
+\makeatother
+\AddEnumerateCounter{\threedigits}{\@threedigits}{100}
+
+
+%\setenumerate[1]{}
 
 
 \begin{document}
@@ -66,58 +80,106 @@ Victor González Pacheco\end{flushright}\end{minipage}\vfill
 %\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
 \\
 
-There will be two different nodes in the software:
+There will be different nodes in the software:
 
-\subsection{Learning Mode}
+\subsection{Event Handler Node}
+	This node will identify the different user's gestures and act accordingly using a State Machine structure. 
+	\begin{center}
+		\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.jpeg}
+	\end{center}
+	
+\subsection{Display Node}
+This node will show the output of the program. There will be a window in which different informations will be shown. 
+	\begin{center}
+		\includegraphics[scale=0.4]{../diagrams/images/uc_display.jpeg}
+	\end{center}
+\subsection{Object Learner Node}
 
-\hspace{0.5cm}In this node, a new object will be presented to the software. 3D and 2D information will be extracted and written to a file. Then, two algorithms will be trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm will be stored in a file. There will be hence one file per learned object and one file per algorithm.
+\hspace{0.5cm}This node will learn new handheld objects. 
+
+The sequence of the object learning is the following:
+\\
+First, 3D and 2D information will be extracted and written to a file. Then, two algorithms will be trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm will be stored in a file. There will be hence one file per learned object and one file per algorithm.
 \\
 
 The learning of the objects will be done in-hand. This will allow a more intuitive interaction human-robot. The triggering of the learning mode will be to extend the hand in front of the body, showing the new object to the RGB-D sensor. When the user returns the arm to a position which is closer to the body, the algorithm will start learning the new object and after the learning, it will come back to the recognizing mode, which is the default. 
 
+\begin{center}
 
-\subsection{Recognizing Mode} 
-\hspace{0.5cm}In this node, a handheld object will be presented. As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be shown on the screen. 
+		\includegraphics[scale=0.4]{../diagrams/images/uc_learner.jpeg}
+	\end{center}
 
+\subsection{Object Recognizer Node} 
+\hspace{0.5cm}This node will track the user's hands and recognize the held objects. 
+
+As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be shown on the screen. 
+
+\begin{center}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_recognizer.jpeg}
+\end{center}
+
+\subsection{Converter Node}
+
+This node will convert the messages from other ROS packages to the internal message format used within the code. 
+
+\begin{center}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_converter.jpeg}
+\end{center}
+	
+\subsection{ROI Segmenter Node}
+This node will segment the ROI (Region Of Interest) both in 2D and 3D.
+
+\begin{center}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_roi_segmenter.jpeg}
+\end{center}
+
+\subsection{Feature Extractor Node}
+This node will extract both 2D and 3D features and publish them. 
+
+\begin{center}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.jpeg}
+\end{center}
 
 \subsection{Third Party Packages}
 \hspace{0.5cm}Initially only one third party ROS package will be used, to track the hand's position: pi\_ tracker. This software publishes the hand's position and there will a node in the proposed software (Conversion Node, whose requirements are specified in the next section) that converts the information returned by pi\_ tracker to the custom message used in the rest of the code.  
 
 \subsection{Flowchart}
 \begin{center}
-\includegraphics[scale=0.35]{../diagrams/flowcharts.jpeg}
+\includegraphics[scale=0.35]{../diagrams/images/flowcharts.jpeg}
 \end{center}
 
 \subsection{Sequence Diagram}
 \begin{center}
-\includegraphics[scale=0.5]{../diagrams/sequence.jpeg}
+\includegraphics[scale=0.5]{../diagrams/images/sequence.jpeg}
 \end{center}
 
-\subsection{Use Case Diagram}
-\begin{center}
-\includegraphics[scale=0.4]{../diagrams/use_case.jpeg}
-\end{center}
 
 
 
 \section{Functional requirements}
 
 \subsection{General requirements}
-\begin{itemize}
+\begin{enumerate}[label=\textbf{FR\threedigits*}]
 
-	\item The software will be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
-	\item A version control system will be used (GIT) and all the code will be periodically updated in the following github repository:  $https://github.com/irenesanznieto/TFG$
-	\item The software will have an interface. Its requirements are specified in the following "Interface Requirements" section. 
-	\item The software will accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
-	\item The output of the system will be a node specifying the name of the detected object. 
+	\item The software must be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
+	\item A version control system should be used (GIT) and all the code must be periodically updated in the following github repository:  $https://github.com/irenesanznieto/TFG$
+	\item The software hast to have an interface. Its requirements are specified in the following "Interface Requirements" section. 
+	\item The software must accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
+	\item The output of the system must be a node specifying the name of the detected object. 
  
-\end{itemize}
+
  
-\subsection{Conversion Node}
-\begin{itemize}
-\item This node will convert the messages from other ROS packages to the internal message format used within the code. 
-\item The information will be received subscribing to the topics of the different third-party packages. 
-\item The internal message format will have the following structure: \\[0.3cm]
+\subsection{Display requirements}
+
+\item The program must have one window with the output of the camera of the kinect sensor. 
+\item The information as to what mode the program is in hast to be shown in the title of the window.
+\item In the recognition mode, the interface must show a square around the detected object and a text label indicating the object's name. Also, two points must be drawn in each of the hands. 
+\item The learning mode should open a new window where an shpere will appear. The sphere must show a different colour when a template of that zone is made. On the main window, a square should be placed around the new object. 
+
+\subsection{Conversion}
+
+\item The information should be received subscribing to the topics of the different third-party packages. 
+\item The internal message format must have the following structure: \\[0.3cm]
 \textit{
 std\_ msgs/Header header\\[0.1cm]
 int32 id\\[0.1cm]
@@ -126,27 +188,21 @@ geometry\_ msgs/Vector3[] position\\
 \hspace*{0.5cm}float64 y\\
 \hspace*{0.5cm}float64 z\\
 }
-\end{itemize}
 
 
 \subsection{ROI Segmenter}
-\begin{itemize}
 	\item This node will segment the Region Of Interest both in 2D (image) and in 3D (point cloud). 
 	\item In this case, the ROI will be a box around the hand. The original point cloud will be filtered using a depth filter to eliminate the background. After that, the dimensions of the box will be obtained locating the maximum and minimum points in the x, y and z axis. 
-\end{itemize}
 
 
 \subsection{Feature Extractor}
-\begin{itemize}
 \item This node will extract both 3D and 2D features. 
 \item The 2D features will be expressed as a vector of descriptors, using the ORB approach. 
 \item The 3D features will be expressed as a vector of features, using the Line-Mod approach.
 
 \item The 2D and 3D features of all the views of each object will be stored in a file, using the following node.  
-\end{itemize}
 
 \subsection{Data Parser}
-\begin{itemize}
 \item This node will compress the features obtained to have one data file per object with all the information.
  
 \item It has to be able to create a new file for storing the features of a new object. 
@@ -184,32 +240,20 @@ geometry\_ msgs/Vector3[] position\\
 		\end{lstlisting}
 	\end{enumerate}
 	
-\end{itemize}
 
 \subsection{Trainer}
-\begin{itemize}
 	\item This node will find both 2D and 3D features using the Feature Extractor node. 
 	\item Each algorithm (for 2 and 3D) will be trained with those extracted features. 
-\end{itemize}
 
 \subsection{Matcher}
-\begin{itemize}
 	\item This node will find both 2D and 3D features of the current frame. 
 	\item A matching will be done between those features and the learned ones. 
 	\item A weighting will be made to the output of the matching process. This will help reduce the false positives and negatives by modelling occlusions depending on the hand-elbow relative positions. 
 	\item Another weighting will be made depending on the amount of texture possessed by each object to decide which matching should have more importance, the 2D or the 3D one. 
 
-\end{itemize}
 
-\section{Interface requirements}
 
-\begin{itemize}
-\item The program will have one window with the output of the camera of the kinect sensor. 
-\item The information as to what mode the program is in will be shown in the title of the window.
-\item In the recognition mode, the interface will show a square around the detected object and a text label indicating the object's name. Also, two points will be drawn in each of the hands. 
-\item The learning mode will open a new window where an shpere will appear. The sphere will show a different colour when a template of that zone is made. On the main window, a square will be placed around the new object. 
-
-\end{itemize}
+\end{enumerate}
 
 
 
@@ -217,10 +261,10 @@ geometry\_ msgs/Vector3[] position\\
 
 \section{Performance requirements}
 
-\begin{itemize}
+\begin{enumerate}[label=\textbf{PR\threedigits*}]
 \item The recognition must run on the lowest amount of time possible, to allow a fluid human-robot interaction.
 \item The learning must run on the lowest amount of time possible, to allow a fluid human-robot interaction.
-\end{itemize}
+\end{enumerate}
 
 
 %\section{Operational requirements}
@@ -229,24 +273,24 @@ geometry\_ msgs/Vector3[] position\\
 %\section{Acceptance testing requirements}	%This is a validation activity; did we build the right thing? Is this what the customer really needs? 
 
 \section{Documentation requirements}
-\begin{itemize}
+\begin{enumerate}[label=\textbf{DR\threedigits*}]
 	\item The code must be completely documented, i.e. each class, class function , class member and piece of code should have comments explaining all the aspects. 
 	\item The documentation will be made using Doxygen notation, through the rosdoc\_ lite 
 	% $[http://wiki.ros.org/rosdoc\_lite]$ 
 	ROS package. 
 	\item All the documentation must be available at the git repository. 
-\end{itemize}
+\end{enumerate}
 
 %\section{Security requirements}
 %\section{Portability requirements}
 %\section{Quality requirements}
 %\section{Reliability requirements}
 \section{Maintainability requirements}
-\begin{itemize}
+\begin{enumerate}[label=\textbf{MR\threedigits*}]
 	\item The code must be as modular as possible. 
 	\item All the classes' variables that are susceptible of being modified through a inheritance will be declared as protected. 
 	
-\end{itemize}
+\end{enumerate}
 
 %\section{Safety requirements}
 
