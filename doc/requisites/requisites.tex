@@ -42,7 +42,7 @@ information }\\[4cm]
 % Title
 {\Huge\bfseries{Software Requirements Specification}\\[2cm]}
 
-\Large{Version 0.1}
+\Large{Version 0.2}
 \\[11cm]
 
 
@@ -78,22 +78,21 @@ Victor González Pacheco\end{flushright}\end{minipage}\vfill
 \section{Introduction}
 \hspace{0.5cm}The project consists on an in-hand object learning and recognition software. 
 %\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
-\\
+\subsection{Nodes}
 
-There will be different nodes in the software:
-
-\subsection{Event Handler Node}
+\subsubsection{Event Handler Node}
 	This node will identify the different user's gestures and act accordingly using a State Machine structure. 
 	\begin{center}
 		\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.jpeg}
 	\end{center}
 	
-\subsection{Display Node}
+\subsubsection{Display Node}
 This node will show the output of the program. There will be a window in which different informations will be shown. 
 	\begin{center}
 		\includegraphics[scale=0.4]{../diagrams/images/uc_display.jpeg}
 	\end{center}
-\subsection{Object Learner Node}
+	
+\subsubsection{Object Learner Node}
 
 \hspace{0.5cm}This node will learn new handheld objects. 
 
@@ -109,7 +108,7 @@ The learning of the objects will be done in-hand. This will allow a more intuiti
 		\includegraphics[scale=0.4]{../diagrams/images/uc_learner.jpeg}
 	\end{center}
 
-\subsection{Object Recognizer Node} 
+\subsubsection{Object Recognizer Node} 
 \hspace{0.5cm}This node will track the user's hands and recognize the held objects. 
 
 As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be shown on the screen. 
@@ -118,7 +117,7 @@ As in the Learning Mode, 2D and 3D information will be extracted. Then, the algo
 	\includegraphics[scale=0.4]{../diagrams/images/uc_recognizer.jpeg}
 \end{center}
 
-\subsection{Converter Node}
+\subsubsection{Converter Node}
 
 This node will convert the messages from other ROS packages to the internal message format used within the code. 
 
@@ -126,32 +125,50 @@ This node will convert the messages from other ROS packages to the internal mess
 	\includegraphics[scale=0.4]{../diagrams/images/uc_converter.jpeg}
 \end{center}
 	
-\subsection{ROI Segmenter Node}
+\subsubsection{ROI Segmenter Node}
 This node will segment the ROI (Region Of Interest) both in 2D and 3D.
 
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_roi_segmenter.jpeg}
 \end{center}
 
-\subsection{Feature Extractor Node}
+\subsubsection{Feature Extractor Node}
 This node will extract both 2D and 3D features and publish them. 
 
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.jpeg}
 \end{center}
 
+
+\subsubsection{Data Parser Node}
+This node will store the 2D and 3D features of each template of the same object in one file. 
+\begin{center}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_data_parser.jpeg}
+\end{center}
+
+
 \subsection{Third Party Packages}
 \hspace{0.5cm}Initially only one third party ROS package will be used, to track the hand's position: pi\_ tracker. This software publishes the hand's position and there will a node in the proposed software (Conversion Node, whose requirements are specified in the next section) that converts the information returned by pi\_ tracker to the custom message used in the rest of the code.  
 
+\subsection{Node Interaction}
+In the following diagram it can be seen the interaction and the information exchanged between nodes.
+\subsubsection{Use Case Diagram}
+\begin{center}
+\includegraphics[scale=0.3]{../diagrams/images/use_case.jpeg}
+\end{center}
+
+\subsubsection{Sequence Diagram}
+In the following diagram it can be seen the sequencial interaction between nodes. 
+\begin{center}
+\includegraphics[scale=0.4]{../diagrams/images/sequence.jpeg}
+\end{center}
+
 \subsection{Flowchart}
+In the following diagram, the flow of the program is represented. 
 \begin{center}
 \includegraphics[scale=0.35]{../diagrams/images/flowcharts.jpeg}
 \end{center}
 
-\subsection{Sequence Diagram}
-\begin{center}
-\includegraphics[scale=0.5]{../diagrams/images/sequence.jpeg}
-\end{center}
 
 
 
@@ -167,16 +184,32 @@ This node will extract both 2D and 3D features and publish them.
 	\item The software must accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
 	\item The output of the system must be a node specifying the name of the detected object. 
  
-
+\subsection{Event Handler}
  
-\subsection{Display requirements}
+\subsection{Display}
 
 \item The program must have one window with the output of the camera of the kinect sensor. 
 \item The information as to what mode the program is in hast to be shown in the title of the window.
 \item In the recognition mode, the interface must show a square around the detected object and a text label indicating the object's name. Also, two points must be drawn in each of the hands. 
 \item The learning mode should open a new window where an shpere will appear. The sphere must show a different colour when a template of that zone is made. On the main window, a square should be placed around the new object. 
 
-\subsection{Conversion}
+
+\subsection{Object Learner}
+	\item This node must have two algorithms, one for 2D and other for 3D. 
+	\item The algorithm used with 2D features should be a BruteForce trainer.
+	\item The algorithm used with 3D features will be the Line-Mod trainer. 	
+	\item This node must send feedback messages to the display with the learning information (percentage of learning of the object, number of views of the object). 
+
+\subsection{Object Recognizer}
+	\item This node must have two algorithms, one for 2D and other for 3D. 
+	\item The algorithm used with 2D features should be a BruteForce matcher.
+	\item The algorithm used with 3D features will be the Line-Mod matcher. 
+	\item A weighting must be made to the output of the matching process. This will help reduce the false positives and negatives by modelling occlusions depending on the hand-elbow relative positions. 
+	\item A weighting must be made depending on the amount of texture possessed by each object to decide which matching should have more importance, the 2D or the 3D one. 
+
+
+
+\subsection{Converter}
 
 \item The information should be received subscribing to the topics of the different third-party packages. 
 \item The internal message format must have the following structure: \\[0.3cm]
@@ -240,17 +273,6 @@ geometry\_ msgs/Vector3[] position\\
 		\end{lstlisting}
 	\end{enumerate}
 	
-
-\subsection{Trainer}
-	\item This node will find both 2D and 3D features using the Feature Extractor node. 
-	\item Each algorithm (for 2 and 3D) will be trained with those extracted features. 
-
-\subsection{Matcher}
-	\item This node will find both 2D and 3D features of the current frame. 
-	\item A matching will be done between those features and the learned ones. 
-	\item A weighting will be made to the output of the matching process. This will help reduce the false positives and negatives by modelling occlusions depending on the hand-elbow relative positions. 
-	\item Another weighting will be made depending on the amount of texture possessed by each object to decide which matching should have more importance, the 2D or the 3D one. 
-
 
 
 \end{enumerate}
