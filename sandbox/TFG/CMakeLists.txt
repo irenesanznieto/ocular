@@ -17,9 +17,9 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 #uncomment if you have defined messages
-#rosbuild_genmsg()
+rosbuild_genmsg()
 #uncomment if you have defined services
-#rosbuild_gensrv()
+rosbuild_gensrv()
 
 #common commands for building c++ executables and libraries
 #rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
@@ -32,6 +32,14 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #EXECUTABLES: 
 rosbuild_add_executable(recognizer src/apps/recognizer.cpp)
 rosbuild_add_executable(learner src/apps/learner.cpp)
+#rosbuild_add_executable(event_handler src/apps/event_handler.cpp)
+rosbuild_add_executable(converter src/apps/converter.cpp)
+rosbuild_add_executable(roi_segmenter	src/apps/roi_segmenter.cpp)
+#rosbuild_add_executable(feature_extractor src/apps/feature_extractor.cpp)
+#rosbuild_add_executable(data_parser src/apps/data_parser.cpp)
+#rosbuild_add_executable(display src/apps/display.cpp)
+
+
 
 
 #LIBRARIES: 
@@ -44,3 +52,11 @@ rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
 target_link_libraries(recognizer custom_libs)
 target_link_libraries(learner custom_libs)
+#target_link_libraries(event_handler custom_libs)
+target_link_libraries(converter custom_libs)
+target_link_libraries(roi_segmenter custom_libs)
+#target_link_libraries(feature_extractor custom_libs)
+#target_link_libraries(data_parser custom_libs)
+#target_link_libraries(display custom_libs)
+
+
