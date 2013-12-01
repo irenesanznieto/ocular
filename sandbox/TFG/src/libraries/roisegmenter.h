@@ -9,18 +9,23 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 
+//Msgs
+#include <std_msgs/Int32MultiArray.h>
+#include <sensor_msgs/PointCloud2.h>
+
 class RoiSegmenter
 {
-//	public:
+public:
+    RoiSegmenter();
+
+private:
 
 
-//    private:
+    ros::NodeHandle nh;
+    ros::Subscriber point_cloud_sub;
+    ros::Publisher coord_pub;
 
-//        ros::NodeHandle it_;
-//        ros::Subscriber pointcloud_sub_;
-//        std::string pub_node;
-
-//        void distance2px(pcl::PointCloud<pcl::PointXYZRGB>::Ptr);
+    void distance2px(const sensor_msgs::PointCloud2ConstPtr &);
 
 };
 #endif //ROI_SEGMENTER_H
