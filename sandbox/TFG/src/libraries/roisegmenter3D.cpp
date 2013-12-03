@@ -2,7 +2,7 @@
 
 RoiSegmenter3D::RoiSegmenter3D()
 {
-    point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("input", 1, &RoiSegmenter::segment3D, this);
+    point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("input", 1, &RoiSegmenter3D::segment, this);
     point_cloud_pub=nh.advertise <sensor_msgs::PointCloud2> ("output_cloud", 1);
 
     coord_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_coord", 1);
@@ -23,7 +23,7 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud)
       pcl::PointCloud <pcl::PointXYZRGB> cloud_distance;
       pcl::fromROSMsg(cloud_filtered, cloud_distance);
 
-      RoiSegmenter::distance2px(cloud_distance);
+      RoiSegmenter3D::distance2px(cloud_distance);
 
      //publish ROI 3D
     point_cloud_pub.publish(cloud_filtered);
@@ -40,6 +40,7 @@ void RoiSegmenter3D:: distance2px( pcl::PointCloud <pcl::PointXYZRGB> cloud)
 //    ROS_INFO("Image limits:\n x : %f %f \n y : %f %f\n", totmax.x, totmin.x, totmax.y, totmin.y);
 //    ROS_INFO("ROI limits:\n x : %f %f \n y : %f %f\n", max.x, min.x, max.y, min.y);
 
+    std_msgs::Int32MultiArray coord;
     coord.data.clear();
 
     float distx, disty;

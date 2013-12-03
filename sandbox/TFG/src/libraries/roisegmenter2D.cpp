@@ -1,15 +1,17 @@
 #include "roisegmenter2D.h"
 
-RoiSegmenter2D::RoiSegmenter2D(): it(nh)
+RoiSegmenter2D::RoiSegmenter2D()
 {
-        image_sub=it.subscribe("input", 1, &RoiSegmenter2D::segment2D, this);
-        coord_sub=it.subscribe("input_coord", 1, &RoiSegmenter2D::coordinates, this);
-        image_pub=it.advertise("output",1);
+//    coord_sub=nh.subscribe("input_coord", 1, &RoiSegmenter2D::coordinates, this);
+
+    it(nh);
+    image_sub=it.subscribe("input", 1, &RoiSegmenter2D::segment, this);
+    image_pub=it.advertise("output",1);
 
 }
 
 
-void RoiSegmenter:: segment (const sensor_msgs::ImageConstPtr & msg)
+void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 {
     cv_bridge::CvImagePtr cv_ptr;
     try
@@ -33,4 +35,9 @@ void RoiSegmenter:: segment (const sensor_msgs::ImageConstPtr & msg)
 
     croppedImage.copyTo(cv_ptr->image);
     image_pub.publish(cv_ptr->toImageMsg());
+}
+
+
+void RoiSegmenter2D::coordinates(std_msgs::Int32MultiArrayConstPtr & msg)
+{
 }

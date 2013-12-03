@@ -1,10 +1,11 @@
 #ifndef ROISEGMENTER2D_H
 #define ROISEGMENTER2D_H
 
-#include "roisegmenter.h"
+//#include "roisegmenter.h"
 
 #include <opencv2/opencv.hpp>
 #include <ros/ros.h>
+#include <std_msgs/Int32MultiArray.h>
 
 //Image
 #include <image_transport/image_transport.h>
@@ -14,11 +15,10 @@
 #include <opencv2/highgui/highgui.hpp>
 
 
-class RoiSegmenter2D: public RoiSegmenter
+class RoiSegmenter2D //: public RoiSegmenter
 {
 public:
     RoiSegmenter2D();
-    void segment(const sensor_msgs::ImageConstPtr & );
 
 private:
     ros::NodeHandle nh;
@@ -27,8 +27,14 @@ private:
     image_transport::Publisher image_pub;
     image_transport::Subscriber image_sub;
 
+    ros::Subscriber coord_sub;
 
-    void segment2D (const sensor_msgs::ImageConstPtr &);
+
+    void segment (const sensor_msgs::ImageConstPtr &);
+    void coordinates(std_msgs::Int32MultiArrayConstPtr & );
+
+    std_msgs::Int32MultiArray coord;
+
 
 };
 
