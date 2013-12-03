@@ -1,0 +1,20 @@
+<launch>
+  <arg name="fixed_frame" value="camera_depth_frame" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find pi_tracker)/urdf/pi_robot.urdf.xacro'" />
+  <param name="/use_sim_time" value="False" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <param name="publish_frequency" value="20.0"/>
+  </node>
+
+  <include file="$(find openni_launch)/launch/kinect_frames.launch" />
+    <node name="skeleton_tracker" pkg="pi_tracker" type="skeleton_tracker">
+    <param name="fixed_frame" value="$(arg fixed_frame)" />
+    <param name="load_filepath" value="$(find pi_tracker)/params/SamplesConfigNewOpenNI.xml" />
+    </node>
+
+    <node pkg="TFG" type="converter" name="converter" args="input:=/skeleton output:=/TFG/hand_loc"/>
+    <node pkg="TFG" type="roi_segmenter3D"  name="roi_segmenter3D" args="input:=/camera/depth_registered/points input_coord:=/TFG/hand_loc output_cloud:=/TFG/ROI3D output_coord:=/TFG/ROIcoord"/>
+    <node pkg="TFG" type="roi_segmenter2D"  name="roi_segmenter2D" args="input:=/camera/rgb/image_color input_coord:=/TFG/ROIcoord output:=/TFG/ROI2D"/>
+
+</launch>

@@ -3,8 +3,8 @@
 
 Converter::Converter()
 {
-    input_sub=nh.subscribe<pi_tracker::Skeleton>("/skeleton", 1, &Converter::input_callback, this);
-    output_sub=nh.advertise<TFG::HandLoc>("/TFG/hand_loc", 1);
+    input_sub=nh.subscribe<pi_tracker::Skeleton>("input", 1, &Converter::input_callback, this);
+    output_sub=nh.advertise<TFG::HandLoc>("output", 1);
 }
 
 
