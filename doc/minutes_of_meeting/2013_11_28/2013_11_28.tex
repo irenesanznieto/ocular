@@ -36,7 +36,7 @@
 	\line(1,0){250}\\[0.5cm]
 	{\LARGE \textbf{Bachelor's Thesis:\\[0.5cm] In-hand object detection and tracking using 2D and 3D information}}\\[0.5cm]
 	%date
-	{\large \today}
+	{\large November 28, 2013 }
 	\end{center}
 \end {minipage}
 
@@ -66,35 +66,51 @@ Victor González Pacheco [VGP]
 
 %Points discussed
 \section{\LARGE Points discussed: }
-	\subsection{}
+
+	\subsection{Software Structure}
+	\begin{myindentpar}{1cm} 
+		The concept of node and topic was clarified and the code was restructured accordingly. 
+	\end{myindentpar}
+	\subsection{Action Lib}
 		\begin{myindentpar}{1cm} 
-		
+		It was discussed the conviniency of using this ROS package to implement the selection of the different modes of the program. 
 		\end{myindentpar}
 
+	\subsection{Smach Lib}
+		\begin{myindentpar}{1cm} 
+		It was discussed the usability of this package to easily implement a state machine in the event handler node. 
+		\end{myindentpar}
 
 
 %Decisions made	
 \section{\LARGE Decisions made:}
-	\subsection{}
+	\subsection{Software Structure}
 		\begin{myindentpar}{1cm} 
-		
+		The software will have more nodes running in parallel and communicating via topics. The details of the structure can be found in the v.0.2 of the Requisites Document. 
 		\end{myindentpar}
+		
+	
 
 
 %To-Do List
 \section{\LARGE To-Do List: }
-	\subsection{}
-		\begin{myindentpar}{1cm} 
-		
-		\end{myindentpar}
+	\subsection{Ask how to convert unordered point clouds to image [VGP]}
+	
+	\subsection{Install all drivers so that the pi \_ tracker package works correctly [ISN]}
+
+	\subsection{Change the names of the different nodes and functions [ISN]}
+	
+	\subsection{Correct the Requisites document [ISN]}
+	\subsection{Introduce the modifications in the different diagrams [ISN]}
+	
+
 	
 
 
 %Next meeting	
 \begin {center}
-{\Large \textbf{Next Meeting: }}
+{\Large \textbf{Next Meeting: December 5, 2013}}
 \end{center}
-
 
 
 \end{document}

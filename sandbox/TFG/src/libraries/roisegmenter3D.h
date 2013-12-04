@@ -1,8 +1,6 @@
 #ifndef ROISEGMENTER3D_H
 #define ROISEGMENTER3D_H
 
-//#include "roisegmenter.h"
-
 #include <opencv2/opencv.hpp>
 #include <ros/ros.h>
 #include <std_msgs/Int32MultiArray.h>

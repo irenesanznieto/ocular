@@ -1,12 +1,12 @@
 #include "roisegmenter2D.h"
 
-RoiSegmenter2D::RoiSegmenter2D()
+RoiSegmenter2D::RoiSegmenter2D(): it(nh)
 {
-//    coord_sub=nh.subscribe("input_coord", 1, &RoiSegmenter2D::coordinates, this);
+        image_sub=it.subscribe("input", 1, &RoiSegmenter2D::segment, this);
+        image_pub=it.advertise("output",1);
 
-    it(nh);
-    image_sub=it.subscribe("input", 1, &RoiSegmenter2D::segment, this);
-    image_pub=it.advertise("output",1);
+        coord_sub=nh.subscribe <std_msgs::Int32MultiArray>("input_coord", 1, &RoiSegmenter2D::coordinates, this);
+
 
 }
 
@@ -38,6 +38,7 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 }
 
 
-void RoiSegmenter2D::coordinates(std_msgs::Int32MultiArrayConstPtr & msg)
+void RoiSegmenter2D::coordinates(const std_msgs::Int32MultiArrayConstPtr & msg)
 {
+    coord.data=msg->data;
 }

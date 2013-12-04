@@ -1,8 +1,6 @@
 #ifndef ROISEGMENTER2D_H
 #define ROISEGMENTER2D_H
 
-//#include "roisegmenter.h"
-
 #include <opencv2/opencv.hpp>
 #include <ros/ros.h>
 #include <std_msgs/Int32MultiArray.h>
@@ -31,7 +29,7 @@ private:
 
 
     void segment (const sensor_msgs::ImageConstPtr &);
-    void coordinates(std_msgs::Int32MultiArrayConstPtr & );
+    void coordinates(const std_msgs::Int32MultiArrayConstPtr &);
 
     std_msgs::Int32MultiArray coord;
 
