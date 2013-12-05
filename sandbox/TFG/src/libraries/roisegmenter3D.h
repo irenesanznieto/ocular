@@ -38,7 +38,7 @@ private:
 
     void segment(const sensor_msgs::PointCloud2ConstPtr &);
 
-    void distance2px(pcl::PointCloud <pcl::PointXYZ>);
+    void distance2px(pcl::PointCloud<pcl::PointXYZ>& , pcl::PointCloud <pcl::PointXYZ>& );
 
     void coordinates (const TFG::HandLocConstPtr &);
 
