@@ -92,33 +92,40 @@ void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::Po
     disty=abs(totmax.y-totmin.y);
 
     /*P1  _ P2
-     | |
-  P4 |_| P3	*/
+         | |
+      P4 |_| P3	*/
 
     int multx, multy;
     float r=disty/distx;
     if (distx>disty)
     {
-        multx=640;
-        multy=640/r;
+        multx=640/distx;
+        multy=640/(r*disty);
     }
     else
     {
-        multy=640;
-        multx=640*r;
+        multy=640/disty;
+        multx=640*r/distx;
     }
 
 
+    float offx=0, offy=0;
 
+
+    offx=abs(totmin.x-min.x);
+    offy=abs(totmax.y-max.y);
 
     //P1
-    coord.data.push_back((int)(multx*abs(min.x)/distx));	//x coordinates
-    coord.data.push_back((int)(multy*abs(max.y)/disty));	//y coordinates
+    coord.data.push_back((int)( multx*(abs(min.x)+ offx) ));	//x coordinates
+    coord.data.push_back((int)( multy*(abs(max.y)+ offy) ));	//y coordinates
 
+
+    offx=abs(totmax.x-max.x);
+    offy=abs(totmin.y-min.y);
 
     //P3
-    coord.data.push_back((int)(multx*abs(max.x)/distx));	//x coordinates
-    coord.data.push_back((int)(multy*abs(min.y)/disty));	//y coordinates
+    coord.data.push_back((int)( multx*(abs(max.x)+ offx) ));	//x coordinates
+    coord.data.push_back((int)( multy*(abs(min.y)+ offy) ));	//y coordinates
 
     if (coord.data[0]>0 && coord.data[1]>0 && coord.data[2]>0 && coord.data[3]>0)
         coord_pub.publish (coord); //publish our cloud image

@@ -2,9 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
- \usepackage{listings}
+\usepackage{listings}
 \usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
-
 % This is for the fancy title in each page
 \usepackage{fancyhdr}
 \lhead{}
@@ -83,38 +82,38 @@ Victor González Pacheco\end{flushright}\end{minipage}\vfill
 \subsubsection{Event Handler Node}
 	This node will identify the different user's gestures and act accordingly using a State Machine structure. 
 	\begin{center}
-		\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.jpeg}
+		\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.eps}
 	\end{center}
 	
 \subsubsection{Display Node}
-This node will show the output of the program. There will be a window in which different informations will be shown. 
+This node shows the output of the program. There is a window in which different information will be shown. 
 	\begin{center}
-		\includegraphics[scale=0.4]{../diagrams/images/uc_display.jpeg}
+		\includegraphics[scale=0.4]{../diagrams/images/uc_display.eps}
 	\end{center}
 	
 \subsubsection{Object Learner Node}
 
-\hspace{0.5cm}This node will learn new handheld objects. 
+\hspace{0.5cm}This node learns 2D and 3D features extracted from the handheld object using a RGB-D sensor.   
 
 The sequence of the object learning is the following:
 \\
-First, 3D and 2D information will be extracted and written to a file. Then, two algorithms will be trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm will be stored in a file. There will be hence one file per learned object and one file per algorithm.
+First, 3D and 2D descriptors are extracted and written to a file. Then, two algorithms are trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm are stored in a file. There will be hence one file per learned object and one file per algorithm.
 \\
 
-The learning of the objects will be done in-hand. This will allow a more intuitive interaction human-robot. The triggering of the learning mode will be to extend the hand in front of the body, showing the new object to the RGB-D sensor. When the user returns the arm to a position which is closer to the body, the algorithm will start learning the new object and after the learning, it will come back to the recognizing mode, which is the default. 
+The learning of the objects is done in-hand. The training starts when the user extends the hand in front of the body, showing the new object to the RGB-D sensor. Then, the user rotates the object to allow the software to extract the features of different views to obtain a more robust model of the object. This way of learning new objects will allow a more intuitive interaction human-robot. When the user returns the arm to a position which is closer to the body, the algorithm starts learning the new object and after the learning, it comes back to the recognizing mode, which is the default. 
 
 \begin{center}
 
-		\includegraphics[scale=0.4]{../diagrams/images/uc_learner.jpeg}
+		\includegraphics[scale=0.4]{../diagrams/images/uc_learner.eps}
 	\end{center}
 
 \subsubsection{Object Recognizer Node} 
 \hspace{0.5cm}This node will track the user's hands and recognize the held objects. 
 
-As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be shown on the screen. 
+As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be published in a topic. 
 
 \begin{center}
-	\includegraphics[scale=0.4]{../diagrams/images/uc_recognizer.jpeg}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_recognizer.eps}
 \end{center}
 
 \subsubsection{Converter Node}
@@ -122,28 +121,28 @@ As in the Learning Mode, 2D and 3D information will be extracted. Then, the algo
 This node will convert the messages from other ROS packages to the internal message format used within the code. 
 
 \begin{center}
-	\includegraphics[scale=0.4]{../diagrams/images/uc_converter.jpeg}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_converter.eps}
 \end{center}
 	
 \subsubsection{ROI Segmenter Node}
 This node will segment the ROI (Region Of Interest) both in 2D and 3D.
 
 \begin{center}
-	\includegraphics[scale=0.4]{../diagrams/images/uc_roi_segmenter.jpeg}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_roi_segmenter.eps}
 \end{center}
 
 \subsubsection{Feature Extractor Node}
 This node will extract both 2D and 3D features and publish them. 
 
 \begin{center}
-	\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.jpeg}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_feature_extractor.eps}
 \end{center}
 
 
 \subsubsection{Data Parser Node}
 This node will store the 2D and 3D features of each template of the same object in one file. 
 \begin{center}
-	\includegraphics[scale=0.4]{../diagrams/images/uc_data_parser.jpeg}
+	\includegraphics[scale=0.4]{../diagrams/images/uc_data_parser.eps}
 \end{center}
 
 
@@ -151,22 +150,22 @@ This node will store the 2D and 3D features of each template of the same object 
 \hspace{0.5cm}Initially only one third party ROS package will be used, to track the hand's position: pi\_ tracker. This software publishes the hand's position and there will a node in the proposed software (Conversion Node, whose requirements are specified in the next section) that converts the information returned by pi\_ tracker to the custom message used in the rest of the code.  
 
 \subsection{Node Interaction}
-In the following diagram it can be seen the interaction and the information exchanged between nodes.
-\subsubsection{Use Case Diagram}
-\begin{center}
-\includegraphics[scale=0.3]{../diagrams/images/use_case.jpeg}
-\end{center}
+%In the following diagram it can be seen the interaction and the information exchanged between nodes.
+%\subsubsection{Use Case Diagram}
+%\begin{center}
+%\includegraphics[scale=0.3]{../diagrams/images/use_case.eps}
+%\end{center}
 
 \subsubsection{Sequence Diagram}
-In the following diagram it can be seen the sequencial interaction between nodes. 
+In the following diagram can be seen the interaction between nodes. 
 \begin{center}
-\includegraphics[scale=0.4]{../diagrams/images/sequence.jpeg}
+\includegraphics[scale=0.4]{../diagrams/images/sequence.eps}
 \end{center}
 
 \subsection{Flowchart}
 In the following diagram, the flow of the program is represented. 
 \begin{center}
-\includegraphics[scale=0.35]{../diagrams/images/flowcharts.jpeg}
+\includegraphics[scale=0.35]{../diagrams/images/flowcharts.eps}
 \end{center}
 
 
@@ -176,11 +175,11 @@ In the following diagram, the flow of the program is represented.
 \section{Functional requirements}
 
 \subsection{General requirements}
-\begin{enumerate}[label=\textbf{FR\threedigits*}]
+\begin{enumerate}[label=\textbf{FR\threedigits*}, leftmargin=2cm]
 
 	\item The software must be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
 	\item A version control system should be used (GIT) and all the code must be periodically updated in the following github repository:  $https://github.com/irenesanznieto/TFG$
-	\item The software hast to have an interface. Its requirements are specified in the following "Interface Requirements" section. 
+	\item The software has to have an interface. Its requirements are specified in the following "Interface Requirements" section. 
 	\item The software must accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
 	\item The output of the system must be a node specifying the name of the detected object. 
  
@@ -189,16 +188,19 @@ In the following diagram, the flow of the program is represented.
 \subsection{Display}
 
 \item The program must have one window with the output of the camera of the kinect sensor. 
-\item The information as to what mode the program is in hast to be shown in the title of the window.
+\item The information as to what mode the program is in has to be shown in the title of the window.
 \item In the recognition mode, the interface must show a square around the detected object and a text label indicating the object's name. Also, two points must be drawn in each of the hands. 
-\item The learning mode should open a new window where an shpere will appear. The sphere must show a different colour when a template of that zone is made. On the main window, a square should be placed around the new object. 
+%\item The learning mode should open a new window where an shpere will appear. The sphere must show a different colour when a template of that zone is made. On the main window, a square should be placed around the new object. 
+\item The learning mode should display the number of views obtained and processed of the object as well as an indication as to how to rotate the object to obtain further views. 
 
 
 \subsection{Object Learner}
+	\item The input to this node will be the features (both 2D and 3D) extracted from the feature extractor node. 
 	\item This node must have two algorithms, one for 2D and other for 3D. 
 	\item The algorithm used with 2D features should be a BruteForce trainer.
 	\item The algorithm used with 3D features will be the Line-Mod trainer. 	
-	\item This node must send feedback messages to the display with the learning information (percentage of learning of the object, number of views of the object). 
+	\item This node must send feedback messages to the display with the learning information (number of views of the object processed, information about how to rotate the object).
+	\item The output of this node will be the trained algorithms, whose parameters must be written to a file. 
 
 \subsection{Object Recognizer}
 	\item This node must have two algorithms, one for 2D and other for 3D. 
@@ -225,15 +227,17 @@ geometry\_ msgs/Vector3[] position\\
 
 \subsection{ROI Segmenter}
 	\item This node will segment the Region Of Interest both in 2D (image) and in 3D (point cloud). 
-	\item In this case, the ROI will be a box around the hand. The original point cloud will be filtered using a depth filter to eliminate the background. After that, the dimensions of the box will be obtained locating the maximum and minimum points in the x, y and z axis. 
-
+	\item In the 3D segmentation, the ROI will be a box around the hand. 
+	\item The original point cloud will be filtered using a depth filter to eliminate the background. After that, the dimensions of the box will be obtained locating the maximum and minimum points in the x, y and z axis. 
+	\item The size of the 2D ROI must be extracted from the 3D ROI x and y dimensions. Those measures will be transformed to pixels. 
+	\item The 2D ROI will be cropped from the original image using the points obtained from the 3D ROI. 
 
 \subsection{Feature Extractor}
 \item This node will extract both 3D and 2D features. 
 \item The 2D features will be expressed as a vector of descriptors, using the ORB approach. 
 \item The 3D features will be expressed as a vector of features, using the Line-Mod approach.
 
-\item The 2D and 3D features of all the views of each object will be stored in a file, using the following node.  
+\item The 2D and 3D features of all the views of each object will be stored in a file, using the data parser node.  
 
 \subsection{Data Parser}
 \item This node will compress the features obtained to have one data file per object with all the information.
@@ -244,10 +248,9 @@ geometry\_ msgs/Vector3[] position\\
 
 \item This node will also parse the created files to extract the different informations of each object. 
 
-\item The information organization will be as follows: 
-	\begin{enumerate}
-	\item The name of the file will be the one given to the object. 
-	\item The datafile structure will be: \\
+\item The name of the file will be the one given to the object. 
+
+\item The datafile structure will be: \\
 		\begin{lstlisting}
 	<view1>
 		<2D>
@@ -271,7 +274,6 @@ geometry\_ msgs/Vector3[] position\\
 	</viewN>	
 		
 		\end{lstlisting}
-	\end{enumerate}
 	
 
 
