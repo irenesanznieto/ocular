@@ -110,7 +110,17 @@ The learning of the objects is done in-hand. The training starts when the user e
 \subsubsection{Object Recognizer Node} 
 \hspace{0.5cm}This node will track the user's hands and recognize the held objects. 
 
-As in the Learning Mode, 2D and 3D information will be extracted. Then, the algorithms will compare that information with the learned one. Weights for each algorithm will be given, since each of them identifies a different characteristic. Finally, the name of the object will be published in a topic. 
+There are two different algorithms, one trained with the 2D data and the other one trained with the 3D data. More information about those algorithms may be found in the Functional Requirements section. 
+\\
+The steps done by this node are the following: 
+First, as in the Learning Mode, 2D and 3D descriptors will be extracted. Then, the algorithms will compare that information with the learned one. 
+The output of each algorithm will be a percentage of similarity between the dataset and the new object. 
+\\
+The 3D information is more reliable than the 2D. The latter is subjected to inaccuracies due to illumination or view angle that affects the descriptors extracted and hence the object recognition.
+\\
+Due to this fact, weights for the output of each algorithm will be given. Those give a higher importance to the 3D descriptors since they are more robust. 
+\\
+The object that is finally published in a topic will be the one with a higher percentage of similarity. 
 
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_recognizer.eps}
@@ -246,7 +256,7 @@ geometry\_ msgs/Vector3[] position\\
 \item It has to be able to delete certain views or a complete file of the dataset. 
 \item It has to be able to add another view to a previously stored object. 
 
-\item This node will also parse the created files to extract the different informations of each object. 
+\item This node will also be able to read the files to extract the 2D and 3D features of each object of the dataset. 
 
 \item The name of the file will be the one given to the object. 
 
@@ -286,8 +296,8 @@ geometry\_ msgs/Vector3[] position\\
 \section{Performance requirements}
 
 \begin{enumerate}[label=\textbf{PR\threedigits*}]
-\item The recognition must run on the lowest amount of time possible, to allow a fluid human-robot interaction.
-\item The learning must run on the lowest amount of time possible, to allow a fluid human-robot interaction.
+\item The recognition must run on the lowest amount of time possible, to allow a fluid human-robot interaction. This time must be lower than 500 ms. 
+\item The learning must run on the lowest amount of time possible, to allow a fluid human-robot interaction. This time must be lower than 5s. 
 \end{enumerate}
 
 
@@ -313,6 +323,7 @@ geometry\_ msgs/Vector3[] position\\
 \begin{enumerate}[label=\textbf{MR\threedigits*}]
 	\item The code must be as modular as possible. 
 	\item All the classes' variables that are susceptible of being modified through a inheritance will be declared as protected. 
+	\item Gtests will be built to demonstrate each functional requirement. 
 	
 \end{enumerate}
 
