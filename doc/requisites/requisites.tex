@@ -41,7 +41,7 @@ information }\\[4cm]
 % Title
 {\Huge\bfseries{Software Requirements Specification}\\[2cm]}
 
-\Large{Version 0.2}
+\Large{Version 0.3}
 \\[11cm]
 
 
@@ -136,6 +136,15 @@ This node will convert the messages from other ROS packages to the internal mess
 	
 \subsubsection{ROI Segmenter Node}
 This node will segment the ROI (Region Of Interest) both in 2D and 3D.
+The first region of interest segmented is the 3D. Using the hand's center position obtained from the pi\_ tracker ROS package a prism is extracted around it. Its depth will be fixed and proportional to the distance between the hand and the RGB-D sensor. Both the horizontal and vertical distances of the prism will be obtained finding the extreme points of the input cloud. Those extreme points will have to be between certain limits to avoid extracting a higher ROI due to outliers. 
+\\
+No outlier filtering is done due to the high computing time required.  
+\\
+The 2D ROI will be extracted from the 3D ROI. The maximum and minimum points in both the x and y axis of the 3D ROI point cloud are converted to pixels. Then, the original image obtained from the RGB-D sensor is cropped using those points. 
+\\
+The output of this node will be two topics, one with the 2D ROI (an image) and the other one with the 3D ROI (a point cloud).
+\\
+To decrease the computation time, the point clouds will not have the RGB component. The color information may be obtained through the 2D ROI. 
 
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_roi_segmenter.eps}
@@ -169,13 +178,13 @@ This node will store the 2D and 3D features of each template of the same object 
 \subsubsection{Sequence Diagram}
 In the following diagram can be seen the interaction between nodes. 
 \begin{center}
-\includegraphics[scale=0.4]{../diagrams/images/sequence.eps}
+\includegraphics[scale=0.3]{../diagrams/images/sequence.eps}
 \end{center}
 
 \subsection{Flowchart}
 In the following diagram, the flow of the program is represented. 
 \begin{center}
-\includegraphics[scale=0.35]{../diagrams/images/flowcharts.eps}
+\includegraphics[scale=0.25]{../diagrams/images/flowcharts.eps}
 \end{center}
 
 
@@ -194,6 +203,9 @@ In the following diagram, the flow of the program is represented.
 	\item The output of the system must be a node specifying the name of the detected object. 
  
 \subsection{Event Handler}
+\item This node must have access to the hand's position information. 
+\item This node must launch the object learner node or the object recognizer node depending on a triggering event. 
+\item The triggering event occurs when the distance between the hand and the torso is equal or higher than 0.5m.   
  
 \subsection{Display}
 
@@ -208,16 +220,19 @@ In the following diagram, the flow of the program is represented.
 	\item The input to this node will be the features (both 2D and 3D) extracted from the feature extractor node. 
 	\item This node must have two algorithms, one for 2D and other for 3D. 
 	\item The algorithm used with 2D features should be a BruteForce trainer.
-	\item The algorithm used with 3D features will be the Line-Mod trainer. 	
+	\item The algorithm used with 3D features must be the Line-Mod trainer. 	
 	\item This node must send feedback messages to the display with the learning information (number of views of the object processed, information about how to rotate the object).
 	\item The output of this node will be the trained algorithms, whose parameters must be written to a file. 
 
 \subsection{Object Recognizer}
 	\item This node must have two algorithms, one for 2D and other for 3D. 
 	\item The algorithm used with 2D features should be a BruteForce matcher.
-	\item The algorithm used with 3D features will be the Line-Mod matcher. 
-	\item A weighting must be made to the output of the matching process. This will help reduce the false positives and negatives by modelling occlusions depending on the hand-elbow relative positions. 
+	\item The algorithm used with 3D features must be the Line-Mod matcher. 
 	\item A weighting must be made depending on the amount of texture possessed by each object to decide which matching should have more importance, the 2D or the 3D one. 
+	\item A weighting must be made to the previous weighting. This will help reduce the false positives and negatives by modelling occlusions depending on the hand-elbow relative positions. 
+	\item The output of this node must be a topic in which the object's name is published.
+	
+
 
 
 
@@ -236,9 +251,10 @@ geometry\_ msgs/Vector3[] position\\
 
 
 \subsection{ROI Segmenter}
-	\item This node will segment the Region Of Interest both in 2D (image) and in 3D (point cloud). 
-	\item In the 3D segmentation, the ROI will be a box around the hand. 
-	\item The original point cloud will be filtered using a depth filter to eliminate the background. After that, the dimensions of the box will be obtained locating the maximum and minimum points in the x, y and z axis. 
+	\item This node must segment the Region Of Interest both in 2D (image) and in 3D (point cloud). 
+	\item In the 3D segmentation, the ROI must be a box around the hand's position. 
+	\item In the 3D segmentation, the original point cloud must be filtered using a depth filter to eliminate the background.
+	\item In the 3D segmentation, the dimensions of the ROI box must be obtained locating the maximum and minimum points in the x, y and z axis within a fixed volume. 
 	\item The size of the 2D ROI must be extracted from the 3D ROI x and y dimensions. Those measures will be transformed to pixels. 
 	\item The 2D ROI will be cropped from the original image using the points obtained from the 3D ROI. 
 
