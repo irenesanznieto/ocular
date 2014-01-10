@@ -21,8 +21,8 @@
     <node pkg="TFG" type="roi_segmenter3D"  name="roi_segmenter3D" args="input:=/camera/depth/points input_coord:=/TFG/hand_loc output_cloud:=/TFG/ROI3D output_coord:=/TFG/ROIcoord"/>
     <node pkg="TFG" type="roi_segmenter2D"  name="roi_segmenter2D" args="input:=/camera/rgb/image_color input_coord:=/TFG/ROIcoord output:=/TFG/ROI2D"/>
 
-    <node pkg="TFG" type="image_view"  name="ROI2D" args="image:=/TFG/ROI2D"/>
-    <node pkg="TFG" type="image_view"  name="kinect_image" args="image:=/camera/rgb/image_color"/>
+    <node pkg="image_view" type="image_view"  name="ROI2D" args="image:=/TFG/ROI2D"/>
+    <node pkg="image_view" type="image_view"  name="kinect_image" args="image:=/camera/rgb/image_color"/>
 
 
 </launch>

@@ -25,16 +25,17 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 
     if (!coord.data.empty())
     {
+        ROS_ERROR("ORIGINAL IMAGE SIZE: %i x %i", cv_ptr->image.rows, cv_ptr->image.cols);
 
 //        ROS_ERROR("DEBUG: (%i,%i) (%i, %i)", coord.data[0],coord.data[1],coord.data[2],coord.data[3]);
 
-        cv::Point first=cv::Point(coord.data[0],coord.data[1]);
-        cv::Point second=cv::Point(coord.data[2],coord.data[3]);
+//        cv_ptr->image(cv::Rect(coord.data[0],coord.data[1],coord.data[2],coord.data[3]));
+//        cv_ptr->image(cv_ptr->image, cv::Rect(0,0,20,20));
 
-        cv::Rect myROI(first.x, first.y, second.x, second.y);
-        cv::Mat croppedImage = cv_ptr->image(myROI);
+        //RESHAPE, RESIZE?! CROPPING IS NOT CURRENTLY WORKING :(
+        //cv_ptr->image.reshape(50,20);
+        ROS_ERROR("FINAL IMAGE SIZE: %i x %i", cv_ptr->image.rows, cv_ptr->image.cols);
 
-        croppedImage.copyTo(cv_ptr->image);
         image_pub.publish(cv_ptr->toImageMsg());
 
     }
