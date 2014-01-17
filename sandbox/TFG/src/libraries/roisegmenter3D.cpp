@@ -100,12 +100,12 @@ void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::Po
     if (distx>disty)
     {
         multx=640/distx;
-        multy=640/(r*disty);
+        multy=480/(r*disty);
     }
     else
     {
         multy=640/disty;
-        multx=640*r/distx;
+        multx=480*r/distx;
     }
 
 
