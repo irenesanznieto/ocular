@@ -25,17 +25,25 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 
     if (!coord.data.empty())
     {
-        ROS_ERROR("ORIGINAL IMAGE SIZE: %i x %i", cv_ptr->image.rows, cv_ptr->image.cols);
+        ROS_ERROR("DEBUG: (%i,%i) (%i, %i)", coord.data[0],coord.data[1],coord.data[2],coord.data[3]);
 
-//        ROS_ERROR("DEBUG: (%i,%i) (%i, %i)", coord.data[0],coord.data[1],coord.data[2],coord.data[3]);
+        cv::Mat originalImage=cv_ptr->image.clone();
 
-//        cv_ptr->image(cv::Rect(coord.data[0],coord.data[1],coord.data[2],coord.data[3]));
-//        cv_ptr->image(cv_ptr->image, cv::Rect(0,0,20,20));
+        int x, y, width, height;
+//        try
+//        {
+            x=coord.data[0];
+            y=coord.data[1];
+            width=abs(coord.data[2]-coord.data[0]);
+            height=abs(coord.data[3]-coord.data[1]);
+            ROS_ERROR("DEBUG: x=%i y=%i width=%i height=%i", x, y, width, height);
+//        }
+//        catch
 
-        //RESHAPE, RESIZE?! CROPPING IS NOT CURRENTLY WORKING :(
-        //cv_ptr->image.reshape(50,20);
-        ROS_ERROR("FINAL IMAGE SIZE: %i x %i", cv_ptr->image.rows, cv_ptr->image.cols);
+        cv::Mat croppedImage = originalImage(cv::Rect(x,y, width, height)).clone();
 
+
+        cv_ptr->image=croppedImage.clone();
         image_pub.publish(cv_ptr->toImageMsg());
 
     }
