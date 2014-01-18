@@ -77,58 +77,88 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
 
 void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::PointCloud <pcl::PointXYZ>& output_cloud)
 {
-    pcl::PointXYZ totmax, totmin, max, min;
-    pcl::getMinMax3D(cloud, totmin, totmax);
-    pcl::getMinMax3D(output_cloud, min, max);
 
-    //	ROS_INFO("Image limits:\n x : %f %f \n y : %f %f\n", totmax.x, totmin.x, totmax.y, totmin.y);
-    //	ROS_INFO("ROI limits:\n x : %f %f \n y : %f %f\n", max.x, min.x, max.y, min.y);
+    //This will store the image ROI coordinates
+    std_msgs::Int32MultiArray image_coord;
+    image_coord.data.clear();
 
-    std_msgs::Int32MultiArray coord;
-    coord.data.clear();
+    //Total image dimensions (in pixels)
+    int x_px_total=640;
+    int y_px_total=480;
 
-    float distx, disty;
-    distx=abs(totmax.x-totmin.x);
-    disty=abs(totmax.y-totmin.y);
+    //Total point cloud dimensions (in meters)
+    pcl::PointXYZ total_max, total_min;
+    pcl::getMinMax3D(cloud, total_min, total_max);
 
-    /*P1  _ P2
-         | |
-      P4 |_| P3	*/
+    //Total distance (x and y) in meters of the original point cloud
+    float x_real_total=total_max.x-total_min.x;
+    float y_real_total=total_max.y-total_min.y;
 
-    int multx, multy;
-    float r=disty/distx;
-    if (distx>disty)
-    {
-        multx=640/distx;
-        multy=480/(r*disty);
-    }
-    else
-    {
-        multy=640/disty;
-        multx=480*r/distx;
-    }
+    //ROI point cloud dimensions (in meters)
+    pcl::PointXYZ roi_max, roi_min;
+    pcl::getMinMax3D(output_cloud, roi_min, roi_max);
 
+    //      P1  _ P2
+    //         | |
+    //      P4 |_| P3
 
-    float offx=0, offy=0;
+    //p1:
+    image_coord.data.push_back(x_px_total/2-roi_min.x*x_px_total/x_real_total);
+    image_coord.data.push_back(y_px_total/2-roi_max.y*y_px_total/y_real_total);
 
-
-    offx=abs(totmin.x-min.x);
-    offy=abs(totmax.y-max.y);
-
-    //P1
-    coord.data.push_back((int)( multx*(abs(min.x)+ offx) ));	//x coordinates
-    coord.data.push_back((int)( multy*(abs(max.y)+ offy) ));	//y coordinates
+    //p3:
+    image_coord.data.push_back(x_px_total/2-roi_max.x*x_px_total/x_real_total);
+    image_coord.data.push_back(y_px_total/2-roi_min.y*y_px_total/y_real_total);
 
 
-    offx=abs(totmax.x-max.x);
-    offy=abs(totmin.y-min.y);
+//    pcl::PointXYZ totmax, totmin, max, min;
+//    pcl::getMinMax3D(cloud, totmin, totmax);
+//    pcl::getMinMax3D(output_cloud, min, max);
 
-    //P3
-    coord.data.push_back((int)( multx*(abs(max.x)+ offx) ));	//x coordinates
-    coord.data.push_back((int)( multy*(abs(min.y)+ offy) ));	//y coordinates
+//	  ROS_INFO("Image limits:\n x : %f %f \n y : %f %f\n", totmax.x, totmin.x, totmax.y, totmin.y);
+//	  ROS_INFO("ROI limits:\n x : %f %f \n y : %f %f\n", max.x, min.x, max.y, min.y);
+//    float distx, disty;
+//    distx=abs(totmax.x-totmin.x);
+//    disty=abs(totmax.y-totmin.y);
 
-    if (coord.data[0]>0 && coord.data[1]>0 && coord.data[2]>0 && coord.data[3]>0)
-        coord_pub.publish (coord); //publish our cloud image
+//    /*P1  _ P2
+//         | |
+//      P4 |_| P3	*/
+
+//    int multx, multy;
+//    float r=disty/distx;
+//    if (distx>disty)
+//    {
+//        multx=640/distx;
+//        multy=480/(r*disty);
+//    }
+//    else
+//    {
+//        multy=640/disty;
+//        multx=480*r/distx;
+//    }
+
+
+//    float offx=0, offy=0;
+
+
+//    offx=abs(totmin.x-min.x);
+//    offy=abs(totmax.y-max.y);
+
+//    //P1
+//    image_coord.data.push_back((int)( multx*(abs(min.x)+ offx) ));	//x coordinates
+//    image_coord.data.push_back((int)( multy*(abs(max.y)+ offy) ));	//y coordinates
+
+
+//    offx=abs(totmax.x-max.x);
+//    offy=abs(totmin.y-min.y);
+
+//    //P3
+//    image_coord.data.push_back((int)( multx*(abs(max.x)+ offx) ));	//x coordinates
+//    image_coord.data.push_back((int)( multy*(abs(min.y)+ offy) ));	//y coordinates
+
+    if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
+        coord_pub.publish (image_coord); //publish our cloud image
 }
 
 void RoiSegmenter3D::coordinates (const TFG::HandLocConstPtr & msg)
