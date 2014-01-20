@@ -46,6 +46,7 @@ private:
     TFG::HandLoc coord;
 
 
+
 };
 
 #endif // ROISEGMENTER3D_H

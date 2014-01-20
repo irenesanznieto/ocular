@@ -85,7 +85,6 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
 
 void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::PointCloud <pcl::PointXYZ>& output_cloud)
 {
-
     //This will store the image ROI coordinates
     std_msgs::Int32MultiArray image_coord;
     image_coord.data.clear();
@@ -118,52 +117,6 @@ void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::Po
     image_coord.data.push_back(x_px_total/2-roi_max.x*x_px_total/x_real_total);
     image_coord.data.push_back(y_px_total/2-roi_min.y*y_px_total/y_real_total);
 
-
-//    pcl::PointXYZ totmax, totmin, max, min;
-//    pcl::getMinMax3D(cloud, totmin, totmax);
-//    pcl::getMinMax3D(output_cloud, min, max);
-
-//	  ROS_INFO("Image limits:\n x : %f %f \n y : %f %f\n", totmax.x, totmin.x, totmax.y, totmin.y);
-//	  ROS_INFO("ROI limits:\n x : %f %f \n y : %f %f\n", max.x, min.x, max.y, min.y);
-//    float distx, disty;
-//    distx=abs(totmax.x-totmin.x);
-//    disty=abs(totmax.y-totmin.y);
-
-//    /*P1  _ P2
-//         | |
-//      P4 |_| P3	*/
-
-//    int multx, multy;
-//    float r=disty/distx;
-//    if (distx>disty)
-//    {
-//        multx=640/distx;
-//        multy=480/(r*disty);
-//    }
-//    else
-//    {
-//        multy=640/disty;
-//        multx=480*r/distx;
-//    }
-
-
-//    float offx=0, offy=0;
-
-
-//    offx=abs(totmin.x-min.x);
-//    offy=abs(totmax.y-max.y);
-
-//    //P1
-//    image_coord.data.push_back((int)( multx*(abs(min.x)+ offx) ));	//x coordinates
-//    image_coord.data.push_back((int)( multy*(abs(max.y)+ offy) ));	//y coordinates
-
-
-//    offx=abs(totmax.x-max.x);
-//    offy=abs(totmin.y-min.y);
-
-//    //P3
-//    image_coord.data.push_back((int)( multx*(abs(max.x)+ offx) ));	//x coordinates
-//    image_coord.data.push_back((int)( multy*(abs(min.y)+ offy) ));	//y coordinates
 
     if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
     {
