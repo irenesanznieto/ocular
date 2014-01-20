@@ -34,7 +34,8 @@ private:
 
     ros::Publisher point_cloud_pub;
 
-    ros::Publisher coord_pub;
+    ros::Publisher coord_r_pub;
+    ros::Publisher coord_l_pub;
 
     void segment(const sensor_msgs::PointCloud2ConstPtr &);
 

@@ -5,7 +5,9 @@ RoiSegmenter3D::RoiSegmenter3D()
     point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("input", 1, &RoiSegmenter3D::segment, this);
     point_cloud_pub=nh.advertise <sensor_msgs::PointCloud2> ("output_cloud", 1);
 
-    coord_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_coord", 1);
+    coord_r_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_r_coord", 1);
+    coord_l_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_l_coord", 1);
+
     coord_sub=nh.subscribe<TFG::HandLoc> ("input_coord", 1, &RoiSegmenter3D::coordinates, this);
 
 
@@ -34,16 +36,22 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
     y.setInputCloud(cloud_sor_ptr);
     z.setInputCloud(cloud_sor_ptr);
 
-    double halfx=0.1;
-    double halfy=0.1;
-    double halfz=0.05;
+
+    //TODO: put this as a function of the distance to the kinect
+    double halfx=0.05;
+    double halfy=0.05;
+    double halfz=0.03;
+
 
     for (unsigned int i=0; i<coord.position.size(); i++)
     {
+
         float xcenter= coord.position[i].x;
         float ycenter=coord.position[i].y;
         float zcenter=coord.position[i].z;
 
+//        ROS_ERROR("x, y and z hand positions: %f %f %f", coord.position[i].x,coord.position[i].y,coord.position[i].z);
+//        ROS_ERROR("size of coord.position: %lu", coord.position.size());
 
         //set limits  --> assuming the obtained position is the center, filter a cube
         x.setFilterFieldName("x");
@@ -158,7 +166,13 @@ void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::Po
 //    image_coord.data.push_back((int)( multy*(abs(min.y)+ offy) ));	//y coordinates
 
     if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
-        coord_pub.publish (image_coord); //publish our cloud image
+    {
+        if(*coord.name.data()=="right_hand")
+            coord_r_pub.publish (image_coord);
+        else if (*coord.name.data()=="left_hand")
+            coord_l_pub.publish (image_coord);
+
+    }
 }
 
 void RoiSegmenter3D::coordinates (const TFG::HandLocConstPtr & msg)

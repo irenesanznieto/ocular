@@ -22,10 +22,13 @@ private:
     ros::NodeHandle nh;
     image_transport::ImageTransport it;
 
-    image_transport::Publisher image_pub;
+    image_transport::Publisher image_r_pub;
+    image_transport::Publisher image_l_pub;
+
     image_transport::Subscriber image_sub;
 
-    ros::Subscriber coord_sub;
+    ros::Subscriber coord_r_sub;
+    ros::Subscriber coord_l_sub;
 
 
     void segment (const sensor_msgs::ImageConstPtr &);
@@ -33,6 +36,12 @@ private:
 
     std_msgs::Int32MultiArray coord;
 
+    void left(const std_msgs::Int32MultiArrayConstPtr & );
+    void right(const std_msgs::Int32MultiArrayConstPtr & );
+
+
+    //This will store "left" or "right" depending on the hand
+    std::string hand;
 
 };
 
