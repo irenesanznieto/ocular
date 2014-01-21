@@ -16,6 +16,9 @@ RoiSegmenter3D::RoiSegmenter3D()
 void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*/ cloud_sor_ptr)
 {
     sensor_msgs::PointCloud2 cloud_filtered;
+
+
+
     //    sensor_msgs::PointCloud2  cloud_sor;
 
     //    //Statistical outlier removal
@@ -50,6 +53,10 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
         float ycenter=coord.position[i].y;
         float zcenter=coord.position[i].z;
 
+        pcl::PointXYZ hand_center_m;
+        hand_center_m.x=xcenter;
+        hand_center_m.y=ycenter;
+        hand_center_m.z=zcenter;
 //        ROS_ERROR("x, y and z hand positions: %f %f %f", coord.position[i].x,coord.position[i].y,coord.position[i].z);
 //        ROS_ERROR("size of coord.position: %lu", coord.position.size());
 
@@ -73,7 +80,68 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
         pcl::PointCloud <pcl::PointXYZ> input_cloud;
         pcl::fromROSMsg(*cloud_sor_ptr, input_cloud);
 
-        RoiSegmenter3D::distance2px(input_cloud, output_cloud);
+        std::pair <int, int> hand_center_px;
+        std::cerr<<"pi_tracker's hand center: "<<xcenter<<" "<<ycenter<<std::endl;
+
+//        This is doing strange things:
+//        int FOV=57;
+//        float dstpant=(cos(FOV/2)*640/2)/sin(FOV/2);
+//        hand_center_px.first=abs((xcenter/zcenter)*dstpant);
+//        hand_center_px.second=abs((ycenter/zcenter)*dstpant);
+
+        int ScreenWidth=640;
+        int ScreenHeight=480;
+
+//        This method was found in the following URL: http://stackoverflow.com/questions/5758163/mapping-a-3d-rectangle-to-a-2d-screen
+        //to improve this part, make a constant the tan(pi/4)
+//        ToDo: CHECK IF IT WORKS!
+        float pi=3.1415;
+        float HorizontalFactor = ScreenWidth / tan(pi / 4);
+        float VerticalFactor = ScreenHeight / tan(pi / 4);
+
+        hand_center_px.first = ((xcenter * HorizontalFactor) / ycenter) + ScreenWidth/2;
+        hand_center_px.second = ((zcenter * VerticalFactor) / ycenter) + ScreenHeight/2;
+
+
+        std::cerr<<"hand center: "<<hand_center_px.first<<" "<<hand_center_px.second<<std::endl;
+        std_msgs::Int32MultiArray image_coord;
+        image_coord.data.clear();
+
+
+
+        int size=50;
+
+        //p1:
+        image_coord.data.push_back(hand_center_px.first+size);
+        image_coord.data.push_back(hand_center_px.second+size);
+
+        //p3:
+        image_coord.data.push_back(hand_center_px.first-size);
+        image_coord.data.push_back(hand_center_px.second-size);
+
+//        for (unsigned int i=0; i<image_coord.data.size(); i++)
+//        {
+//            if (image_coord.data[i]%2==0)
+//            {
+//                if (image_coord.data[i]>480)
+//                    image_coord.data[i]=480;
+
+//            }
+//            if (image_coord.data[i]>640)
+//                image_coord.data[i]=640;
+//        }
+
+        std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
+        if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
+        {
+            if(*coord.name.data()=="right_hand")
+                coord_r_pub.publish (image_coord);
+            else if (*coord.name.data()=="left_hand")
+                coord_l_pub.publish (image_coord);
+
+        }
+
+        //        RoiSegmenter3D::distance2px(input_cloud, output_cloud);
     }
 
     //publish ROI 3D
@@ -82,51 +150,56 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
 }
 
 
-
 void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::PointCloud <pcl::PointXYZ>& output_cloud)
 {
-    //This will store the image ROI coordinates
-    std_msgs::Int32MultiArray image_coord;
-    image_coord.data.clear();
 
-    //Total image dimensions (in pixels)
-    int x_px_total=640;
-    int y_px_total=480;
-
-    //Total point cloud dimensions (in meters)
-    pcl::PointXYZ total_max, total_min;
-    pcl::getMinMax3D(cloud, total_min, total_max);
-
-    //Total distance (x and y) in meters of the original point cloud
-    float x_real_total=total_max.x-total_min.x;
-    float y_real_total=total_max.y-total_min.y;
-
-    //ROI point cloud dimensions (in meters)
-    pcl::PointXYZ roi_max, roi_min;
-    pcl::getMinMax3D(output_cloud, roi_min, roi_max);
-
-    //      P1  _ P2
-    //         | |
-    //      P4 |_| P3
-
-    //p1:
-    image_coord.data.push_back(x_px_total/2-roi_min.x*x_px_total/x_real_total);
-    image_coord.data.push_back(y_px_total/2-roi_max.y*y_px_total/y_real_total);
-
-    //p3:
-    image_coord.data.push_back(x_px_total/2-roi_max.x*x_px_total/x_real_total);
-    image_coord.data.push_back(y_px_total/2-roi_min.y*y_px_total/y_real_total);
-
-
-    if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
-    {
-        if(*coord.name.data()=="right_hand")
-            coord_r_pub.publish (image_coord);
-        else if (*coord.name.data()=="left_hand")
-            coord_l_pub.publish (image_coord);
-
-    }
 }
+
+
+//void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::PointCloud <pcl::PointXYZ>& output_cloud)
+//{
+//    //This will store the image ROI coordinates
+//    std_msgs::Int32MultiArray image_coord;
+//    image_coord.data.clear();
+
+//    //Total image dimensions (in pixels)
+//    int x_px_total=640;
+//    int y_px_total=480;
+
+//    //Total point cloud dimensions (in meters)
+//    pcl::PointXYZ total_max, total_min;
+//    pcl::getMinMax3D(cloud, total_min, total_max);
+
+//    //Total distance (x and y) in meters of the original point cloud
+//    float x_real_total=total_max.x-total_min.x;
+//    float y_real_total=total_max.y-total_min.y;
+
+//    //ROI point cloud dimensions (in meters)
+//    pcl::PointXYZ roi_max, roi_min;
+//    pcl::getMinMax3D(output_cloud, roi_min, roi_max);
+
+//    //      P1  _ P2
+//    //         | |
+//    //      P4 |_| P3
+
+//    //p1:
+//    image_coord.data.push_back(x_px_total/2-roi_min.x*x_px_total/x_real_total);
+//    image_coord.data.push_back(y_px_total/2-roi_max.y*y_px_total/y_real_total);
+
+//    //p3:
+//    image_coord.data.push_back(x_px_total/2-roi_max.x*x_px_total/x_real_total);
+//    image_coord.data.push_back(y_px_total/2-roi_min.y*y_px_total/y_real_total);
+
+
+//    if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
+//    {
+//        if(*coord.name.data()=="right_hand")
+//            coord_r_pub.publish (image_coord);
+//        else if (*coord.name.data()=="left_hand")
+//            coord_l_pub.publish (image_coord);
+
+//    }
+//}
 
 void RoiSegmenter3D::coordinates (const TFG::HandLocConstPtr & msg)
 {

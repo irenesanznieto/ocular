@@ -32,6 +32,7 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 //        ROS_ERROR("DEBUG: P1: (%i,%i)  P2: (%i, %i)", coord.data[0],coord.data[1],coord.data[2],coord.data[3]);
 
         cv::Mat originalImage=cv_ptr->image.clone();
+        cv::flip(originalImage, originalImage,1);
 
         cv::Point p1(coord.data[0], coord.data[1]);
         cv::Point p2(coord.data[2], coord.data[3]);
