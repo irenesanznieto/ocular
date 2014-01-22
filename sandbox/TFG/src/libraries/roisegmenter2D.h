@@ -39,6 +39,8 @@ private:
     void left(const std_msgs::Int32MultiArrayConstPtr & );
     void right(const std_msgs::Int32MultiArrayConstPtr & );
 
+    //used to check if x and y of the square is out of bounds of the screen's limits ;)
+    void checkLimits(int & , int& );
 
     //This will store "left" or "right" depending on the hand
     std::string hand;

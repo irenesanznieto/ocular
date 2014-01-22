@@ -11,7 +11,7 @@
 <!--    <include file="$(find openni_launch)/launch/kinect_frames.launch" />-->
 
     <include file="$(find openni_launch)/launch/openni.launch">
-        <arg name="depth_registration" value="true" />
+        <arg name="depth_registration" value="false" />
     </include>
 
     <node name="skeleton_tracker" pkg="pi_tracker" type="skeleton_tracker">
@@ -25,7 +25,7 @@
 <!--    ROI SEGMENTER -->
 
 <!--			3D-->
-    <node pkg="TFG" type="roi_segmenter3D"  name="roi_segmenter3D" args="input:=/camera/depth_registered/points input_coord:=/TFG/hand_loc output_cloud:=/TFG/ROI3D output_r_coord:=/TFG/ROI_r_coord output_l_coord:=/TFG/ROI_l_coord"/>
+    <node pkg="TFG" type="roi_segmenter3D"  name="roi_segmenter3D" args="input:=/camera/depth/points input_coord:=/TFG/hand_loc output_cloud:=/TFG/ROI3D output_r_coord:=/TFG/ROI_r_coord output_l_coord:=/TFG/ROI_l_coord"/>
     
 <!--    		2D-->
     <node pkg="TFG" type="roi_segmenter2D"  name="roi_segmenter2D" args="input:=/camera/rgb/image_color input_l_coord:=/TFG/ROI_l_coord input_r_coord:=/TFG/ROI_r_coord output_r:=/TFG/ROI2D_r output_l:=/TFG/ROI2D_l"/>
