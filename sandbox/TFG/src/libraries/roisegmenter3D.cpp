@@ -28,7 +28,7 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
     z.setInputCloud(cloud);
 
 
-    //TODO: put this as a function of the distance to the kinect
+    //TODO: put this as a function of the distance to the kinect --> is it necessary?
     pcl::PointXYZ box_size;
     //x and y should be the same -> the bounding box of an open or closed hand is approximately a square (not a rectangle)
     box_size.x=0.1;

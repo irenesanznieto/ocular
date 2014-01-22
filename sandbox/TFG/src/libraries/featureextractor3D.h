@@ -1,10 +1,10 @@
 #ifndef FEATURE_EXTRACTOR_3D_H
 #define FEATURE_EXTRACTOR_3D_H
 
-#include "featureextractor.h"
+//#include "featureextractor.h"
 #include "roisegmenter3D.h"
 
-class FeatureExtractor3D: public FeatureExtractor
+class FeatureExtractor3D/*: public FeatureExtractor*/
 {
 	public: 
 	

@@ -30,8 +30,12 @@
 <!--    		2D-->
     <node pkg="TFG" type="roi_segmenter2D"  name="roi_segmenter2D" args="input:=/camera/rgb/image_color input_l_coord:=/TFG/ROI_l_coord input_r_coord:=/TFG/ROI_r_coord output_r:=/TFG/ROI2D_r output_l:=/TFG/ROI2D_l"/>
     
-        
 
+<!--	FEATURE EXTRACTOR-->
+
+<!--    		2D-->
+	<node pkg="TFG" type="featureextractor2D" name="featureextractor2D" args="input_r_image:=/TFG/ROI2D_r input_l_image:=/TFG/ROI2D_l"/>
+		
 <!--	VIEW IMAGES-->
     <node pkg="image_view" type="image_view"  name="ROI2D_l" args="image:=/TFG/ROI2D_l"/>
     <node pkg="image_view" type="image_view"  name="ROI2D_r" args="image:=/TFG/ROI2D_r"/>

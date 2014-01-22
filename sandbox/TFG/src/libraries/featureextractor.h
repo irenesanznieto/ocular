@@ -1,12 +1,12 @@
-#ifndef FEATURE_EXTRACTOR_H
-#define FEATURE_EXTRACTOR_H
+//#ifndef FEATURE_EXTRACTOR_H
+//#define FEATURE_EXTRACTOR_H
 
-class FeatureExtractor
-{
-	public: 
+//class FeatureExtractor
+//{
+//	public:
 	
-		//virtual void extract_features(); 
+//		//virtual void extract_features();
 
-};
+//};
 
-#endif //FEATURE_EXTRACTOR_H
+//#endif //FEATURE_EXTRACTOR_H
