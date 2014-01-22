@@ -31,14 +31,16 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
     {
 //        ROS_ERROR("DEBUG: P1: (%i,%i)  P2: (%i, %i)", coord.data[0],coord.data[1],coord.data[2],coord.data[3]);
 
-        cv::Mat originalImage=cv_ptr->image.clone();
-        cv::flip(originalImage, originalImage,1);
+        cv::circle(cv_ptr->image, cv::Point(coord.data[0]-50, coord.data[1]-50), 10, CV_RGB(0,0,0), 100);
+        cv::flip(cv_ptr->image,cv_ptr->image, 1);
 
-        cv::Point p1(coord.data[0], coord.data[1]);
-        cv::Point p2(coord.data[2], coord.data[3]);
-        cv::Mat croppedImage=originalImage(cv::Rect(p1, p2));
+//        cv::Mat originalImage=cv_ptr->image.clone();
 
-        cv_ptr->image=croppedImage.clone();
+//        cv::Point p1(coord.data[0], coord.data[1]);
+//        cv::Point p2(coord.data[2], coord.data[3]);
+//        cv::Mat croppedImage=originalImage(cv::Rect(p1, p2));
+
+//        cv_ptr->image=croppedImage.clone();
 
         if(this->hand=="right")
             image_r_pub.publish(cv_ptr->toImageMsg());

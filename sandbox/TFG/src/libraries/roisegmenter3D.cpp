@@ -53,10 +53,10 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
         float ycenter=coord.position[i].y;
         float zcenter=coord.position[i].z;
 
-        pcl::PointXYZ hand_center_m;
-        hand_center_m.x=xcenter;
-        hand_center_m.y=ycenter;
-        hand_center_m.z=zcenter;
+//        pcl::PointXYZ hand_center_m;
+//        hand_center_m.x=xcenter;
+//        hand_center_m.y=ycenter;
+//        hand_center_m.z=zcenter;
 //        ROS_ERROR("x, y and z hand positions: %f %f %f", coord.position[i].x,coord.position[i].y,coord.position[i].z);
 //        ROS_ERROR("size of coord.position: %lu", coord.position.size());
 
@@ -83,24 +83,26 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
         std::pair <int, int> hand_center_px;
         std::cerr<<"pi_tracker's hand center: "<<xcenter<<" "<<ycenter<<std::endl;
 
-//        This is doing strange things:
-//        int FOV=57;
-//        float dstpant=(cos(FOV/2)*640/2)/sin(FOV/2);
-//        hand_center_px.first=abs((xcenter/zcenter)*dstpant);
-//        hand_center_px.second=abs((ycenter/zcenter)*dstpant);
 
-        int ScreenWidth=640;
-        int ScreenHeight=480;
+        //esto sigue el modelo pin hole. la imagen est´a flipped, pero los dos puntitos corresponden a las manos
+        //hay que cambiar el cx y cy y f;
+        //falta un - por algun lado --> cuando se mueven las manos arriba los puntitos bajan
 
-//        This method was found in the following URL: http://stackoverflow.com/questions/5758163/mapping-a-3d-rectangle-to-a-2d-screen
-        //to improve this part, make a constant the tan(pi/4)
-//        ToDo: CHECK IF IT WORKS!
-        float pi=3.1415;
-        float HorizontalFactor = ScreenWidth / tan(pi / 4);
-        float VerticalFactor = ScreenHeight / tan(pi / 4);
+        int width=640;
+        int height=480;
 
-        hand_center_px.first = ((xcenter * HorizontalFactor) / ycenter) + ScreenWidth/2;
-        hand_center_px.second = ((zcenter * VerticalFactor) / ycenter) + ScreenHeight/2;
+//        float constant=0.5; //default
+        float constant=100;
+        float cx = width/2 + constant;
+        float cy = height/2 + constant;
+
+
+        float f=566;
+        float x=xcenter;
+        float y=ycenter;
+        float z=zcenter;
+        hand_center_px.first= cx-f * x/z;
+        hand_center_px.second = cy-f * y/z;
 
 
         std::cerr<<"hand center: "<<hand_center_px.first<<" "<<hand_center_px.second<<std::endl;
@@ -112,24 +114,12 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
         int size=50;
 
         //p1:
-        image_coord.data.push_back(hand_center_px.first+size);
-        image_coord.data.push_back(hand_center_px.second+size);
-
-        //p3:
         image_coord.data.push_back(hand_center_px.first-size);
         image_coord.data.push_back(hand_center_px.second-size);
 
-//        for (unsigned int i=0; i<image_coord.data.size(); i++)
-//        {
-//            if (image_coord.data[i]%2==0)
-//            {
-//                if (image_coord.data[i]>480)
-//                    image_coord.data[i]=480;
-
-//            }
-//            if (image_coord.data[i]>640)
-//                image_coord.data[i]=640;
-//        }
+        //p3:
+        image_coord.data.push_back(hand_center_px.first+size);
+        image_coord.data.push_back(hand_center_px.second+size);
 
         std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
         if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
@@ -203,5 +193,11 @@ void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::Po
 
 void RoiSegmenter3D::coordinates (const TFG::HandLocConstPtr & msg)
 {
-    coord=*msg;
+//    std::cerr<<"Message from pi_tracker: "<<*msg.get()<<std::endl;
+//    coord=*msg;
+    coord.header=msg->header;
+    coord.user_id=msg->user_id;
+    coord.name=msg->name;
+    coord.position=msg->position;
+
 }
