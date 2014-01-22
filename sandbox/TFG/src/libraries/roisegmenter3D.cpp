@@ -18,7 +18,7 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
     sensor_msgs::PointCloud2 cloud_filtered;
 
 
-
+    //    Too slow if this is used :S
     //    sensor_msgs::PointCloud2  cloud_sor;
 
     //    //Statistical outlier removal
@@ -124,9 +124,9 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & /*cloud*
         std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
         if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
         {
-            if(*coord.name.data()=="right_hand")
+            if(coord.name[i]=="right_hand")
                 coord_r_pub.publish (image_coord);
-            else if (*coord.name.data()=="left_hand")
+            else if (coord.name[i]=="left_hand")
                 coord_l_pub.publish (image_coord);
 
         }

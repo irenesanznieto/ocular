@@ -31,8 +31,9 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
     {
 //        ROS_ERROR("DEBUG: P1: (%i,%i)  P2: (%i, %i)", coord.data[0],coord.data[1],coord.data[2],coord.data[3]);
 
+//        Circle to check the position of the hands:
         cv::circle(cv_ptr->image, cv::Point(coord.data[0]-50, coord.data[1]-50), 10, CV_RGB(0,0,0), 100);
-        cv::flip(cv_ptr->image,cv_ptr->image, 1);
+
 
 //        cv::Mat originalImage=cv_ptr->image.clone();
 
@@ -42,10 +43,11 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 
 //        cv_ptr->image=croppedImage.clone();
 
+        cv::flip(cv_ptr->image,cv_ptr->image, 1);
         if(this->hand=="right")
             image_r_pub.publish(cv_ptr->toImageMsg());
         else if(this->hand=="left")
-            image_r_pub.publish(cv_ptr->toImageMsg());
+            image_l_pub.publish(cv_ptr->toImageMsg());
 
     }
 }
