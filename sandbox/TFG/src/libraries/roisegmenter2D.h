@@ -3,7 +3,6 @@
 
 #include <opencv2/opencv.hpp>
 #include <ros/ros.h>
-#include <std_msgs/Int32MultiArray.h>
 
 //Image
 #include <image_transport/image_transport.h>
@@ -12,6 +11,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+#include <TFG/HandLocPx.h>
+#include <TFG/HandImage.h>
 
 class RoiSegmenter2D //: public RoiSegmenter
 {
@@ -22,28 +23,23 @@ private:
     ros::NodeHandle nh;
     image_transport::ImageTransport it;
 
-    image_transport::Publisher image_r_pub;
-    image_transport::Publisher image_l_pub;
+    ros::Publisher image_pub;
 
     image_transport::Subscriber image_sub;
 
-    ros::Subscriber coord_r_sub;
-    ros::Subscriber coord_l_sub;
+    ros::Subscriber coord_sub;
 
 
-    void segment (const sensor_msgs::ImageConstPtr &);
-    void coordinates(const std_msgs::Int32MultiArrayConstPtr &);
+    void segment (const  sensor_msgs::ImageConstPtr &);
+    void coordinates(const TFG::HandLocPxConstPtr &);
 
-    std_msgs::Int32MultiArray coord;
+    TFG::HandLocPx coord;
 
-    void left(const std_msgs::Int32MultiArrayConstPtr & );
-    void right(const std_msgs::Int32MultiArrayConstPtr & );
 
     //used to check if x and y of the square is out of bounds of the screen's limits ;)
     void checkLimits(int & , int& );
 
-    //This will store "left" or "right" depending on the hand
-    std::string hand;
+
 
 };
 

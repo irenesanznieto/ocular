@@ -5,8 +5,10 @@ RoiSegmenter3D::RoiSegmenter3D()
     point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("input", 1, &RoiSegmenter3D::segment, this);
     point_cloud_pub=nh.advertise <sensor_msgs::PointCloud2> ("output_cloud", 1);
 
-    coord_r_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_r_coord", 1);
-    coord_l_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_l_coord", 1);
+    //    coord_r_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_r_coord", 1);
+    //    coord_l_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_l_coord", 1);
+
+    coord_pub= nh.advertise <TFG::HandLocPx> ("output_coord", 1);
 
     coord_sub=nh.subscribe<TFG::HandLoc> ("input_coord", 1, &RoiSegmenter3D::coordinates, this);
 
@@ -57,11 +59,7 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
         y.filter(cloud_filtered);
         z.filter(cloud_filtered);
 
-        //change this with a pcl::PointXY ??
-        std::pair <int, int> hand_center_px;
-
-
-//        3D Pin hole model for the camera
+        //        3D Pin hole model for the camera
 
         //Initial computation used for the pin-hole model
 
@@ -79,11 +77,12 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
 
         float f=520;
 
-//        hand_center_px.first= pin_hole_const.x-f * hand_center.x/hand_center.z;
-//        hand_center_px.second = pin_hole_const.y-f * hand_center.y/hand_center.z;
+        //        hand_center_px.first= pin_hole_const.x-f * hand_center.x/hand_center.z;
+        //        hand_center_px.second = pin_hole_const.y-f * hand_center.y/hand_center.z;
 
-        std_msgs::Int32MultiArray image_coord;
-        image_coord.data.clear();
+        TFG::HandLocPx image_coord;
+        image_coord.points.data.clear();
+
 
         pcl::PointXY p1, p2;
         p1.x=pin_hole_const.x-f * (hand_center.x-box_size.x)/hand_center.z;
@@ -94,29 +93,21 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
         p2.y=pin_hole_const.y-f * (hand_center.y+box_size.y)/hand_center.z;
 
 
-        //p1:
-        image_coord.data.push_back(p1.x);
-        image_coord.data.push_back(p1.y);
+        //p1:coord.name[i]
+        image_coord.points.data.push_back(p1.x);
+        image_coord.points.data.push_back(p1.y);
 
         //p3:
-        image_coord.data.push_back(p2.x);
-        image_coord.data.push_back(p2.y);
-//        //p1:
-//        image_coord.data.push_back(hand_center_px.first-image_size.x);
-//        image_coord.data.push_back(hand_center_px.second-image_size.y);
+        image_coord.points.data.push_back(p2.x);
+        image_coord.points.data.push_back(p2.y);
 
-//        //p3:
-//        image_coord.data.push_back(hand_center_px.first+image_size.x);
-//        image_coord.data.push_back(hand_center_px.second+image_size.y);
+        std::string name=coord.name[i];
 
-//        std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
-        if (image_coord.data[0]>0 && image_coord.data[1]>0 && image_coord.data[2]>0 && image_coord.data[3]>0)
+        //        std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
+        if (image_coord.points.data[0]>0 && image_coord.points.data[1]>0 && image_coord.points.data[2]>0 && image_coord.points.data[3]>0)
         {
-            if(coord.name[i]=="right_hand")
-                coord_r_pub.publish (image_coord);
-            else if (coord.name[i]=="left_hand")
-                coord_l_pub.publish (image_coord);
-
+            image_coord.name=coord.name;
+            coord_pub.publish (image_coord);
         }
 
     }
@@ -134,8 +125,8 @@ void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::Po
 
 void RoiSegmenter3D::coordinates (const TFG::HandLocConstPtr & msg)
 {
-//    std::cerr<<"Message from pi_tracker: "<<*msg.get()<<std::endl;
-//    coord=*msg;
+    //    std::cerr<<"Message from pi_tracker: "<<*msg.get()<<std::endl;
+    //    coord=*msg;
     coord.header=msg->header;
     coord.user_id=msg->user_id;
     coord.name=msg->name;

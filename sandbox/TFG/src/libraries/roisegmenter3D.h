@@ -14,7 +14,7 @@
 
 //Msgs
 #include <sensor_msgs/PointCloud2.h>
-#include <std_msgs/Int32MultiArray.h>
+#include <TFG/HandLocPx.h>
 #include <TFG/HandLoc.h>
 
 
@@ -34,8 +34,9 @@ private:
 
     ros::Publisher point_cloud_pub;
 
-    ros::Publisher coord_r_pub;
-    ros::Publisher coord_l_pub;
+//    ros::Publisher coord_r_pub;
+//    ros::Publisher coord_l_pub;
+    ros::Publisher coord_pub;
 
     void segment(const sensor_msgs::PointCloud2ConstPtr &);
 
