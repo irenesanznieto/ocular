@@ -43,8 +43,8 @@ struct HandImage_ {
   typedef std::vector<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > , typename ContainerAllocator::template rebind<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::other >  _name_type;
   std::vector<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > , typename ContainerAllocator::template rebind<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::other >  name;
 
-  typedef  ::sensor_msgs::Image_<ContainerAllocator>  _image_type;
-   ::sensor_msgs::Image_<ContainerAllocator>  image;
+  typedef std::vector< ::sensor_msgs::Image_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::sensor_msgs::Image_<ContainerAllocator> >::other >  _image_type;
+  std::vector< ::sensor_msgs::Image_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::sensor_msgs::Image_<ContainerAllocator> >::other >  image;
 
 
   typedef boost::shared_ptr< ::TFG::HandImage_<ContainerAllocator> > Ptr;
@@ -99,7 +99,7 @@ struct Definition< ::TFG::HandImage_<ContainerAllocator> > {
   {
     return "Header header\n\
 string[] name\n\
-sensor_msgs/Image image\n\
+sensor_msgs/Image[] image\n\
 \n\
 ================================================================================\n\
 MSG: std_msgs/Header\n\
@@ -198,9 +198,14 @@ s << std::endl;
       s << indent << "  name[" << i << "]: ";
       Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.name[i]);
     }
-    s << indent << "image: ";
-s << std::endl;
-    Printer< ::sensor_msgs::Image_<ContainerAllocator> >::stream(s, indent + "  ", v.image);
+    s << indent << "image[]" << std::endl;
+    for (size_t i = 0; i < v.image.size(); ++i)
+    {
+      s << indent << "  image[" << i << "]: ";
+      s << std::endl;
+      s << indent;
+      Printer< ::sensor_msgs::Image_<ContainerAllocator> >::stream(s, indent + "    ", v.image[i]);
+    }
   }
 };
 

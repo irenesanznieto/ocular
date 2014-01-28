@@ -41,6 +41,7 @@ rosbuild_add_executable(featureextractor2D src/apps/featureextractor2D.cpp)
 #rosbuild_add_executable(display src/apps/display.cpp)
 
 
+rosbuild_add_executable(image_view src/apps/image_view.cpp)
 
 
 #LIBRARIES: 
@@ -59,6 +60,8 @@ target_link_libraries(roi_segmenter3D custom_libs)
 target_link_libraries(featureextractor2D custom_libs)
 #target_link_libraries(data_parser custom_libs)
 #target_link_libraries(display custom_libs)
+
+target_link_libraries(image_view custom_libs)
 
 
 #GTESTS:

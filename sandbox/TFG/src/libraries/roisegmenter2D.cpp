@@ -54,7 +54,7 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
             cv::flip(cv_ptr->image,cv_ptr->image, 1);
 
             TFG::HandImage final_image;
-            final_image.image=*cv_ptr->toImageMsg();
+            final_image.image.push_back(*cv_ptr->toImageMsg());
 
             final_image.name=coord.name;
 

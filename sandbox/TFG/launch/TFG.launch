@@ -37,8 +37,8 @@
 	<node pkg="TFG" type="featureextractor2D" name="featureextractor2D" args="input_r_image:=/TFG/ROI2D_r input_l_image:=/TFG/ROI2D_l"/>
 		
 <!--	VIEW IMAGES-->
-<!--    <node pkg="image_view" type="image_view"  name="ROI2D_l" args="image:=/TFG/ROI2D"/>-->
-<!--    <node pkg="image_view" type="image_view"  name="ROI2D_r" args="image:=/TFG/ROI2D_r"/>-->
+    <node pkg="TFG" type="image_view"  name="ROI2D" args="image:=/TFG/ROI2D"/>
+
         
 <!--    <node pkg="image_view" type="image_view"  name="kinect_image" args="image:=/camera/rgb/image_color"/>-->
 

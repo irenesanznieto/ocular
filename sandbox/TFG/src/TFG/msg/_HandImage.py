@@ -13,7 +13,7 @@ class HandImage(genpy.Message):
   _has_header = True #flag to mark the presence of a Header object
   _full_text = """Header header
 string[] name
-sensor_msgs/Image image
+sensor_msgs/Image[] image
 
 ================================================================================
 MSG: std_msgs/Header
@@ -65,7 +65,7 @@ uint8[] data          # actual matrix data, size is (step * rows)
 
 """
   __slots__ = ['header','name','image']
-  _slot_types = ['std_msgs/Header','string[]','sensor_msgs/Image']
+  _slot_types = ['std_msgs/Header','string[]','sensor_msgs/Image[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -89,11 +89,11 @@ uint8[] data          # actual matrix data, size is (step * rows)
       if self.name is None:
         self.name = []
       if self.image is None:
-        self.image = sensor_msgs.msg.Image()
+        self.image = []
     else:
       self.header = std_msgs.msg.Header()
       self.name = []
-      self.image = sensor_msgs.msg.Image()
+      self.image = []
 
   def _get_types(self):
     """
@@ -123,31 +123,37 @@ uint8[] data          # actual matrix data, size is (step * rows)
           val1 = val1.encode('utf-8')
           length = len(val1)
         buff.write(struct.pack('<I%ss'%length, length, val1))
-      _x = self
-      buff.write(_struct_3I.pack(_x.image.header.seq, _x.image.header.stamp.secs, _x.image.header.stamp.nsecs))
-      _x = self.image.header.frame_id
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
+      length = len(self.image)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.image:
+        _v1 = val1.header
+        buff.write(_struct_I.pack(_v1.seq))
+        _v2 = _v1.stamp
+        _x = _v2
+        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
+        _x = _v1.frame_id
         length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_2I.pack(_x.image.height, _x.image.width))
-      _x = self.image.encoding
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
-        length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_BI.pack(_x.image.is_bigendian, _x.image.step))
-      _x = self.image.data
-      length = len(_x)
-      # - if encoded as a list instead, serialize as bytes instead of string
-      if type(_x) in [list, tuple]:
-        buff.write(struct.pack('<I%sB'%length, length, *_x))
-      else:
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
+        _x = val1
+        buff.write(_struct_2I.pack(_x.height, _x.width))
+        _x = val1.encoding
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+        _x = val1
+        buff.write(_struct_BI.pack(_x.is_bigendian, _x.step))
+        _x = val1.data
+        length = len(_x)
+        # - if encoded as a list instead, serialize as bytes instead of string
+        if type(_x) in [list, tuple]:
+          buff.write(struct.pack('<I%sB'%length, length, *_x))
+        else:
+          buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -160,7 +166,7 @@ uint8[] data          # actual matrix data, size is (step * rows)
       if self.header is None:
         self.header = std_msgs.msg.Header()
       if self.image is None:
-        self.image = sensor_msgs.msg.Image()
+        self.image = None
       end = 0
       _x = self
       start = end
@@ -190,42 +196,54 @@ uint8[] data          # actual matrix data, size is (step * rows)
         else:
           val1 = str[start:end]
         self.name.append(val1)
-      _x = self
-      start = end
-      end += 12
-      (_x.image.header.seq, _x.image.header.stamp.secs, _x.image.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.image.header.frame_id = str[start:end].decode('utf-8')
-      else:
-        self.image.header.frame_id = str[start:end]
-      _x = self
-      start = end
-      end += 8
-      (_x.image.height, _x.image.width,) = _struct_2I.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.image.encoding = str[start:end].decode('utf-8')
-      else:
-        self.image.encoding = str[start:end]
-      _x = self
-      start = end
-      end += 5
-      (_x.image.is_bigendian, _x.image.step,) = _struct_BI.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      self.image.data = str[start:end]
+      self.image = []
+      for i in range(0, length):
+        val1 = sensor_msgs.msg.Image()
+        _v3 = val1.header
+        start = end
+        end += 4
+        (_v3.seq,) = _struct_I.unpack(str[start:end])
+        _v4 = _v3.stamp
+        _x = _v4
+        start = end
+        end += 8
+        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v3.frame_id = str[start:end].decode('utf-8')
+        else:
+          _v3.frame_id = str[start:end]
+        _x = val1
+        start = end
+        end += 8
+        (_x.height, _x.width,) = _struct_2I.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          val1.encoding = str[start:end].decode('utf-8')
+        else:
+          val1.encoding = str[start:end]
+        _x = val1
+        start = end
+        end += 5
+        (_x.is_bigendian, _x.step,) = _struct_BI.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        val1.data = str[start:end]
+        self.image.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -254,31 +272,37 @@ uint8[] data          # actual matrix data, size is (step * rows)
           val1 = val1.encode('utf-8')
           length = len(val1)
         buff.write(struct.pack('<I%ss'%length, length, val1))
-      _x = self
-      buff.write(_struct_3I.pack(_x.image.header.seq, _x.image.header.stamp.secs, _x.image.header.stamp.nsecs))
-      _x = self.image.header.frame_id
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
+      length = len(self.image)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.image:
+        _v5 = val1.header
+        buff.write(_struct_I.pack(_v5.seq))
+        _v6 = _v5.stamp
+        _x = _v6
+        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
+        _x = _v5.frame_id
         length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_2I.pack(_x.image.height, _x.image.width))
-      _x = self.image.encoding
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
-        length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_BI.pack(_x.image.is_bigendian, _x.image.step))
-      _x = self.image.data
-      length = len(_x)
-      # - if encoded as a list instead, serialize as bytes instead of string
-      if type(_x) in [list, tuple]:
-        buff.write(struct.pack('<I%sB'%length, length, *_x))
-      else:
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
         buff.write(struct.pack('<I%ss'%length, length, _x))
+        _x = val1
+        buff.write(_struct_2I.pack(_x.height, _x.width))
+        _x = val1.encoding
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+        _x = val1
+        buff.write(_struct_BI.pack(_x.is_bigendian, _x.step))
+        _x = val1.data
+        length = len(_x)
+        # - if encoded as a list instead, serialize as bytes instead of string
+        if type(_x) in [list, tuple]:
+          buff.write(struct.pack('<I%sB'%length, length, *_x))
+        else:
+          buff.write(struct.pack('<I%ss'%length, length, _x))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -292,7 +316,7 @@ uint8[] data          # actual matrix data, size is (step * rows)
       if self.header is None:
         self.header = std_msgs.msg.Header()
       if self.image is None:
-        self.image = sensor_msgs.msg.Image()
+        self.image = None
       end = 0
       _x = self
       start = end
@@ -322,42 +346,54 @@ uint8[] data          # actual matrix data, size is (step * rows)
         else:
           val1 = str[start:end]
         self.name.append(val1)
-      _x = self
-      start = end
-      end += 12
-      (_x.image.header.seq, _x.image.header.stamp.secs, _x.image.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.image.header.frame_id = str[start:end].decode('utf-8')
-      else:
-        self.image.header.frame_id = str[start:end]
-      _x = self
-      start = end
-      end += 8
-      (_x.image.height, _x.image.width,) = _struct_2I.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      if python3:
-        self.image.encoding = str[start:end].decode('utf-8')
-      else:
-        self.image.encoding = str[start:end]
-      _x = self
-      start = end
-      end += 5
-      (_x.image.is_bigendian, _x.image.step,) = _struct_BI.unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      start = end
-      end += length
-      self.image.data = str[start:end]
+      self.image = []
+      for i in range(0, length):
+        val1 = sensor_msgs.msg.Image()
+        _v7 = val1.header
+        start = end
+        end += 4
+        (_v7.seq,) = _struct_I.unpack(str[start:end])
+        _v8 = _v7.stamp
+        _x = _v8
+        start = end
+        end += 8
+        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v7.frame_id = str[start:end].decode('utf-8')
+        else:
+          _v7.frame_id = str[start:end]
+        _x = val1
+        start = end
+        end += 8
+        (_x.height, _x.width,) = _struct_2I.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          val1.encoding = str[start:end].decode('utf-8')
+        else:
+          val1.encoding = str[start:end]
+        _x = val1
+        start = end
+        end += 5
+        (_x.is_bigendian, _x.step,) = _struct_BI.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        val1.data = str[start:end]
+        self.image.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
