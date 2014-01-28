@@ -61,3 +61,8 @@ target_link_libraries(featureextractor2D custom_libs)
 #target_link_libraries(display custom_libs)
 
 
+#GTESTS:
+rosbuild_add_gtest(tests/ConverterTest src/tests/ConverterTest.cpp)
+target_link_libraries(tests/ConverterTest custom_libs)
+
+

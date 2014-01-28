@@ -18,5 +18,6 @@ private:
 
     void input_callback(const pi_tracker::SkeletonConstPtr &);
 
+    TFG::HandLoc hand_location;
 };
 #endif // CONVERTER_H

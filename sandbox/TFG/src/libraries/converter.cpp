@@ -10,9 +10,6 @@ Converter::Converter()
 
 void Converter::input_callback(const pi_tracker::SkeletonConstPtr &msg)
 {
-
-   TFG::HandLoc hand_location;
-
    hand_location.header=msg->header;
    hand_location.user_id=msg->user_id;
    //left_hand --> 5, right_hand --> 8
