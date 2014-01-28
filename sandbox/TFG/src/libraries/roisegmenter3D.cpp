@@ -37,6 +37,8 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
     box_size.y=box_size.x;
     box_size.z=0.05;
 
+    TFG::HandLocPx image_coord;
+
 
     for (unsigned int i=0; i<coord.position.size(); i++)
     {
@@ -80,7 +82,6 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
         //        hand_center_px.first= pin_hole_const.x-f * hand_center.x/hand_center.z;
         //        hand_center_px.second = pin_hole_const.y-f * hand_center.y/hand_center.z;
 
-        TFG::HandLocPx image_coord;
         image_coord.points.data.clear();
 
 
@@ -101,16 +102,15 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
         image_coord.points.data.push_back(p2.x);
         image_coord.points.data.push_back(p2.y);
 
-        std::string name=coord.name[i];
 
         //        std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
         if (image_coord.points.data[0]>0 && image_coord.points.data[1]>0 && image_coord.points.data[2]>0 && image_coord.points.data[3]>0)
         {
-            image_coord.name=coord.name;
-            coord_pub.publish (image_coord);
+            image_coord.name.push_back(coord.name[i].data());
         }
 
     }
+    coord_pub.publish (image_coord);
 
     //publish ROI 3D
     point_cloud_pub.publish(cloud_filtered);
