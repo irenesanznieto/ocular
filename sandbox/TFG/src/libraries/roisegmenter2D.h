@@ -19,18 +19,20 @@ class RoiSegmenter2D //: public RoiSegmenter
 public:
     RoiSegmenter2D();
 
+    ~RoiSegmenter2D();
+
 private:
     ros::NodeHandle nh;
-//    image_transport::ImageTransport it;
+    image_transport::ImageTransport it;
 
     ros::Publisher image_pub;
 
-    ros::Subscriber image_sub;
+    image_transport::Subscriber image_sub;
 
     ros::Subscriber coord_sub;
 
 
-    void segment (const TFG::HandImageConstPtr &);
+    void segment (const sensor_msgs::ImageConstPtr &);
     void coordinates(const TFG::HandLocPxConstPtr &);
 
     TFG::HandLocPx coord;

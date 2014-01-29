@@ -110,6 +110,7 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
         }
 
     }
+
     coord_pub.publish (image_coord);
 
     //publish ROI 3D

@@ -10,17 +10,23 @@
 class ImageConverter
 {
     ros::NodeHandle nh_;
-    //  image_transport::ImageTransport it_;
+    image_transport::ImageTransport it_;
     ros::Subscriber image_sub_;
+    image_transport::Publisher image_pub_r, image_pub_l;
+
 
 public:
     ImageConverter()
-    //    : it_(nh_)
+        : it_(nh_)
     {
-        cv::namedWindow("left_hand");
-        cv::namedWindow("right_hand");
+//        cv::namedWindow("left_hand");
+//        cv::namedWindow("right_hand");
         // Subscrive to input video feed and publish output video feed
-        image_sub_ = nh_.subscribe<TFG::HandImage>("image", 1,&ImageConverter::imageCb, this);
+        image_sub_ = nh_.subscribe<TFG::HandImage>("image_in", 1,&ImageConverter::imageCb, this);
+
+        image_pub_r=it_.advertise("image_out_r", 1);
+        image_pub_l=it_.advertise("image_out_l", 1);
+
     }
 
 
@@ -34,25 +40,36 @@ public:
     {
 
 
-        cv_bridge::CvImagePtr cv_ptr;
+//        cv_bridge::CvImagePtr cv_ptr;
         for(unsigned int i=0; i<msg->image.size(); i++)
         {
 
-            try
-            {
-                cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::BGR8);
-            }
-            catch (cv_bridge::Exception& e)
-            {
-                ROS_ERROR("cv_bridge exception: %s", e.what());
-                return;
-            }
+            std::cout<<msg->name.data()<<std::endl;
+
+            if (*msg->name.data()=="left_hand")
+                image_pub_l.publish(msg->image[i]);
+
+
+            else if (*msg->name.data()=="right_hand")
+                image_pub_r.publish(msg->image[i]);
+
+
+
+//            try
+//            {
+//                cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::BGR8);
+//            }
+//            catch (cv_bridge::Exception& e)
+//            {
+//                ROS_ERROR("cv_bridge exception: %s", e.what());
+//                return;
+//            }
 
             // Update GUI Window
 
-            cv::imshow(msg->name[i].data()  , cv_ptr->image);
-            cv::waitKey(3);
-            cv_ptr->image.empty();
+//            if (!cv_ptr->image.empty())
+//                cv::imshow(msg->name[i].data()  , cv_ptr->image);
+//            cv::waitKey(3);
         }
 
 
