@@ -5,7 +5,6 @@
 #include "featureextractor2D.h"
 #include "featureextractor3D.h"
 
-//#include <pcl/recognition/line_rgbd.h>
 
 class TrainerMatcher
 {
@@ -14,20 +13,6 @@ class TrainerMatcher
 		void save();
 		void load();
 		
-	protected: 
-	
-		DataParser dataparser; 
-		
-		//2D: 
-		cv::ORB orb; 
-		FeatureExtractor2D fe2D; 
-
-
-
-
-		//3D: 
-		FeatureExtractor3D fe3D; 
-		//pcl::LineRGBD <pcl::PointXYZRGBA> line_rgbd; 
 };
 
 #endif //TRAINER_MATCHER_H

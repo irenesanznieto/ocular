@@ -5,7 +5,7 @@
 #include <ros/ros.h>
 
 //PCL's includes
-#include <pcl/io/pcd_io.h>
+//#include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/passthrough.h>
 #include <pcl/ros/conversions.h>
