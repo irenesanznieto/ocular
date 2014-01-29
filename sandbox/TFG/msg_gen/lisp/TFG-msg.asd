@@ -6,6 +6,8 @@
                :std_msgs-msg
 )
   :components ((:file "_package")
+    (:file "Features2D" :depends-on ("_package_Features2D"))
+    (:file "_package_Features2D" :depends-on ("_package"))
     (:file "HandLoc" :depends-on ("_package_HandLoc"))
     (:file "_package_HandLoc" :depends-on ("_package"))
   ))
