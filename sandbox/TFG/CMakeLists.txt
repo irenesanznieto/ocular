@@ -37,6 +37,7 @@ rosbuild_add_executable(converter src/apps/converter.cpp)
 rosbuild_add_executable(roi_segmenter2D	src/apps/roi_segmenter2D.cpp)
 rosbuild_add_executable(roi_segmenter3D	src/apps/roi_segmenter3D.cpp)
 rosbuild_add_executable(featureextractor2D src/apps/featureextractor2D.cpp)
+rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
 #rosbuild_add_executable(data_parser src/apps/data_parser.cpp)
 #rosbuild_add_executable(display src/apps/display.cpp)
 
@@ -45,12 +46,13 @@ rosbuild_add_executable(image_view src/apps/image_view.cpp)
 
 
 #LIBRARIES: 
-FILE(GLOB LIBRARIES_SRCS src/libraries/*.cpp)
+FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
+FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/other/*.cpp)
+rosbuild_add_library(other_libs ${LIBRARIES_SRCS})
 
 #LINKING:
-
 target_link_libraries(recognizer custom_libs)
 target_link_libraries(learner custom_libs)
 #target_link_libraries(event_handler custom_libs)
@@ -58,14 +60,10 @@ target_link_libraries(converter custom_libs)
 target_link_libraries(roi_segmenter2D custom_libs)
 target_link_libraries(roi_segmenter3D custom_libs)
 target_link_libraries(featureextractor2D custom_libs)
+target_link_libraries(featureextractor3D other_libs)
 #target_link_libraries(data_parser custom_libs)
 #target_link_libraries(display custom_libs)
-
-target_link_libraries(image_view custom_libs)
-
 
 #GTESTS:
 rosbuild_add_gtest(tests/ConverterTest src/tests/ConverterTest.cpp)
 target_link_libraries(tests/ConverterTest custom_libs)
-
-

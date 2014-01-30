@@ -1,3 +1,3 @@
 Header header
-string[] name
+string name
 sensor_msgs/PointCloud2 pointcloud

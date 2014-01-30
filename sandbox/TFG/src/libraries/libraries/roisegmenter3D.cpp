@@ -11,10 +11,6 @@ RoiSegmenter3D::RoiSegmenter3D()
     coord_pub= nh.advertise <TFG::HandLocPx> ("output_coord", 1);
 
     coord_sub=nh.subscribe<TFG::HandLoc> ("input_coord", 1, &RoiSegmenter3D::coordinates, this);
-
-
-
-
 }
 
 void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
