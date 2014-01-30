@@ -1,24 +1,24 @@
 #include <iostream>
-#include "../src/libraries/trigger.h"
+//#include "../src/libraries/trigger.h"
 
 void instructions();
 
 
 int main ()
 {
-    instructions();
-    Trigger trigger;
+//    instructions();
+//    Trigger trigger;
 
-    //change this!!
-    while (1)
-    {
+//    //change this!!
+//    while (1)
+//    {
 
-        if (trigger.on==true)
-        {
-            return 0;
-        }
+//        if (trigger.on==true)
+//        {
+//            return 0;
+//        }
 
-    }
+//    }
 }
 
 void instructions()

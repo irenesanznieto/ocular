@@ -1,13 +1,13 @@
 #include <iostream>
 #include <ros/ros.h>
-#include "../libraries/converter.h"
+//#include "../libraries/converter.h"
 
 int main (int argc,char* argv[])
 {
-    ros::init(argc, argv, "CONVERTER");
-    Converter converter;
+//    ros::init(argc, argv, "CONVERTER");
+//    Converter converter;
 
-    ros::spin();
+//    ros::spin();
 
-    return 0;
+//    return 0;
 }

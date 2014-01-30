@@ -1,11 +1,11 @@
-#include "../libraries/featureextractor2D.h"
+//#include "../libraries/featureextractor2D.h"
 
 int main (int argc,char* argv[])
 {
-    ros::init(argc, argv, "FEATUREEXTRACTOR2D");
-    FeatureExtractor2D featureExtractor2D;
+//    ros::init(argc, argv, "FEATUREEXTRACTOR2D");
+//    FeatureExtractor2D featureExtractor2D;
 
-    ros::spin();
+//    ros::spin();
 
-    return 0;
+//    return 0;
 }
