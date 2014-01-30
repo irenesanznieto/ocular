@@ -18,3 +18,7 @@ devel/
 *.dia~
 *.txt.user
 *.ps
+
+sandbox/TFG/msg_gen/*
+sandbox/TFG/src/TFG/*
+
