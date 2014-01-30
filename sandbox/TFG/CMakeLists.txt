@@ -48,9 +48,10 @@ rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
 FILE(GLOB LIBRARIES_SRCS src/libraries/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
+FILE(GLOB LIBRARIES_SRCS src/libraries/other/*.cpp)
+rosbuild_add_library(other_libs ${LIBRARIES_SRCS})
 
 #LINKING:
-
 target_link_libraries(recognizer custom_libs)
 target_link_libraries(learner custom_libs)
 #target_link_libraries(event_handler custom_libs)
@@ -58,7 +59,7 @@ target_link_libraries(converter custom_libs)
 target_link_libraries(roi_segmenter2D custom_libs)
 target_link_libraries(roi_segmenter3D custom_libs)
 target_link_libraries(featureextractor2D custom_libs)
-target_link_libraries(featureextractor3D custom_libs)
+target_link_libraries(featureextractor3D other_libs)
 #target_link_libraries(data_parser custom_libs)
 #target_link_libraries(display custom_libs)
 

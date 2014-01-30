@@ -1,4 +1,4 @@
-#include "../libraries/featureextractor3D.h"
+#include "../libraries/other/featureextractor3D.h"
 
 int main (int argc,char* argv[])
 {

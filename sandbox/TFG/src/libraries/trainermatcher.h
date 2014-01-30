@@ -3,7 +3,7 @@
 
 #include "dataparser.h"
 #include "featureextractor2D.h"
-#include "featureextractor3D.h"
+//#include "featureextractor3D.h"
 
 
 class TrainerMatcher
