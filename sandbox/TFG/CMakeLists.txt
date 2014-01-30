@@ -45,10 +45,10 @@ rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
 
 
 #LIBRARIES: 
-FILE(GLOB LIBRARIES_SRCS src/libraries/*.cpp)
+FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
-FILE(GLOB LIBRARIES_SRCS src/libraries/other/*.cpp)
+FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/other/*.cpp)
 rosbuild_add_library(other_libs ${LIBRARIES_SRCS})
 
 #LINKING:
