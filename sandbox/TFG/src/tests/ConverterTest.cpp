@@ -3,11 +3,14 @@
 #include <gtest/gtest.h>
 #include <pi_tracker/Skeleton.h>
 
+/*!
+    * \brief Test that checks the correct behaviour of the handCoordinatesExtractor method from the Converter class,
+    *the method that extracts the hands information from the pi_tracker::Skeleton message
+    */
 
-// Declare the tests
-
-TEST(Converter,input_callback)
+TEST(Converter,handCoordinatesExtractor)
 {
+    
     Converter c;
     pi_tracker::Skeleton message;
 
@@ -107,7 +110,7 @@ TEST(Converter,input_callback)
     message.position[14].y= -0.517969543457;
     message.position[14].z= 0.936475585938;
 
-    //    Orientation ->?
+    //    Orientation -> not used and hence, not tested
 
     TFG::HandLoc result=c.handCoordinatesExtractor(message);
 
