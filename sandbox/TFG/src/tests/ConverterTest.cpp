@@ -4,9 +4,9 @@
 #include <pi_tracker/Skeleton.h>
 
 /*!
-    * \brief Test that checks the correct behaviour of the handCoordinatesExtractor method from the Converter class,
-    *the method that extracts the hands information from the pi_tracker::Skeleton message
-    */
+* \brief Test that checks the correct behaviour of the handCoordinatesExtractor method from the Converter class,
+*the method that extracts the hands information from the pi_tracker::Skeleton message
+*/
 
 TEST(Converter,handCoordinatesExtractor)
 {
@@ -14,7 +14,7 @@ TEST(Converter,handCoordinatesExtractor)
     Converter c;
     pi_tracker::Skeleton message;
 
-    //    Header
+//        Header
     message.header.seq=187;
     message.header.stamp.sec=1390833331;
     message.header.stamp.nsec=843339980;
@@ -40,7 +40,7 @@ TEST(Converter,handCoordinatesExtractor)
     message.name.push_back("right_knee");
     message.name.push_back("right_foot");
 
-    //    Confidence
+//        Confidence
     for (int i=0; i<14; i++)
         message.confidence.push_back(0.0);
 
@@ -110,12 +110,11 @@ TEST(Converter,handCoordinatesExtractor)
     message.position[14].y= -0.517969543457;
     message.position[14].z= 0.936475585938;
 
-    //    Orientation -> not used and hence, not tested
-
+//        Orientation -> not used and hence, not tested
     TFG::HandLoc result=c.handCoordinatesExtractor(message);
 
 
-    //    Header
+//        Header
     EXPECT_EQ(187, result.header.seq);
     EXPECT_EQ(1390833331, result.header.stamp.sec);
     EXPECT_EQ(843339980, result.header.stamp.nsec);
@@ -129,7 +128,7 @@ TEST(Converter,handCoordinatesExtractor)
     EXPECT_EQ("right_hand", result.name[1]);
 
 
-    //    Position
+//        Position
     EXPECT_EQ( -0.382902069092, result.position[0].x);
     EXPECT_EQ( -0.0380207214355, result.position[0].y);
     EXPECT_EQ( 0.759758544922, result.position[0].z);
@@ -142,7 +141,6 @@ TEST(Converter,handCoordinatesExtractor)
 
 
 
-// Run all the tests declared with TEST()
 int main (int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
