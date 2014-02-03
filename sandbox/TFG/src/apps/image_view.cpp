@@ -21,11 +21,10 @@ public:
     {
 //        cv::namedWindow("left_hand");
 //        cv::namedWindow("right_hand");
-        // Subscrive to input video feed and publish output video feed
         image_sub_ = nh_.subscribe<TFG::HandImage>("image_in", 1,&ImageConverter::imageCb, this);
 
-        image_pub_r=it_.advertise("image_out_r", 1);
-        image_pub_l=it_.advertise("image_out_l", 1);
+        image_pub_r=it_.advertise("image_right_hand", 1);
+        image_pub_l=it_.advertise("image_left_hand", 1);
 
     }
 
