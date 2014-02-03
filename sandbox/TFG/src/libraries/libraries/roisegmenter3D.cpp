@@ -1,19 +1,9 @@
 #include "roisegmenter3D.h"
 
 RoiSegmenter3D::RoiSegmenter3D()
-{
-    point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("input", 1, &RoiSegmenter3D::segment, this);
-    point_cloud_pub=nh.advertise <sensor_msgs::PointCloud2> ("output_cloud", 1);
+{}
 
-    //    coord_r_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_r_coord", 1);
-    //    coord_l_pub= nh.advertise <std_msgs::Int32MultiArray> ("output_l_coord", 1);
-
-    coord_pub= nh.advertise <TFG::HandLocPx> ("output_coord", 1);
-
-    coord_sub=nh.subscribe<TFG::HandLoc> ("input_coord", 1, &RoiSegmenter3D::coordinates, this);
-}
-
-void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
+sensor_msgs::PointCloud2 RoiSegmenter3D::segment(const sensor_msgs::PointCloud2ConstPtr &cloud )
 {
     sensor_msgs::PointCloud2 cloud_filtered;
 
@@ -25,38 +15,41 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
     y.setInputCloud(cloud);
     z.setInputCloud(cloud);
 
-
-    //TODO: put this as a function of the distance to the kinect --> is it necessary?
-    pcl::PointXYZ box_size;
     //x and y should be the same -> the bounding box of an open or closed hand is approximately a square (not a rectangle)
     box_size.x=0.1;
     box_size.y=box_size.x;
     box_size.z=0.05;
 
-    TFG::HandLocPx image_coord;
-
-
     for (unsigned int i=0; i<coord.position.size(); i++)
     {
-
-        pcl::PointXYZ hand_center;
-        hand_center.x= coord.position[i].x;
-        hand_center.y=coord.position[i].y;
-        hand_center.z=coord.position[i].z;
-
         //set limits  --> assuming the obtained position is the center, filter a cube
         x.setFilterFieldName("x");
-        x.setFilterLimits(hand_center.x-box_size.x,hand_center.x+box_size.x); // unit : meter
+        x.setFilterLimits(coord.position[i].x-box_size.x,coord.position[i].x+box_size.x); // unit : meter
         y.setFilterFieldName("y");
-        y.setFilterLimits(hand_center.y-box_size.y,hand_center.y+box_size.y); // unit : meter
+        y.setFilterLimits(coord.position[i].y-box_size.y,coord.position[i].y+box_size.y); // unit : meter
         z.setFilterFieldName("z");
-        z.setFilterLimits(hand_center.z-box_size.z,hand_center.z+box_size.z); // unit : meter
+        z.setFilterLimits(coord.position[i].z-box_size.z,coord.position[i].z+box_size.z); // unit : meter
 
         //filter
         x.filter(cloud_filtered);
         y.filter(cloud_filtered);
         z.filter(cloud_filtered);
 
+    }
+
+    //return ROI 3D
+    return (cloud_filtered);
+}
+
+
+TFG::HandLocPx RoiSegmenter3D:: distance2px()
+
+{
+    TFG::HandLocPx image_coord;
+
+
+    for (unsigned int i=0; i<coord.position.size(); i++)
+    {
         //        3D Pin hole model for the camera
 
         //Initial computation used for the pin-hole model
@@ -75,19 +68,19 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
 
         float f=520;
 
-        //        hand_center_px.first= pin_hole_const.x-f * hand_center.x/hand_center.z;
-        //        hand_center_px.second = pin_hole_const.y-f * hand_center.y/hand_center.z;
+        //        hand_center_px.first= pin_hole_const.x-f * coord.position[i].x/coord.position[i].z;
+        //        hand_center_px.second = pin_hole_const.y-f * coord.position[i].y/coord.position[i].z;
 
         image_coord.points.data.clear();
 
 
         pcl::PointXY p1, p2;
-        p1.x=pin_hole_const.x-f * (hand_center.x-box_size.x)/hand_center.z;
-        p1.y=pin_hole_const.y-f * (hand_center.y-box_size.y)/hand_center.z;
+        p1.x=pin_hole_const.x-f * (coord.position[i].x-box_size.x)/coord.position[i].z;
+        p1.y=pin_hole_const.y-f * (coord.position[i].y-box_size.y)/coord.position[i].z;
 
 
-        p2.x=pin_hole_const.x-f * (hand_center.x+box_size.x)/hand_center.z;
-        p2.y=pin_hole_const.y-f * (hand_center.y+box_size.y)/hand_center.z;
+        p2.x=pin_hole_const.x-f * (coord.position[i].x+box_size.x)/coord.position[i].z;
+        p2.y=pin_hole_const.y-f * (coord.position[i].y+box_size.y)/coord.position[i].z;
 
 
         //p1:coord.name[i]
@@ -107,26 +100,14 @@ void RoiSegmenter3D:: segment (const sensor_msgs::PointCloud2ConstPtr & cloud )
 
     }
 
-    coord_pub.publish (image_coord);
-
-    //publish ROI 3D
-    point_cloud_pub.publish(cloud_filtered);
-
-}
-
-
-void RoiSegmenter3D:: distance2px(pcl::PointCloud<pcl::PointXYZ>& cloud, pcl::PointCloud <pcl::PointXYZ>& output_cloud)
-{
+    return(image_coord);
 
 }
 
 void RoiSegmenter3D::coordinates (const TFG::HandLocConstPtr & msg)
 {
-    //    std::cerr<<"Message from pi_tracker: "<<*msg.get()<<std::endl;
-    //    coord=*msg;
     coord.header=msg->header;
     coord.user_id=msg->user_id;
     coord.name=msg->name;
     coord.position=msg->position;
-
 }

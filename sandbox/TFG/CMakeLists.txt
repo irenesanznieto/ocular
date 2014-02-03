@@ -46,7 +46,7 @@ rosbuild_add_executable(image_view src/apps/image_view.cpp)
 
 
 #LIBRARIES: 
-FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp)
+FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp src/libraries/nodes/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
 FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/other/*.cpp)

@@ -31,10 +31,5 @@ public:
     */
     TFG::HandLoc handCoordinatesExtractor(const pi_tracker::Skeleton & msg);
 
-
-private:
-
-    TFG::HandLoc hand_location;    /** @todo Is this variable really used?? */
-
 };
 #endif // CONVERTER_H

@@ -10,9 +10,7 @@
 
 //* ConverterNode class
 /**
- * This class connects the methods implemented in the Converter class with the other packages through ROS nodes. 
- * 
-*  
+* This class connects the methods implemented in the Converter class with the other packages through ROS nodes.
 */
 
 class ConverterNode
