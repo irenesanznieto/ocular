@@ -19,25 +19,13 @@ class RoiSegmenter2D //: public RoiSegmenter
 public:
     RoiSegmenter2D();
 
+    TFG::HandImage segment(const sensor_msgs::ImageConstPtr &);
+    void coordinates(const TFG::HandLocPxConstPtr &);
+
     ~RoiSegmenter2D();
 
 private:
-    ros::NodeHandle nh;
-    image_transport::ImageTransport it;
-
-    ros::Publisher image_pub;
-
-    image_transport::Subscriber image_sub;
-
-    ros::Subscriber coord_sub;
-
-
-    void segment (const sensor_msgs::ImageConstPtr &);
-    void coordinates(const TFG::HandLocPxConstPtr &);
-
     TFG::HandLocPx coord;
-
-
     //used to check if x and y of the square is out of bounds of the screen's limits ;)
     void checkLimits(int & , int& );
 

@@ -30,7 +30,6 @@ public:
     /*!
     * \brief Public constructor
     */
-    
     RoiSegmenter3D();
 
 
@@ -39,34 +38,28 @@ public:
     *
     * In this case, there are two segmented regions (both the right and left hands). The point cloud of interest is a cube with fixed dimensions extracted from the original point cloud.
     */
-
     sensor_msgs::PointCloud2 segment(const sensor_msgs::PointCloud2ConstPtr &);
 
 
+    /*!
+    * \brief Callback method that stores the hand location message in a class variable
+    *
+    * Stores the TFG::HandLoc message in the coord private variable
+    */
     void coordinates (const TFG::HandLocConstPtr &);
 
     /*!
-        * \brief Method that transforms the 3D world coordinates to pixels
-        *
-        * It is used to determine the limits of the 2D ROI.
-        */
-
+    * \brief Method that transforms the 3D world coordinates to pixels
+    *
+    * It is used to determine the limits of the 2D ROI.
+    */
     TFG::HandLocPx distance2px();
 
 
 private:
 
-
-
-
-    pcl::PointXYZ box_size;
-
-
-
-    TFG::HandLoc coord;/** @todo Is this variable really used?? */
-
-
-
+    pcl::PointXYZ box_size;     /** Stores the ROI dimensions (in 3D) */
+    TFG::HandLoc coord;     /** Stores the TFG::HandLoc message received from the ConverterNode */
 };
 
 #endif // ROISEGMENTER3D_H

@@ -1,15 +1,10 @@
 #include "roisegmenter2D.h"
 
-RoiSegmenter2D::RoiSegmenter2D(): it(nh)
+RoiSegmenter2D::RoiSegmenter2D()
 {
-    coord_sub=nh.subscribe <TFG::HandLocPx>("input_coord", 1, &RoiSegmenter2D::coordinates, this);
 
-    image_sub=it.subscribe("input", 1, &RoiSegmenter2D::segment, this);
-
-    image_pub=nh.advertise<TFG::HandImage>("output",1);
-
-    cv::namedWindow("left_hand");
-    cv::namedWindow("right_hand");
+//    cv::namedWindow("left_hand");
+//    cv::namedWindow("right_hand");
 }
 
 
@@ -19,7 +14,7 @@ RoiSegmenter2D::~RoiSegmenter2D()
 
 }
 
-void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
+TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 {
     cv_bridge::CvImagePtr cv_ptr;
     TFG::HandImage final_image;
@@ -37,11 +32,10 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
             catch (cv_bridge::Exception& e)
             {
                 ROS_ERROR("cv_bridge exception: %s", e.what());
-                return;
             }
             //        ROS_ERROR("DEBUG: P1: (%i,%i)  P2: (%i, %i)", coord.data[0],coord.data[1],coord.data[2],coord.data[3]);
 
-            //        Circle to check the position of the hands:
+            //        Draw a circle to check the position of the hands:
             //        cv::circle(cv_ptr->image, cv::Point(coord.data[0]+abs(coord.data[0]-coord.data[2])/2, coord.data[1]+abs(coord.data[1]-coord.data[3])/2), 10, CV_RGB(255,0,0), 10);
 
             cv::Mat originalImage=cv_ptr->image.clone();
@@ -52,16 +46,6 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
             int x2=coord.points.data[2];
             int y2=coord.points.data[3];
 
-            //            int n;
-            //            if (i=0)
-            //                n=0;
-            //            else if (i=1)
-            //                n=3;
-
-            //            int x1=coord.points.data[i+0+n];
-            //            int y1=coord.points.data[i+1+n];
-            //            int x2=coord.points.data[i+2+n];
-            //            int y2=coord.points.data[i+3+n];
 
             RoiSegmenter2D::checkLimits(x1, y1);
             RoiSegmenter2D::checkLimits(x2,y2);
@@ -82,14 +66,13 @@ void RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
             final_image.name.push_back(coord.name[i].data());
 
 
-            cv::imshow(final_image.name[i].data()  , cv_ptr->image);
-            cv::waitKey(3);
+//            cv::imshow(final_image.name[i].data()  , cv_ptr->image);
+//            cv::waitKey(3);
 
 
         }
-        image_pub.publish(final_image);
 
-
+       return(final_image);
     }
 }
 
