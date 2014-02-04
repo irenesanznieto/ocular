@@ -46,6 +46,7 @@ TFG::HandLocPx RoiSegmenter3D:: distance2px()
 
 {
     TFG::HandLocPx image_coord;
+    image_coord.points.data.clear();
 
 
     for (unsigned int i=0; i<coord.position.size(); i++)
@@ -71,7 +72,6 @@ TFG::HandLocPx RoiSegmenter3D:: distance2px()
         //        hand_center_px.first= pin_hole_const.x-f * coord.position[i].x/coord.position[i].z;
         //        hand_center_px.second = pin_hole_const.y-f * coord.position[i].y/coord.position[i].z;
 
-        image_coord.points.data.clear();
 
 
         pcl::PointXY p1, p2;

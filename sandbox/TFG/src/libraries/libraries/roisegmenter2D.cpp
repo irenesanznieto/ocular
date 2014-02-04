@@ -3,8 +3,8 @@
 RoiSegmenter2D::RoiSegmenter2D()
 {
 
-//    cv::namedWindow("left_hand");
-//    cv::namedWindow("right_hand");
+    cv::namedWindow("left_hand");
+    cv::namedWindow("right_hand");
 }
 
 
@@ -19,11 +19,11 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
     cv_bridge::CvImagePtr cv_ptr;
     TFG::HandImage final_image;
 
-
     if (!coord.points.data.empty())
     {
 
         for (unsigned int i=0; i<coord.name.size(); i++){
+
 
             try
             {
@@ -41,10 +41,22 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
             cv::Mat originalImage=cv_ptr->image.clone();
 
 
-            int x1=coord.points.data[0];
-            int y1=coord.points.data[1];
-            int x2=coord.points.data[2];
-            int y2=coord.points.data[3];
+            int x1, x2, y1, y2;
+
+            if (i==0)
+            {
+                x1=coord.points.data[0];
+                y1=coord.points.data[1];
+                x2=coord.points.data[2];
+                y2=coord.points.data[3];
+            }
+            else if (i==1)
+            {
+                 x1=coord.points.data[4];
+                 y1=coord.points.data[5];
+                 x2=coord.points.data[6];
+                 y2=coord.points.data[7];
+            }
 
 
             RoiSegmenter2D::checkLimits(x1, y1);
@@ -66,8 +78,10 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
             final_image.name.push_back(coord.name[i].data());
 
 
-//            cv::imshow(final_image.name[i].data()  , cv_ptr->image);
-//            cv::waitKey(3);
+            cv::imshow(final_image.name[i].data()  , cv_ptr->image);
+            cv::waitKey(3);
+
+            cv_ptr->image.release();
 
 
         }

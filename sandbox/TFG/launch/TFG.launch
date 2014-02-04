@@ -34,7 +34,7 @@
 <!--	FEATURE EXTRACTOR-->
 
 <!--    		2D-->
-	<node pkg="TFG" type="featureextractor2D" name="featureextractor2D" args="input_r_image:=/TFG/ROI2D_r input_l_image:=/TFG/ROI2D_l"/>
+<!--	<node pkg="TFG" type="featureextractor2D" name="featureextractor2D" args="input_r_image:=/TFG/ROI2D_r input_l_image:=/TFG/ROI2D_l"/>-->
 		
 <!--	VIEW IMAGES-->
     <node pkg="TFG" type="image_view"  name="viewer_ROI2D" args="image_in:=/TFG/ROI2D image_right_hand:=/TFG/image_right_hand image_left_hand:=/TFG/image_left_hand"/>

@@ -41,7 +41,6 @@ rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
 #rosbuild_add_executable(data_parser src/apps/data_parser.cpp)
 #rosbuild_add_executable(display src/apps/display.cpp)
 
-
 rosbuild_add_executable(image_view src/apps/image_view.cpp)
 
 
