@@ -20,10 +20,10 @@ TEST(Converter,handCoordinatesExtractor)
     message.header.stamp.nsec=843339980;
     message.header.frame_id="openni_depth_frame";
 
-    //    User ID
+//        User ID
     message.user_id=1;
 
-    //    Name
+//        Name
     message.name.push_back("head");
     message.name.push_back("neck");
     message.name.push_back("torso");
@@ -44,7 +44,7 @@ TEST(Converter,handCoordinatesExtractor)
     for (int i=0; i<14; i++)
         message.confidence.push_back(0.0);
 
-    //    Position
+//        Position
     message.position.resize(15);
 
     message.position[0].x=-0.123597961426;
@@ -120,10 +120,10 @@ TEST(Converter,handCoordinatesExtractor)
     EXPECT_EQ(843339980, result.header.stamp.nsec);
     EXPECT_EQ("openni_depth_frame", result.header.frame_id);
 
-    //    User ID
+//        User ID
     EXPECT_EQ(1, result.user_id);
 
-    //    Name
+//        Name
     EXPECT_EQ("left_hand", result.name[0]);
     EXPECT_EQ("right_hand", result.name[1]);
 

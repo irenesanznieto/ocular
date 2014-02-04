@@ -65,4 +65,6 @@ target_link_libraries(featureextractor3D other_libs)
 
 #GTESTS:
 rosbuild_add_gtest(TestConverter src/tests/ConverterTest.cpp)
+rosbuild_add_gtest(TestROISegmenter3D src/tests/RoiSegmenter3DTest.cpp)
+target_link_libraries(TestROISegmenter3D custom_libs)
 target_link_libraries(TestConverter custom_libs)

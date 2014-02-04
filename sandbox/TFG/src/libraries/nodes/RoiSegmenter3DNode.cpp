@@ -20,7 +20,7 @@ void RoiSegmenter3DNode :: point_cloud_cb (const sensor_msgs::PointCloud2ConstPt
 
 void RoiSegmenter3DNode :: hand_location_cb (const TFG::HandLocConstPtr &msg)
 {
-    roiSegmenter3D.coordinates(msg);
+    roiSegmenter3D.coordinates(*msg);
     coord_pub.publish(roiSegmenter3D.distance2px());
 
 }

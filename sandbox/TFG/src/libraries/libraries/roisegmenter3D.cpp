@@ -43,7 +43,6 @@ sensor_msgs::PointCloud2 RoiSegmenter3D::segment(const sensor_msgs::PointCloud2C
 
 
 TFG::HandLocPx RoiSegmenter3D:: distance2px()
-
 {
     TFG::HandLocPx image_coord;
     image_coord.points.data.clear();
@@ -104,10 +103,15 @@ TFG::HandLocPx RoiSegmenter3D:: distance2px()
 
 }
 
-void RoiSegmenter3D::coordinates (const TFG::HandLocConstPtr & msg)
+void RoiSegmenter3D::coordinates (const TFG::HandLoc & msg)
 {
-    coord.header=msg->header;
-    coord.user_id=msg->user_id;
-    coord.name=msg->name;
-    coord.position=msg->position;
+    coord.header=msg.header;
+    coord.user_id=msg.user_id;
+    coord.name=msg.name;
+    coord.position=msg.position;
+}
+
+void RoiSegmenter3D::setHandLoc (TFG::HandLoc &coord)
+{
+    this->coord=coord;
 }

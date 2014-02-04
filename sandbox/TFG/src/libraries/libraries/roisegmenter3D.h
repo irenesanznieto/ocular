@@ -46,7 +46,7 @@ public:
     *
     * Stores the TFG::HandLoc message in the coord private variable
     */
-    void coordinates (const TFG::HandLocConstPtr &);
+    void coordinates (const TFG::HandLoc &);
 
     /*!
     * \brief Method that transforms the 3D world coordinates to pixels
@@ -55,6 +55,7 @@ public:
     */
     TFG::HandLocPx distance2px();
 
+    void setHandLoc (TFG::HandLoc &);
 
 private:
 
