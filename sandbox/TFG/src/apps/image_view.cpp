@@ -45,11 +45,11 @@ public:
 
             std::cout<<msg->name.data()<<std::endl;
 
-            if (*msg->name.data()=="left_hand")
+            if (msg->name[i]=="left_hand")
                 image_pub_l.publish(msg->image[i]);
 
 
-            else if (*msg->name.data()=="right_hand")
+            else if (msg->name[i]=="right_hand")
                 image_pub_r.publish(msg->image[i]);
 
 

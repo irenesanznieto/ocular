@@ -3,8 +3,8 @@
 RoiSegmenter2D::RoiSegmenter2D()
 {
 
-    cv::namedWindow("left_hand");
-    cv::namedWindow("right_hand");
+//    cv::namedWindow("left_hand");
+//    cv::namedWindow("right_hand");
 }
 
 
@@ -78,8 +78,8 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
             final_image.name.push_back(coord.name[i].data());
 
 
-            cv::imshow(final_image.name[i].data()  , cv_ptr->image);
-            cv::waitKey(3);
+//            cv::imshow(final_image.name[i].data()  , cv_ptr->image);
+//            cv::waitKey(3);
 
             cv_ptr->image.release();
 
