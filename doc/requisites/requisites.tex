@@ -200,7 +200,12 @@ This node will store the 2D and 3D features of each template of the same object 
 
 
 \subsection{Third Party Packages}
-\hspace{0.5cm}Initially only one third party ROS package will be used, to track the hand's position: pi\_ tracker. This software publishes the hand's position and there will a node in the proposed software (Conversion Node, whose requirements are specified in the next section) that converts the information returned by pi\_ tracker to the custom message used in the rest of the code.  
+\hspace{0.5cm}In this project, three third party libraries are being used: pi\_tracker, OpenCV, PCL. 
+\subsubsection{ Pi\_tracker}
+This library is in fact a ROS package that publishes the position and orientation of each joint of the users. From that information, the location of both hands of the user is extracted and used in the rest of the software. 
+\subsubsection{ OpenCV}
+This library is used to extract and compare the features of the objects in 2D. 
+\subsubsection{PCL}
 
 \subsection{Node Interaction}
 %In the following diagram it can be seen the interaction and the information exchanged between nodes.
@@ -234,7 +239,7 @@ In the following diagram, the flow of the program is represented.
 	\item A version control system should be used (GIT) and all the code must be periodically updated in the following github repository:  $https://github.com/irenesanznieto/TFG$
 	\item The software has to have an interface. Its requirements are specified in the following "Interface Requirements" section. 
 	\item The software must accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
-	\item The output of the system must be a node specifying the name of the detected object. 
+	\item The output of the system must be a topic specifying the name of the detected object. 
  
 \subsection{Event Handler}
 \item This node must have access to the hand's position information. 
