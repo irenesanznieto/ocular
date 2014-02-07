@@ -200,12 +200,14 @@ This node will store the 2D and 3D features of each template of the same object 
 
 
 \subsection{Third Party Packages}
-\hspace{0.5cm}In this project, three third party libraries are being used: pi\_tracker, OpenCV, PCL. 
-\subsubsection{ Pi\_tracker}
-This library is in fact a ROS package that publishes the position and orientation of each joint of the users. From that information, the location of both hands of the user is extracted and used in the rest of the software. 
+\hspace{0.5cm}In this project, three third party libraries are being used: pi\_ tracker, OpenCV, PCL. 
+\subsubsection{ Pi\_ tracker}
+Pi\_ tracker is a ROS package that publishes the position and orientation of each joint of the users. From that information, the location of both hands of the user is extracted and used in the rest of the software. 
 \subsubsection{ OpenCV}
-This library is used to extract and compare the features of the objects in 2D. 
+This real-time computer vision library is used mainly to extract and compare the features of the objects in 2D. 
 \subsubsection{PCL}
+This open-source framework implements different algorithms for n-dimensional point clouds and 3D geometry processing.
+In this project, it is used to filter, extract features and segment the RGB-D's point clouds.
 
 \subsection{Node Interaction}
 %In the following diagram it can be seen the interaction and the information exchanged between nodes.
