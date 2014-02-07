@@ -1,3 +1,20 @@
+//------------------------------------------------------------------------------
+//-- RoiSegmenter2DNode class 
+//------------------------------------------------------------------------------
+//--
+//--  Connects the methods implemented in the RoiSegmenter2D class with the other packages using ROS topics.
+//--
+//------------------------------------------------------------------------------
+//--
+//-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
+//-- (https://github.com/irenesanznieto/TFG)
+//--
+//------------------------------------------------------------------------------
+//-- Author: Irene Sanz Nieto
+//--
+//-- Released under the MIT license (more info on LICENSE.md file)
+//------------------------------------------------------------------------------
+
 #ifndef ROISEGMENTER2DNODE_H
 #define ROISEGMENTER2DNODE_H
 
@@ -5,7 +22,9 @@
 
 //* RoiSegmenter2DNode class
 /**
-* This class connects the methods implemented in the RoiSegmenter2D class with the other packages through ROS nodes.
+* Connects the methods implemented in the RoiSegmenter2D class with the other packages using ROS topics.
+* \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
+* \date Feb 3rd, 2014
 */
 class RoiSegmenter2DNode
 {
