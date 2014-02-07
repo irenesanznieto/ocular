@@ -5,7 +5,7 @@
 \usepackage{listings}
 \usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
 % This is for the fancy title in each page
-\usepackage{fancyhdr}
+\rhead{Software Requirements Specification}
 \lhead{}
 \chead{}
 \rhead{First Session: Combinational Design}
@@ -76,8 +76,42 @@ Victor González Pacheco\end{flushright}\end{minipage}\vfill
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 \hspace{0.5cm}The project consists on an in-hand object learning and recognition software. 
-%\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
+The project is conceived for being used in a robot. In a robot there are numerous processes that have to run in parallel to avoid a lose of information and be able to work and respond in real time. 
+\\
+To fulfill this request, the code has been subdivided in nodes that perfom simple tasks and that are executed simultaneously. 
+\\
+The nodes that appear in the project are the following : 
+
+%include the new picture!!
+\begin{itemize}
+\item Converter : \\
+There exists a converter node that transforms the pi_tracker message into the custom message HandLoc. This transformation is made extracting only the information regarding the hands and their name and copying it into the correct fields of the new message. 
+This message is the one being used in the rest of the project's code. Hence, this node is the one that connects the thesis ROS package with the pi_tracker package.
+
+\item ROI Segmenters:\\ 
+These nodes work using the previous node's information. They extract the Region Of Interest (ROI) from the raw input information. Since the information that the project can analyze is both in 2D and 3D, there will be two ROI Segmenters, one for each type of information. 
+Those two ROI Segmenter nodes run in parallel but they depend in each other. The actual segmentation is made with the 3D data. The result is two new point clouds with the hands.
+After the 3D segmentation, the maximum and minimum coordinates of each of the hands' point clouds are transformed to pixels in order to segment the 2D ROI. 
+
+\item Feature Extractors: \\
+As the ROI Segmenters, there will be two nodes to extract the features. One extracts the 3D features from the segmented point cloud and the other one extracts the 2D features from the segmented picture. 
+The features are characteristics of interest of the objects whose value can be used to discriminate between objects and hence distinguish some objects within a set of different data. 
+
+
+\item Learner: \\
+This node implements the learning sequence of new objects and also the training of the algorithm specified in the functional requirements section. 
+It uses the features (both 2D and 3D) extracted from the previous node to make the training. 
+
+\item Recogniser:\\ 
+This node implements the recognising sequence. It compares the features extracted at each captured frame using the previously trained algorithms. 
+\end{itemize}
+   
+The communication between nodes is made using the Robotic Operating System topics. The nodes can publish in a specific topic a certain message or subscribe to that topic to retreive the message. 
+There are different types of messages depending on the information that has to be transmitted. There exist certain ROS libraries that define standard messages or geometric messages as an example. It is also possible to create a custom message type. 
+
+
 \subsection{Nodes}
+
 
 \subsubsection{Event Handler Node}
 	This node will identify the different user's gestures and act accordingly using a State Machine structure. 
