@@ -2,7 +2,7 @@
 //-- ConverterNode class
 //------------------------------------------------------------------------------
 //--
-//--  Connects the methods implemented in the Converter class with the other packages through ROS nodes.
+//--  Connects the methods implemented in the Converter class with the other packages using ROS topics.
 //--
 //------------------------------------------------------------------------------
 //--
@@ -28,7 +28,7 @@
 
 //* ConverterNode class
 /**
-* Connects the methods implemented in the Converter class with the other packages through ROS nodes.
+* Connects the methods implemented in the Converter class with the other packages using ROS topics.
 * 
 * \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
 * \date Feb 3rd, 2014
