@@ -1,3 +1,21 @@
+//------------------------------------------------------------------------------
+//-- ConverterNode class
+//------------------------------------------------------------------------------
+//--
+//--  Connects the methods implemented in the Converter class with the other packages using ROS topics.
+//--
+//------------------------------------------------------------------------------
+//--
+//-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
+//-- (https://github.com/irenesanznieto/TFG)
+//--
+//------------------------------------------------------------------------------
+//-- Author: Irene Sanz Nieto
+//--
+//-- Released under the MIT license (more info on LICENSE.md file)
+//------------------------------------------------------------------------------
+
+
 #ifndef CONVERTER_NODE_H
 #define CONVERTER_NODE_H
 
@@ -10,7 +28,10 @@
 
 //* ConverterNode class
 /**
-* This class connects the methods implemented in the Converter class with the other packages through ROS nodes.
+* Connects the methods implemented in the Converter class with the other packages using ROS topics.
+* 
+* \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
+* \date Feb 3rd, 2014
 */
 
 class ConverterNode

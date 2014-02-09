@@ -1,3 +1,21 @@
+//------------------------------------------------------------------------------
+//-- RoiSegmenter3D class
+//------------------------------------------------------------------------------
+//--
+//--  Segments an input point cloud and extracts the Region Of Interest
+//--
+//------------------------------------------------------------------------------
+//--
+//-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
+//-- (https://github.com/irenesanznieto/TFG)
+//--
+//------------------------------------------------------------------------------
+//-- Author: Irene Sanz Nieto
+//--
+//-- Released under the MIT license (more info on LICENSE.md file)
+//------------------------------------------------------------------------------
+
+
 #ifndef ROISEGMENTER3D_H
 #define ROISEGMENTER3D_H
 
@@ -17,10 +35,11 @@
 #include <TFG/HandLocPx.h>
 #include <TFG/HandLoc.h>
 
-//* Class RoiSegmenter3D
+//* RoiSegmenter3D class 
 /**
-* This class segments an input point cloud and extracts the Region Of Interest
-*  
+* Segments an input point cloud and extracts the Region Of Interest
+* \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
+* \date Feb 3rd, 2014
 */
 class RoiSegmenter3D 
 {

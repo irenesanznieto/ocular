@@ -1,3 +1,21 @@
+//------------------------------------------------------------------------------
+//-- RoiSegmenter2D class
+//------------------------------------------------------------------------------
+//--
+//--  Segments an input image and extracts the Region Of Interest
+//--
+//------------------------------------------------------------------------------
+//--
+//-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
+//-- (https://github.com/irenesanznieto/TFG)
+//--
+//------------------------------------------------------------------------------
+//-- Author: Irene Sanz Nieto
+//--
+//-- Released under the MIT license (more info on LICENSE.md file)
+//------------------------------------------------------------------------------
+
+
 #ifndef ROISEGMENTER2D_H
 #define ROISEGMENTER2D_H
 
@@ -14,11 +32,13 @@
 #include <TFG/HandLocPx.h>
 #include <TFG/HandImage.h>
 
-//* Class RoiSegmenter2D
+//* RoiSegmenter2D class
 /**
-* This class segments an input image and extracts the Region Of Interest
-*
+* Segments an input image and extracts the Region Of Interest
+* \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
+* \date Feb 3rd, 2014
 */
+
 class RoiSegmenter2D //: public RoiSegmenter
 {
 public:
@@ -50,7 +70,7 @@ private:
     TFG::HandLocPx coord;   /**TFG::HandLocPx used to store the 2D values of the ROI */
 
     /**
-     * @brief Method that checks if the 2D coordinates received are inside the screen's limits.
+     * @brief Checks if the 2D coordinates received are inside the screen's limits.
      */
     void checkLimits(int & , int& );
 

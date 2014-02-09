@@ -1,3 +1,20 @@
+//------------------------------------------------------------------------------
+//-- Converter class
+//------------------------------------------------------------------------------
+//--
+//--  Bridge between the software used to locate the hand's position (in this case, the ROS package pi_tracker) and the project. 
+//--
+//------------------------------------------------------------------------------
+//--
+//-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
+//-- (https://github.com/irenesanznieto/TFG)
+//--
+//------------------------------------------------------------------------------
+//-- Author: Irene Sanz Nieto
+//--
+//-- Released under the MIT license (more info on LICENSE.md file)
+//------------------------------------------------------------------------------
+
 #ifndef CONVERTER_H
 #define CONVERTER_H
 #include <ros/ros.h>
@@ -7,8 +24,10 @@
 
 //* Converter
 /**
-* This class is used as a bridge between the software used to locate the hand's position (in this case, the ROS package pi_tracker) and the project. 
+* Bridge between the software used to locate the hand's position (in this case, the ROS package pi_tracker) and the project. 
 * From the pi_tracker::Skeleton message, it fills the TFG::HandLoc message. 
+* \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
+* \date Feb 3rd, 2014
 *   
 */
 
