@@ -19,14 +19,17 @@ public:
         example.header.frame_id="openni_depth_frame";
         example.user_id=1;
         example.name.push_back("left_hand");
+        example.name.push_back("right_hand");
 
-//        example.position[0].x=-0.123597961426;
-//        example.position[0].y=0.716625366211;
-//        example.position[0].z=0.714454772949;
+        example.position.resize(2);
 
-//        example.position[1].x=-0.146407974243;
-//        example.position[1].y=0.478561706543;
-//        example.position[1].z=0.765637329102;
+        example.position[0].x=-0.123597961426;
+        example.position[0].y=0.716625366211;
+        example.position[0].z=0.714454772949;
+
+        example.position[1].x=-0.146407974243;
+        example.position[1].y=0.478561706543;
+        example.position[1].z=0.765637329102;
 
     }
 
@@ -38,7 +41,7 @@ public:
 TEST_F(RoiSegmenter3DTest,segment)
 {
 
-//    sensor_msgs::PointCloud2 msg, result;
+    sensor_msgs::PointCloud2 msg, result;
 //    result=roiseg3D.segment(msg);
 
 }
