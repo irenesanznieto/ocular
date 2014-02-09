@@ -3,7 +3,7 @@
 RoiSegmenter3D::RoiSegmenter3D()
 {}
 
-sensor_msgs::PointCloud2 RoiSegmenter3D::segment(const sensor_msgs::PointCloud2ConstPtr &cloud )
+sensor_msgs::PointCloud2 RoiSegmenter3D::segment( const sensor_msgs::PointCloud2ConstPtr &cloud )
 {
     sensor_msgs::PointCloud2 cloud_filtered;
 
