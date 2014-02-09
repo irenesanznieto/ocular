@@ -38,8 +38,7 @@ public:
 
 
 
-        // Fill in the cloud data
-        msg_cloud->width = 3;
+        // Fill in the cloud data --> failing here :S
 //        msg_cloud->width  = 3;
 //        msg_cloud->height = 1;
 //        msg_cloud->data.resize (msg_cloud->width * msg_cloud->height);
