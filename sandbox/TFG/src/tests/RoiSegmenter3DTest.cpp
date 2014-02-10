@@ -71,12 +71,9 @@ public:
 
 TEST_F(RoiSegmenter3DTest,segment)
 {
-
-
-    sensor_msgs::PointCloud2Ptr result;
-
-    //    result=roiseg3D.segment(msg);
-
+    sensor_msgs::PointCloud2 result;
+    const sensor_msgs::PointCloud2ConstPtr& msg_cloud_ptr = boost::make_shared<sensor_msgs::PointCloud2>(msg_cloud);
+    result=roiseg3D.segment(msg_cloud_ptr);
 }
 
 
