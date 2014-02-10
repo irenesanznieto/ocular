@@ -115,3 +115,8 @@ void RoiSegmenter3D::setHandLoc (TFG::HandLoc &coord)
 {
     this->coord=coord;
 }
+
+TFG::HandLoc RoiSegmenter3D::getHandLoc ()
+{
+    return coord;
+}

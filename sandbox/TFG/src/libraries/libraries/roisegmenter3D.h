@@ -76,6 +76,9 @@ public:
 
     void setHandLoc (TFG::HandLoc &);
 
+    TFG::HandLoc getHandLoc ();
+
+
 private:
 
     pcl::PointXYZ box_size;     /** Stores the ROI dimensions (in 3D) */
