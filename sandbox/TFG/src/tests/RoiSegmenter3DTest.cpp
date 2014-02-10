@@ -9,7 +9,7 @@ public:
     RoiSegmenter3D roiseg3D;
     TFG::HandLoc msg_hand_loc;
 
-    sensor_msgs::PointCloud2Ptr msg_cloud;
+    sensor_msgs::PointCloud2 msg_cloud;
 
     TFG::HandLoc result;
 
@@ -39,24 +39,30 @@ public:
 
 
         // Fill in the cloud data --> failing here :S
-//        msg_cloud->width  = 3;
-//        msg_cloud->height = 1;
-//        msg_cloud->data.resize (msg_cloud->width * msg_cloud->height);
 
-//        msg_cloud->points[0].x = -0.2;
-//        msg_cloud->points[0].y = 0;
-//        msg_cloud->points[0].z = 0;
+        //        Header
+        msg_cloud.header.seq=187;
+        msg_cloud.header.stamp.sec=1390833331;
+        msg_cloud.header.stamp.nsec=843339980;
+        msg_cloud.header.frame_id="openni_depth_frame";
 
-//        msg_cloud->points[1].x = 0;
-//        msg_cloud->points[1].y = 0;
-//        msg_cloud->points[1].z = 0;
+        msg_cloud.width  = 3;
+        msg_cloud.height = 1;
+        msg_cloud.data.resize (msg_cloud.width*msg_cloud.height);
 
-//        msg_cloud->points[2].x = 0.2;
-//        msg_cloud->points[2].y = 0;
-//        msg_cloud->points[2].z = 0;
+        msg_cloud.data.push_back(-0.2);
+        msg_cloud.data.push_back(0);
+        msg_cloud.data.push_back(0);
 
+        msg_cloud.data.push_back(0);
+        msg_cloud.data.push_back(0);
+        msg_cloud.data.push_back(0);
 
-    }
+        msg_cloud.data.push_back(0.2);
+        msg_cloud.data.push_back(0);
+        msg_cloud.data.push_back(0);
+
+   }
 
     virtual void TearDown()
     {
