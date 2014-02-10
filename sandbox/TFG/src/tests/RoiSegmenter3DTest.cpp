@@ -11,7 +11,6 @@ public:
 
     sensor_msgs::PointCloud2 msg_cloud;
 
-    TFG::HandLoc result;
 
     virtual void SetUp()
     {
@@ -25,13 +24,13 @@ public:
 
         msg_hand_loc.position.resize(2);
 
-        msg_hand_loc.position[0].x=-0.123597961426;
-        msg_hand_loc.position[0].y=0.716625366211;
-        msg_hand_loc.position[0].z=0.714454772949;
+        msg_hand_loc.position[0].x=0;
+        msg_hand_loc.position[0].y=0;
+        msg_hand_loc.position[0].z=0.7;
 
-        msg_hand_loc.position[1].x=-0.146407974243;
-        msg_hand_loc.position[1].y=0.478561706543;
-        msg_hand_loc.position[1].z=0.765637329102;
+        msg_hand_loc.position[1].x=0;
+        msg_hand_loc.position[1].y=0;
+        msg_hand_loc.position[1].z=0.7;
 
 
 
@@ -62,7 +61,7 @@ public:
         msg_cloud.data.push_back(0);
         msg_cloud.data.push_back(0);
 
-   }
+    }
 
     virtual void TearDown()
     {
@@ -73,18 +72,29 @@ TEST_F(RoiSegmenter3DTest,segment)
 {
     sensor_msgs::PointCloud2 result;
     const sensor_msgs::PointCloud2ConstPtr& msg_cloud_ptr = boost::make_shared<sensor_msgs::PointCloud2>(msg_cloud);
+
+    roiseg3D.setHandLoc(msg_hand_loc);
     result=roiseg3D.segment(msg_cloud_ptr);
+
+    //TEST
 }
 
 
 TEST_F(RoiSegmenter3DTest,distance2px)
 {
-    //    result=roiseg3D.distance2px();
+    TFG::HandLocPx result;
+    result=roiseg3D.distance2px();
+
+    //TEST
 }
 
 TEST_F(RoiSegmenter3DTest,coordinates)
 {
     roiseg3D.coordinates(msg_hand_loc);
+
+    //TEST
+//    EXPECT_EQ();
+
 }
 
 
