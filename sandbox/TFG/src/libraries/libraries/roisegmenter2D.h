@@ -73,6 +73,8 @@ public:
 
     TFG::HandLocPx getHandLocPx();
 
+    void setHandLocPx (TFG::HandLocPx &);
+
 
 private:
 

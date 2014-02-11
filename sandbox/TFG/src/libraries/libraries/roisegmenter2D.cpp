@@ -115,3 +115,8 @@ TFG::HandLocPx RoiSegmenter2D::getHandLocPx ()
 {
     return coord;
 }
+
+void RoiSegmenter2D::setHandLocPx (TFG::HandLocPx& coord)
+{
+    this->coord=coord;
+}

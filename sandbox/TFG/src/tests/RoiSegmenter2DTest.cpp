@@ -1,4 +1,3 @@
-
 #include "../libraries/libraries/roisegmenter2D.h"
 #include <gtest/gtest.h>
 
@@ -9,6 +8,7 @@ class RoiSegmenter2DTest : public testing::Test
 public:
     RoiSegmenter2D roiseg2D;
     TFG::HandLocPx msg_hand_loc_px;
+    sensor_msgs::Image msg_image;
 
     virtual void SetUp()
     {
@@ -21,19 +21,43 @@ public:
         msg_hand_loc_px.name.push_back("right_hand");
 
 
-        msg_hand_loc_px.points.push_back(100);
-        msg_hand_loc_px.points.push_back(200);
-        msg_hand_loc_px.points.push_back(300);
-        msg_hand_loc_px.points.push_back(400);
+        msg_hand_loc_px.points.push_back(1);
+        msg_hand_loc_px.points.push_back(2);
+        msg_hand_loc_px.points.push_back(3);
+        msg_hand_loc_px.points.push_back(4);
 
-        msg_hand_loc_px.points.push_back(100);
-        msg_hand_loc_px.points.push_back(200);
-        msg_hand_loc_px.points.push_back(300);
-        msg_hand_loc_px.points.push_back(400);
+        msg_hand_loc_px.points.push_back(5);
+        msg_hand_loc_px.points.push_back(6);
+        msg_hand_loc_px.points.push_back(7);
+        msg_hand_loc_px.points.push_back(8);
 
 
 
        // Fill the image data
+        msg_image.height=4;
+        msg_image.width=4;
+        msg_image.encoding="bgr8";
+
+        //This will "paint" one line in white and another in black, 4 lines in total
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
 
 
 
@@ -46,32 +70,20 @@ public:
 
 TEST_F(RoiSegmenter2DTest,segment)
 {
-//    sensor_msgs::PointCloud2 result_cloud;
-//    const sensor_msgs::PointCloud2ConstPtr& msg_cloud_ptr = boost::make_shared<sensor_msgs::PointCloud2>(msg_cloud);
+//    TFG::HandImage result_image;
+//    const sensor_msgs::ImageConstPtr& msg_image_ptr = boost::make_shared<sensor_msgs::Image>(msg_image);
 
-//    roiseg2D.setHandLoc(msg_hand_loc);
-//    result_cloud=roiseg2D.segment(msg_cloud_ptr);
+//    const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
+//    roiseg2D.coordinates(msg_hand_loc_px_ptr);
 
-//    //TEST
 
-//    pcl::PointCloud<pcl::PointXYZ> result_pcl_cloud;
-//    pcl::fromROSMsg(result_cloud, result_pcl_cloud);
+//    result_image=roiseg2D.segment(msg_image_ptr);
 
-//    //There should pass all the points, and result in an unordered point cloud, hence:
-//    EXPECT_EQ (1, result_cloud.height);
-//    EXPECT_EQ (3, result_cloud.width);
 
-//    EXPECT_EQ ((float)0.01,result_pcl_cloud.points[0].x);
-//    EXPECT_EQ ((float)0,result_pcl_cloud.points[0].y);
-//    EXPECT_EQ ((float)0.7,result_pcl_cloud.points[0].z);
+    //TEST
 
-//    EXPECT_EQ ((float)0,result_pcl_cloud.points[1].x);
-//    EXPECT_EQ ((float)0,result_pcl_cloud.points[1].y);
-//    EXPECT_EQ ((float)0.7,result_pcl_cloud.points[1].z);
+//    EXPECT_EQ (2, result_image.name.size());
 
-//    EXPECT_EQ ((float)0.03,result_pcl_cloud.points[2].x);
-//    EXPECT_EQ ((float)0,result_pcl_cloud.points[2].y);
-//    EXPECT_EQ ((float)0.7,result_pcl_cloud.points[2].z);
 
 }
 
@@ -120,15 +132,15 @@ TEST_F(RoiSegmenter2DTest,coordinates)
 
 
     //TEST
-    EXPECT_EQ(100,coordinates.points[0]);
-    EXPECT_EQ(200,coordinates.points[1]);
-    EXPECT_EQ(300,coordinates.points[2]);
-    EXPECT_EQ(400,coordinates.points[3]);
+    EXPECT_EQ(1,coordinates.points[0]);
+    EXPECT_EQ(2,coordinates.points[1]);
+    EXPECT_EQ(3,coordinates.points[2]);
+    EXPECT_EQ(4,coordinates.points[3]);
 
-    EXPECT_EQ(100,coordinates.points[4]);
-    EXPECT_EQ(200,coordinates.points[5]);
-    EXPECT_EQ(300,coordinates.points[6]);
-    EXPECT_EQ(400,coordinates.points[7]);
+    EXPECT_EQ(5,coordinates.points[4]);
+    EXPECT_EQ(6,coordinates.points[5]);
+    EXPECT_EQ(7,coordinates.points[6]);
+    EXPECT_EQ(8,coordinates.points[7]);
 }
 
 
