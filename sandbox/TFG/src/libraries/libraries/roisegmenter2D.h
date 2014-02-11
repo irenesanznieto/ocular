@@ -65,14 +65,16 @@ public:
     */
     ~RoiSegmenter2D();
 
-private:
-
-    TFG::HandLocPx coord;   /**TFG::HandLocPx used to store the 2D values of the ROI */
-
     /**
      * @brief Checks if the 2D coordinates received are inside the screen's limits.
      */
     void checkLimits(int & , int& );
+
+private:
+
+    TFG::HandLocPx coord;   /**TFG::HandLocPx used to store the 2D values of the ROI */
+
+
 
 
 

@@ -10,7 +10,7 @@ RoiSegmenter2D::RoiSegmenter2D()
 
 RoiSegmenter2D::~RoiSegmenter2D()
 {
-    cv::destroyAllWindows();
+//    cv::destroyAllWindows();
 
 }
 
