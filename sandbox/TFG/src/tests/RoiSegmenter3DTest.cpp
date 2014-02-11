@@ -84,10 +84,24 @@ TEST_F(RoiSegmenter3DTest,segment)
 
     //TEST
 
+    pcl::PointCloud<pcl::PointXYZ> result_pcl_cloud;
+    pcl::fromROSMsg(result_cloud, result_pcl_cloud);
 
     //There should pass all the points, and result in an unordered point cloud, hence:
     EXPECT_EQ (1, result_cloud.height);
     EXPECT_EQ (3, result_cloud.width);
+
+    EXPECT_EQ ((float)0.01,result_pcl_cloud.points[0].x);
+    EXPECT_EQ ((float)0,result_pcl_cloud.points[0].y);
+    EXPECT_EQ ((float)0.7,result_pcl_cloud.points[0].z);
+
+    EXPECT_EQ ((float)0,result_pcl_cloud.points[1].x);
+    EXPECT_EQ ((float)0,result_pcl_cloud.points[1].y);
+    EXPECT_EQ ((float)0.7,result_pcl_cloud.points[1].z);
+
+    EXPECT_EQ ((float)0.03,result_pcl_cloud.points[2].x);
+    EXPECT_EQ ((float)0,result_pcl_cloud.points[2].y);
+    EXPECT_EQ ((float)0.7,result_pcl_cloud.points[2].z);
 
 }
 
@@ -95,9 +109,12 @@ TEST_F(RoiSegmenter3DTest,segment)
 TEST_F(RoiSegmenter3DTest,distance2px)
 {
     TFG::HandLocPx result;
+    roiseg3D.setHandLoc(msg_hand_loc);
     result=roiseg3D.distance2px();
 
     //TEST
+
+
 }
 
 TEST_F(RoiSegmenter3DTest,coordinates)
