@@ -70,6 +70,10 @@ public:
      */
     void checkLimits(int & , int& );
 
+
+    TFG::HandLocPx getHandLocPx();
+
+
 private:
 
     TFG::HandLocPx coord;   /**TFG::HandLocPx used to store the 2D values of the ROI */

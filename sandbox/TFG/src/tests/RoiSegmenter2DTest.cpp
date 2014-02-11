@@ -8,29 +8,29 @@ class RoiSegmenter2DTest : public testing::Test
 
 public:
     RoiSegmenter2D roiseg2D;
-//    TFG::HandLocPx msg_hand_loc;
-
-
+    TFG::HandLocPx msg_hand_loc_px;
 
     virtual void SetUp()
     {
-//        msg_hand_loc.header.seq=187;
-//        msg_hand_loc.header.stamp.sec=1390833331;
-//        msg_hand_loc.header.stamp.nsec=843339980;
-//        msg_hand_loc.header.frame_id="openni_depth_frame";
-//        msg_hand_loc.user_id=1;
-//        msg_hand_loc.name.push_back("left_hand");
-//        msg_hand_loc.name.push_back("right_hand");
+        msg_hand_loc_px.header.seq=187;
+        msg_hand_loc_px.header.stamp.sec=1390833331;
+        msg_hand_loc_px.header.stamp.nsec=843339980;
+        msg_hand_loc_px.header.frame_id="openni_depth_frame";
+        msg_hand_loc_px.user_id=1;
+        msg_hand_loc_px.name.push_back("left_hand");
+        msg_hand_loc_px.name.push_back("right_hand");
 
-//        msg_hand_loc.position.resize(2);
 
-//        msg_hand_loc.position[0].x=0;
-//        msg_hand_loc.position[0].y=0;
-//        msg_hand_loc.position[0].z=0.7;
+        msg_hand_loc_px.points.push_back(100);
+        msg_hand_loc_px.points.push_back(200);
+        msg_hand_loc_px.points.push_back(300);
+        msg_hand_loc_px.points.push_back(400);
 
-//        msg_hand_loc.position[1].x=0;
-//        msg_hand_loc.position[1].y=0;
-//        msg_hand_loc.position[1].z=0.7;
+        msg_hand_loc_px.points.push_back(100);
+        msg_hand_loc_px.points.push_back(200);
+        msg_hand_loc_px.points.push_back(300);
+        msg_hand_loc_px.points.push_back(400);
+
 
 
        // Fill the image data
@@ -113,13 +113,22 @@ TEST_F(RoiSegmenter2DTest,checkLimits)
 
 TEST_F(RoiSegmenter2DTest,coordinates)
 {
-//    roiseg2D.coordinates(msg_hand_loc);
-//    TFG::HandLoc coordinates=roiseg2D.getHandLoc();
+    const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
+    roiseg2D.coordinates(msg_hand_loc_px_ptr);
 
-//    //TEST
-//    EXPECT_EQ(0,coordinates.position[0].x);
-//    EXPECT_EQ(0,coordinates.position[0].y);
-//    EXPECT_EQ(0.7,coordinates.position[0].z);
+    TFG::HandLocPx coordinates=roiseg2D.getHandLocPx();
+
+
+    //TEST
+    EXPECT_EQ(100,coordinates.points[0]);
+    EXPECT_EQ(200,coordinates.points[1]);
+    EXPECT_EQ(300,coordinates.points[2]);
+    EXPECT_EQ(400,coordinates.points[3]);
+
+    EXPECT_EQ(100,coordinates.points[4]);
+    EXPECT_EQ(200,coordinates.points[5]);
+    EXPECT_EQ(300,coordinates.points[6]);
+    EXPECT_EQ(400,coordinates.points[7]);
 }
 
 
