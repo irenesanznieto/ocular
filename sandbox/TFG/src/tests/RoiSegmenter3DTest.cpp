@@ -117,7 +117,16 @@ TEST_F(RoiSegmenter3DTest,distance2px)
     EXPECT_EQ("right_hand", result.name[1]);
 
 
-    EXPECT_EQ(0, result.points[0]);
+    EXPECT_EQ(320, result.points[0]);
+    EXPECT_EQ(240, result.points[1]);
+    EXPECT_EQ(320, result.points[2]);
+    EXPECT_EQ(240, result.points[3]);
+
+    EXPECT_EQ(320, result.points[4]);
+    EXPECT_EQ(240, result.points[5]);
+    EXPECT_EQ(320, result.points[6]);
+    EXPECT_EQ(240, result.points[7]);
+
 
 
 }
