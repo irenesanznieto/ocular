@@ -45,7 +45,7 @@ sensor_msgs::PointCloud2 RoiSegmenter3D::segment( const sensor_msgs::PointCloud2
 TFG::HandLocPx RoiSegmenter3D:: distance2px()
 {
     TFG::HandLocPx image_coord;
-    image_coord.points.data.clear();
+    image_coord.points.clear();
 
 
     for (unsigned int i=0; i<coord.position.size(); i++)
@@ -83,16 +83,16 @@ TFG::HandLocPx RoiSegmenter3D:: distance2px()
 
 
         //p1:coord.name[i]
-        image_coord.points.data.push_back(p1.x);
-        image_coord.points.data.push_back(p1.y);
+        image_coord.points.push_back(p1.x);
+        image_coord.points.push_back(p1.y);
 
         //p3:
-        image_coord.points.data.push_back(p2.x);
-        image_coord.points.data.push_back(p2.y);
+        image_coord.points.push_back(p2.x);
+        image_coord.points.push_back(p2.y);
 
 
         //        std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
-        if (image_coord.points.data[0]>0 && image_coord.points.data[1]>0 && image_coord.points.data[2]>0 && image_coord.points.data[3]>0)
+        if (image_coord.points[0]>0 && image_coord.points[1]>0 && image_coord.points[2]>0 && image_coord.points[3]>0)
         {
             image_coord.name.push_back(coord.name[i].data());
         }

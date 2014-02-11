@@ -20,19 +20,19 @@ public:
         msg_hand_loc.header.frame_id="openni_depth_frame";
         msg_hand_loc.user_id=1;
         msg_hand_loc.name.push_back("left_hand");
-//        msg_hand_loc.name.push_back("right_hand");
+        msg_hand_loc.name.push_back("right_hand");
 
-//        msg_hand_loc.position.resize(2);
-        msg_hand_loc.position.resize(1);
+        msg_hand_loc.position.resize(2);
+//        msg_hand_loc.position.resize(1);
 
 
         msg_hand_loc.position[0].x=0;
         msg_hand_loc.position[0].y=0;
         msg_hand_loc.position[0].z=0.7;
 
-//        msg_hand_loc.position[1].x=0;
-//        msg_hand_loc.position[1].y=0;
-//        msg_hand_loc.position[1].z=0.7;
+        msg_hand_loc.position[1].x=0;
+        msg_hand_loc.position[1].y=0;
+        msg_hand_loc.position[1].z=0.7;
 
 
 
@@ -113,6 +113,11 @@ TEST_F(RoiSegmenter3DTest,distance2px)
     result=roiseg3D.distance2px();
 
     //TEST
+    EXPECT_EQ("left_hand", result.name[0]);
+    EXPECT_EQ("right_hand", result.name[1]);
+
+
+    EXPECT_EQ(0, result.points[0]);
 
 
 }

@@ -19,7 +19,7 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
     cv_bridge::CvImagePtr cv_ptr;
     TFG::HandImage final_image;
 
-    if (!coord.points.data.empty())
+  if (!coord.points.empty())
     {
 
         for (unsigned int i=0; i<coord.name.size(); i++){
@@ -43,19 +43,20 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 
             int x1, x2, y1, y2;
 
+
             if (i==0)
             {
-                x1=coord.points.data[0];
-                y1=coord.points.data[1];
-                x2=coord.points.data[2];
-                y2=coord.points.data[3];
+                x1=coord.points[0];
+                y1=coord.points[1];
+                x2=coord.points[2];
+                y2=coord.points[3];
             }
             else if (i==1)
             {
-                 x1=coord.points.data[4];
-                 y1=coord.points.data[5];
-                 x2=coord.points.data[6];
-                 y2=coord.points.data[7];
+                 x1=coord.points[4];
+                 y1=coord.points[5];
+                 x2=coord.points[6];
+                 y2=coord.points[7];
             }
 
 
