@@ -21,22 +21,31 @@ public:
         msg_hand_loc_px.name.push_back("right_hand");
 
 
-        msg_hand_loc_px.points.push_back(1);
+        msg_hand_loc_px.points.push_back(0);
+        msg_hand_loc_px.points.push_back(0);
         msg_hand_loc_px.points.push_back(2);
-        msg_hand_loc_px.points.push_back(3);
-        msg_hand_loc_px.points.push_back(4);
+        msg_hand_loc_px.points.push_back(2);
 
-        msg_hand_loc_px.points.push_back(5);
-        msg_hand_loc_px.points.push_back(6);
-        msg_hand_loc_px.points.push_back(7);
-        msg_hand_loc_px.points.push_back(8);
+        msg_hand_loc_px.points.push_back(0);
+        msg_hand_loc_px.points.push_back(0);
+        msg_hand_loc_px.points.push_back(3);
+        msg_hand_loc_px.points.push_back(3);
+
+
+//        msg_hand_loc_px.points.push_back(5);
+//        msg_hand_loc_px.points.push_back(6);
+//        msg_hand_loc_px.points.push_back(7);
+//        msg_hand_loc_px.points.push_back(8);
 
 
 
        // Fill the image data
         msg_image.height=4;
         msg_image.width=4;
-        msg_image.encoding="bgr8";
+        msg_image.encoding=sensor_msgs::image_encodings::BGR8;
+
+        msg_image.step=1;
+        msg_image.is_bigendian=0;
 
         //This will "paint" one line in white and another in black, 4 lines in total
         msg_image.data.push_back(255);
@@ -58,9 +67,6 @@ public:
         msg_image.data.push_back(0);
         msg_image.data.push_back(0);
         msg_image.data.push_back(0);
-
-
-
    }
 
     virtual void TearDown()
@@ -70,17 +76,14 @@ public:
 
 TEST_F(RoiSegmenter2DTest,segment)
 {
-//    TFG::HandImage result_image;
-//    const sensor_msgs::ImageConstPtr& msg_image_ptr = boost::make_shared<sensor_msgs::Image>(msg_image);
-
-//    const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
+    const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
 //    roiseg2D.coordinates(msg_hand_loc_px_ptr);
 
+    const sensor_msgs::ImageConstPtr& msg_image_ptr = boost::make_shared<sensor_msgs::Image>(msg_image);
+    TFG::HandImage result_image=roiseg2D.segment(msg_image_ptr);
 
-//    result_image=roiseg2D.segment(msg_image_ptr);
 
-
-    //TEST
+//    //TEST
 
 //    EXPECT_EQ (2, result_image.name.size());
 
@@ -132,21 +135,21 @@ TEST_F(RoiSegmenter2DTest,coordinates)
 
 
     //TEST
-    EXPECT_EQ(1,coordinates.points[0]);
-    EXPECT_EQ(2,coordinates.points[1]);
-    EXPECT_EQ(3,coordinates.points[2]);
-    EXPECT_EQ(4,coordinates.points[3]);
+    EXPECT_EQ(0,coordinates.points[0]);
+    EXPECT_EQ(0,coordinates.points[1]);
+    EXPECT_EQ(2,coordinates.points[2]);
+    EXPECT_EQ(2,coordinates.points[3]);
 
-    EXPECT_EQ(5,coordinates.points[4]);
-    EXPECT_EQ(6,coordinates.points[5]);
-    EXPECT_EQ(7,coordinates.points[6]);
-    EXPECT_EQ(8,coordinates.points[7]);
+    EXPECT_EQ(0,coordinates.points[4]);
+    EXPECT_EQ(0,coordinates.points[5]);
+    EXPECT_EQ(3,coordinates.points[6]);
+    EXPECT_EQ(3,coordinates.points[7]);
 }
 
 
 
 int main (int argc, char **argv)
 {
-    testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

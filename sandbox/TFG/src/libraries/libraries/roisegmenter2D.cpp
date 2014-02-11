@@ -89,6 +89,7 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 
        return(final_image);
     }
+
 }
 
 void RoiSegmenter2D::checkLimits(int & x, int& y)
