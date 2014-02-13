@@ -5,12 +5,11 @@
 \usepackage{listings}
 \usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
 % This is for the fancy title in each page
-\rhead{Software Requirements Specification}
-\lhead{}
-\chead{}
-\rhead{In-hand object detection and tracking using 2D and 3D
-information}
-\pagestyle{fancy}
+%\rhead{Software Requirements Specification}
+%\lhead{}
+%\chead{}
+%\rhead{In-hand object detection and tracking using 2D and 3D information}
+\pagestyle{empty}
 
 \usepackage{enumitem}
 
@@ -86,8 +85,8 @@ The nodes that appear in the project are the following :
 %include the new picture!!
 \begin{itemize}
 \item Converter : \\
-There exists a converter node that transforms the pi_tracker message into the custom message HandLoc. This transformation is made extracting only the information regarding the hands and their name and copying it into the correct fields of the new message. 
-This message is the one being used in the rest of the project's code. Hence, this node is the one that connects the thesis ROS package with the pi_tracker package.
+There exists a converter node that transforms the pi\_ tracker message into the custom message HandLoc. This transformation is made extracting only the information regarding the hands and their name and copying it into the correct fields of the new message. 
+This message is the one being used in the rest of the project's code. Hence, this node is the one that connects the thesis ROS package with the pi\_ tracker package.
 
 \item ROI Segmenters:\\ 
 These nodes work using the previous node's information. They extract the Region Of Interest (ROI) from the raw input information. Since the information that the project can analyze is both in 2D and 3D, there will be two ROI Segmenters, one for each type of information. 
@@ -124,7 +123,7 @@ This node converts the messages from other ROS packages to the internal message 
 \subsubsection{ROI Segmenter Nodes}
 There are two nodes that extract the ROI (Region Of Interest), one for the 2D and the other one for the 3D data.
 
-\paragraph {ROI Segmenter 3D Node}
+\paragraph {ROI Segmenter 3D Node\\[0.5cm]}
 
 The first region of interest segmented is the 3D. Using the hand's center position obtained from the pi\_ tracker ROS package a prism is extracted around it. Its dimensions are all fixed to an experimental value that is suitable for this purpose. 
 \\
@@ -132,7 +131,7 @@ No outlier filtering is done due to the high computing time required.
 \\
 The limits of the 3D ROI extracted are converted to pixels and published in a topic. These limits are the inputs of the following node. 
 
-\paragraph{ROI Segmenter 2D Node}
+\paragraph{ROI Segmenter 2D Node\\[0.5cm]}
 As it was previously mentioned, the 2D ROI dimensions are extracted from the 3D ROI. The original image obtained from the RGB-D sensor is cropped using those points. 
 \\
 The outputs of this node are two topics, one with the 2D ROI (a custom message that includes an image and a name) and the other one with the 3D ROI (a point cloud).
@@ -140,8 +139,10 @@ The outputs of this node are two topics, one with the 2D ROI (a custom message t
 To decrease the computation time, the point clouds do not have the RGB component. Thus, the color information is obtained through the 2D ROI. 
 
 
+\begin{huge}
+CHANGE THIS DIAGRAM!!
+\end{huge}
 
-\HUGE{CHANGE THIS DIAGRAM!!}
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_roi_segmenter.eps}
 \end{center}
@@ -248,6 +249,7 @@ In the following diagram, the flow of the program is represented.
 \section{Functional requirements}
 
 \subsection{General requirements}
+
 \begin{enumerate}[label=\textbf{FR\threedigits*}, leftmargin=2cm]
 
 	\item The software must be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
@@ -333,7 +335,6 @@ In the following diagram, the flow of the program is represented.
 	
 
 
-\end{enumerate}
  
 \subsection{Event Handler}
 \item This node must have access to the hand's position information. 
@@ -371,6 +372,7 @@ In the following diagram, the flow of the program is represented.
 
 
 
+\end{enumerate}
 
 
 
