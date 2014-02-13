@@ -226,7 +226,10 @@ In this project, it is used to filter, extract features and segment the RGB-D's 
 %\end{center}
 
 \subsubsection{Sequence Diagram}
-In the following diagram can be seen the interaction between nodes. 
+In the following diagram can be seen the interaction between nodes. \\
+The Event Handler node triggers the execution of the Recognizer and the Learner nodes. As it was previously mentioned, the triggering event is defined to create a more natural human-machine interaction.
+The converter, ROI Segmenters, Feature Extractors, Data Parser and Display nodes are continuously working and publishing the information on their topics. 
+Hence, the information needed for the Event Handler, Recognizer and Learner nodes is obtained subscribing to those topics. 
 \begin{center}
 \includegraphics[scale=0.3]{../diagrams/images/sequence.eps}
 \end{center}
@@ -267,20 +270,28 @@ geometry\_ msgs/Vector3[] position\\
 }
 
 
-\subsection{ROI Segmenter}
-	\item This node must segment the Region Of Interest both in 2D (image) and in 3D (point cloud). 
-	\item In the 3D segmentation, the ROI must be a box around the hand's position. 
-	\item In the 3D segmentation, the original point cloud must be filtered using a depth filter to eliminate the background.
-	\item In the 3D segmentation, the dimensions of the ROI box must be obtained locating the maximum and minimum points in the x, y and z axis within a fixed volume. 
-	\item The size of the 2D ROI must be extracted from the 3D ROI x and y dimensions. Those measures will be transformed to pixels. 
-	\item The 2D ROI will be cropped from the original image using the points obtained from the 3D ROI. 
+\subsection{ROI Segmenters}
 
-\subsection{Feature Extractor}
-\item This node will extract both 3D and 2D features. 
-\item The 2D features will be expressed as a vector of descriptors, using the ORB approach. 
-\item The 3D features will be expressed as a vector of features, using the Line-Mod approach.
+   \subsubsection{ROI Segmenter 3D}
+	\item This node must segment the Region Of Interest in 3D (point cloud). 
+	\item The ROI must be a box around the hand's position. 
+	\item The dimensions of the ROI box must be fixed and must have a value suitable for this application.  
+   \subsubsection{ROI Segmenter 2D}
+   	\item This node must segment the Region Of Interest in 2D (image).
+   	\item The original input image must be the one obtained directly from the RGB-D sensor being used.
+   	\item The size of the 2D ROI must be extracted from the 3D ROI x and y dimensions. Those measures must be in pixels. 
+	\item The 2D ROI must be cropped from the original image using the points obtained from the 3D ROI. 
 
-\item The 2D and 3D features of all the views of each object will be stored in a file, using the data parser node.  
+\subsection{Feature Extractors}
+   \subsubsection{Feature Extractor 2D}
+	\item This node must extract the 2D features. 
+	\item The 2D features will be expressed as a vector of descriptors. %, using the ORB approach. 
+	\item The 2D features of all the views of each object will be stored in a file, using the data parser node.  
+  
+  \subsubsection{Feature Extractor 3D}
+   	\item This node must extract the 3D features. 
+	\item The 3D features will be expressed as a vector of features. %, using the Line-Mod approach.
+	\item The 3D features of all the views of each object will be stored in a file, using the data parser node.  
 
 \subsection{Data Parser}
 \item This node will compress the features obtained to have one data file per object with all the information.
