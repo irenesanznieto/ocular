@@ -32,7 +32,6 @@ void FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
             return;
         }
 
-
         cv::Mat  gimage;
         cvtColor(cv_ptr->image, gimage, CV_BGR2GRAY);
 
@@ -54,7 +53,6 @@ void FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
         //    cv::waitKey(10);
 
     }
-
 }
 
 
