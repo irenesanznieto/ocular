@@ -1,4 +1,14 @@
+IN-HAND OBJECT DETECTION AND TRACKING USING 2D AND 3D INFORMATION
+=====
+
+Bachelor's Thesis
+
+Author: 
+   [Irene Sanz Nieto](https://github.com/irenesanznieto)
+   
+   
 Index
+-------
 
 1.Introduction
 2.Compile and run
@@ -8,7 +18,10 @@ Index
 3. Doxygen documentation
 4. More info
 
+
+
 1. Introduction
+--------------------
 This repository contains the software developed for a Bachelor's Thesis. It is an in-hand object training and recognition using 3D and 2D features. 
 
 The hardware used is a RGB-D camera, in this case a Kinect360 and a laptop running ubuntu 13.04. 
@@ -16,6 +29,7 @@ The hardware used is a RGB-D camera, in this case a Kinect360 and a laptop runni
 This project uses the Groovy distro of the Robotic Operating System (ROS). 
 
 2. Compile and run
+---------------------
 
 2.1. Dependencies
 The aditional ROS packages needed are the following: 
@@ -51,6 +65,8 @@ roslaunch TFG TFG.launch
 This launch file will open all the executables and nodes and nodelets needed for the project. 
 
 3. Doxygen documentation
+-------------------------
  /todo
 4. More info
+---------------------------
 /todo
