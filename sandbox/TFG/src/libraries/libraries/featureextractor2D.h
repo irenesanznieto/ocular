@@ -20,6 +20,7 @@
 #define FEATURE_EXTRACTOR_2D_H
 
 #include "roisegmenter2D.h"
+#include <TFG/HandImage.h>
 
 
 //* FeatureExtractor2D class
@@ -31,25 +32,18 @@ class FeatureExtractor2D
 public:
 
 
-/*!
+    /*!
     * \brief Public constructor
     *
     * 
     */
     FeatureExtractor2D();
-    void extract_features(const sensor_msgs::ImageConstPtr & );
+    void extract_features(const TFG::HandImageConstPtr & );
 
 private:
-    image_transport::Subscriber image_r_sub;
-    image_transport::Subscriber image_l_sub;
 
-//TODO: separate the ROS part from the actual computing part!!
-
-    ros::NodeHandle nh;
-    image_transport::ImageTransport it;
-
-    void right(const sensor_msgs::ImageConstPtr & );
-    void left(const sensor_msgs::ImageConstPtr & );
+//    void right(const sensor_msgs::ImageConstPtr & );
+//    void left(const sensor_msgs::ImageConstPtr & );
 
 //    void save_descriptors(cv::Mat &descriptors, std::string filename);
 //    void save_keypoints(std::vector <cv::KeyPoint> & keyp, std::string filename);

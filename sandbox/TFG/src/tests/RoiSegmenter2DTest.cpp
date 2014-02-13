@@ -81,7 +81,7 @@ TEST_F(RoiSegmenter2DTest,segment)
 
 //    const sensor_msgs::ImageConstPtr& msg_image_ptr = boost::make_shared<sensor_msgs::Image>(msg_image);
 
-    TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage("../data/test/ros_groovy.jpg"));
+//    TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage("../data/test/ros_groovy.jpg"));
 
 
 //    //TEST
