@@ -115,30 +115,38 @@ There are different types of messages depending on the information that has to b
 
 \subsubsection{Converter Node}
 
-This node will convert the messages from other ROS packages to the internal message format used within the code. 
+This node converts the messages from other ROS packages to the internal message format used within the code. 
 
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_converter.eps}
 \end{center}
 	
-\subsubsection{ROI Segmenter Node}
-This node will segment the ROI (Region Of Interest) both in 2D and 3D.
-The first region of interest segmented is the 3D. Using the hand's center position obtained from the pi\_ tracker ROS package a prism is extracted around it. Its depth will be fixed and proportional to the distance between the hand and the RGB-D sensor. Both the horizontal and vertical distances of the prism will be obtained finding the extreme points of the input cloud. Those extreme points will have to be between certain limits to avoid extracting a higher ROI due to outliers. 
+\subsubsection{ROI Segmenter Nodes}
+There are two nodes that extract the ROI (Region Of Interest), one for the 2D and the other one for the 3D data.
+
+\paragraph {ROI Segmenter 3D Node}
+
+The first region of interest segmented is the 3D. Using the hand's center position obtained from the pi\_ tracker ROS package a prism is extracted around it. Its dimensions are all fixed to an experimental value that is suitable for this purpose. 
 \\
 No outlier filtering is done due to the high computing time required.  
 \\
-The 2D ROI will be extracted from the 3D ROI. The maximum and minimum points in both the x and y axis of the 3D ROI point cloud are converted to pixels. Then, the original image obtained from the RGB-D sensor is cropped using those points. 
+The limits of the 3D ROI extracted are converted to pixels and published in a topic. These limits are the inputs of the following node. 
+\paragraph{ROI Segmenter 2D Node}
+As it was previously mentioned, the 2D ROI dimensions are extracted from the 3D ROI. The original image obtained from the RGB-D sensor is cropped using those points. 
 \\
-The output of this node will be two topics, one with the 2D ROI (an image) and the other one with the 3D ROI (a point cloud).
+The outputs of this node are two topics, one with the 2D ROI (a custom message that includes an image and a name) and the other one with the 3D ROI (a point cloud).
 \\
-To decrease the computation time, the point clouds will not have the RGB component. The color information may be obtained through the 2D ROI. 
+To decrease the computation time, the point clouds do not have the RGB component. Thus, the color information is obtained through the 2D ROI. 
 
+
+
+\HUGE{CHANGE THIS DIAGRAM!!}
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_roi_segmenter.eps}
 \end{center}
 
 \subsubsection{Feature Extractor Node}
-This node will extract both 2D and 3D features and publish them. 
+This node extracts both 2D and 3D features and publish them. 
 
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_feature_extractor.eps}
@@ -146,14 +154,14 @@ This node will extract both 2D and 3D features and publish them.
 
 
 \subsubsection{Data Parser Node}
-This node will store the 2D and 3D features of each template of the same object in one file. 
+This node stores the 2D and 3D features of each template of the same object in one file. 
 \begin{center}
 	\includegraphics[scale=0.4]{../diagrams/images/uc_data_parser.eps}
 \end{center}
 
 
 \subsubsection{Event Handler Node}
-	This node will identify the different user's gestures and act accordingly using a State Machine structure. 
+	This node identifies the different user's gestures and act accordingly using a State Machine structure. 
 	\begin{center}
 		\includegraphics[scale=0.4]{../diagrams/images/uc_event_handler.eps}
 	\end{center}
@@ -181,12 +189,12 @@ The learning of the objects is done in-hand. The training starts when the user e
 	\end{center}
 
 \subsubsection{Object Recognizer Node} 
-\hspace{0.5cm}This node will track the user's hands and recognize the held objects. 
+\hspace{0.5cm}This node tracks the user's hands and recognizes the held objects. 
 
 There are two different algorithms, one trained with the 2D data and the other one trained with the 3D data. More information about those algorithms may be found in the Functional Requirements section. 
 \\
 The steps done by this node are the following: 
-First, as in the Learning Mode, 2D and 3D descriptors will be extracted. Then, the algorithms will compare that information with the learned one. 
+First, as in the Learning Mode, 2D and 3D descriptors are extracted. Then, the algorithms will compare that information with the learned one. 
 The output of each algorithm will be a percentage of similarity between the dataset and the new object. 
 \\
 The 3D information is more reliable than the 2D. The latter is subjected to inaccuracies due to illumination or view angle that affects the descriptors extracted and hence the object recognition.
