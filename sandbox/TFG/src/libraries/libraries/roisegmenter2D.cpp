@@ -89,7 +89,6 @@ TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 
        return(final_image);
     }
-
 }
 
 void RoiSegmenter2D::checkLimits(int & x, int& y)
@@ -120,4 +119,13 @@ TFG::HandLocPx RoiSegmenter2D::getHandLocPx ()
 void RoiSegmenter2D::setHandLocPx (TFG::HandLocPx& coord)
 {
     this->coord=coord;
+}
+
+const sensor_msgs::ImageConstPtr RoiSegmenter2D:: setInputImage(std::string &path)
+{
+    cv::Mat inputImage=cv::imread(path);
+    cv_bridge::CvImagePtr cv_ptr;
+
+    cv_ptr->image=inputImage.clone();
+    return cv_ptr->toImageMsg();
 }
