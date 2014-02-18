@@ -20,7 +20,7 @@
 #define ROISEGMENTER2D_H
 
 #include <opencv2/opencv.hpp>
-#include <ros/ros.h>
+
 
 //Image includes
 #include <image_transport/image_transport.h>

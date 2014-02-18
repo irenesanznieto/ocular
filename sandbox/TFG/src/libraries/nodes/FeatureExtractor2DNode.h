@@ -1,6 +1,8 @@
 #ifndef FEATUREEXTRACTOR2DNODE_H
 #define FEATUREEXTRACTOR2DNODE_H
+
 #include "../libraries/featureextractor2D.h"
+#include <ros/ros.h>
 
 class FeatureExtractor2DNode
 {

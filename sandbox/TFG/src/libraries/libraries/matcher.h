@@ -1,9 +1,8 @@
 #ifndef MATCHER_H
 #define MATCHER_H
 
-#include "trainermatcher.h"
 
-class Matcher : public TrainerMatcher
+class Matcher
 {
 	public: 
 		void match(); 

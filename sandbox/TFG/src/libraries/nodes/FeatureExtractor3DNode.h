@@ -19,7 +19,7 @@
 #define FEATUREEXTRACTOR3DNODE_H
 
 #include "../libraries/featureextractor3D.h"
-
+#include <ros/ros.h>
 //* FeatureExtractor3DNode class
 /**
 * Connects the methods implemented in the FeatureExtractor3D class with the other packages using ROS topics.

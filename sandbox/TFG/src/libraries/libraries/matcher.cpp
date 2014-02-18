@@ -2,7 +2,6 @@
 
 void Matcher :: match()
 {
-	TrainerMatcher::extract_features(); 
 	//match2D
 	//match3D
 	
