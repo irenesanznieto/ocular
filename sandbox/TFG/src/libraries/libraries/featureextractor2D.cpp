@@ -16,7 +16,6 @@ FeatureExtractor2D::FeatureExtractor2D()
 //}
 
 
-//void FeatureExtractor2D::extract_features(const sensor_msgs::ImageConstPtr & msg)
 void FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
 {
     cv_bridge::CvImagePtr cv_ptr;

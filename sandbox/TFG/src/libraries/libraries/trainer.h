@@ -8,4 +8,5 @@ class Trainer
 		void train(); 
 
 };
+
 #endif //TRAINER_H
