@@ -2,8 +2,7 @@
 
 Trainer::Trainer()
 {
-    //Vector descriptors that will store the descriptors dataset
-    const std::vector<cv::Mat> descriptors;
+
     //TODO: add the descriptors reading from the files!!
 
     //Add the descriptors to the algorithm
@@ -13,9 +12,21 @@ Trainer::Trainer()
 
 void Trainer::train(const sensor_msgs::PointCloud2ConstPtr & pc_msg, const sensor_msgs::ImageConstPtr & image_msg)
 {
+    //convert from ros image msg to opencv image
+    cv_bridge::CvImagePtr cv_ptr;
+
+    try
+    {
+        cv_ptr = cv_bridge::toCvCopy(image_msg, sensor_msgs::image_encodings::BGR8);
+    }
+    catch (cv_bridge::Exception& e)
+    {
+        ROS_ERROR("cv_bridge exception: %s", e.what());
+    }
+
 
     //train 2D features
-    this->train2D(alg2D);
+    this->train2D(cv_ptr->image);
 
     //store template
     this->save_template();
@@ -33,10 +44,10 @@ void Trainer::train(const sensor_msgs::PointCloud2ConstPtr & pc_msg, const senso
 }
 
 
-void Trainer::train2D(cv::FlannBasedMatcher & alg2D)
+void Trainer::train2D(cv::Mat image_cv)
 {
-
-
+    descriptors.push_back(image_cv);
+    alg2D.train();
 }
 
 
