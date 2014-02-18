@@ -10,5 +10,7 @@ FeatureExtractor3DNode::FeatureExtractor3DNode()
 
 void FeatureExtractor3DNode:: segmented_pc_cb (const sensor_msgs::PointCloud2ConstPtr &msg)
 {
-    //complete!
+    fe3D.extract_features(msg);
+
+    //extract_features is currently void. When the line-mod code is linked properly, change this to the actual functionality
 }

@@ -45,9 +45,7 @@ class FeatureExtractor3D
 public:
 
     FeatureExtractor3D();
-//    ros::Subscriber pc_sub;
-    //        ros::Publisher
-//    ros::NodeHandle nh;
+
     void extract_features(const sensor_msgs::PointCloud2ConstPtr& msg);
 
 };
