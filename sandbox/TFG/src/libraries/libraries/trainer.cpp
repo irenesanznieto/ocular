@@ -33,10 +33,10 @@ void Trainer::train(const sensor_msgs::ImageConstPtr & descriptors)
     this->train2D(cv_ptr->image);
 
     //store template
-    this->save_template();
+    this->save_template_2D();
 
     //store algorithm
-    this->save_algorithm();
+    this->save_algorithm_2D();
 
 
 
@@ -65,7 +65,7 @@ void Trainer::train2D(cv::Mat image_cv)
 }
 
 
-void Trainer::save_template()
+void Trainer::save_template_2D()
 {
     //If it is a new object, we want to create a new object position in the vector
     int object_number=descriptors.size();
@@ -93,8 +93,21 @@ void Trainer::save_template()
     }
 }
 
-void Trainer::save_algorithm()
+void Trainer::save_algorithm_2D()
 {
+    //If it is a new object, we want to create a new object position in the vector
+    int object_number=descriptors.size();
+
+    //If it is not a new object, we want to add the descriptors to the last object:
+    if (new_object!=true)
+        object_number-=1;
+
+//    cv::FlannBasedMatcher trial;
+    std::stringstream filename;
+    filename<<"../data/algorithms/2D/"<<object_number<<".yml";
+
+    cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
+    alg2D[object_number].write(fs);
 
 }
 

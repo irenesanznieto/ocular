@@ -32,8 +32,8 @@ private:
     std::vector<std::vector<cv::Mat> >descriptors;    /** Vector that will store the descriptors dataset */
 
 
-    void save_template();
-    void save_algorithm();
+    void save_template_2D();
+    void save_algorithm_2D();
 
 
     bool new_object;
