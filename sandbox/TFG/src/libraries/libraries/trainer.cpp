@@ -167,46 +167,7 @@ void Trainer:: getTemplates ()
 }
 
 
-//std::vector <cv::DMatch>  flann_comparison (cv::Mat  &desc1, 	cv::Mat  &desc2, float & ratio, float threshold)
-//{
 
-//    cv::FlannBasedMatcher matcher;
-
-//    std::vector< cv::DMatch > matches;
-
-//    desc1.convertTo(desc1, CV_32F);
-//    desc2.convertTo(desc2, CV_32F);
-
-//    matcher.match( desc1, desc2, matches );
-
-//    //Store good matches, using the threshold ratio
-//    std::vector< cv::DMatch > good_matches;
-
-//    for( int i = 0; i < desc1.rows; i++ )
-//    {
-//        if( matches[i].distance < threshold )
-//            good_matches.push_back( matches[i]);
-//    }
-
-
-//    //cout <<good_matches.size()<<endl<<matches.size()<<endl;
-
-//    //This ratio will help define the correct match for each photo
-
-//    ratio=(float)(good_matches.size())/(float)(matches.size());
-
-//    return good_matches;
-//}
-
-
-
-
-//void save_descr(Mat &descriptors, string filename)
-//{
-//	filename+= "_d.yml";
-//	FileStorage fs(filename, FileStorage::WRITE);
-//	fs <<"descriptors"<< descriptors;
-//}
 
 //void save_keypoints(vector <KeyPoint> & keyp, string filename)
 //{

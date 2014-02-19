@@ -14,7 +14,10 @@ void Matcher :: match()
 	//publish resulting name!
 }
 
+void Matcher::match2D()
+{
 
+}
 
 std::vector <cv::DMatch> Matcher:: flann_comparison (cv::Mat  &desc1, 	cv::Mat  &desc2, float & ratio, float threshold)
 {
