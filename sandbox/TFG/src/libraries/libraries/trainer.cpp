@@ -5,7 +5,7 @@ Trainer::Trainer()
     //TODO: add the descriptors reading from the files!!
 
     //Add the descriptors to the algorithm
-
+    getTemplates();
     for (unsigned int i =0; i<descriptors.size(); i++)
     {
         alg2D[i].add(descriptors[i]);
@@ -78,11 +78,17 @@ void Trainer::save_template()
     std::stringstream filename;
     filename <<"../data/templates/"<<object_number<<"/";
 
+    std::stringstream command;
+    command<<"mkdir "<<filename;
+
+    if (new_object==true)
+        system(command.str().c_str());
+
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
         filename<<"view_"<< i<<"_d.yml";
-            cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
-            fs <<"descriptors"<< descriptors[object_number][i];
+        cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
+        fs <<"descriptors"<< descriptors[object_number][i];
 
     }
 }
@@ -99,28 +105,54 @@ void Trainer ::set_new_object(bool new_object)
 }
 
 
-std::vector <std::string> Trainer:: getTemplates (std::string path)
+std::vector <std::string> Trainer::get_file_names (std::string path)
 {
-        std::string sys_command="ls "+path;
-        std::system(sys_command.c_str());
+    std::string sys_command="ls "+path +"> ../data/temp/temp.txt";
+    system(sys_command.c_str());
 
-        std::ifstream file(path.c_str());
-        std::string dummy;
-        std::vector <std::string> templates;
+    std::ifstream file("../data/temp/temp.txt");
+    std::string dummy;
+    std::vector <std::string> templates;
 
-        while (file.good())
+    while (file.good())
+    {
+        getline(file,dummy);
+        templates.push_back(dummy);
+    }
+
+    file.close();
+    system("rm ../data/temp/temp.txt");
+
+    templates.erase(templates.end());
+}
+
+
+
+void Trainer:: getTemplates ()
+{
+
+    std::vector<std::string> number_of_objects_folders=get_file_names("../data/templates/");
+    int total_objects=number_of_objects_folders.size();
+
+
+    std::stringstream path;
+    path<<"../data/templates/";
+
+    for (int object_number=0;object_number<total_objects; object_number++ )
+    {
+        path<<object_number<<"/";
+        std::vector <std::string> templates=get_file_names(path.str());
+
+        //extract the information from the yml files
+        for (int i=0; i<templates.size(); i++)
         {
-            getline(file,dummy);
-            templates.push_back(dummy);
+            descriptors[object_number].push_back(this->load_descriptor(templates[i]));
+            //            temp_keyp.push_back(load_keypoint(keyp_t[i]));
         }
-
-        file.close();
-
-        templates.erase(templates.end()); //Not sure where this vector creates an empty space in the last row. Anyway, not throwing errors this way neither losing info.
-
-        return templates;
+    }
 
 }
+
 
 //std::vector <cv::DMatch>  flann_comparison (cv::Mat  &desc1, 	cv::Mat  &desc2, float & ratio, float threshold)
 //{
@@ -171,14 +203,14 @@ std::vector <std::string> Trainer:: getTemplates (std::string path)
 //}
 
 
-//Mat load_desc (string filename)
-//{
-//	FileStorage fr (filename, FileStorage::READ);
-//	Mat descriptor;
-//	fr["descriptors"]>>descriptor;
+cv::Mat Trainer::load_descriptor (std::string filename)
+{
+    cv::FileStorage fr (filename, cv::FileStorage::READ);
+    cv::Mat descriptor;
+    fr["descriptors"]>>descriptor;
 
-//	return descriptor;
-//}
+    return descriptor;
+}
 
 //vector <KeyPoint> load_keyp (string filename)
 //{

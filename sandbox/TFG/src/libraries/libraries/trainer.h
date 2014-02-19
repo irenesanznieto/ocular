@@ -18,10 +18,12 @@ public:
 
     void set_new_object(bool new_object);
 
-    std::vector <std::string> getTemplates (std::string path);
+    void getTemplates ();
 
 
 private:
+
+    std::vector <std::string> get_file_names (std::string );
 
     void train2D(cv::Mat);
 
@@ -35,6 +37,9 @@ private:
 
 
     bool new_object;
+
+
+    cv::Mat load_descriptor (std::string );
 
 };
 
