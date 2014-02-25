@@ -26,6 +26,7 @@
 
 
 #include "dataparser.h"
+#include <TFG/HandImage.h>
 
 //* Trainer
 /**
@@ -48,23 +49,23 @@ public:
     void train2D(const sensor_msgs::ImageConstPtr &);  /** Trains a 2D algorithm with a new view of the object*/
     void train3D ();    /** Trains a 3D algorithm with a new view of the object*/
 
-    void set_new_object(bool new_object);
+    void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
 
 private:
 
 
 
-    std::vector<cv::FlannBasedMatcher >alg2D;
+    std::vector<cv::FlannBasedMatcher >alg2D;   /** Vector of FlannBasedMatcher algorithms, one per object */
 
     std::vector<std::vector<cv::Mat> >descriptors;    /** Vector that will store the descriptors dataset */
 
-    DataParser dataparser;
+    DataParser dataparser;  /**DataParser object that will store the algorithms and templates information*/
 
 
 
-    bool new_object;
+    bool new_object;    /**Boolean that is set to true whenever the new view is of a new object*/
 
-    int object_number();
+    int object_number();    /**Returns the index for the different vectors used in the class depending on the new_object variable*/
 
 };
 
