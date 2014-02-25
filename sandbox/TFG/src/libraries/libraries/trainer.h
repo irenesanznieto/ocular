@@ -59,7 +59,7 @@ private:
 
     std::vector<std::vector<cv::Mat> >descriptors;    /** Vector that will store the descriptors dataset */
 
-    DataParser dataparser;  /**DataParser object that will store the algorithms and templates information*/
+    DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
 
 
 

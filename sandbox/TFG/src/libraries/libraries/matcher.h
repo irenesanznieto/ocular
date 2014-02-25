@@ -19,6 +19,8 @@
 #define MATCHER_H
 
 #include "dataparser.h"
+#include <sensor_msgs/Image.h>
+#include <algorithm>
 
 //* Matcher
 /**
@@ -35,13 +37,15 @@ public:
     * \brief Public constructor
     */
     Matcher();
-    void match();
-    std::vector <cv::DMatch> flann_comparison (cv::Mat  &, 	cv::Mat  &, float &, float);
+    void match2D(const sensor_msgs::ImageConstPtr & msg);
+    void match3D();
+
+    int flann_comparison (cv::Mat &, float);
 
 private:
-    void match2D();
 
-    DataParser dataparser;
+    DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
+    std::vector<cv::FlannBasedMatcher> algorithms2D;
 
 };
 #endif //MATCHER_H

@@ -39,6 +39,7 @@ TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr
         result.image.push_back( *final_ptr->toImageMsg());
         result.name[i]=msg->name[i];
 
+
         //    Draw circles in the keypoints
         //    for (unsigned int i=0; i<keypoints.size(); i++)
         //    {

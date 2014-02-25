@@ -34,21 +34,11 @@ public:
 
     /*!
     * \brief Public constructor
-    *
-    * 
     */
     FeatureExtractor2D();
-    TFG::HandImage extract_features(const TFG::HandImageConstPtr & );
 
-private:
+    TFG::HandImage extract_features(const TFG::HandImageConstPtr & );   /**Extracts the 2D descriptors from the segmented input image using the ORB algorithm */
 
-//    void right(const sensor_msgs::ImageConstPtr & );
-//    void left(const sensor_msgs::ImageConstPtr & );
-
-//    void save_descriptors(cv::Mat &descriptors, std::string filename);
-//    void save_keypoints(std::vector <cv::KeyPoint> & keyp, std::string filename);
-
-    std::string name;
 };
 
 

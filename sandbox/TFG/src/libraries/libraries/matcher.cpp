@@ -2,56 +2,68 @@
 
 Matcher::Matcher()
 {
-
+  this->algorithms2D= dataparser.load_algorithms_2D();
 }
 
-void Matcher :: match()
+void Matcher :: match2D(const sensor_msgs::ImageConstPtr & msg)
 {
 	//match2D
+    cv::Mat new_descriptors;
+    float  threshold=300;
+    this->flann_comparison(new_descriptors, threshold);
 
-    cv::Mat desc1, desc2;
-    float ratio, threshold=300;
-    Matcher::flann_comparison(desc1, desc2, ratio, threshold);
-	//match3D
 	
-	//weights between the two
-	
-	//publish resulting name!
-}
-
-void Matcher::match2D()
-{
 
 }
 
-std::vector <cv::DMatch> Matcher:: flann_comparison (cv::Mat  &desc1, 	cv::Mat  &desc2, float & ratio, float threshold)
+void Matcher::match3D()
 {
+    //match3D
+}
 
-    cv::FlannBasedMatcher matcher;
+///////////////////////////TODO:
+                //weights between the two
 
-    std::vector< cv::DMatch > matches;
-
-    desc1.convertTo(desc1, CV_32F);
-    desc2.convertTo(desc2, CV_32F);
+                //publish resulting name!
 
 
-    matcher.match( desc1, desc2, matches );
+
+int Matcher:: flann_comparison (cv::Mat  &desc1,float threshold)
+{
+    float ratio[algorithms2D.size()];
+
+    std::vector<std::vector< cv::DMatch > >matches;
+    matches.resize(algorithms2D.size());
 
     //Store good matches, using the threshold ratio
-    std::vector< cv::DMatch > good_matches;
+    std::vector<std::vector< cv::DMatch > >good_matches;
+    good_matches.resize(algorithms2D.size());
 
-    for( int i = 0; i < desc1.rows; i++ )
+    for (unsigned int object_number=0; object_number<algorithms2D.size(); object_number++)
     {
-        if( matches[i].distance < threshold )
-            good_matches.push_back( matches[i]);
+
+        desc1.convertTo(desc1, CV_32F);
+
+        algorithms2D[object_number].match( desc1, matches[object_number]);
+
+
+
+        for( int i = 0; i < desc1.rows; i++ )
+        {
+            if( matches[object_number][i].distance < threshold )
+                good_matches[object_number].push_back( matches[object_number][i]);
+        }
+
+
+        //cout <<good_matches.size()<<endl<<matches.size()<<endl;
+
+        //This ratio will help define the correct match for each photo
+        ratio[object_number]=(float)(good_matches[object_number].size())/(float)(matches[object_number].size());
     }
 
 
-    //cout <<good_matches.size()<<endl<<matches.size()<<endl;
+    //CHECK THIS!
+    int object_id=*std::max_element(ratio, ratio+sizeof(ratio));
 
-    //This ratio will help define the correct match for each photo
-
-    ratio=(float)(good_matches.size())/(float)(matches.size());
-
-    return good_matches;
+    return object_id;
 }
