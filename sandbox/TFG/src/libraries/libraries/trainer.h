@@ -43,14 +43,16 @@ public:
     * Loads the previously saved templates and trains the algorithms with them.
     */
     Trainer();
-    void train(const sensor_msgs::ImageConstPtr & descriptors);
+
+
+    void train2D(const sensor_msgs::ImageConstPtr &);  /** Trains a 2D algorithm with a new view of the object*/
+    void train3D ();    /** Trains a 3D algorithm with a new view of the object*/
 
     void set_new_object(bool new_object);
 
 private:
 
 
-    void train2D(cv::Mat);
 
     std::vector<cv::FlannBasedMatcher >alg2D;
 

@@ -2,12 +2,13 @@
 
 Trainer::Trainer()
 {
-    //Add the descriptors to the algorithm
-    dataparser.getTemplates();
+    //Load the previously stored templates
+    this->descriptors=dataparser.getTemplates();
 
+    //Add the descriptors to each algorithm
     for (unsigned int i =0; i<descriptors.size(); i++)
     {
-        alg2D[i].add(descriptors[i]);
+        alg2D[i].add(this->descriptors[i]);
         alg2D[i].train();
     }
 }
@@ -25,75 +26,49 @@ int Trainer:: object_number()
 
 
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
-void Trainer::train(const sensor_msgs::ImageConstPtr & descriptors)
+void Trainer::train2D(const sensor_msgs::ImageConstPtr & msg)
 {
     //convert from ros image msg to opencv image
     cv_bridge::CvImagePtr cv_ptr;
 
     try
     {
-        cv_ptr = cv_bridge::toCvCopy(descriptors, sensor_msgs::image_encodings::BGR8);
+        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     }
     catch (cv_bridge::Exception& e)
     {
         ROS_ERROR("cv_bridge exception: %s", e.what());
     }
 
-    //train 2D features
-    this->train2D(cv_ptr->image);
+    cv::Mat image_cv=cv_ptr->image.clone();
+
+    //decide the position of the new view in the matrix of descriptors
+    int object_number=this->object_number();
+
+    //add the new view to the descriptors matrix
+    descriptors[object_number].push_back(image_cv);
+
+    //train the 2D algorithm with the new view
+    alg2D[object_number].train();
 
     //store template
     dataparser.save_template_2D(this->descriptors[this->object_number()]);
 
     //store algorithm
-
     dataparser.save_algorithm_2D(alg2D[this->object_number()], this->object_number());
+}
 
+
+void Trainer::train3D ()
+{
     //train 3D features
-
 
     //store template
 
     //store algorithm
 }
 
-
-void Trainer::train2D(cv::Mat image_cv)
-{
-    int object_number=this->object_number();
-    descriptors[object_number].push_back(image_cv);
-    alg2D[object_number].train();
-}
-
-
-
-
-
-
-
-
 void Trainer ::set_new_object(bool new_object)
 {
     this->new_object=new_object;
 }
-
-
-
-
-
-
-
-//void save_keypoints(vector <KeyPoint> & keyp, string filename)
-//{
-//	filename+= "_k.yml";
-//	FileStorage fs(filename, FileStorage::WRITE);
-//	fs <<"keypoints"<< keyp;
-//}
-
-//vector <KeyPoint> load_keyp (string filename)
-//{
-//	FileStorage fr (filename, FileStorage::READ);
-//	vector <KeyPoint> keypoints;
-//	read(fr["keypoints"],keypoints);
-//	return keypoints;
-//}
