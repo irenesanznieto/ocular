@@ -5,12 +5,23 @@ Trainer::Trainer()
     //TODO: add the descriptors reading from the files!!
 
     //Add the descriptors to the algorithm
-    getTemplates();
+    dataparser.getTemplates();
     for (unsigned int i =0; i<descriptors.size(); i++)
     {
         alg2D[i].add(descriptors[i]);
         alg2D[i].train();
     }
+}
+int Trainer:: object_number()
+{
+    //If it is a new object, we want to create a new object position in the vector
+    int object_number=descriptors.size();
+
+    //If it is not a new object, we want to add the descriptors to the last object:
+    if (new_object!=true)
+        object_number-=1;
+
+    return object_number;
 }
 
 
@@ -33,10 +44,11 @@ void Trainer::train(const sensor_msgs::ImageConstPtr & descriptors)
     this->train2D(cv_ptr->image);
 
     //store template
-    dataparser.save_template_2D();
+    dataparser.save_template_2D(this->descriptors[this->object_number()]);
 
     //store algorithm
-    dataparser.save_algorithm_2D();
+
+    dataparser.save_algorithm_2D(alg2D[this->object_number()], this->object_number());
 
     //train 3D features
 
@@ -49,14 +61,7 @@ void Trainer::train(const sensor_msgs::ImageConstPtr & descriptors)
 
 void Trainer::train2D(cv::Mat image_cv)
 {
-    //If it is a new object, we want to create a new object position in the vector
-    int object_number=descriptors.size();
-
-    //If it is not a new object, we want to add the descriptors to the last object:
-    if (new_object!=true)
-        object_number-=1;
-
-
+    int object_number=this->object_number();
     descriptors[object_number].push_back(image_cv);
     alg2D[object_number].train();
 }

@@ -11,9 +11,9 @@ public:
 
 
     cv::Mat load_descriptor (std::string );/** */
-    void load_algorithms_2D(std::string);/** */
-    void save_algorithm_2D();/** */
-    void save_template_2D();/** */
+    std::vector<cv::FlannBasedMatcher> load_algorithms_2D();/**Loads the FlannBasedMatcher algorithms information previously stored*/
+    void save_algorithm_2D(cv::FlannBasedMatcher & , int );/**Stores the FlannBasedMatcher algorithm information to the algorithms folder*/
+    void save_template_2D(std::vector<cv::Mat> & );/**Saves a new 2D template in the predefined path */
     std::vector<std::vector<cv::Mat> >  getTemplates ();/** */
 
 

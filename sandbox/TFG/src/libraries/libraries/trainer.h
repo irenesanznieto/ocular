@@ -19,9 +19,6 @@ public:
 
     void set_new_object(bool new_object);
 
-    void getTemplates ();
-
-
 private:
 
 
@@ -37,6 +34,7 @@ private:
 
     bool new_object;
 
+    int object_number();
 
 };
 

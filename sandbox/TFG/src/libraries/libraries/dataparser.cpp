@@ -35,63 +35,47 @@ std::vector <std::string> DataParser::get_file_names (std::string path)
 }
 
 
-void DataParser::save_template_2D()
+void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors)
 {
-    //If it is a new object, we want to create a new object position in the vector
     int object_number=descriptors.size();
-
-    //If it is not a new object, we want to add the descriptors to the last object:
-    if (new_object!=true)
-        object_number-=1;
 
     //NAME CODE:
     std::stringstream filename;
-    filename <<"../data/templates/"<<object_number<<"/";
+    filename <<templates_path<<object_number;
 
     std::stringstream command;
     command<<"mkdir "<<filename;
 
-    if (new_object==true)
+//    if (new_object==true)
         system(command.str().c_str());
 
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
-        filename<<"view_"<< i<<"_d.yml";
+        filename<<"/"<<"view_"<< i<<"_d.yml";
         cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
-        fs <<"descriptors"<< descriptors[object_number][i];
+        fs <<"descriptors"<< descriptors[i];
 
     }
 }
 
 
 
-void DataParser::save_algorithm_2D()
+void DataParser::save_algorithm_2D(cv::FlannBasedMatcher & alg2D, int object_number)
 {
-    //If it is a new object, we want to create a new object position in the vector
-    int object_number=descriptors.size();
-
-    //If it is not a new object, we want to add the descriptors to the last object:
-    if (new_object!=true)
-        object_number-=1;
 
     std::stringstream filename;
     filename<<algorithms_2D_path<<object_number<<".yml";
 
     cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
-    //    alg2D[object_number].write(fs);
-    //    fs<<"algorithm"<<object_number<<alg2D[object_number];
-    alg2D[object_number].write(fs);
-
+    alg2D.write(fs);
 
 }
 
 
-void DataParser::load_algorithms_2D(std::string path)
+std::vector<cv::FlannBasedMatcher > DataParser::load_algorithms_2D()
 {
-    //path = "../data/algorithms/2D/";
-    std::vector <std::string> algorithms=Trainer::get_file_names(path);
-    //    cv::FlannBasedMatcher trial;
-    std::string name_algorithm;
+    std::vector <std::string> algorithms=this->get_file_names(algorithms_2D_path);
+    std::vector<cv::FlannBasedMatcher >alg2D;
 
     for (unsigned int i=0; i<algorithms.size(); i++)
     {
@@ -101,6 +85,8 @@ void DataParser::load_algorithms_2D(std::string path)
         alg2D[i].read(fn);
 
     }
+
+    return alg2D;
 }
 
 
