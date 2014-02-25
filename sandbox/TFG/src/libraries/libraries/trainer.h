@@ -1,3 +1,20 @@
+//------------------------------------------------------------------------------
+//-- Trainer class
+//------------------------------------------------------------------------------
+//--
+//--  Trains the algorithms for 2D and 3D recognition.
+//--
+//------------------------------------------------------------------------------
+//--
+//-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
+//-- (https://github.com/irenesanznieto/TFG)
+//--
+//------------------------------------------------------------------------------
+//-- Author: Irene Sanz Nieto
+//--
+//-- Released under the MIT license (more info on LICENSE.md file)
+//------------------------------------------------------------------------------
+
 #ifndef TRAINER_H
 #define TRAINER_H
 
@@ -10,10 +27,21 @@
 
 #include "dataparser.h"
 
+//* Trainer
+/**
+* Trains the algorithms used for 2D and 3D recognition, using new templates or stored ones.
+* \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
+* \date Feb 25th, 2014
+*
+*/
 class Trainer
 {
 public:
 
+    /*!
+    * \brief Public constructor
+    * Loads the previously saved templates and trains the algorithms with them.
+    */
     Trainer();
     void train(const sensor_msgs::ImageConstPtr & descriptors);
 

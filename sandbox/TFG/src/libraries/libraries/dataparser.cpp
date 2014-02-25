@@ -46,8 +46,8 @@ void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors)
     std::stringstream command;
     command<<"mkdir "<<filename;
 
-//    if (new_object==true)
-        system(command.str().c_str());
+    system(command.str().c_str());
+
 
     for (unsigned int i=0; i<descriptors.size(); i++)
     {

@@ -2,10 +2,9 @@
 
 Trainer::Trainer()
 {
-    //TODO: add the descriptors reading from the files!!
-
     //Add the descriptors to the algorithm
     dataparser.getTemplates();
+
     for (unsigned int i =0; i<descriptors.size(); i++)
     {
         alg2D[i].add(descriptors[i]);
