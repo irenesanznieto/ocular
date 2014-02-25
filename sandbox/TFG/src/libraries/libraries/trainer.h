@@ -2,12 +2,13 @@
 #define TRAINER_H
 
 #include <ros/ros.h>
-#include <opencv2/opencv.hpp>
 #include <sensor_msgs/PointCloud2.h>
 #include <sensor_msgs/Image.h>
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
-#include <fstream>
+
+
+#include "dataparser.h"
 
 class Trainer
 {
@@ -23,7 +24,6 @@ public:
 
 private:
 
-    std::vector <std::string> get_file_names (std::string );
 
     void train2D(cv::Mat);
 
@@ -31,16 +31,12 @@ private:
 
     std::vector<std::vector<cv::Mat> >descriptors;    /** Vector that will store the descriptors dataset */
 
+    DataParser dataparser;
 
-    void save_template_2D();
-    void save_algorithm_2D();
 
 
     bool new_object;
 
-
-    cv::Mat load_descriptor (std::string );
-    void load_algorithms_2D(std::string);
 
 };
 
