@@ -38,7 +38,7 @@ public:
     * 
     */
     FeatureExtractor2D();
-    void extract_features(const TFG::HandImageConstPtr & );
+    TFG::HandImage extract_features(const TFG::HandImageConstPtr & );
 
 private:
 

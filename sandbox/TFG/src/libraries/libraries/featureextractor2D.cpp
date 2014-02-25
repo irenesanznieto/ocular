@@ -3,22 +3,13 @@
 FeatureExtractor2D::FeatureExtractor2D()
 {}
 
-//void FeatureExtractor2D::right(const sensor_msgs::ImageConstPtr & msg)
-//{
-//    this->name="right";
-//    this->extract_features(msg);
-//}
-
-//void FeatureExtractor2D::left(const sensor_msgs::ImageConstPtr & msg)
-//{
-//    this->name="left";
-//    this->extract_features(msg);
-//}
-
-
-void FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
+TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
 {
-    cv_bridge::CvImagePtr cv_ptr;
+    TFG::HandImage result;
+    result.image.resize(2);
+    result.name.resize(2);
+
+    cv_bridge::CvImagePtr cv_ptr, final_ptr;
     for (unsigned int i=0; i<msg->image.size();i++)
     {
         try
@@ -28,7 +19,6 @@ void FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
         catch (cv_bridge::Exception& e)
         {
             ROS_ERROR("cv_bridge exception: %s", e.what());
-            return;
         }
 
         cv::Mat  gimage;
@@ -42,6 +32,13 @@ void FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
 
         orb(gimage, mask,  keypoints, descriptors);
 
+
+        final_ptr->image=descriptors.clone();
+
+        //fill the result of the feature extraction:
+        result.image.push_back( *final_ptr->toImageMsg());
+        result.name[i]=msg->name[i];
+
         //    Draw circles in the keypoints
         //    for (unsigned int i=0; i<keypoints.size(); i++)
         //    {
@@ -52,19 +49,6 @@ void FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
         //    cv::waitKey(10);
 
     }
+    return result;
 }
 
-
-//void FeatureExtractor2D:: save_descriptors(cv::Mat &descriptors, std::string filename)
-//{
-//    filename+= "_d.yml";
-//    cv::FileStorage fs(filename, cv::FileStorage::WRITE);
-//    fs <<"descriptors"<< descriptors;
-//}
-
-//void FeatureExtractor2D:: save_keypoints(std::vector <cv::KeyPoint> & keyp, std::string filename)
-//{
-//    filename+= "_k.yml";
-//    cv::FileStorage fs(filename, cv::FileStorage::WRITE);
-//    fs <<"keypoints"<< keyp;
-//}

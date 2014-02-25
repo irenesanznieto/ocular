@@ -1,11 +1,13 @@
 #include "FeatureExtractor2DNode.h"
 
-FeatureExtractor2DNode::FeatureExtractor2DNode()/*: it(nh)*/
+FeatureExtractor2DNode::FeatureExtractor2DNode()
 {
-    image_sub=/*it.*/nh.subscribe<TFG::HandImage>("input_image", 1, &FeatureExtractor2DNode::input_image_cb, this);
+    image_sub=nh.subscribe<TFG::HandImage>("input_image", 1, &FeatureExtractor2DNode::input_image_cb, this);
+    descriptors_pub=nh.advertise<TFG::HandImage>("2D descriptors", 1);
 }
 
 void FeatureExtractor2DNode::input_image_cb (const TFG::HandImageConstPtr &msg)
 {
-    fe2D.extract_features(msg);
+    TFG::HandImage descriptors2D=fe2D.extract_features(msg);
+    descriptors_pub.publish(descriptors2D);
 }
