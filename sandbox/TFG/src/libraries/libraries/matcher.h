@@ -7,6 +7,7 @@
 class Matcher
 {
 public:
+    Matcher();
     void match();
     std::vector <cv::DMatch> flann_comparison (cv::Mat  &, 	cv::Mat  &, float &, float);
 

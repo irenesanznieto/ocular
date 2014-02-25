@@ -47,7 +47,7 @@ rosbuild_add_executable(image_view src/apps/image_view.cpp)
 #LIBRARIES: 
 FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp src/libraries/nodes/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
-
+#target_link_libraries(custom_libs ${PCL_LIBRARIES})
 #FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/other/*.cpp)
 #rosbuild_add_library(other_libs ${LIBRARIES_SRCS})
 
@@ -59,7 +59,7 @@ target_link_libraries(converter custom_libs)
 target_link_libraries(roi_segmenter2D custom_libs)
 target_link_libraries(roi_segmenter3D custom_libs)
 target_link_libraries(featureextractor2D custom_libs)
-target_link_libraries(featureextractor3D custom_libs)
+target_link_libraries(featureextractor3D custom_libs )
 #target_link_libraries(data_parser custom_libs)
 #target_link_libraries(display custom_libs)
 

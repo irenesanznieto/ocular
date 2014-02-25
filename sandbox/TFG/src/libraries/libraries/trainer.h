@@ -40,6 +40,7 @@ private:
 
 
     cv::Mat load_descriptor (std::string );
+    void load_algorithms_2D(std::string);
 
 };
 

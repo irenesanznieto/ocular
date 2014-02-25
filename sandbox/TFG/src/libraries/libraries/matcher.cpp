@@ -1,5 +1,10 @@
 #include "matcher.h"
 
+Matcher::Matcher()
+{
+
+}
+
 void Matcher :: match()
 {
 	//match2D
@@ -28,6 +33,7 @@ std::vector <cv::DMatch> Matcher:: flann_comparison (cv::Mat  &desc1, 	cv::Mat  
 
     desc1.convertTo(desc1, CV_32F);
     desc2.convertTo(desc2, CV_32F);
+
 
     matcher.match( desc1, desc2, matches );
 

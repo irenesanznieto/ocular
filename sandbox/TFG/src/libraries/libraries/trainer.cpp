@@ -38,9 +38,6 @@ void Trainer::train(const sensor_msgs::ImageConstPtr & descriptors)
     //store algorithm
     this->save_algorithm_2D();
 
-
-
-
     //train 3D features
 
 
@@ -102,13 +99,38 @@ void Trainer::save_algorithm_2D()
     if (new_object!=true)
         object_number-=1;
 
-//    cv::FlannBasedMatcher trial;
     std::stringstream filename;
     filename<<"../data/algorithms/2D/"<<object_number<<".yml";
 
     cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
+//    alg2D[object_number].write(fs);
+//    fs<<"algorithm"<<object_number<<alg2D[object_number];
     alg2D[object_number].write(fs);
 
+
+}
+
+
+void Trainer::load_algorithms_2D(std::string path)
+{
+    //path = "../data/algorithms/2D/";
+    std::vector <std::string> algorithms=Trainer::get_file_names(path);
+    //    cv::FlannBasedMatcher trial;
+    std::string name_algorithm;
+
+    for (unsigned int i=0; i<algorithms.size(); i++)
+    {
+        cv::FileStorage fr(algorithms[i], cv::FileStorage::READ);
+//        name_algorithm="algorithm"+i;
+//        alg2D[i].read(fr);
+
+        cv::FileNode fn;
+        fn.fs=*fr;
+        alg2D[i].read(fn);
+//        fr[name_algorithm]>>alg2D[i];
+//        cv::read(fr[name_algorithm],alg2D[i]);
+//        alg2D[i].read(fr);
+    }
 }
 
 
@@ -137,16 +159,16 @@ std::vector <std::string> Trainer::get_file_names (std::string path)
     system("rm ../data/temp/temp.txt");
 
     templates.erase(templates.end());
+
+    return templates;
 }
 
 
 
 void Trainer:: getTemplates ()
 {
-
     std::vector<std::string> number_of_objects_folders=get_file_names("../data/templates/");
     int total_objects=number_of_objects_folders.size();
-
 
     std::stringstream path;
     path<<"../data/templates/";
@@ -157,24 +179,13 @@ void Trainer:: getTemplates ()
         std::vector <std::string> templates=get_file_names(path.str());
 
         //extract the information from the yml files
-        for (int i=0; i<templates.size(); i++)
+        for (unsigned int i=0; i<templates.size(); i++)
         {
             descriptors[object_number].push_back(this->load_descriptor(templates[i]));
             //            temp_keyp.push_back(load_keypoint(keyp_t[i]));
         }
     }
-
 }
-
-
-
-
-//void save_keypoints(vector <KeyPoint> & keyp, string filename)
-//{
-//	filename+= "_k.yml";
-//	FileStorage fs(filename, FileStorage::WRITE);
-//	fs <<"keypoints"<< keyp;
-//}
 
 
 cv::Mat Trainer::load_descriptor (std::string filename)
@@ -186,6 +197,14 @@ cv::Mat Trainer::load_descriptor (std::string filename)
     return descriptor;
 }
 
+
+//void save_keypoints(vector <KeyPoint> & keyp, string filename)
+//{
+//	filename+= "_k.yml";
+//	FileStorage fs(filename, FileStorage::WRITE);
+//	fs <<"keypoints"<< keyp;
+//}
+
 //vector <KeyPoint> load_keyp (string filename)
 //{
 //	FileStorage fr (filename, FileStorage::READ);
@@ -193,4 +212,3 @@ cv::Mat Trainer::load_descriptor (std::string filename)
 //	read(fr["keypoints"],keypoints);
 //	return keypoints;
 //}
-
