@@ -63,26 +63,7 @@ int Matcher:: flann_comparison (cv::Mat  &desc1,float threshold)
     }
 
 
-    //CHECK THIS! with this:
-//#include <vector>
-//#include <algorithm>
-//#include <iostream>
+    int object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
 
-//int main()
-//{
-//    std::vector<double> v {1.0, 2.0, 3.0, 4.0, 5.0, 1.0, 2.0, 3.0, 4.0, 5.0};
-
-//    auto biggest = std::max_element(std::begin(v), std::end(v));
-//    std::cout << "Max element is " << *biggest
-//        << " at position " << std::distance(std::begin(v), biggest) << std::endl;
-
-//    auto smallest = std::min_element(std::begin(v), std::end(v));
-//    std::cout << "min element is " << *smallest
-//        << " at position " << std::distance(std::begin(v), smallest) << std::endl;
-//}
-
-    std::vector <float>::const_iterator  object_it=std::max_element(ratio.begin(), ratio.end());
-//    int object_id=std::distance(ratio.begin(),ratio.begin()+object_it);
-
-//    return object_id;
+    return object_id;
 }
