@@ -9,7 +9,7 @@ FeatureExtractor3D::FeatureExtractor3D()
 void FeatureExtractor3D:: extract_features(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
 //        pcl::LineRGBD<pcl::PointXYZRGBA> line;
-//    pcl::LINEMOD a;
+
 }
 
 

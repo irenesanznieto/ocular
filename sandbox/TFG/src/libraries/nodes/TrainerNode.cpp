@@ -2,8 +2,8 @@
 
 TrainerNode::TrainerNode()
 {
-    descriptors2D=nh.subscribe<TFG::HandImage>("2D descriptors", 1, &train2D_cb, this);
-    descriptors3D=nh.subscribe("3D descriptors",1,&train3D_cb, this);
+    descriptors2D=nh.subscribe<TFG::HandImage>("2D descriptors", 1, &TrainerNode::train2D_cb, this);
+//    descriptors3D=nh.subscribe("3D descriptors",1,&train3D_cb, this);
 }
 
 

@@ -21,6 +21,7 @@
 
 
 //#include <pcl/recognition/linemod.h>
+//#include<pcl/recognition/impl/line_rgbd.hpp>
 
 //#include <pcl/recognition/color_gradient_modality.h>
 //#include <pcl/recognition/surface_normal_modality.h>
@@ -28,7 +29,6 @@
 
 //LINErgbd:
 //#include <pcl/recognition/linemod/line_rgbd.h>
-
 
 
 //PFH INCLUDES:
@@ -45,7 +45,6 @@ public:
     FeatureExtractor3D();
 
     void extract_features(const sensor_msgs::PointCloud2ConstPtr& msg);
-
 };
 
 #endif //FEATURE_EXTRACTOR_3D_H

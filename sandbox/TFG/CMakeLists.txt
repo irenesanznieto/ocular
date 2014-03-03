@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
+rosbuild_find_ros_package(actionlib_msgs)
+include(${actionlib_msgs_PACKAGE_PATH}/cmake/actionbuild.cmake)
+genaction()
+
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
 #  Debug          : w/ debug symbols, w/o optimization
@@ -47,19 +51,18 @@ rosbuild_add_executable(image_view src/apps/image_view.cpp)
 #LIBRARIES: 
 FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp src/libraries/nodes/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
-#target_link_libraries(custom_libs ${PCL_LIBRARIES})
-#FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/other/*.cpp)
-#rosbuild_add_library(other_libs ${LIBRARIES_SRCS})
+#target_link_libraries(custom_libs   )
+
 
 #LINKING:
-target_link_libraries(recognizer custom_libs)
-target_link_libraries(learner custom_libs)
+target_link_libraries(recognizer custom_libs )
+target_link_libraries(learner custom_libs   )
 #target_link_libraries(event_handler custom_libs)
-target_link_libraries(converter custom_libs)
-target_link_libraries(roi_segmenter2D custom_libs)
-target_link_libraries(roi_segmenter3D custom_libs)
+target_link_libraries(converter custom_libs   )
+target_link_libraries(roi_segmenter2D custom_libs   )
+target_link_libraries(roi_segmenter3D custom_libs   )
 target_link_libraries(featureextractor2D custom_libs)
-target_link_libraries(featureextractor3D custom_libs )
+target_link_libraries(featureextractor3D custom_libs)
 #target_link_libraries(data_parser custom_libs)
 #target_link_libraries(display custom_libs)
 
@@ -68,6 +71,6 @@ rosbuild_add_gtest(TestConverter src/tests/ConverterTest.cpp)
 rosbuild_add_gtest(TestROISegmenter3D src/tests/RoiSegmenter3DTest.cpp)
 rosbuild_add_gtest(TestROISegmenter2D src/tests/RoiSegmenter2DTest.cpp)
 
-target_link_libraries(TestROISegmenter3D custom_libs)
+target_link_libraries(TestROISegmenter3D custom_libs )
 target_link_libraries(TestROISegmenter2D custom_libs)
 target_link_libraries(TestConverter custom_libs)

@@ -13,7 +13,7 @@ private:
 
     ros::NodeHandle nh;
     ros::Subscriber descriptors2D;
-    ros::subscriber descriptors3D;
+    ros::Subscriber descriptors3D;
 
     void train2D_cb(const TFG::HandImageConstPtr & );
 
