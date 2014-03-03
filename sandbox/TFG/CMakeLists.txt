@@ -45,6 +45,9 @@ rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
 #rosbuild_add_executable(data_parser src/apps/data_parser.cpp)
 #rosbuild_add_executable(display src/apps/display.cpp)
 
+rosbuild_add_executable(action_client src/apps/action_client.cpp)
+rosbuild_add_executable(action_server src/apps/action_server.cpp)
+
 rosbuild_add_executable(image_view src/apps/image_view.cpp)
 
 
@@ -65,6 +68,9 @@ target_link_libraries(featureextractor2D custom_libs)
 target_link_libraries(featureextractor3D custom_libs)
 #target_link_libraries(data_parser custom_libs)
 #target_link_libraries(display custom_libs)
+
+target_link_libraries(action_client custom_libs   )
+target_link_libraries(action_server custom_libs   )
 
 #GTESTS:
 rosbuild_add_gtest(TestConverter src/tests/ConverterTest.cpp)
