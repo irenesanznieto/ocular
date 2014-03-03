@@ -2,7 +2,7 @@
 string hand #specify the hand in which the object will be held
 ---
 #Define the result
-uint32 total_views #number of views learned
+string result
 ---
 #Define a feedback message
 float32 percentage_completed
