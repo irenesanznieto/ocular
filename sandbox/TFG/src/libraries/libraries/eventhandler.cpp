@@ -36,13 +36,13 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
     if( abs(left_hand.z- left_hip.z) > threshold_hand.z && abs(right_hand.z-right_hip.z)<threshold_hand.z)
     {
         if (abs(left_hand.x- left_hip.x) > threshold_hand.x)
-            event.hand="left";
+            event.hand="left_hand";
 
     }
     else if ( abs(right_hand.z-right_hip.z)>threshold_hand.z && abs(left_hand.z- left_hip.z) < threshold_hand.z  )
     {
         if (abs(right_hand.x- right_hip.x) > threshold_hand.x)
-            event.hand="right";
+            event.hand="right_hand";
     }
 
     //Determine the mode to be activated
@@ -51,7 +51,7 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
     threshold_mode.y=0.1;
     threshold_mode.z=0.3;
 
-    if (event.hand=="right")
+    if (event.hand=="right_hand")
     {
         if( abs(right_hand.z- right_hip.z) > threshold_mode.z && abs(right_hand.x -right_hip.x)<threshold_mode.x )
             event.event="learn";
@@ -59,7 +59,7 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
             event.event="recognize";
 
     }
-    else if (event.hand=="left")
+    else if (event.hand=="left_hand")
     {
         if( abs(left_hand.z- left_hip.z) > threshold_mode.z && abs(left_hand.x -left_hip.x)<threshold_mode.x )
             event.event="learn";
