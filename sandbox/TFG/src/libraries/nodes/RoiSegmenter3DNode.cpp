@@ -2,12 +2,12 @@
 
 RoiSegmenter3DNode::RoiSegmenter3DNode()
 {
-    point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("input", 1, &RoiSegmenter3DNode::point_cloud_cb, this);
-    point_cloud_pub=nh.advertise <sensor_msgs::PointCloud2> ("output_cloud", 1);
+    point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("original_pc", 1, &RoiSegmenter3DNode::point_cloud_cb, this);
+    point_cloud_pub=nh.advertise <sensor_msgs::PointCloud2> ("segmented_pc", 1);
 
-    coord_pub= nh.advertise <TFG::HandLocPx> ("output_coord", 1);
+    coord_pub= nh.advertise <TFG::HandLocPx> ("segmented_coordinates_px", 1);
 
-    coord_sub=nh.subscribe<TFG::HandLoc> ("input_coord", 1, &RoiSegmenter3DNode::hand_location_cb, this);
+    coord_sub=nh.subscribe<TFG::HandLoc> ("hand_location", 1, &RoiSegmenter3DNode::hand_location_cb, this);
 }
 
 

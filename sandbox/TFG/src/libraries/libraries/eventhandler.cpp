@@ -1,9 +1,8 @@
 #include "eventhandler.h"
 
 EventHandler::EventHandler()
-{
-    //
-}
+{}
+
 TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonConstPtr & msg)
 {
     TFG::EventHandler event;

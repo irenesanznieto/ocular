@@ -49,8 +49,8 @@ private:
 
 
     ros::NodeHandle nh;             /** NodeHandle variable to control the nodes*/
-    ros::Subscriber input_sub;      /**Subscriber used to obtain the pi_tracker::Skeleton messages*/
-    ros::Publisher output_sub;      /**Publisher used to publish the resulting custom message TFG::HandLoc with the hands information*/
+    ros::Subscriber skeleton_sub;      /**Subscriber used to obtain the pi_tracker::Skeleton messages*/
+    ros::Publisher hand_location_pub;      /**Publisher used to publish the resulting custom message TFG::HandLoc with the hands information*/
 
 
     Converter converterObject;       /**Object of the Converter class*/

@@ -20,15 +20,15 @@
     </node>
 
 <!--	CONVERTER NODE: -->
-    <node pkg="TFG" type="converter" name="converter" args="right input:=/skeleton output:=/TFG/hand_loc"/>
+    <node pkg="TFG" type="converter" name="converter" args="skeleton:=/skeleton hand_location:=/TFG/CONVERTER/hand_location"/>
     
 <!--    ROI SEGMENTER -->
 
 <!--			3D-->
-    <node pkg="TFG" type="roi_segmenter3D"  name="roi_segmenter3D" args="input:=/camera/depth/points input_coord:=/TFG/hand_loc output_cloud:=/TFG/ROI3D output_coord:=/TFG/ROI_coord"/>
+    <node pkg="TFG" type="roi_segmenter3D"  name="roi_segmenter3D" args="original_pc:=/camera/depth/points hand_location:=/TFG/CONVERTER/hand_location segmented_pc:=/TFG/ROI3D/segmented_pc segmented_coordinates_px:=/TFG/ROI3D/segmented_coordinates_px"/>
     
 <!--    		2D-->
-    <node pkg="TFG" type="roi_segmenter2D"  name="roi_segmenter2D" args="input:=/camera/rgb/image_color input_coord:=/TFG/ROI_coord output:=/TFG/ROI2D"/>
+    <node pkg="TFG" type="roi_segmenter2D"  name="roi_segmenter2D" args="original_image:=/camera/rgb/image_color segmented_coordinates_px:=/TFG/ROI3D/segmented_coordinates_px segmented_image:=/TFG/ROI2D/segmented_image"/>
     
 
 <!--	FEATURE EXTRACTOR-->

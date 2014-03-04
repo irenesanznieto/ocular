@@ -2,9 +2,9 @@
 
 RoiSegmenter2DNode::RoiSegmenter2DNode(): it(nh)
 {
-    coord_sub=nh.subscribe <TFG::HandLocPx>("input_coord", 1, &RoiSegmenter2DNode::hand_coordinates_2D_cb, this);
-    image_sub=it.subscribe("input", 1, &RoiSegmenter2DNode::original_image_cb, this);
-    hands_images_pub=nh.advertise<TFG::HandImage>("output",1);
+    coord_sub=nh.subscribe <TFG::HandLocPx>("segmented_coordinates_px", 1, &RoiSegmenter2DNode::hand_coordinates_2D_cb, this);
+    image_sub=it.subscribe("original_image", 1, &RoiSegmenter2DNode::original_image_cb, this);
+    hands_images_pub=nh.advertise<TFG::HandImage>("segmented_image",1);
 }
 
 

@@ -2,13 +2,13 @@
 
 ConverterNode::ConverterNode()
 {
-    input_sub=nh.subscribe<pi_tracker::Skeleton>("input", 1, &ConverterNode::converter_cb, this);
-    output_sub=nh.advertise<TFG::HandLoc>("output", 1);
+    skeleton_sub=nh.subscribe<pi_tracker::Skeleton>("skeleton", 1, &ConverterNode::converter_cb, this);
+    hand_location_pub=nh.advertise<TFG::HandLoc>("hand_location", 1);
 
 }
 
 void ConverterNode::converter_cb(const pi_tracker::SkeletonConstPtr & msg)
 {
-    output_sub.publish(converterObject.handCoordinatesExtractor(*msg));
+    hand_location_pub.publish(converterObject.handCoordinatesExtractor(*msg));
 
 }
