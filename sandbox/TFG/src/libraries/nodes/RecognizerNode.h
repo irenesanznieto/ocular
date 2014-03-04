@@ -6,6 +6,12 @@
 #include <TFG/HandImage.h>
 #include <std_msgs/Int32.h>
 
+//* RecognizerNode class
+/**
+* Matches the current image and pointclouds with the ones from the dataset. Its output is the ID of the recognized object
+* \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
+* \date March 4th, 2014
+*/
 class RecognizerNode
 {
 public:

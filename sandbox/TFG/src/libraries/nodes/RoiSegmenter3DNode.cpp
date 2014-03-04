@@ -8,8 +8,15 @@ RoiSegmenter3DNode::RoiSegmenter3DNode()
     coord_pub= nh.advertise <TFG::HandLocPx> ("segmented_coordinates_px", 1);
 
     coord_sub=nh.subscribe<TFG::HandLoc> ("hand_location", 1, &RoiSegmenter3DNode::hand_location_cb, this);
+
+    hand=nh.subscribe<TFG::EventHandler> ("event", 1, &RoiSegmenter3DNode::hand_name_cb, this);
 }
 
+
+void RoiSegmenter3DNode:: hand_name_cb(const TFG::EventHandlerConstPtr & msg)
+{
+    roiSegmenter3D.setHandName(msg->hand);
+}
 
 void RoiSegmenter3DNode :: point_cloud_cb (const sensor_msgs::PointCloud2ConstPtr &msg)
 {

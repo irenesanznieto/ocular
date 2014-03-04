@@ -78,11 +78,13 @@ public:
 
     TFG::HandLoc getHandLoc ();
 
+    void setHandName(std::string);
 
 private:
 
     pcl::PointXYZ box_size;     /** Stores the ROI dimensions (in 3D) */
     TFG::HandLoc coord;     /** Stores the TFG::HandLoc message received from the ConverterNode */
+    std::string hand_name;  /** Stores the hand being used in the software */
 };
 
 #endif // ROISEGMENTER3D_H

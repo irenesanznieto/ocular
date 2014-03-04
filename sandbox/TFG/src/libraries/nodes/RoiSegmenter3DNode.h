@@ -20,6 +20,7 @@
 #define ROISEGMENTER3DNODE_H
 
 #include "../libraries/roisegmenter3D.h"
+#include <TFG/EventHandler.h>
 
 //* RoiSegmenter3DNode class
 /**
@@ -46,6 +47,7 @@ private:
     ros::Publisher point_cloud_pub; /**Publisher used to publish the resulting segmented point cloud*/
     ros::Publisher coord_pub;   /**Publisher used to publish the 2D ROI coordinates*/
 
+    ros::Subscriber hand;  /**Subscriber used to obtain the hand being used in the software*/
 
     RoiSegmenter3D roiSegmenter3D;       /**Object of the RoiSegmenter3D class*/
 
@@ -62,6 +64,7 @@ private:
     void hand_location_cb (const TFG::HandLocConstPtr &);
 
 
+    void hand_name_cb(const TFG::EventHandlerConstPtr &);
 };
 
 #endif // ROISEGMENTER3DNODE_H

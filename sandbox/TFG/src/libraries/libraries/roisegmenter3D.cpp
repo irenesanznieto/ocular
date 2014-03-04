@@ -120,3 +120,8 @@ TFG::HandLoc RoiSegmenter3D::getHandLoc ()
 {
     return coord;
 }
+
+void RoiSegmenter3D:: setHandName(std::string hand_name)
+{
+    this->hand_name=hand_name;
+}
