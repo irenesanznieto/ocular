@@ -40,12 +40,12 @@ public:
     void match2D(const sensor_msgs::ImageConstPtr & msg);
     void match3D();
 
-    int flann_comparison (cv::Mat &, float);
 
 private:
 
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
     std::vector<cv::FlannBasedMatcher> algorithms2D;
+    int flann_comparison (cv::Mat &, float);
 
 };
 #endif //MATCHER_H

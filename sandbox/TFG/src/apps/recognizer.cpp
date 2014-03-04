@@ -1,7 +1,16 @@
+#include <iostream>
+#include <ros/ros.h>
+#include "../libraries/nodes/RecognizerNode.h"
 
-int main ()
+int main (int argc,char* argv[])
 {
+    ros::init(argc, argv, "RECOGNIZER");
 
+    RecognizerNode recognizer;
+
+    ros::spin();
+
+    return 0;
 }
 
 // using actionlib

@@ -10,9 +10,8 @@ void Matcher :: match2D(const sensor_msgs::ImageConstPtr & msg)
 	//match2D
     cv::Mat new_descriptors;
     float  threshold=300;
-    this->flann_comparison(new_descriptors, threshold);
+    int object_id=this->flann_comparison(new_descriptors, threshold);
 
-	
 
 }
 
