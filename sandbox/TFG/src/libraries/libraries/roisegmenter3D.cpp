@@ -22,19 +22,21 @@ sensor_msgs::PointCloud2 RoiSegmenter3D::segment( const sensor_msgs::PointCloud2
 
     for (unsigned int i=0; i<coord.position.size(); i++)
     {
-        //set limits  --> assuming the obtained position is the center, filter a cube
-        x.setFilterFieldName("x");
-        x.setFilterLimits(coord.position[i].x-box_size.x,coord.position[i].x+box_size.x); // unit : meter
-        y.setFilterFieldName("y");
-        y.setFilterLimits(coord.position[i].y-box_size.y,coord.position[i].y+box_size.y); // unit : meter
-        z.setFilterFieldName("z");
-        z.setFilterLimits(coord.position[i].z-box_size.z,coord.position[i].z+box_size.z); // unit : meter
+        if (coord.name[i]==this->hand_name)
+        {
+            //set limits  --> assuming the obtained position is the center, filter a cube
+            x.setFilterFieldName("x");
+            x.setFilterLimits(coord.position[i].x-box_size.x,coord.position[i].x+box_size.x); // unit : meter
+            y.setFilterFieldName("y");
+            y.setFilterLimits(coord.position[i].y-box_size.y,coord.position[i].y+box_size.y); // unit : meter
+            z.setFilterFieldName("z");
+            z.setFilterLimits(coord.position[i].z-box_size.z,coord.position[i].z+box_size.z); // unit : meter
 
-        //filter
-        x.filter(cloud_filtered);
-        y.filter(cloud_filtered);
-        z.filter(cloud_filtered);
-
+            //filter
+            x.filter(cloud_filtered);
+            y.filter(cloud_filtered);
+            z.filter(cloud_filtered);
+        }
     }
 
     //return ROI 3D
@@ -96,7 +98,7 @@ TFG::HandLocPx RoiSegmenter3D:: distance2px()
             //        std::cerr<<"SQUARE: P1: "<<image_coord.data[0]<<" "<<image_coord.data[1]<<std::endl<<image_coord.data[2]<<" "<<image_coord.data[3]<<std::endl;
             if (image_coord.points[0]>0 && image_coord.points[1]>0 && image_coord.points[2]>0 && image_coord.points[3]>0)
             {
-                image_coord.name.push_back(coord.name[i].data());
+                image_coord.name.push_back(coord.name[i]);
             }
         }
 

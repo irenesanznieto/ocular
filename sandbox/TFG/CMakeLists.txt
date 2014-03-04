@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
-rosbuild_find_ros_package(actionlib_msgs)
-include(${actionlib_msgs_PACKAGE_PATH}/cmake/actionbuild.cmake)
-genaction()
+#rosbuild_find_ros_package(actionlib_msgs)
+#include(${actionlib_msgs_PACKAGE_PATH}/cmake/actionbuild.cmake)
+#genaction()
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -45,10 +45,11 @@ rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
 #rosbuild_add_executable(data_parser src/apps/data_parser.cpp)
 #rosbuild_add_executable(display src/apps/display.cpp)
 
-rosbuild_add_executable(action_client src/apps/action_client.cpp)
-rosbuild_add_executable(action_server src/apps/action_server.cpp)
+#rosbuild_add_executable(action_client src/apps/action_client.cpp)
+#rosbuild_add_executable(action_server src/apps/action_server.cpp)
 
 rosbuild_add_executable(image_view src/apps/image_view.cpp)
+
 
 
 #LIBRARIES: 
@@ -58,25 +59,27 @@ rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
 
 #LINKING:
-target_link_libraries(recognizer custom_libs )
-target_link_libraries(learner custom_libs   )
+target_link_libraries(recognizer custom_libs)
+target_link_libraries(learner custom_libs)
 target_link_libraries(event_handler custom_libs)
-target_link_libraries(converter custom_libs   )
-target_link_libraries(roi_segmenter2D custom_libs   )
-target_link_libraries(roi_segmenter3D custom_libs   )
+target_link_libraries(converter custom_libs)
+target_link_libraries(roi_segmenter2D custom_libs)
+target_link_libraries(roi_segmenter3D custom_libs)
 target_link_libraries(featureextractor2D custom_libs)
 target_link_libraries(featureextractor3D custom_libs)
 #target_link_libraries(data_parser custom_libs)
 #target_link_libraries(display custom_libs)
 
-target_link_libraries(action_client custom_libs   )
-target_link_libraries(action_server custom_libs   )
+#target_link_libraries(action_client custom_libs)
+#target_link_libraries(action_server custom_libs)
+
 
 #GTESTS:
-rosbuild_add_gtest(TestConverter src/tests/ConverterTest.cpp)
-rosbuild_add_gtest(TestROISegmenter3D src/tests/RoiSegmenter3DTest.cpp)
-rosbuild_add_gtest(TestROISegmenter2D src/tests/RoiSegmenter2DTest.cpp)
+rosbuild_add_gtest(test/TestConverter src/tests/ConverterTest.cpp)
+rosbuild_add_gtest(test/TestROISegmenter3D src/tests/RoiSegmenter3DTest.cpp)
+rosbuild_add_gtest(test/TestROISegmenter2D src/tests/RoiSegmenter2DTest.cpp)
 
-target_link_libraries(TestROISegmenter3D custom_libs )
-target_link_libraries(TestROISegmenter2D custom_libs)
-target_link_libraries(TestConverter custom_libs)
+target_link_libraries(test/TestConverter custom_libs)
+target_link_libraries(test/TestROISegmenter3D custom_libs)
+target_link_libraries(test/TestROISegmenter2D custom_libs)
+
