@@ -2,9 +2,7 @@
 #define EVENTHANDLERNODE_H
 #include "../libraries/eventhandler.h"
 #include <ros/ros.h>
-#include <pi_tracker/Skeleton.h>
-#include <TFG/EventHandler.h>
-#include <pcl/point_types.h>
+
 
 
 class EventHandlerNode
