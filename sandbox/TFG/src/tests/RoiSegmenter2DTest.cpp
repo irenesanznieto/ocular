@@ -1,6 +1,7 @@
 #include "../libraries/libraries/roisegmenter2D.h"
 #include <gtest/gtest.h>
-
+#include <fstream>
+#include <iostream>
 
 class RoiSegmenter2DTest : public testing::Test
 {
@@ -8,7 +9,7 @@ class RoiSegmenter2DTest : public testing::Test
 public:
     RoiSegmenter2D roiseg2D;
     TFG::HandLocPx msg_hand_loc_px;
-//    sensor_msgs::Image msg_image;
+    sensor_msgs::Image msg_image;
 
     virtual void SetUp()
     {
@@ -21,10 +22,10 @@ public:
         msg_hand_loc_px.name.push_back("right_hand");
 
 
-        msg_hand_loc_px.points.push_back(0);
-        msg_hand_loc_px.points.push_back(0);
-        msg_hand_loc_px.points.push_back(2);
-        msg_hand_loc_px.points.push_back(2);
+        msg_hand_loc_px.points.push_back(50);
+        msg_hand_loc_px.points.push_back(50);
+        msg_hand_loc_px.points.push_back(200);
+        msg_hand_loc_px.points.push_back(200);
 
         msg_hand_loc_px.points.push_back(0);
         msg_hand_loc_px.points.push_back(0);
@@ -40,33 +41,33 @@ public:
 
 
 //       // Fill the image data
-//        msg_image.height=4;
-//        msg_image.width=4;
-//        msg_image.encoding=sensor_msgs::image_encodings::BGR8;
+        msg_image.height=4;
+        msg_image.width=4;
+        msg_image.encoding=sensor_msgs::image_encodings::BGR8;
 
-//        msg_image.step=1;
-//        msg_image.is_bigendian=0;
+        msg_image.step=1;
+        msg_image.is_bigendian=0;
 
-//        //This will "paint" one line in white and another in black, 4 lines in total
-//        msg_image.data.push_back(255);
-//        msg_image.data.push_back(255);
-//        msg_image.data.push_back(255);
-//        msg_image.data.push_back(255);
+        //This will "paint" one line in white and another in black, 4 lines in total
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
 
-//        msg_image.data.push_back(0);
-//        msg_image.data.push_back(0);
-//        msg_image.data.push_back(0);
-//        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
 
-//        msg_image.data.push_back(255);
-//        msg_image.data.push_back(255);
-//        msg_image.data.push_back(255);
-//        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
+        msg_image.data.push_back(255);
 
-//        msg_image.data.push_back(0);
-//        msg_image.data.push_back(0);
-//        msg_image.data.push_back(0);
-//        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
+        msg_image.data.push_back(0);
    }
 
     virtual void TearDown()
@@ -79,9 +80,25 @@ TEST_F(RoiSegmenter2DTest,segment)
     const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
     roiseg2D.coordinates(msg_hand_loc_px_ptr);
 
-//    const sensor_msgs::ImageConstPtr& msg_image_ptr = boost::make_shared<sensor_msgs::Image>(msg_image);
 
-//    TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage("../data/test/ros_groovy.jpg"));
+//    std::string sys_command="find . -print | grep 'sandbox/TFG/data/test/' > dummy.txt";
+//    system(sys_command.c_str());
+
+//    std::string path;
+//    std::ifstream myfile;
+//    myfile.open ("dummy.txt");
+//    myfile >>path;
+
+//    myfile.close();
+
+//    std::cout <<path<<std::endl;
+
+//    system("rm dummy.txt");
+
+//    TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage(path));
+
+    TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage("/home/peko/tfg_git/sandbox/TFG/data/test/ros_groovy.jpg"));
+
 
 
 //    //TEST
@@ -133,10 +150,10 @@ TEST_F(RoiSegmenter2DTest,coordinates)
 
 
     //TEST
-    EXPECT_EQ(0,coordinates.points[0]);
-    EXPECT_EQ(0,coordinates.points[1]);
-    EXPECT_EQ(2,coordinates.points[2]);
-    EXPECT_EQ(2,coordinates.points[3]);
+    EXPECT_EQ(50,coordinates.points[0]);
+    EXPECT_EQ(50,coordinates.points[1]);
+    EXPECT_EQ(200,coordinates.points[2]);
+    EXPECT_EQ(200,coordinates.points[3]);
 
     EXPECT_EQ(0,coordinates.points[4]);
     EXPECT_EQ(0,coordinates.points[5]);

@@ -121,11 +121,25 @@ void RoiSegmenter2D::setHandLocPx (TFG::HandLocPx& coord)
     this->coord=coord;
 }
 
-const sensor_msgs::ImageConstPtr RoiSegmenter2D:: setInputImage(std::string &path)
+const sensor_msgs::ImageConstPtr RoiSegmenter2D:: setInputImage(std::string path)
 {
-    cv::Mat inputImage=cv::imread(path);
-    cv_bridge::CvImagePtr cv_ptr;
+//    cv::Mat inputImage=cv::imread(path);
+//    cv_bridge::CvImagePtr cv_ptr;
 
-    cv_ptr->image=inputImage.clone();
-    return cv_ptr->toImageMsg();
+//    cv_ptr->image=inputImage.clone();
+//    return cv_ptr->toImageMsg();
+
+
+       cv_bridge::CvImage cv_image;
+       cv_image.image = cv::imread(path,CV_LOAD_IMAGE_COLOR);
+       cv_image.encoding = "bgr8";
+       sensor_msgs::Image ros_image;
+       cv_image.toImageMsg(ros_image);
+
+//       cv::imshow("trial", cv_image.image);
+//       cv::waitKey(10);
+       const sensor_msgs::ImageConstPtr& msg_image_ptr = boost::make_shared<sensor_msgs::Image>(ros_image);
+
+       return msg_image_ptr;
+
 }

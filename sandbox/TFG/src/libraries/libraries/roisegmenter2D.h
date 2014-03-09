@@ -75,7 +75,7 @@ public:
 
     void setHandLocPx (TFG::HandLocPx &);
 
-    const sensor_msgs::ImageConstPtr setInputImage(std::string &);
+    const sensor_msgs::ImageConstPtr setInputImage(std::string );
 
 
 private:
