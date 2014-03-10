@@ -39,7 +39,7 @@ public:
 
     ros::NodeHandle nh;             /** NodeHandle variable to control the nodes*/
     ros::Subscriber point_cloud_sub;    /**Subscriber used to obtain the segmented point clouds from the RoiSegmenter3D node */
-
+    ros::Publisher descriptors_pub;
 
 private:
     FeatureExtractor3D fe3D;    /**Object of the FeatureExtractor3D class*/

@@ -24,6 +24,16 @@
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
 
+#include <pcl/point_types.h>
+#include <pcl/filters/passthrough.h>
+#include <pcl/ros/conversions.h>
+
+#include <pcl/point_cloud.h>
+#include <pcl/filters/statistical_outlier_removal.h>
+
+
+#include <sensor_msgs/PointCloud2.h>
+
 //* Matcher
 /**
 * Matches the new objects with the templates previously extracted in order to identify the object.
@@ -40,14 +50,16 @@ public:
     */
     Matcher();
     int match2D(const TFG::HandImageConstPtr & msg);
-    void match3D();
+    void match3D(const sensor_msgs::PointCloud2ConstPtr &);
 
 
 private:
 
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
     std::vector<cv::FlannBasedMatcher> algorithms2D;
+
     int flann_comparison (cv::Mat &, float);
+
 
 };
 #endif //MATCHER_H

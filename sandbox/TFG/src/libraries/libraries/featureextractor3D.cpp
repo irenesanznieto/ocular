@@ -7,6 +7,7 @@ FeatureExtractor3D::FeatureExtractor3D()
 
 sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
+// COMPUTE PFH ONLY AT KEYPOINTS??  /Desktop/PFH Demo
 
     //PFH:
 
@@ -43,7 +44,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features(const sensor_msg
 
     // Create an empty kdtree representation, and pass it to the PFH estimation object.
     // Its content will be filled inside the object, based on the given input dataset (as no other search surface is given).
-    //pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ> ());
+    //    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ> ());
     //pcl::KdTreeFLANN<pcl::PointXYZ>::Ptr tree (new pcl::KdTreeFLANN<pcl::PointXYZ> ()); -- older call for PCL 1.5-
     pfh.setSearchMethod (tree);
 

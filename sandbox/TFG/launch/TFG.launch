@@ -37,7 +37,7 @@
 	<node pkg="TFG" type="featureextractor2D" name="featureextractor2D" args="segmented_image:=/TFG/ROI2D/segmented_image descriptors2D:=/TFG/FE2D/descriptors2D"/>
 		
 <!--    		3D-->
-	<node pkg="TFG" type="featureextractor3D" name="featureextractor3D" args="segmented_pc:=/TFG/ROI3D/segmented_pc"/>
+	<node pkg="TFG" type="featureextractor3D" name="featureextractor3D" args="segmented_pc:=/TFG/ROI3D/segmented_pc descriptors3D:=/TFG/FE3D/descriptors3D"/>
 	
 <!--	TRAINER-->
 	<node pkg="TFG" type="trainer" name="trainer" args="descriptors2D:=/TFG/FE2D/descriptors2D"/>
