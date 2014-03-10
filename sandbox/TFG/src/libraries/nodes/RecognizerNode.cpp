@@ -10,9 +10,10 @@ RecognizerNode::RecognizerNode()
 
 void RecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 {
-//    matcher.match2D(msg);
-
 //    match & obtain results
+    int object_id=matcher.match2D(msg);
 
 //    publish object name
+    object_pub.publish(object_id);
+
 }

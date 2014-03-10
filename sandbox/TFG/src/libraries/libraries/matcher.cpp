@@ -2,17 +2,30 @@
 
 Matcher::Matcher()
 {
-  this->algorithms2D= dataparser.load_algorithms_2D();
+    this->algorithms2D= dataparser.load_algorithms_2D();
 }
 
-void Matcher :: match2D(const sensor_msgs::ImageConstPtr & msg)
+int Matcher :: match2D(const TFG::HandImageConstPtr & msg)
 {
-	//match2D
-    cv::Mat new_descriptors;
-    float  threshold=300;
-    int object_id=this->flann_comparison(new_descriptors, threshold);
+    cv_bridge::CvImagePtr cv_ptr;
+    int object_id;
+    //match2D
+    for (unsigned int i=0; i<msg->image.size(); i++)
+    {
 
+        try
+        {
+            cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::BGR8);
+        }
+        catch (cv_bridge::Exception& e)
+        {
+            ROS_ERROR("cv_bridge exception: %s", e.what());
+        }
 
+        float  threshold=300;
+        object_id=this->flann_comparison(cv_ptr->image, threshold);
+    }
+    return object_id;
 }
 
 void Matcher::match3D()
@@ -21,16 +34,16 @@ void Matcher::match3D()
 }
 
 ///////////////////////////TODO:
-                //weights between the two
+//weights between the two
 
-                //publish resulting name!
+//publish resulting name!
 
 
 
 int Matcher:: flann_comparison (cv::Mat  &desc1,float threshold)
 {
-   std::vector< float> ratio;
-   ratio.resize(algorithms2D.size());
+    std::vector< float> ratio;
+    ratio.resize(algorithms2D.size());
 
     std::vector<std::vector< cv::DMatch > >matches;
     matches.resize(algorithms2D.size());

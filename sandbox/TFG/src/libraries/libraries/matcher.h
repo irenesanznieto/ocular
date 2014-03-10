@@ -19,8 +19,10 @@
 #define MATCHER_H
 
 #include "dataparser.h"
-#include <sensor_msgs/Image.h>
+#include <TFG/HandImage.h>
 #include <algorithm>
+#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
 
 //* Matcher
 /**
@@ -37,7 +39,7 @@ public:
     * \brief Public constructor
     */
     Matcher();
-    void match2D(const sensor_msgs::ImageConstPtr & msg);
+    int match2D(const TFG::HandImageConstPtr & msg);
     void match3D();
 
 
