@@ -13,6 +13,7 @@ Trainer::Trainer()
         alg2D[i].train();
     }
 }
+
 int Trainer:: object_number()
 {
     //If it is a new object, we want to create a new object position in the vector

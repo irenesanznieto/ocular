@@ -28,6 +28,8 @@ private:
 
     Trainer trainer;
 
+    int number_views; /** Stores the total number of views to be extracted of each object */
+
 };
 
 #endif // TRAINERNODE_H

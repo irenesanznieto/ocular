@@ -14,7 +14,7 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
     pcl::PointXYZ threshold_hand;
     threshold_hand.x=0.1;
     threshold_hand.y=0.1;
-    threshold_hand.z=0.05;
+    threshold_hand.z=0.5;
 
     pcl::PointXYZ left_hand;
     left_hand.x=msg->position[5].x;
@@ -37,17 +37,36 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
     left_hip.z=msg->position[12].z;
 
     //Determine which hand is being used
-    if( abs(left_hand.z- left_hip.z) > threshold_hand.z && abs(right_hand.z-right_hip.z)<threshold_hand.z)
+    //    if( abs(left_hand.z- left_hip.z) > threshold_hand.z && abs(right_hand.z-right_hip.z)<threshold_hand.z)
+    //    {
+    ////        if (abs(left_hand.x- left_hip.x) > threshold_hand.x)
+    //            event.hand="left_hand";
+
+    //    }
+    //    else if ( abs(right_hand.z-right_hip.z)>threshold_hand.z && abs(left_hand.z- left_hip.z) < threshold_hand.z  )
+    //    {
+    ////        if (abs(right_hand.x- right_hip.x) > threshold_hand.x)
+    //            event.hand="right_hand";
+    //    }
+
+    if (right_hand.z < left_hand.z)
     {
-        if (abs(left_hand.x- left_hip.x) > threshold_hand.x)
-            event.hand="left_hand";
+        event.hand="right_hand";
+    }
+    else if (left_hand.z < right_hand.z)
+    {
+        event.hand="left_hand";
 
     }
-    else if ( abs(right_hand.z-right_hip.z)>threshold_hand.z && abs(left_hand.z- left_hip.z) < threshold_hand.z  )
+    else if (left_hand.z==right_hand.z)
     {
-        if (abs(right_hand.x- right_hip.x) > threshold_hand.x)
-            event.hand="right_hand";
+        event.hand="equal";
     }
+    else
+    {
+        event.hand="unknown";
+    }
+
 
     //Determine the mode to be activated
     pcl::PointXYZ threshold_mode;
