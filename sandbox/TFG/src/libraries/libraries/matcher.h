@@ -52,6 +52,8 @@ public:
     int match2D(const TFG::HandImageConstPtr & msg);
     void match3D(const sensor_msgs::PointCloud2ConstPtr &);
 
+    void set_start_training(bool training);     /** Sets the value of the private boolean train*/
+
 
 private:
 
@@ -59,6 +61,8 @@ private:
     std::vector<cv::FlannBasedMatcher> algorithms2D;
 
     int flann_comparison (cv::Mat &, float);
+
+    bool training; /**Boolean that is set to true whenever the training mode is activated*/
 
 
 };

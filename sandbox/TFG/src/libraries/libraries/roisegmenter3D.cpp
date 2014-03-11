@@ -5,42 +5,46 @@ RoiSegmenter3D::RoiSegmenter3D()
 
 sensor_msgs::PointCloud2 RoiSegmenter3D::segment( const sensor_msgs::PointCloud2ConstPtr &cloud )
 {
-    sensor_msgs::PointCloud2 cloud_filtered;
-
-    //make 3 passThrough filters, one for each coordinate
-    pcl::PassThrough<sensor_msgs::PointCloud2> x, y, z;
-
-    //set input cloud
-    x.setInputCloud(cloud);
-    y.setInputCloud(cloud);
-    z.setInputCloud(cloud);
-
-    //x and y should be the same -> the bounding box of an open or closed hand is approximately a square (not a rectangle)
-    box_size.x=0.1;
-    box_size.y=box_size.x;
-    box_size.z=0.05;
-
-    for (unsigned int i=0; i<coord.position.size(); i++)
+    if (coord.position.size()>0 && this->hand_name.size()>0)
     {
-        if (coord.name[i]==this->hand_name)
+        sensor_msgs::PointCloud2 cloud_filtered;
+
+        //make 3 passThrough filters, one for each coordinate
+        pcl::PassThrough<sensor_msgs::PointCloud2> x, y, z;
+
+        //set input cloud
+        x.setInputCloud(cloud);
+        y.setInputCloud(cloud);
+        z.setInputCloud(cloud);
+
+        //x and y should be the same -> the bounding box of an open or closed hand is approximately a square (not a rectangle)
+        box_size.x=0.1;
+        box_size.y=box_size.x;
+        box_size.z=0.05;
+
+        for (unsigned int i=0; i<coord.position.size(); i++)
         {
-            //set limits  --> assuming the obtained position is the center, filter a cube
-            x.setFilterFieldName("x");
-            x.setFilterLimits(coord.position[i].x-box_size.x,coord.position[i].x+box_size.x); // unit : meter
-            y.setFilterFieldName("y");
-            y.setFilterLimits(coord.position[i].y-box_size.y,coord.position[i].y+box_size.y); // unit : meter
-            z.setFilterFieldName("z");
-            z.setFilterLimits(coord.position[i].z-box_size.z,coord.position[i].z+box_size.z); // unit : meter
+            if (coord.name[i]==this->hand_name)
+            {
+                //set limits  --> assuming the obtained position is the center, filter a cube
+                x.setFilterFieldName("x");
+                x.setFilterLimits(coord.position[i].x-box_size.x,coord.position[i].x+box_size.x); // unit : meter
+                y.setFilterFieldName("y");
+                y.setFilterLimits(coord.position[i].y-box_size.y,coord.position[i].y+box_size.y); // unit : meter
+                z.setFilterFieldName("z");
+                z.setFilterLimits(coord.position[i].z-box_size.z,coord.position[i].z+box_size.z); // unit : meter
 
-            //filter
-            x.filter(cloud_filtered);
-            y.filter(cloud_filtered);
-            z.filter(cloud_filtered);
+                //filter
+                x.filter(cloud_filtered);
+                y.filter(cloud_filtered);
+                z.filter(cloud_filtered);
+            }
         }
-    }
 
-    //return ROI 3D
-    return (cloud_filtered);
+        //return ROI 3D
+        return (cloud_filtered);
+
+    }
 }
 
 

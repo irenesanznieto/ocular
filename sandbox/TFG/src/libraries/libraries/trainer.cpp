@@ -2,6 +2,7 @@
 
 Trainer::Trainer()
 {
+    this->training=false;
     //Load the previously stored templates
     this->descriptors=dataparser.getTemplates();
 
@@ -26,36 +27,42 @@ int Trainer:: object_number()
 
 
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
-void Trainer::train2D(const sensor_msgs::ImageConstPtr & msg)
+void Trainer::train2D(const TFG::HandImageConstPtr & msg)
 {
-    //convert from ros image msg to opencv image
-    cv_bridge::CvImagePtr cv_ptr;
-
-    try
+    if (this->training==true)
     {
-        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+        //convert from ros image msg to opencv image
+        cv_bridge::CvImagePtr cv_ptr;
+        for (unsigned int i=0; i<msg->image.size(); i++)
+        {
+            try
+            {
+                cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::BGR8);
+            }
+            catch (cv_bridge::Exception& e)
+            {
+                ROS_ERROR("cv_bridge exception: %s", e.what());
+            }
+
+            cv::Mat image_cv=cv_ptr->image.clone();
+
+            //decide the position of the new view in the matrix of descriptors
+            int object_number=this->object_number();
+
+            //add the new view to the descriptors matrix
+            descriptors[object_number].push_back(image_cv);
+
+            //train the 2D algorithm with the new view
+            alg2D[object_number].train();
+
+            //store template
+            dataparser.save_template_2D(this->descriptors[this->object_number()]);
+
+            //store algorithm
+            dataparser.save_algorithm_2D(alg2D[this->object_number()], this->object_number());
+
+        }
     }
-    catch (cv_bridge::Exception& e)
-    {
-        ROS_ERROR("cv_bridge exception: %s", e.what());
-    }
-
-    cv::Mat image_cv=cv_ptr->image.clone();
-
-    //decide the position of the new view in the matrix of descriptors
-    int object_number=this->object_number();
-
-    //add the new view to the descriptors matrix
-    descriptors[object_number].push_back(image_cv);
-
-    //train the 2D algorithm with the new view
-    alg2D[object_number].train();
-
-    //store template
-    dataparser.save_template_2D(this->descriptors[this->object_number()]);
-
-    //store algorithm
-    dataparser.save_algorithm_2D(alg2D[this->object_number()], this->object_number());
 }
 
 
@@ -71,4 +78,10 @@ void Trainer::train3D ()
 void Trainer ::set_new_object(bool new_object)
 {
     this->new_object=new_object;
+}
+
+
+void Trainer::set_start_training(bool training)
+{
+    this->training=training;
 }

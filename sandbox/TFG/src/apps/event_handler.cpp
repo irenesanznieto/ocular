@@ -4,7 +4,7 @@
 
 int main (int argc,char* argv[])
 {
-    ros::init(argc, argv, "CONVERTER");
+    ros::init(argc, argv, "EVENT_HANDLER");
     EventHandlerNode eventhandler;
 
     ros::spin();

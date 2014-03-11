@@ -4,7 +4,7 @@
 
 int main (int argc,char* argv[])
 {
-    ros::init(argc, argv, "ROI_SEGMENTER");
+    ros::init(argc, argv, "ROI_SEGMENTER_3D");
 
     RoiSegmenter3DNode rs3D;
 

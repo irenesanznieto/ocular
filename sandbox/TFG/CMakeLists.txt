@@ -34,21 +34,19 @@ rosbuild_gensrv()
 #target_link_libraries(example ${PROJECT_NAME})
 
 #EXECUTABLES: 
-rosbuild_add_executable(recognizer src/apps/recognizer.cpp)
-rosbuild_add_executable(learner src/apps/learner.cpp)
-rosbuild_add_executable(event_handler src/apps/event_handler.cpp)
+
 rosbuild_add_executable(converter src/apps/converter.cpp)
 rosbuild_add_executable(roi_segmenter2D	src/apps/roi_segmenter2D.cpp)
 rosbuild_add_executable(roi_segmenter3D	src/apps/roi_segmenter3D.cpp)
 rosbuild_add_executable(featureextractor2D src/apps/featureextractor2D.cpp)
 rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
-#rosbuild_add_executable(data_parser src/apps/data_parser.cpp)
-#rosbuild_add_executable(display src/apps/display.cpp)
 
-#rosbuild_add_executable(action_client src/apps/action_client.cpp)
-#rosbuild_add_executable(action_server src/apps/action_server.cpp)
+rosbuild_add_executable(recognizer src/apps/recognizer.cpp)
+rosbuild_add_executable(learner src/apps/learner.cpp)
+rosbuild_add_executable(event_handler src/apps/event_handler.cpp)
 
-rosbuild_add_executable(dummy src/tests/dummy.cpp)
+
+#rosbuild_add_executable(dummy src/tests/dummy.cpp)
 rosbuild_add_executable(image_view src/apps/image_view.cpp)
 
 
@@ -60,21 +58,19 @@ rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
 
 #LINKING:
-target_link_libraries(recognizer custom_libs)
-target_link_libraries(learner custom_libs)
-target_link_libraries(event_handler custom_libs)
+
 target_link_libraries(converter custom_libs)
 target_link_libraries(roi_segmenter2D custom_libs)
 target_link_libraries(roi_segmenter3D custom_libs)
 target_link_libraries(featureextractor2D custom_libs)
 target_link_libraries(featureextractor3D custom_libs)
-#target_link_libraries(data_parser custom_libs)
-#target_link_libraries(display custom_libs)
 
-#target_link_libraries(action_client custom_libs)
-#target_link_libraries(action_server custom_libs)
 
-target_link_libraries(dummy custom_libs)
+target_link_libraries(recognizer custom_libs)
+target_link_libraries(learner custom_libs)
+target_link_libraries(event_handler custom_libs)
+
+#target_link_libraries(dummy custom_libs)
 
 #GTESTS:
 rosbuild_add_gtest(test/TestConverter src/tests/ConverterTest.cpp)

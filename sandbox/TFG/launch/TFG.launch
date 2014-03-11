@@ -40,10 +40,10 @@
 	<node pkg="TFG" type="featureextractor3D" name="featureextractor3D" args="segmented_pc:=/TFG/ROI3D/segmented_pc descriptors3D:=/TFG/FE3D/descriptors3D"/>
 	
 <!--	TRAINER-->
-	<node pkg="TFG" type="trainer" name="trainer" args="descriptors2D:=/TFG/FE2D/descriptors2D"/>
+	<node pkg="TFG" type="trainer" name="trainer" args="descriptors2D:=/TFG/FE2D/descriptors2D event:=/TFG/EVENTHANDLER/event"/>
 	
 <!--	RECOGNIZER-->
-	<node pkg="TFG" type="recognizer" name="recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id"/>
+	<node pkg="TFG" type="recognizer" name="recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id event:=/TFG/EVENTHANDLER/event"/>
 	
 <!--	EVENT HANDLER-->
 	<node pkg="TFG" type="event_handler" name="event_handler" args="event:=/TFG/EVENTHANDLER/event skeleton:=/skeleton"/>

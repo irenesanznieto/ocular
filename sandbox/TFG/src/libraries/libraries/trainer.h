@@ -46,10 +46,12 @@ public:
     Trainer();
 
 
-    void train2D(const sensor_msgs::ImageConstPtr &);  /** Trains a 2D algorithm with a new view of the object*/
+    void train2D(const TFG::HandImageConstPtr &);  /** Trains a 2D algorithm with a new view of the object*/
     void train3D ();    /** Trains a 3D algorithm with a new view of the object*/
 
     void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
+
+    void set_start_training(bool training);     /** Sets the value of the private boolean train*/
 
 private:
 
@@ -66,6 +68,8 @@ private:
     bool new_object;    /**Boolean that is set to true whenever the new view is of a new object*/
 
     int object_number();    /**Returns the index for the different vectors used in the class depending on the new_object variable*/
+
+    bool training; /**Boolean that is set to true whenever the training mode is activated*/
 
 };
 
