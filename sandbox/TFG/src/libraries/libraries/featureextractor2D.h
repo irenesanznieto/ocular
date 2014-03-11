@@ -39,6 +39,12 @@ public:
 
     TFG::HandImage extract_features(const TFG::HandImageConstPtr & );   /**Extracts the 2D descriptors from the segmented input image using the ORB algorithm */
 
+    sensor_msgs::Image get_image_with_keypoints();
+
+private:
+
+    sensor_msgs::Image image_with_keypoints;
+
 };
 
 

@@ -40,16 +40,19 @@ TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr
         result.name[i]=msg->name[i];
 
 
-        //    Draw circles in the keypoints
-        //    for (unsigned int i=0; i<keypoints.size(); i++)
-        //    {
-        //        circle(cv_ptr->image, keypoints[i].pt, keypoints[i].size, cv::Scalar(0,0,255), 1);
-        //    }
+//            Draw circles in the keypoints
+            for (unsigned int i=0; i<keypoints.size(); i++)
+            {
+                circle(cv_ptr->image, keypoints[i].pt, keypoints[i].size, cv::Scalar(0,0,255), 1);
+            }
 
-        //    cv::imshow("ORB DESCRIPTORS", cv_ptr->image);
-        //    cv::waitKey(10);
-
+            this->image_with_keypoints.data=cv_ptr->image.clone();
     }
     return result;
+}
+
+sensor_msgs::Image FeatureExtractor2D:: get_image_with_keypoints()
+{
+    return this->image_with_keypoints;
 }
 
