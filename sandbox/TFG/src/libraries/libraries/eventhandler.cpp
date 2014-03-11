@@ -1,11 +1,15 @@
 #include "eventhandler.h"
 
 EventHandler::EventHandler()
-{}
+{
+    this->last_event="recognize";
+}
 
 TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonConstPtr & msg)
 {
     TFG::EventHandler event;
+
+    event.last_event=this->last_event;
 
     pcl::PointXYZ threshold_hand;
     threshold_hand.x=0.1;
@@ -67,5 +71,6 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
             event.event="recognize";
     }
 
+    this->last_event=event.event;
     return event;
 }

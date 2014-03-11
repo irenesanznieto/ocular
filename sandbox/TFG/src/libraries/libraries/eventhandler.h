@@ -11,6 +11,8 @@ public:
     EventHandler();
     TFG::EventHandler select_event_hand(const pi_tracker::SkeletonConstPtr & );
 
+private:
+    std::string last_event;
 };
 
 #endif // EVENTHANDLER_H

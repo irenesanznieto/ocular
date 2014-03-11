@@ -5,7 +5,7 @@ RoiSegmenter3D::RoiSegmenter3D()
 
 sensor_msgs::PointCloud2 RoiSegmenter3D::segment( const sensor_msgs::PointCloud2ConstPtr &cloud )
 {
-    if (coord.position.size()>0 && this->hand_name.size()>0)
+    if (!coord.position.empty() && !this->hand_name.empty())
     {
         sensor_msgs::PointCloud2 cloud_filtered;
 

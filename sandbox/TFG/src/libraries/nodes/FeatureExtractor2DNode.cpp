@@ -8,6 +8,5 @@ FeatureExtractor2DNode::FeatureExtractor2DNode()
 
 void FeatureExtractor2DNode::input_image_cb (const TFG::HandImageConstPtr &msg)
 {
-    TFG::HandImage descriptors2D=fe2D.extract_features(msg);
-    descriptors_pub.publish(descriptors2D);
+    descriptors_pub.publish(fe2D.extract_features(msg));
 }
