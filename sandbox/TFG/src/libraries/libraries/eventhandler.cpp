@@ -60,7 +60,7 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
 
 
 //    ROS_ERROR("left hand: %f  right hand: %f", msg->position[5].z, msg->position[8].z);
-    ROS_ERROR("right-left: %f ",right_hand.z - left_hand.z);
+//    ROS_ERROR("right-left: %f ",right_hand.z - left_hand.z);
 
 
 //    if (event.hand=="right_hand")
