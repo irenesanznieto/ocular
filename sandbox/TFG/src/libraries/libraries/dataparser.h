@@ -18,6 +18,7 @@
 #ifndef DATAPARSER_H
 #define DATAPARSER_H
 
+#include "function.h"
 #include <opencv2/opencv.hpp>
 #include <fstream>
 
@@ -53,6 +54,8 @@ private:
     std::string algorithms_3D_path; /**Path where the 3D algorithms are stored*/
     std::string templates_path; /**Path where the templates are stored*/
     std::string temp_path;  /**Temporal files path*/
+
+    std::string pkg_main_path;  /**Path of the ROS package*/
 
 
 };

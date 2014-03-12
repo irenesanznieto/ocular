@@ -19,9 +19,6 @@
     <param name="load_filepath" value="$(find pi_tracker)/params/SamplesConfigNewOpenNI.xml" />
     </node>
     
-    
-<!--	PATH FINDER-->
-	<node pkg="TFG" type="path_finder" name="path_finder"/>
 
 <!--	CONVERTER NODE: -->
     <node pkg="TFG" type="converter" name="converter" args="skeleton:=/skeleton hand_location:=/TFG/CONVERTER/hand_location"/>

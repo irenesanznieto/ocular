@@ -2,10 +2,11 @@
 
 DataParser::DataParser()
 {
-    algorithms_2D_path="../data/algorithms/2D/";
-    algorithms_3D_path="../data/algorithms/3D/";
-    templates_path="../data/templates/";
-    temp_path="../data/temp/temp.txt";
+    pkg_main_path=get_path_to_pkg();
+    algorithms_2D_path=pkg_main_path+"/data/algorithms/2D/";
+    algorithms_3D_path=pkg_main_path+"/data/algorithms/3D/";
+    templates_path=pkg_main_path+"/data/templates/";
+    temp_path=pkg_main_path+"/data/temp/temp.txt";
 }
 
 std::vector <std::string> DataParser::get_file_names (std::string path)
