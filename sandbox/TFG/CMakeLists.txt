@@ -34,6 +34,7 @@ rosbuild_gensrv()
 #target_link_libraries(example ${PROJECT_NAME})
 
 #EXECUTABLES: 
+rosbuild_add_executable(path_finder src/apps/path_finder.cpp)
 
 rosbuild_add_executable(converter src/apps/converter.cpp)
 rosbuild_add_executable(roi_segmenter2D	src/apps/roi_segmenter2D.cpp)
@@ -58,6 +59,7 @@ rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
 
 
 #LINKING:
+target_link_libraries(path_finder custom_libs)
 
 target_link_libraries(converter custom_libs)
 target_link_libraries(roi_segmenter2D custom_libs)

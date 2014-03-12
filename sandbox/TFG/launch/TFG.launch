@@ -18,6 +18,10 @@
     <param name="fixed_frame" value="$(arg fixed_frame)" />
     <param name="load_filepath" value="$(find pi_tracker)/params/SamplesConfigNewOpenNI.xml" />
     </node>
+    
+    
+<!--	PATH FINDER-->
+	<node pkg="TFG" type="path_finder" name="path_finder"/>
 
 <!--	CONVERTER NODE: -->
     <node pkg="TFG" type="converter" name="converter" args="skeleton:=/skeleton hand_location:=/TFG/CONVERTER/hand_location"/>
@@ -54,15 +58,20 @@
 
 
 <!--	IMAGE VIEW-->
+
 <!--   	<node pkg="image_view" type="image_view"  name="HAND_VIEW" args="image:=/TFG/ROI2D/segmented_image"/>-->
+
+<!--		TRANSFORM FROM HAND_IMAGE CUSTOM MSG TO ROS IMAGE-->
 		<node pkg="TFG" type="image_view" name="from_hand_msg_to_image_msg" args="image_in:=/TFG/ROI2D/segmented_image image_out:=/TFG/ROI2D/segmented_image_ROS_type"/>
 		
+<!--		VIEW SEGMENTED HAND IMAGE-->
    		<node pkg="image_view" type="image_view"  name="hand_image" args="image:=/TFG/ROI2D/segmented_image_ROS_type"/>
    		
+<!--   		VIEW 2D KEYPOINTS-->
 		<node pkg="image_view" type="image_view"  name="hand_image_with_keypoints" args="image:=/TFG/ROI2D/segmented_image_with_keypoints"/>
 		
 		
-<!--	KINECT IMAGE-->
+<!--	KINECT ORIGINAL IMAGE-->
 <!--    <node pkg="image_view" type="image_view"  name="kinect_image" args="image:=/camera/rgb/image_color"/>-->
 
 
