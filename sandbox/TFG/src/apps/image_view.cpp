@@ -30,7 +30,7 @@ public:
     {
         for(unsigned int i=0; i<msg->image.size(); i++)
         {
-            std::cout<<msg->name.data()<<std::endl;
+//            std::cout<<msg->name.data()<<std::endl;
             image_pub.publish(msg->image[i]);
         }
     }
