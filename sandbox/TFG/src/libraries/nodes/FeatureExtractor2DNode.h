@@ -3,7 +3,8 @@
 
 #include "../libraries/featureextractor2D.h"
 #include <ros/ros.h>
-
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
 
 class FeatureExtractor2DNode
 {
@@ -16,8 +17,8 @@ private:
     ros::Subscriber image_sub;
     ros::Publisher descriptors_pub;
 
-//    ros::Publisher image_with_keypoints_pub;
-
+    image_transport::Publisher image_with_keypoints_pub;
+    image_transport::ImageTransport it;
 
     void input_image_cb (const TFG::HandImageConstPtr &);
     FeatureExtractor2D fe2D;

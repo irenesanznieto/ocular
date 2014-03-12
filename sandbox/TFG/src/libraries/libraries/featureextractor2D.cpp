@@ -45,12 +45,13 @@ TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr
         result.name.push_back(msg->name[i]);
 
 
-////            Draw circles in the keypoints
-//            for (unsigned int i=0; i<keypoints.size(); i++)
-//            {
-//                circle(cv_ptr->image, keypoints[i].pt, keypoints[i].size, cv::Scalar(0,0,255), 1);
-//            }
+//            Draw circles in the keypoints
+            for (unsigned int i=0; i<keypoints.size(); i++)
+            {
+                circle(cv_ptr->image, keypoints[i].pt, keypoints[i].size, cv::Scalar(0,0,255), 1);
+            }
 
+            this->image_with_keypoints=*cv_ptr->toImageMsg();
     }
 
     return result;
