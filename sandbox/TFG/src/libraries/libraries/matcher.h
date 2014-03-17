@@ -61,9 +61,5 @@ private:
     std::vector<cv::FlannBasedMatcher> algorithms2D;
 
     int flann_comparison (cv::Mat &, float);
-
-    bool training; /**Boolean that is set to true whenever the training mode is activated*/
-
-
 };
 #endif //MATCHER_H

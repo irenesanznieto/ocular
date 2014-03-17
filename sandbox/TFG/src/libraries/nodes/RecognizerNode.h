@@ -28,6 +28,8 @@ private:
     void descriptors2D_cb(const TFG::HandImageConstPtr & );
     void setEvent(const TFG::EventHandlerConstPtr & );
 
+    bool recognize;
+
 
 };
 
