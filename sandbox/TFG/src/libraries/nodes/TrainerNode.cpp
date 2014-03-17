@@ -44,7 +44,6 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
         else
             ROS_ERROR("Iterator of number of views greater than the total number of views");
     }
-
 }
 
 void TrainerNode::train3D_cb()

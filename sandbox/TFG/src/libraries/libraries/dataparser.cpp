@@ -38,26 +38,31 @@ std::vector <std::string> DataParser::get_file_names (std::string path)
 
 void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number_object)
 {
-    int object_number=descriptors.size();
-
     //NAME CODE:
-    std::stringstream filename;
+    std::stringstream path;
 
-    //The name of the file will be a number [the position of the object in the vectors]
-    filename <<templates_path<<object_number<<"/"<<number_object;
+    //The name of the file will be a number [the position of the object in the vector of descriptors]
+    path <<templates_path<<number_object;
 
+    //create a folder in the templates_path with the number of the position of the object in the vector
     std::stringstream command;
-    command<<"mkdir "<<filename;
-
+    command<<"mkdir "<<path;
     system(command.str().c_str());
 
-
+    std::stringstream filename;
+    //Store each matrix of descriptors corresponding to different views of the object in a different yml file inside the same object's folder
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
+        //add the path to the filename
+        filename<<path;
+        //add the name of the file depending on the number of view and also the extension
         filename<<"/"<<"view_"<< i<<"_d.yml";
+        //create the filestorage
         cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
+        //write the descriptors to the filestorage
         fs <<"descriptors"<< descriptors[i];
-
+        //remove the contents of the stringstream filename for the next iteration
+        filename.str(std::string());
     }
 }
 
@@ -105,21 +110,28 @@ cv::Mat DataParser::load_descriptor (std::string filename)
 
 std::vector<std::vector<cv::Mat> > DataParser:: getTemplates ()
 {
+    //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
     std::vector<std::string> number_of_objects_folders=this->get_file_names(templates_path);
+    //the number of objects is the size of the previous vector
     int total_objects=number_of_objects_folders.size();
 
     std::stringstream path;
 
+    //the size of the descriptors matrix will be the same as the objects in the folder
     std::vector<std::vector<cv::Mat> >descriptors;
     descriptors.resize(total_objects);
 
+
     for (int object_number=0;object_number<total_objects; object_number++ )
     {
+        //initialize the stringstream
         path.str(std::string());
+        //add the path of the templates and the object folder
         path<<templates_path<<object_number<<"/";
+        //get the file names of each object folder
         std::vector <std::string> templates=get_file_names(path.str());
 
-        //extract the information from the yml files
+        //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
         for (unsigned int i=0; i<templates.size(); i++)
         {
             descriptors[object_number].push_back(load_descriptor(templates[i]));

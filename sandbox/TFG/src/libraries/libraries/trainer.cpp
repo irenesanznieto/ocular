@@ -2,11 +2,15 @@
 
 Trainer::Trainer()
 {
+    //the default mode is recognizing, hence the initialization of the training variable is false
     this->training=false;
+
+
+
     //Load the previously stored templates
     this->descriptors=dataparser.getTemplates();
 
-    //Add the descriptors to each algorithm
+    //Add the descriptors to each algorithm & train them
     for (unsigned int i =0; i<descriptors.size(); i++)
     {
         alg2D[i].add(this->descriptors[i]);
