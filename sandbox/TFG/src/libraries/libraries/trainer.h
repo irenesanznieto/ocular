@@ -46,12 +46,15 @@ public:
     Trainer();
 
 
-    void train2D(const TFG::HandImageConstPtr &);  /** Trains a 2D algorithm with a new view of the object*/
+    void train2D();  /** Trains a 2D algorithm with a new view of the object*/
     void train3D ();    /** Trains a 3D algorithm with a new view of the object*/
 
     void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
+
+    void add_descriptors(const TFG::HandImageConstPtr &);
+
 
 private:
 

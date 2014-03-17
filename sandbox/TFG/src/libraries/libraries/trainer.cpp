@@ -27,8 +27,7 @@ int Trainer:: object_number()
 }
 
 
-//REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
-void Trainer::train2D(const TFG::HandImageConstPtr & msg)
+void Trainer::add_descriptors(const TFG::HandImageConstPtr & msg)
 {
     if (this->training==true)
     {
@@ -53,16 +52,30 @@ void Trainer::train2D(const TFG::HandImageConstPtr & msg)
             //add the new view to the descriptors matrix
             descriptors[object_number].push_back(image_cv);
 
-            //train the 2D algorithm with the new view
-            alg2D[object_number].train();
-
-            //store template
-            dataparser.save_template_2D(this->descriptors[this->object_number()]);
-
-            //store algorithm
-            dataparser.save_algorithm_2D(alg2D[this->object_number()], this->object_number());
-
         }
+    }
+}
+
+//REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
+void Trainer::train2D()
+{
+    if (this->training==true)
+    {
+        //decide the position of the new view in the matrix of descriptors
+        int object_number=this->object_number();
+
+        //add the descriptors vector to the 2D algorithm
+        alg2D[object_number].add(descriptors[object_number]);
+
+        //train the 2D algorithm with the new view
+        alg2D[object_number].train();
+
+        //store template
+        dataparser.save_template_2D(this->descriptors[this->object_number()], this->object_number());
+
+        //store algorithm
+        dataparser.save_algorithm_2D(alg2D[this->object_number()], this->object_number());
+
     }
 }
 

@@ -36,13 +36,15 @@ std::vector <std::string> DataParser::get_file_names (std::string path)
 }
 
 
-void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors)
+void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number_object)
 {
     int object_number=descriptors.size();
 
     //NAME CODE:
     std::stringstream filename;
-    filename <<templates_path<<object_number;
+
+    //The name of the file will be a number [the position of the object in the vectors]
+    filename <<templates_path<<object_number<<"/"<<number_object;
 
     std::stringstream command;
     command<<"mkdir "<<filename;
