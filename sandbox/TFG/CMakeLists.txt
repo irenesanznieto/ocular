@@ -78,8 +78,11 @@ target_link_libraries(event_handler custom_libs)
 rosbuild_add_gtest(test/TestConverter src/tests/ConverterTest.cpp)
 rosbuild_add_gtest(test/TestROISegmenter3D src/tests/RoiSegmenter3DTest.cpp)
 rosbuild_add_gtest(test/TestROISegmenter2D src/tests/RoiSegmenter2DTest.cpp)
+rosbuild_add_gtest(test/TestFeatureExtractor2D src/tests/FeatureExtractor2DTest.cpp)
 
 target_link_libraries(test/TestConverter custom_libs)
 target_link_libraries(test/TestROISegmenter3D custom_libs)
 target_link_libraries(test/TestROISegmenter2D custom_libs)
+target_link_libraries(test/TestFeatureExtractor2D custom_libs)
+
 
