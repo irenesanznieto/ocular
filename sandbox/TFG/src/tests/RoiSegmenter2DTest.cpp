@@ -101,10 +101,8 @@ TEST_F(RoiSegmenter2DTest,segment)
     //TEST
     EXPECT_EQ (2, result_image.name.size());
     EXPECT_EQ(2, result_image.image.size());
-
-//    EXPECT_EQ(20, result_image.image[0].cols());
-
-
+    EXPECT_EQ(150, result_image.image[0].width);
+    EXPECT_EQ(150, result_image.image[0].height);
 }
 
 
