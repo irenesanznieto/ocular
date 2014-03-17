@@ -11,27 +11,32 @@ DataParser::DataParser()
 
 std::vector <std::string> DataParser::get_file_names (std::string path)
 {
+    //Store the names of the files in the string path in the file specified by temp_path
     std::string sys_command="ls "+path +"> "+temp_path;
     system(sys_command.c_str());
 
+    //Open the temp file
     std::ifstream file(temp_path.c_str());
     std::string dummy;
     std::vector <std::string> templates;
 
+    //Get each line and store the names in a vector
     while (file.good())
     {
         getline(file,dummy);
-        templates.push_back(dummy);
+        templates.push_back(path+dummy);
     }
+    //Close the temp file
     file.close();
 
-
+    //Remove the temp file
     std::string remove_temp_files="rm "+temp_path;
-
     system(remove_temp_files.c_str());
 
+    //Remove the last element of the vector which is not complete [due to getline function]
     templates.erase(templates.end());
 
+    //Return the vector of strings with the file names
     return templates;
 }
 
@@ -82,9 +87,10 @@ void DataParser::save_algorithm_2D(cv::FlannBasedMatcher & alg2D, int object_num
 
 std::vector<cv::FlannBasedMatcher > DataParser::load_algorithms_2D()
 {
+    //Get the file names in the algorithms2D path
     std::vector <std::string> algorithms=this->get_file_names(algorithms_2D_path);
-    std::vector<cv::FlannBasedMatcher >alg2D;
 
+    std::vector<cv::FlannBasedMatcher >alg2D;
     for (unsigned int i=0; i<algorithms.size(); i++)
     {
         cv::FileStorage fr(algorithms[i], cv::FileStorage::READ);
