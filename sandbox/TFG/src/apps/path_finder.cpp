@@ -1,7 +1,8 @@
-#include "../libraries/libraries/function.h"
+#include "../libraries/libraries/dataparser.h"
 
 int main ()
 {
-    std::cout <<get_path_to_pkg()<<std::endl;
+    DataParser dat;
+    std::cout <<dat.get_path_to_pkg()<<std::endl;
 }
 
