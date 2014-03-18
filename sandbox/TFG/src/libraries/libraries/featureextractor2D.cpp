@@ -38,10 +38,16 @@ TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr
         cv_bridge::CvImage cv_ptr_out;
         //        std::cerr<<cv_ptr_out.encoding<<descriptors.type()<<std::endl;
 
-        cv_ptr_out.image=descriptors.clone();
-        cv_ptr_out.encoding=sensor_msgs::image_encodings::BGR8;
 
-        std::cerr<<cv_ptr_out.encoding<<descriptors.type()<<std::endl;
+        cv_ptr_out.image=descriptors.clone();
+//        std::cerr<< cv_ptr_out.image.type()<<std::endl;
+
+        cv_ptr_out.encoding=sensor_msgs::image_encodings::MONO8;
+//        cv_ptr_out.encoding=sensor_msgs::image_encodings::RGB8;
+
+
+
+//        std::cerr<<cv_ptr_out.encoding<<descriptors.type()<<std::endl;
 
         //fill the result of the feature extraction:
         result.image.push_back( *cv_ptr_out.toImageMsg());

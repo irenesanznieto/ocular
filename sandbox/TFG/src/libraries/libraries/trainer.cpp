@@ -26,7 +26,7 @@ void Trainer::add_descriptors(const TFG::HandImageConstPtr & msg)
     {
         try
         {
-            cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::BGR8/*sensor_msgs::image_encodings::TYPE_8UC1*/);
+            cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::MONO8);
         }
         catch (cv_bridge::Exception& e)
         {
@@ -35,41 +35,40 @@ void Trainer::add_descriptors(const TFG::HandImageConstPtr & msg)
 
         cv::Mat image_cv=cv_ptr->image.clone();
 
-        //decide the position of the new view in the matrix of descriptors
-//        int object_number=this->object_number();
-//        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
+        //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
 
         //add the new view to the descriptors matrix
-        descriptors[this->object_number].push_back(image_cv);
+        image_cv.convertTo(image_cv,CV_32F );
 
+        descriptors[this->object_number].push_back(image_cv);
     }
 }
 
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
 void Trainer::train2D()
 {
-    //decide the position of the new view in the matrix of descriptors
-//    int object_number=this->object_number();
+    try
+    {
+        //add the descriptors vector to the 2D algorithm
+//        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
 
-    //add the descriptors vector to the 2D algorithm
-    ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
+        alg2D[this->object_number].add(descriptors[this->object_number]);
 
-    alg2D[this->object_number].add(descriptors[this->object_number]);
+        //train the 2D algorithm with the new view
+        alg2D[this->object_number].train();
 
-    ROS_ERROR("3");
-    //train the 2D algorithm with the new view
-    alg2D[this->object_number].train();
+        //store template
+        dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
 
-    ROS_ERROR("4");
-    //store template
-    dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
-
-    ROS_ERROR("5");
-
-    //store algorithm
-    dataparser.save_algorithm_2D(alg2D[this->object_number], this->object_number);
+        //store algorithm
+        dataparser.save_algorithm_2D(alg2D[this->object_number], this->object_number);
 
 
+    }
+    catch (cv::Exception & e)
+    {
+        std::cerr<<"An exception occurred :P"<<std::endl;
+    }
 }
 
 

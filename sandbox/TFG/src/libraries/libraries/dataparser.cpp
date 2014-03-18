@@ -48,6 +48,7 @@ std::string DataParser::get_path_to_pkg()
     //remove the last part (/src/libraries/libraries/dataparser.h)
     path.erase(path.end()-37, path.end());
 
+    //remove the beginning (./)
     path.erase(path.begin(), path.begin()+2);
     return path;
 }
