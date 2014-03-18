@@ -1,8 +1,0 @@
-#Define the goal
-string hand #specify the hand in which the object will be held
----
-#Define the result
-string result
----
-#Define a feedback message
-float32 percentage_completed
