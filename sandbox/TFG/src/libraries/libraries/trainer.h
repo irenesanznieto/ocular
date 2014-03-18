@@ -51,8 +51,6 @@ public:
 
     void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
 
-    void set_start_training(bool training);     /** Sets the value of the private boolean train*/
-
     void add_descriptors(const TFG::HandImageConstPtr &);
 
 
@@ -72,7 +70,6 @@ private:
 
     int object_number();    /**Returns the index for the different vectors used in the class depending on the new_object variable*/
 
-    bool training; /**Boolean that is set to true whenever the training mode is activated*/
 
 };
 

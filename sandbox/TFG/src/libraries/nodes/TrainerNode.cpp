@@ -2,19 +2,20 @@
 
 TrainerNode::TrainerNode()
 {
-    descriptors2D=nh.subscribe<TFG::HandImage>("descriptors_2D", 1, &TrainerNode::train2D_cb, this);
+    descriptors2D=nh.subscribe<TFG::HandImage>("descriptors2D", 1, &TrainerNode::train2D_cb, this);
     //    descriptors3D=nh.subscribe("3D descriptors",1,&train3D_cb, this);
 
     event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &TrainerNode::setEvent, this);
 
-    number_views=1; //the total number of views to be extracted of each object
+    number_views=10; //the total number of views to be extracted of each object
     number_views_it=0;
 
     //Initialize new object to true so the algorithm starts learning a NEW object
     trainer.set_new_object(true);
 
-    //Initialize training_completed to false since it has not still started
-    training_completed=false;
+    //default mode: recognize
+    this->learn=false;
+
 
 }
 
@@ -22,12 +23,15 @@ TrainerNode::TrainerNode()
 
 void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
 {
-
-    if (training_completed==false)  //if the training is still running
+    if(learn)
     {
+        //        ROS_ERROR("LEARNING");
+
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
         if (number_views_it<number_views)
         {
+            ROS_ERROR("TRAINING VIEW %d", number_views_it);
+
             trainer.add_descriptors(msg);
             number_views_it ++;
         }
@@ -39,10 +43,12 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
             number_views_it=0;
 
             //stop the training, all the views have already been trained
-            training_completed=true;
+            ROS_ERROR("TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION");
+
         }
         else
             ROS_ERROR("Iterator of number of views greater than the total number of views");
+
     }
 }
 
@@ -56,28 +62,24 @@ void TrainerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
 
     if (msg->event=="learn")
     {
-        if (training_completed==false)  //If the training is not completed
+        //        ROS_ERROR ("LEARN EVENT RECEIVED");
+        this->learn=true;
+
+        if (msg->last_event=="recognize")   //If last event was recognize
         {
-            trainer.set_start_training(true);   //Start the training
-
-            if (msg->last_event=="recognize")   //If last event was recognize
-            {
-                //This is a new object to learn
-                trainer.set_new_object(true);
-                //The training has just begun, hence it is NOT completed
-                training_completed=false;
-
-            }
-            else    //If last event was learn
-                trainer.set_new_object(false);  //We are still learning views of the object
+            //This is a new object to learn
+            trainer.set_new_object(true);
         }
-        else    //If the training has been completed:
-            ROS_ERROR("TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION");
+        else    //If last event was learn
+        {
+            trainer.set_new_object(false);  //We are still learning views of the object
+        }
 
     }
     else if (msg->event=="recognize")   //If the event is recognize
     {
-        trainer.set_start_training(false);  //NOT TRAINING --> DO NOTHING
+        //        ROS_ERROR ("RECOGNIZE EVENT RECEIVED");
+        this->learn=false;
     }
 
 }

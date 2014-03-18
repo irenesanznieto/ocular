@@ -28,9 +28,10 @@ private:
 
     Trainer trainer;
 
+
     int number_views; /** Stores the total number of views to be extracted of each object */
     int number_views_it; /** Iterator that stores the current view number of the object */
-    bool training_completed; /** Boolean that is true when the training has been completed */
+    bool learn; /** Boolean that is true when the received event is learn and false otherwise*/
 
 };
 

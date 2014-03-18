@@ -45,10 +45,12 @@ public:
     std::vector<std::vector<cv::Mat> >  getTemplates ();    /**Returns all the descriptors previously stored*/
     std::string get_path_to_pkg();
 
-
+    int get_folder_number_of_items(std::string );
+    int getNumberTemplates();
 
 private:
     std::vector <std::string> get_file_names (std::string );    /**Returns a vector of strings with the names of the files that are within the folder specified by the argument */
+
 
     std::string algorithms_2D_path; /**Path where the 2D algorithms are stored*/
     std::string algorithms_3D_path; /**Path where the 3D algorithms are stored*/
