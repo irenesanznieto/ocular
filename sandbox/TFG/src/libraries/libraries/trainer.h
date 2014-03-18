@@ -68,8 +68,7 @@ private:
 
     bool new_object;    /**Boolean that is set to true whenever the new view is of a new object*/
 
-    int object_number();    /**Returns the index for the different vectors used in the class depending on the new_object variable*/
-
+    int object_number;
 
 };
 

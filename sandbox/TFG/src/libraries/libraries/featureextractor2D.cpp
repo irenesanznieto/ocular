@@ -36,8 +36,12 @@ TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr
         orb(gimage, mask,  keypoints, descriptors);
 
         cv_bridge::CvImage cv_ptr_out;
-        cv_ptr_out.encoding=descriptors.type();
-        cv_ptr_out.image=descriptors;
+        //        std::cerr<<cv_ptr_out.encoding<<descriptors.type()<<std::endl;
+
+        cv_ptr_out.image=descriptors.clone();
+        cv_ptr_out.encoding=sensor_msgs::image_encodings::BGR8;
+
+        std::cerr<<cv_ptr_out.encoding<<descriptors.type()<<std::endl;
 
         //fill the result of the feature extraction:
         result.image.push_back( *cv_ptr_out.toImageMsg());
@@ -45,13 +49,13 @@ TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr
         result.name.push_back(msg->name[i]);
 
 
-//            Draw circles in the keypoints
-            for (unsigned int i=0; i<keypoints.size(); i++)
-            {
-                circle(cv_ptr->image, keypoints[i].pt, keypoints[i].size, cv::Scalar(0,0,255), 1);
-            }
+        //            Draw circles in the keypoints
+        for (unsigned int i=0; i<keypoints.size(); i++)
+        {
+            circle(cv_ptr->image, keypoints[i].pt, keypoints[i].size, cv::Scalar(0,0,255), 1);
+        }
 
-            this->image_with_keypoints=*cv_ptr->toImageMsg();
+        this->image_with_keypoints=*cv_ptr->toImageMsg();
     }
 
     return result;

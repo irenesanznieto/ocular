@@ -7,7 +7,7 @@ TrainerNode::TrainerNode()
 
     event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &TrainerNode::setEvent, this);
 
-    number_views=10; //the total number of views to be extracted of each object
+    number_views=5; //the total number of views to be extracted of each object
     number_views_it=0;
 
     //Initialize new object to true so the algorithm starts learning a NEW object
@@ -34,6 +34,7 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
 
             trainer.add_descriptors(msg);
             number_views_it ++;
+
         }
         else if (number_views_it==number_views)
         {
