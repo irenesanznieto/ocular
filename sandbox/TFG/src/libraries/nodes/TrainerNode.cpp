@@ -47,6 +47,8 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
             number_views_it=0;
 
             trainer.set_new_object(true);
+            //stop the learning until a new recognize - learn events happen
+            this->learn=false;
 
             //stop the training, all the views have already been trained
             std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl;
@@ -70,10 +72,10 @@ void TrainerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
     if (msg->event=="learn")
     {
         //        ROS_ERROR ("LEARN EVENT RECEIVED");
-        this->learn=true;
 
         if (msg->last_event=="recognize")   //If last event was recognize
         {
+            this->learn=true;
             //This is a new object to learn
             trainer.set_new_object(true);
         }

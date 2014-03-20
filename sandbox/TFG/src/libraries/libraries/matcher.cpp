@@ -2,7 +2,7 @@
 
 Matcher::Matcher()
 {
-    this->algorithms2D=dataparser.load_algorithms_2D();
+//    this->algorithms2D=dataparser.load_algorithms_2D();
 }
 
 int Matcher :: match2D(const TFG::HandImageConstPtr & msg)
