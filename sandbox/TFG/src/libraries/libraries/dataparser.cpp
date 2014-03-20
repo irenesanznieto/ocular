@@ -108,7 +108,7 @@ void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number
     //The name of the file will be a number [the position of the object in the vector of descriptors]
     path<<templates_path<<number_object;
 
-        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
+//        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
 
     //create a folder in the templates_path with the number of the position of the object in the vector
     std::stringstream command;
@@ -127,7 +127,7 @@ void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number
         //add the name of the file depending on the number of view and also the extension
         filename<<"/view_"<<i<<"_d.yml";
 
-        std::cerr<<"FILENAME: "<<filename.str()<<std::endl;
+//        std::cerr<<"FILENAME: "<<filename.str()<<std::endl;
         //write the descriptors to the filestorage
         this->save_descriptor(descriptors[i], filename.str());
     }
@@ -181,6 +181,10 @@ cv::Mat DataParser::load_descriptor (std::string filename)
     return descriptor;
 }
 
+int DataParser:: getNumberAlgorithms()
+{
+    return this->get_folder_number_of_items(algorithms_2D_path);
+}
 
 int DataParser:: getNumberTemplates()
 {

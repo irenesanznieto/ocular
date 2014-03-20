@@ -2,7 +2,10 @@
 
 Matcher::Matcher()
 {
-//    this->algorithms2D=dataparser.load_algorithms_2D();
+    if (dataparser.getNumberAlgorithms()>1)
+    {
+        this->algorithms2D=dataparser.load_algorithms_2D();
+    }
 }
 
 int Matcher :: match2D(const TFG::HandImageConstPtr & msg)
@@ -69,6 +72,8 @@ int Matcher:: flann_comparison (cv::Mat  &desc1,float threshold)
         //The ratio is defined as the number of good_matches  over the number of total matches
         //This ratio is defined for each algorithm. Since each algorithm will be used for each object, this will be the similarity with this object
         ratio[object_number]=(float)(good_matches[object_number].size())/(float)(matches[object_number].size());
+
+        std::cerr<<"Comparison with object: "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
     }
 
     //Obtain the object ID as the vector position with the maximum of the ratios

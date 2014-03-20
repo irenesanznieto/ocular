@@ -2,8 +2,7 @@ bin/
 build/
 lib/
 devel/
-data/templates/
-data/algorithms/
+sandbox/TFG/data/*
 *.aux
 *.dvi
 *.log

@@ -50,6 +50,8 @@ public:
     int get_folder_number_of_items(std::string );
     int getNumberTemplates();
 
+    int  getNumberAlgorithms();
+
 private:
     std::vector <std::string> get_file_names (std::string );    /**Returns a vector of strings with the names of the files that are within the folder specified by the argument */
 
