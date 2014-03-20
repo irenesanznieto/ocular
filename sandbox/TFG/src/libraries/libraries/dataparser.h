@@ -59,6 +59,7 @@ private:
 
     std::string pkg_main_path;  /**Path of the ROS package*/
 
+    void save_descriptor(cv::Mat &, std::string );
 
 
 };

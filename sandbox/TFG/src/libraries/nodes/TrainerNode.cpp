@@ -25,12 +25,12 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
 {
     if(learn)
     {
-        //        ROS_ERROR("LEARNING");
+        //        std::cerr<<"LEARNING");
 
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
         if (number_views_it<number_views)
         {
-            ROS_ERROR("TRAINING VIEW %d", number_views_it);
+            std::cerr<<"TRAINING VIEW "<< number_views_it<<std::endl;
 
             trainer.add_descriptors(msg);
             number_views_it ++;
@@ -43,12 +43,14 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
             //when the iterator is equal to the total number of views, reset the iterator
             number_views_it=0;
 
+            trainer.set_new_object(true);
+
             //stop the training, all the views have already been trained
-            ROS_ERROR("TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION");
+            std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl;
 
         }
         else
-            ROS_ERROR("Iterator of number of views greater than the total number of views");
+            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
 
     }
 }

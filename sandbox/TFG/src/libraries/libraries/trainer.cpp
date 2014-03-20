@@ -3,6 +3,7 @@
 Trainer::Trainer()
 {
     //Load the previously stored templates if there are any
+//    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
     if(dataparser.getNumberTemplates()>0)
     {
         this->descriptors=dataparser.getTemplates();
@@ -15,6 +16,7 @@ Trainer::Trainer()
         }
     }
 }
+
 
 
 void Trainer::add_descriptors(const TFG::HandImageConstPtr & msg)
@@ -50,7 +52,7 @@ void Trainer::train2D()
     try
     {
         //add the descriptors vector to the 2D algorithm
-//        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
+        //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
 
         alg2D[this->object_number].add(descriptors[this->object_number]);
 
