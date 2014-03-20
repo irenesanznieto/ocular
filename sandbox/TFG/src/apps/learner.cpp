@@ -6,14 +6,8 @@
 int main (int argc,char* argv[])
 {
     ros::init(argc, argv, "LEARNER");
-//    try
-//    {
-        TrainerNode trainer;
-//    }
-//    catch(std::length_error & e)
-//    {
-//        ROS_ERROR("exception catched");
-//    }
+
+    TrainerNode trainer;
 
     ros::spin();
 

@@ -2,10 +2,13 @@
 
 TrainerNode::TrainerNode()
 {
+
     descriptors2D=nh.subscribe<TFG::HandImage>("descriptors2D", 1, &TrainerNode::train2D_cb, this);
     //    descriptors3D=nh.subscribe("3D descriptors",1,&train3D_cb, this);
 
     event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &TrainerNode::setEvent, this);
+
+    //    ROS_ERROR("ESTAMOS EN TRAINERNODE!!");
 
     number_views=5; //the total number of views to be extracted of each object
     number_views_it=0;
@@ -51,8 +54,8 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
         }
         else
             std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
-
     }
+
 }
 
 void TrainerNode::train3D_cb()
@@ -62,6 +65,7 @@ void TrainerNode::train3D_cb()
 
 void TrainerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
 {
+
 
     if (msg->event=="learn")
     {
@@ -84,5 +88,6 @@ void TrainerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
         //        ROS_ERROR ("RECOGNIZE EVENT RECEIVED");
         this->learn=false;
     }
+
 
 }

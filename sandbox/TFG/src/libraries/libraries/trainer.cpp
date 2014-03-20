@@ -2,19 +2,33 @@
 
 Trainer::Trainer()
 {
+
     //Load the previously stored templates if there are any
-//    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
-    if(dataparser.getNumberTemplates()>0)
+    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
+    if(dataparser.getNumberTemplates()>1)
     {
+        std::cerr<<"1"<<std::endl;
         this->descriptors=dataparser.getTemplates();
+        std::cerr<<"1"<<std::endl;
+        std::cerr<<"descriptors size"<<descriptors.size()<<std::endl;
+
+        alg2D.resize(descriptors.size());
 
         //Add the descriptors to each algorithm & train them
         for (unsigned int i =0; i<descriptors.size(); i++)
         {
-            alg2D[i].add(this->descriptors[i]);
-            alg2D[i].train();
+            try
+            {
+                alg2D[i].add(this->descriptors[i]);
+                alg2D[i].train();
+            }
+            catch (std::exception & e)
+            {}
         }
+        std::cerr<<"1"<<std::endl;
+
     }
+
 }
 
 
@@ -49,8 +63,7 @@ void Trainer::add_descriptors(const TFG::HandImageConstPtr & msg)
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
 void Trainer::train2D()
 {
-    try
-    {
+    try{
         //add the descriptors vector to the 2D algorithm
         //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
 
@@ -59,18 +72,17 @@ void Trainer::train2D()
         //train the 2D algorithm with the new view
         alg2D[this->object_number].train();
 
-        //store template
-        dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
-
-        //store algorithm
-        dataparser.save_algorithm_2D(alg2D[this->object_number], this->object_number);
-
-
     }
-    catch (cv::Exception & e)
-    {
-        std::cerr<<"An exception occurred :P"<<std::endl;
-    }
+    catch (std::exception & e)
+    {}
+
+    //store template
+    dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
+
+    //store algorithm
+    dataparser.save_algorithm_2D(alg2D[this->object_number], this->object_number);
+
+
 }
 
 
