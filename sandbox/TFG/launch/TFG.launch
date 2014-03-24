@@ -42,7 +42,7 @@
 	
 <!--	LEARNER-->
 <!--	<node pkg="TFG" type="learner" name="learner" output="screen" launch-prefix="xterm -e" args="descriptors2D:=/TFG/FE2D/descriptors2D event:=/TFG/EVENTHANDLER/event"/>-->
-	<node pkg="TFG" type="learner" name="learner" args="descriptors2D:=/TFG/FE2D/descriptors2D event:=/TFG/EVENTHANDLER/event"/>
+<!--	<node pkg="TFG" type="learner" name="learner" args="descriptors2D:=/TFG/FE2D/descriptors2D event:=/TFG/EVENTHANDLER/event"/>-->
 
 
 <!--	RECOGNIZER-->
@@ -51,9 +51,8 @@
 <!--	EVENT HANDLER-->
 	<node pkg="TFG" type="event_handler" name="event_handler"  args="event:=/TFG/EVENTHANDLER/event skeleton:=/skeleton" />
 
-
-
-
+<!--	LEARNER RECOGNIZER-->
+<node pkg="TFG" type="learner_recognizer" name="learner_recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id event:=/TFG/EVENTHANDLER/event"/>
 
 
 <!--	IMAGE VIEW-->

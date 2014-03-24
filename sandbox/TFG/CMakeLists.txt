@@ -42,10 +42,11 @@ rosbuild_add_executable(roi_segmenter3D	src/apps/roi_segmenter3D.cpp)
 rosbuild_add_executable(featureextractor2D src/apps/featureextractor2D.cpp)
 rosbuild_add_executable(featureextractor3D src/apps/featureextractor3D.cpp)
 
-rosbuild_add_executable(recognizer src/apps/recognizer.cpp)
-rosbuild_add_executable(learner src/apps/learner.cpp)
+#rosbuild_add_executable(recognizer src/apps/recognizer.cpp)
+#rosbuild_add_executable(learner src/apps/learner.cpp)
 rosbuild_add_executable(event_handler src/apps/event_handler.cpp)
 
+rosbuild_add_executable(learner_recognizer src/apps/learner_recognizer.cpp)
 
 #rosbuild_add_executable(dummy src/tests/dummy.cpp)
 rosbuild_add_executable(image_view src/apps/image_view.cpp)
@@ -68,9 +69,11 @@ target_link_libraries(featureextractor2D custom_libs)
 target_link_libraries(featureextractor3D custom_libs)
 
 
-target_link_libraries(recognizer custom_libs)
-target_link_libraries(learner custom_libs)
+#target_link_libraries(recognizer custom_libs)
+#target_link_libraries(learner custom_libs)
 target_link_libraries(event_handler custom_libs)
+
+target_link_libraries(learner_recognizer custom_libs)
 
 #target_link_libraries(dummy custom_libs)
 
