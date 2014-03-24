@@ -1,7 +1,9 @@
 #ifndef TRAINERNODE_H
 #define TRAINERNODE_H
 
-#include "../libraries/trainer.h"
+#include "../libraries/algorithm2D.h"
+#include "../libraries/algorithm3D.h"
+
 #include <ros/ros.h>
 #include <TFG/EventHandler.h>
 
@@ -26,7 +28,7 @@ private:
     void setEvent(const TFG::EventHandlerConstPtr & );
 
 
-    Trainer trainer;
+    Algorithm2D alg2D;
 
 
     int number_views; /** Stores the total number of views to be extracted of each object */

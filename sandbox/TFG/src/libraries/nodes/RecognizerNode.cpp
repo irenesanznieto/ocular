@@ -14,8 +14,12 @@ void RecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 {
     if (recognize)      //If the mode is recognize
     {
+        int object_id;
         //    match & publish the resulting object ID
-        object_pub.publish(matcher.match2D(msg));
+       object_id=alg2D.match2D(msg);
+
+       std::cerr<<"RECOGNIZING: OBJECT ID: "<<object_id<<std::endl;
+       object_pub.publish(object_id);
     }
 }
 

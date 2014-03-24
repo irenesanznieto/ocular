@@ -14,7 +14,7 @@ TrainerNode::TrainerNode()
     number_views_it=0;
 
     //Initialize new object to true so the algorithm starts learning a NEW object
-    trainer.set_new_object(true);
+    alg2D.set_new_object(true);
 
     //default mode: recognize
     this->learn=false;
@@ -35,18 +35,18 @@ void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
         {
             std::cerr<<"TRAINING VIEW "<< number_views_it<<std::endl;
 
-            trainer.add_descriptors(msg);
+            alg2D.add_descriptors(msg);
             number_views_it ++;
 
         }
         else if (number_views_it==number_views)
         {
             //when all the views have been taken, train the algorithm with them
-            trainer.train2D();
+            alg2D.train2D();
             //when the iterator is equal to the total number of views, reset the iterator
             number_views_it=0;
 
-            trainer.set_new_object(true);
+            alg2D.set_new_object(true);
             //stop the learning until a new recognize - learn events happen
             this->learn=false;
 
@@ -77,11 +77,11 @@ void TrainerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
         {
             this->learn=true;
             //This is a new object to learn
-            trainer.set_new_object(true);
+            alg2D.set_new_object(true);
         }
         else    //If last event was learn
         {
-            trainer.set_new_object(false);  //We are still learning views of the object
+            alg2D.set_new_object(false);  //We are still learning views of the object
         }
 
     }

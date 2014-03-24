@@ -2,7 +2,9 @@
 #define RECOGNIZERNODE_H
 
 #include <ros/ros.h>
-#include "../libraries/matcher.h"
+#include "../libraries/algorithm2D.h"
+#include "../libraries/algorithm3D.h"
+
 #include <TFG/HandImage.h>
 #include <std_msgs/Int32.h>
 #include <TFG/EventHandler.h>
@@ -24,7 +26,7 @@ public:
     ros::Subscriber event_sub;
 
 private:
-    Matcher matcher;
+    Algorithm2D alg2D;
     void descriptors2D_cb(const TFG::HandImageConstPtr & );
     void setEvent(const TFG::EventHandlerConstPtr & );
 

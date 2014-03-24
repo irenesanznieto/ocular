@@ -46,8 +46,8 @@
 
 
 <!--	RECOGNIZER-->
-	<node pkg="TFG" type="recognizer" name="recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id event:=/TFG/EVENTHANDLER/event"/>
-	
+<!--	<node pkg="TFG" type="recognizer" name="recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id event:=/TFG/EVENTHANDLER/event"/>-->
+<!--	-->
 <!--	EVENT HANDLER-->
 	<node pkg="TFG" type="event_handler" name="event_handler"  args="event:=/TFG/EVENTHANDLER/event skeleton:=/skeleton" />
 
