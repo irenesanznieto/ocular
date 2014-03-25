@@ -28,8 +28,6 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
 
     if (msg->event=="learn")
     {
-        //        ROS_ERROR ("LEARN EVENT RECEIVED");
-
         if (msg->last_event=="recognize")   //If last event was recognize
         {
             this->learn=true;
@@ -44,8 +42,14 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
     }
     else if (msg->event=="recognize")   //If the event is recognize
     {
-        //        ROS_ERROR ("RECOGNIZE EVENT RECEIVED");
-        this->learn=false;
+        if (number_views_it<number_views)   //If the learning is still in process, carry on learning
+        {
+            this->learn=true;
+        }
+        else
+        {
+            this->learn=false;
+        }
     }
 
 

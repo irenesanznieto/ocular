@@ -13,6 +13,7 @@ public:
 
 private:
     std::string last_event;
+
 };
 
 #endif // EVENTHANDLER_H

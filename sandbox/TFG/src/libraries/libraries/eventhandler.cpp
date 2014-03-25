@@ -22,11 +22,7 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
     right_hand.y=msg->position[8].y;
     right_hand.z=msg->position[8].z;
 
-
-
     //Determine which hand is being used
-
-
     if (right_hand.y < left_hand.y)
     {
         event.hand="left_hand";

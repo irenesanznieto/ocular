@@ -10,6 +10,11 @@ FeatureExtractor2DNode::FeatureExtractor2DNode():it(nh)
 
 void FeatureExtractor2DNode::input_image_cb (const TFG::HandImageConstPtr &msg)
 {
+    try
+    {
     descriptors_pub.publish(fe2D.extract_features(msg));
+    }
+    catch(std::exception & e)
+    {}
     image_with_keypoints_pub.publish(fe2D.get_image_with_keypoints());
 }

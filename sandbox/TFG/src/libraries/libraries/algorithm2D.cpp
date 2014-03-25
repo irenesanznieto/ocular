@@ -212,12 +212,12 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
             ratio[object_number]=-1;
         }
 
-        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
+//        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
 
     }
     //Obtain the object ID as the vector position with the maximum of the ratios
     this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
 
-    std::cerr<<"Ratio recognized object: "<<ratio[this->matched_object_id]<<std::endl;
+//    std::cerr<<"Ratio recognized object: "<<ratio[this->matched_object_id]<<std::endl;
     return ratio[this->matched_object_id];
 }
