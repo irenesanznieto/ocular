@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+find_package(OpenCV REQUIRED)
+
 
 #rosbuild_find_ros_package(actionlib_msgs)
 #include(${actionlib_msgs_PACKAGE_PATH}/cmake/actionbuild.cmake)
@@ -56,7 +58,7 @@ rosbuild_add_executable(image_view src/apps/image_view.cpp)
 #LIBRARIES: 
 FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp src/libraries/nodes/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
-#target_link_libraries(custom_libs   )
+target_link_libraries(custom_libs ${OpenCV_LIBS})
 
 
 #LINKING:

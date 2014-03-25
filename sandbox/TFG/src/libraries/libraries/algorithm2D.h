@@ -65,7 +65,7 @@ private:
 
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
 
-    int flann_comparison (cv::Mat &, float);
+    int flann_comparison (cv::Mat , float);
 
 
     bool new_object;    /**Boolean that is set to true whenever the new view is of a new object*/
@@ -74,6 +74,7 @@ private:
 
     int matched_object_id;  /** Number that represents the object being matched by the algorithm. **/
 
+    int matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
 
 };
 

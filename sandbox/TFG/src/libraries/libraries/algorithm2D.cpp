@@ -67,20 +67,20 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg)
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
 void Algorithm2D::train2D()
 {
-    try{
+//    try{
 
-        //add the descriptors vector to the 2D algorithm
-        //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
+//        //add the descriptors vector to the 2D algorithm
+//        //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
 
 //        alg2D[this->object_number].add(descriptors[this->object_number]);
 
-        //train the 2D algorithm with the new view
+//        //train the 2D algorithm with the new view
 //        alg2D[this->object_number].train();
 
 
-    }
-    catch (std::exception & e)
-    {}
+//    }
+//    catch (std::exception & e)
+//    {}
 
     //store template
     dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
@@ -130,7 +130,7 @@ int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
         //transform from ROS msg to OpenCV msg
         try
         {
-            cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::BGR8);
+            cv_ptr = cv_bridge::toCvCopy(msg->image[i],sensor_msgs::image_encodings::MONO8);
         }
         catch (cv_bridge::Exception& e)
         {
@@ -142,7 +142,7 @@ int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
 
         try{
             //compare FLANN
-            matched_object_id=this->flann_comparison(cv_ptr->image, threshold);
+            matched_object_ratio=this->flann_comparison(cv_ptr->image, threshold);
         }
         catch(std::exception & e)
         {}
@@ -151,7 +151,7 @@ int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
     return matched_object_id;
 }
 
-int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
+int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
 {
     //vector that will store the ratios of similarity between the new image and the templates
     std::vector< float> ratio;
@@ -175,14 +175,13 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
     {
         desc1.convertTo(desc1, CV_32F);
 
-
         for (unsigned int j=0; j<descriptors[object_number].size(); j++)
         {
         //match each algorithm with the new cv::Mat and output the result in the matches vector
-            std::cerr<<"desc1.type: "<<desc1.type()<<"descriptors[][].type: "<<descriptors[object_number][j].type()<<std::endl;
+//            std::cerr<<"desc1.type: "<<desc1.type()<<"  descriptors[][].type: "<<descriptors[object_number][j].type()<<std::endl;
             //throws here the assertion!
             alg2D[object_number].match( desc1,descriptors[object_number][j], matches[object_number]);
-            std::cerr<<"Iteration number "<<object_number<<std::endl;
+//            std::cerr<<"Iteration number "<<object_number<<std::endl;
 
 
         }
@@ -206,9 +205,8 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
 
         if (matches[object_number].size()>0)
         {
-            ratio[object_number]=(float)(good_matches[object_number].size()/matches[object_number].size());
+            ratio[object_number]=(float)(good_matches[object_number].size())/(float)(matches[object_number].size());
         }
-
         else if (matches[object_number].size()<=0)
         {
             ratio[object_number]=-1;
@@ -217,11 +215,9 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
         std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
 
     }
-    int object_id;
-
     //Obtain the object ID as the vector position with the maximum of the ratios
-    object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+    this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
 
-    std::cerr<<"Ratio recognized object: "<<ratio[object_id]<<std::endl;
-    return object_id;
+    std::cerr<<"Ratio recognized object: "<<ratio[this->matched_object_id]<<std::endl;
+    return ratio[this->matched_object_id];
 }
