@@ -58,7 +58,7 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg)
         //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
 
         //add the new view to the descriptors matrix
-        image_cv.convertTo(image_cv,CV_32F );
+        image_cv.convertTo(image_cv,CV_32F);
 
         descriptors[this->object_number].push_back(image_cv);
     }
@@ -72,10 +72,10 @@ void Algorithm2D::train2D()
         //add the descriptors vector to the 2D algorithm
         //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
 
-        alg2D[this->object_number].add(descriptors[this->object_number]);
+//        alg2D[this->object_number].add(descriptors[this->object_number]);
 
         //train the 2D algorithm with the new view
-        alg2D[this->object_number].train();
+//        alg2D[this->object_number].train();
 
 
     }
@@ -110,15 +110,10 @@ void Algorithm2D ::set_new_object(bool new_object)
         descriptors.push_back(std::vector<cv::Mat> ());
         alg2D.push_back(cv::FlannBasedMatcher ());
 
-        //        alg2D.resize(alg2D.size()+1);
-        //        descriptors.resize(descriptors.size()+1);
-
+        //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
     }
 
     this->object_number=alg2D.size()-1;
-
-
-
 }
 
 
@@ -181,9 +176,16 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
         desc1.convertTo(desc1, CV_32F);
 
 
+        for (unsigned int j=0; j<descriptors[object_number].size(); j++)
+        {
         //match each algorithm with the new cv::Mat and output the result in the matches vector
-        alg2D[object_number].match( desc1, matches[object_number]);
+            std::cerr<<"desc1.type: "<<desc1.type()<<"descriptors[][].type: "<<descriptors[object_number][j].type()<<std::endl;
+            //throws here the assertion!
+            alg2D[object_number].match( desc1,descriptors[object_number][j], matches[object_number]);
+            std::cerr<<"Iteration number "<<object_number<<std::endl;
 
+
+        }
 
         //        std::cerr<<"Number of matches: "<<matches[object_number].size()<<std::endl;
 
@@ -212,7 +214,7 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
             ratio[object_number]=-1;
         }
 
-        //        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
+        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
 
     }
     int object_id;
