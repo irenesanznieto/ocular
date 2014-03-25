@@ -68,6 +68,7 @@ void LearnerRecognizerNode::descriptors_cb(const TFG::HandImageConstPtr & msg)
             std::cerr<<"TRAINING VIEW "<< number_views_it<<std::endl;
 
             alg2D.add_descriptors(msg);
+            usleep(500);
             number_views_it ++;
 
         }
