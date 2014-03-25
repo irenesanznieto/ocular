@@ -145,8 +145,12 @@ int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
         //threshold used in the flann_comparison
         float  threshold=300;
 
-        //compare FLANN
-        matched_object_id=this->flann_comparison(cv_ptr->image, threshold);
+        try{
+            //compare FLANN
+            matched_object_id=this->flann_comparison(cv_ptr->image, threshold);
+        }
+        catch(std::exception & e)
+        {}
     }
 
     return matched_object_id;
@@ -169,7 +173,7 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
     good_matches.resize(descriptors.size());
 
 
-    std::cerr<<"In flann_comparison function, alg2d.size(): "<<alg2D.size()<<std::endl<<"descriptors.size(): "<<descriptors.size()<<std::endl<< "descriptors[object_number].size(): "<<descriptors[object_number].size()<<std::endl;
+    //    std::cerr<<"In flann_comparison function, alg2d.size(): "<<alg2D.size()<<std::endl<<"descriptors.size(): "<<descriptors.size()<<std::endl<< "descriptors[object_number].size(): "<<descriptors[object_number].size()<<std::endl;
 
     //for each algorithm, match the new descriptors with the algorithm's information
     for (unsigned int object_number=0; object_number<descriptors.size(); object_number++)
@@ -181,13 +185,11 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
         alg2D[object_number].match( desc1, matches[object_number]);
 
 
-        std::cerr<<"Number of matches: "<<matches[object_number].size()<<std::endl;
+        //        std::cerr<<"Number of matches: "<<matches[object_number].size()<<std::endl;
 
         //decide which are the good matches (i.e. matches whose distance is lower than the threshold) of the above matches
         for( unsigned int i = 0; i < matches[object_number].size(); i++ )
         {
-            std::cerr<<"iteration"<<i<<std::endl;
-
             if( matches[object_number][i].distance < threshold )
                 good_matches[object_number].push_back( matches[object_number][i]);
         }
@@ -198,29 +200,26 @@ int Algorithm2D:: flann_comparison (cv::Mat  &desc1,float threshold)
         //The ratio is defined as the number of good_matches  over the number of total matches
         //This ratio is defined for each algorithm. Since each algorithm will be used for each object, this will be the similarity with this object
 
-        std::cerr<<"1"<<std::endl;
 
 
         if (matches[object_number].size()>0)
         {
             ratio[object_number]=(float)(good_matches[object_number].size()/matches[object_number].size());
-
-            std::cerr<<"1"<<std::endl;
         }
 
-        else if (matches[object_number].size()>0)
-
+        else if (matches[object_number].size()<=0)
         {
             ratio[object_number]=-1;
         }
 
-        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<< "division: "<<(good_matches[object_number].size()/matches[object_number].size())<<std::endl;
+        //        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
 
     }
-
+    int object_id;
 
     //Obtain the object ID as the vector position with the maximum of the ratios
-    int object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+    object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
 
+    std::cerr<<"Ratio recognized object: "<<ratio[object_id]<<std::endl;
     return object_id;
 }
