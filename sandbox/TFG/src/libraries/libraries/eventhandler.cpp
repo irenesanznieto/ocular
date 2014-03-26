@@ -22,14 +22,18 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
     right_hand.y=msg->position[8].y;
     right_hand.z=msg->position[8].z;
 
+    float max_distance_to_kinect;
+
     //Determine which hand is being used
     if (right_hand.y < left_hand.y)
     {
         event.hand="left_hand";
+        max_distance_to_kinect=left_hand.z;
     }
     else if (left_hand.y < right_hand.y)
     {
         event.hand="right_hand";
+        max_distance_to_kinect=right_hand.z;
 
     }
 
@@ -38,7 +42,7 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
     pcl::PointXYZ threshold_mode;
     threshold_mode.x=0.1;
     threshold_mode.y=0.1;
-    threshold_mode.z=0.3;
+    threshold_mode.z=0.3*max_distance_to_kinect;
 
     double diff=left_hand.z - right_hand.z;
     if (diff <0)

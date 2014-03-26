@@ -12,20 +12,20 @@ Algorithm2D::Algorithm2D()
         std::cerr<<"1"<<std::endl;
         std::cerr<<"descriptors size"<<descriptors.size()<<std::endl;
 
-        alg2D.resize(descriptors.size());
+//        alg2D.resize(descriptors.size());
 
-        //Add the descriptors to each algorithm & train them
-        for (unsigned int i =0; i<descriptors.size(); i++)
-        {
-            try
-            {
-                alg2D[i].add(this->descriptors[i]);
-                alg2D[i].train();
-            }
-            catch (std::exception & e)
-            {}
-        }
-        std::cerr<<"1"<<std::endl;
+//        //Add the descriptors to each algorithm & train them
+//        for (unsigned int i =0; i<descriptors.size(); i++)
+//        {
+//            try
+//            {
+//                alg2D[i].add(this->descriptors[i]);
+//                alg2D[i].train();
+//            }
+//            catch (std::exception & e)
+//            {}
+//        }
+//        std::cerr<<"1"<<std::endl;
 
     }
 
@@ -35,9 +35,17 @@ Algorithm2D::Algorithm2D()
 
 }
 
+Algorithm2D::~Algorithm2D()
+{
+    for (unsigned int i=0; i<descriptors.size(); i++)
+    {
+         dataparser.save_template_2D(descriptors[i],i);
+         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+    }
+}
 
 
-void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg)
+void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg, int number_view)
 {
 
     //convert from ros image msg to opencv image
@@ -61,6 +69,7 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg)
         image_cv.convertTo(image_cv,CV_32F);
 
         descriptors[this->object_number].push_back(image_cv);
+//        dataparser.save_template_2D(image_cv, this->object_number, number_view);
     }
 }
 
@@ -83,10 +92,10 @@ void Algorithm2D::train2D()
 //    {}
 
     //store template
-    dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
+//    dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
 
     //store algorithm
-    dataparser.save_algorithm_2D(alg2D[this->object_number], this->object_number);
+//    dataparser.save_algorithm_2D(alg2D[this->object_number], this->object_number);
 
 
 }

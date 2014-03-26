@@ -2,38 +2,38 @@
 
 DataParser::DataParser()
 {
-//    try{
-        pkg_main_path=get_path_to_pkg();
-//    }
-//    catch (std::length_error  e)
-//    {
-//        ROS_ERROR("EXCEPTION 1");
-//    }
-        algorithms_2D_path=pkg_main_path+"/data/algorithms/2D/";
+    //    try{
+    pkg_main_path=get_path_to_pkg();
+    //    }
+    //    catch (std::length_error  e)
+    //    {
+    //        ROS_ERROR("EXCEPTION 1");
+    //    }
+    algorithms_2D_path=pkg_main_path+"/data/algorithms/2D/";
 
 
-        algorithms_3D_path=pkg_main_path+"/data/algorithms/3D/";
-        templates_path=pkg_main_path+"/data/templates/";
-        temp_path=pkg_main_path+"/data/temp.txt";
+    algorithms_3D_path=pkg_main_path+"/data/algorithms/3D/";
+    templates_path=pkg_main_path+"/data/templates/";
+    temp_path=pkg_main_path+"/data/temp.txt";
 
 
-        //create the templates folder
-        std::string mkdir="mkdir ";
-        std::string dummy=mkdir+templates_path;
-        system(dummy.c_str());
+    //create the templates folder
+    std::string mkdir="mkdir ";
+    std::string dummy=mkdir+templates_path;
+    system(dummy.c_str());
 
-        //create the algorithms folder
-        dummy=mkdir+algorithms_2D_path;
-        dummy.erase(dummy.end()-3, dummy.end());
-        system(dummy.c_str());
+//    //create the algorithms folder
+//    dummy=mkdir+algorithms_2D_path;
+//    dummy.erase(dummy.end()-3, dummy.end());
+//    system(dummy.c_str());
 
-        //create the algorithms 2D folder
-        dummy=mkdir+algorithms_2D_path;
-        system(dummy.c_str());
+//    //create the algorithms 2D folder
+//    dummy=mkdir+algorithms_2D_path;
+//    system(dummy.c_str());
 
-        //create the algorithms 3D folder
-        dummy=mkdir+algorithms_3D_path;
-        system(dummy.c_str());
+//    //create the algorithms 3D folder
+//    dummy=mkdir+algorithms_3D_path;
+//    system(dummy.c_str());
 
 }
 
@@ -41,22 +41,22 @@ DataParser::DataParser()
 std::string DataParser::get_path_to_pkg()
 {
     //search for a certain library in order to obtain the full path
-//    std::string sys_command="find . -print | grep 'sandbox/TFG/src/libraries/libraries/dataparser.h' > ~/dummy.txt";
-//    system(sys_command.c_str());
+    //    std::string sys_command="find . -print | grep 'sandbox/TFG/src/libraries/libraries/dataparser.h' > ~/dummy.txt";
+    //    system(sys_command.c_str());
 
-//    std::string path;
-//    std::ifstream myfile;
-//    myfile.open ("~/dummy.txt");
-//    std::getline( myfile, path);
-//    myfile.close();
+    //    std::string path;
+    //    std::ifstream myfile;
+    //    myfile.open ("~/dummy.txt");
+    //    std::getline( myfile, path);
+    //    myfile.close();
 
-//    system ("rm ~/dummy.txt");
+    //    system ("rm ~/dummy.txt");
 
-//    //remove the last part (/src/libraries/libraries/dataparser.h)
-//    path.erase(path.end()-37, path.end());
+    //    //remove the last part (/src/libraries/libraries/dataparser.h)
+    //    path.erase(path.end()-37, path.end());
 
-//    //remove the beginning (./)
-//    path.erase(path.begin(), path.begin()+2);
+    //    //remove the beginning (./)
+    //    path.erase(path.begin(), path.begin()+2);
 
 
     std::string path="/home/peko/tfg_git/sandbox/TFG";
@@ -93,7 +93,7 @@ std::vector <std::string> DataParser::get_file_names (std::string path)
 
 
     //Remove the last element of the vector which is not complete [due to getline function]
-//    templates.erase(templates.end());
+    //    templates.erase(templates.end());
 
     //Return the vector of strings with the file names
     return templates;
@@ -108,12 +108,12 @@ void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number
     //The name of the file will be a number [the position of the object in the vector of descriptors]
     path<<templates_path<<number_object;
 
-//        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
+//    //        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
 
-    //create a folder in the templates_path with the number of the position of the object in the vector
-    std::stringstream command;
-    command<<"mkdir "<<path.str();
-    system(command.str().c_str());
+//    //create a folder in the templates_path with the number of the position of the object in the vector
+//    std::stringstream command;
+//    command<<"mkdir "<<path.str();
+//    system(command.str().c_str());
 
     std::stringstream filename;
     //Store each matrix of descriptors corresponding to different views of the object in a different yml file inside the same object's folder
@@ -125,13 +125,46 @@ void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number
         //add the path to the filename
         filename<<path.str();
         //add the name of the file depending on the number of view and also the extension
-        filename<<"/view_"<<i<<"_d.yml";
+        filename<<"_view_"<<i<<"_d.yml";
 
-//        std::cerr<<"FILENAME: "<<filename.str()<<std::endl;
+        //        std::cerr<<"FILENAME: "<<filename.str()<<std::endl;
         //write the descriptors to the filestorage
         this->save_descriptor(descriptors[i], filename.str());
     }
 }
+
+
+void DataParser::save_template_2D(cv::Mat descriptors, int number_object, int number_view)
+{
+    //NAME CODE:
+    std::stringstream path;
+
+    //The name of the file will be a number [the position of the object in the vector of descriptors]
+    path<<templates_path<<number_object;
+
+    //        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
+
+    //create a folder in the templates_path with the number of the position of the object in the vector
+    std::stringstream command;
+    command<<"mkdir "<<path.str();
+    system(command.str().c_str());
+
+    std::stringstream filename;
+
+    //remove the contents of the stringstream filename for the next iteration
+    filename.str(std::string());
+
+    //add the path to the filename
+    filename<<path.str();
+    //add the name of the file depending on the number of view and also the extension
+    filename<<"/view_"<<number_view<<"_d.yml";
+
+    //        std::cerr<<"FILENAME: "<<filename.str()<<std::endl;
+    //write the descriptors to the filestorage
+    this->save_descriptor(descriptors, filename.str());
+}
+
+
 
 void DataParser::save_descriptor(cv::Mat &descriptors, std::string filename)
 {

@@ -24,35 +24,31 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
 void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
 {
-
-
-    if (msg->event=="learn")
-    {
-        if (msg->last_event=="recognize")   //If last event was recognize
+        if (msg->event=="learn")
         {
-            this->learn=true;
-            //This is a new object to learn
-            alg2D.set_new_object(true);
-        }
-        else    //If last event was learn
-        {
-            alg2D.set_new_object(false);  //We are still learning views of the object
-        }
+            if (msg->last_event=="recognize")   //If last event was recognize
+            {
+                this->learn=true;
+                //This is a new object to learn
+                alg2D.set_new_object(true);
+            }
+            else    //If last event was learn
+            {
+                alg2D.set_new_object(false);  //We are still learning views of the object
+            }
 
-    }
-    else if (msg->event=="recognize")   //If the event is recognize
-    {
-        if (number_views_it<number_views)   //If the learning is still in process, carry on learning
-        {
-            this->learn=true;
         }
-        else
+        else if (msg->event=="recognize")   //If the event is recognize
         {
-            this->learn=false;
+            if (number_views_it<number_views)   //If the learning is still in process, carry on learning
+            {
+                this->learn=true;
+            }
+            else
+            {
+                this->learn=false;
+            }
         }
-    }
-
-
 }
 
 
@@ -60,28 +56,25 @@ void LearnerRecognizerNode::descriptors_cb(const TFG::HandImageConstPtr & msg)
 {
     if(this->learn)
     {
-        //        std::cerr<<"LEARNING");
-
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
         if (number_views_it<number_views)
         {
             std::cerr<<"TRAINING VIEW "<< number_views_it<<std::endl;
-
-            alg2D.add_descriptors(msg);
-            usleep(500);
+            this->learning=true;
+            alg2D.add_descriptors(msg, number_views_it);
             number_views_it ++;
+            sleep(1);
 
         }
         else if (number_views_it==number_views)
         {
-            //when all the views have been taken, train the algorithm with them
-            alg2D.train2D();
             //when the iterator is equal to the total number of views, reset the iterator
             number_views_it=0;
 
-            alg2D.set_new_object(true);
             //stop the learning until a new recognize - learn events happen
             this->learn=false;
+            alg2D.set_new_object(true);
+
 
             //stop the training, all the views have already been trained
             std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl;
