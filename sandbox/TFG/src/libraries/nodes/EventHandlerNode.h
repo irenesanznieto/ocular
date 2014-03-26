@@ -28,6 +28,12 @@ private:
         */
     void event_cb(const pi_tracker::SkeletonConstPtr &);
 
+    std::vector<TFG::EventHandler> previous_events;
+
+    int iterations;
+    int it;
+
+    int counter_learn;
 };
 
 #endif // EVENTHANDLERNODE_H

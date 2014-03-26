@@ -91,7 +91,7 @@ void LearnerRecognizerNode::descriptors_cb(const TFG::HandImageConstPtr & msg)
         //    match & publish the resulting object ID
         object_id=alg2D.match2D(msg);
 
-        std::cerr<<"RECOGNIZING: OBJECT ID: "<<object_id<<std::endl;
+//        std::cerr<<"RECOGNIZING: OBJECT ID: "<<object_id<<std::endl;
         object_pub.publish(object_id);
     }
 }
