@@ -12,21 +12,6 @@ Algorithm2D::Algorithm2D()
         std::cerr<<"1"<<std::endl;
         std::cerr<<"descriptors size"<<descriptors.size()<<std::endl;
 
-//        alg2D.resize(descriptors.size());
-
-//        //Add the descriptors to each algorithm & train them
-//        for (unsigned int i =0; i<descriptors.size(); i++)
-//        {
-//            try
-//            {
-//                alg2D[i].add(this->descriptors[i]);
-//                alg2D[i].train();
-//            }
-//            catch (std::exception & e)
-//            {}
-//        }
-//        std::cerr<<"1"<<std::endl;
-
     }
 
     matched_object_id=-1;
@@ -74,31 +59,7 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg, int number
 }
 
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
-void Algorithm2D::train2D()
-{
-//    try{
 
-//        //add the descriptors vector to the 2D algorithm
-//        //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d ALGORITHMS SIZE %d", object_number, descriptors.size(), alg2D.size());
-
-//        alg2D[this->object_number].add(descriptors[this->object_number]);
-
-//        //train the 2D algorithm with the new view
-//        alg2D[this->object_number].train();
-
-
-//    }
-//    catch (std::exception & e)
-//    {}
-
-    //store template
-//    dataparser.save_template_2D(this->descriptors[this->object_number], this->object_number);
-
-    //store algorithm
-//    dataparser.save_algorithm_2D(alg2D[this->object_number], this->object_number);
-
-
-}
 
 
 //void Algorithm2D::train3D ()

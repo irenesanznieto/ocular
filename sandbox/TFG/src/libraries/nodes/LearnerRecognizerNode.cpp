@@ -9,8 +9,6 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
     event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &LearnerRecognizerNode::setEvent, this);
 
-    //    ROS_ERROR("ESTAMOS EN LearnerRecognizerNode!!");
-
     number_views=5; //the total number of views to be extracted of each object
     number_views_it=0;
 
@@ -73,8 +71,6 @@ void LearnerRecognizerNode::descriptors_cb(const TFG::HandImageConstPtr & msg)
 
             //stop the learning until a new recognize - learn events happen
             this->learn=false;
-            alg2D.set_new_object(true);
-
 
             //stop the training, all the views have already been trained
             std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl;
@@ -91,7 +87,6 @@ void LearnerRecognizerNode::descriptors_cb(const TFG::HandImageConstPtr & msg)
         //    match & publish the resulting object ID
         object_id=alg2D.match2D(msg);
 
-//        std::cerr<<"RECOGNIZING: OBJECT ID: "<<object_id<<std::endl;
         object_pub.publish(object_id);
     }
 }
