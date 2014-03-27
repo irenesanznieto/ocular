@@ -33,8 +33,9 @@ Algorithm2D::~Algorithm2D()
 {
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
-        while (descriptors[i].size()<this->number_views)
+        while (descriptors[i].size()< this->number_views)
         {
+            //            std::cerr<<"Object: "<<i<<"descriptor[i].size(): "<<descriptors[i].size()<<std::endl;
             descriptors[i].push_back(descriptors[i][0]);
         }
         dataparser.save_template_2D(descriptors[i],i);
@@ -46,19 +47,27 @@ Algorithm2D::~Algorithm2D()
 void Algorithm2D::set_number_views (int number_views)
 {
     this->number_views=number_views;
-    this->object_number= this-> descriptors.size()/number_views;
-    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
-
 
     //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
     //Load the previously stored templates if there are any
     if(dataparser.getNumberTemplates()>1)
     {
-        this->descriptors=dataparser.getTemplates(number_views);
+        dataparser.getTemplates(number_views, this->descriptors);
     }
 
-//    for (unsigned int i=0; i<descriptors.size(); i++)
-//        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+    for (unsigned int i=0; i<descriptors.size(); i++)
+        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+
+//    this->object_number= this-> descriptors.size();
+
+
+    //    descriptors.push_back(std::vector<cv::Mat> ());
+
+
+    //    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
+    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
+
+
 
 }
 
@@ -150,6 +159,7 @@ int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
         float  threshold=300;
 
         try{
+
             //compare FLANN
             matched_object_ratio=this->flann_comparison(cv_ptr->image, threshold);
         }
@@ -164,13 +174,21 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
 {
     //vector that will store the ratios of similarity between the new image and the templates
     std::vector< float> ratio;
+
+
     //resize the vector
     ratio.resize(descriptors.size());
 
+
     //vector to store the distances between descriptors
     std::vector<std::vector< cv::DMatch > >matches;
+
+
+
     //resize the vector
     matches.resize(descriptors.size());
+
+
 
     //Store good matches, using the threshold ratio
     std::vector<std::vector< cv::DMatch > >good_matches;
@@ -184,14 +202,16 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
     {
         desc1.convertTo(desc1, CV_32F);
 
+//        std::cerr<<"descriptors[object_number].size(): "<<descriptors[object_number].size()<<std::endl;
+
         for (unsigned int j=0; j<descriptors[object_number].size(); j++)
         {
+//            std::cerr<<"object_number: "<<object_number<<" j: "<<j<<std::endl;
+
             //match each algorithm with the new cv::Mat and output the result in the matches vector
             //            std::cerr<<"desc1.type: "<<desc1.type()<<"  descriptors[][].type: "<<descriptors[object_number][j].type()<<std::endl;
-            //throws here the assertion!
             alg2D[object_number].match( desc1,descriptors[object_number][j], matches[object_number]);
             //            std::cerr<<"Iteration number "<<object_number<<std::endl;
-
 
         }
 

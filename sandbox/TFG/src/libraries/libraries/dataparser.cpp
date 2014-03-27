@@ -211,6 +211,8 @@ cv::Mat DataParser::load_descriptor (std::string filename)
 
     fr["descriptors"]>>descriptor;
 
+    descriptor.convertTo(descriptor, CV_32F);
+
     return descriptor;
 }
 
@@ -230,7 +232,7 @@ int DataParser::get_folder_number_of_items(std::string path)
 }
 
 
-std::vector<std::vector<cv::Mat> > DataParser:: getTemplates (int number_views)
+void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Mat> > & descriptors )
 {
     //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
     std::vector<std::string> templates=this->get_file_names(templates_path);
@@ -250,23 +252,19 @@ std::vector<std::vector<cv::Mat> > DataParser:: getTemplates (int number_views)
         int counter=0;
         for (int j=0; j<total_objects; j++ )
         {
-
             //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
             for (unsigned int i=0; i<number_views; i++)
             {
 //                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
                 descriptors[j].push_back(this->load_descriptor(templates[counter]));
 
-
                 if(i==number_views-1)
                     object_number++;
 
                 counter++;
-
             }
         }
 
-        return descriptors;
     }
 }
 

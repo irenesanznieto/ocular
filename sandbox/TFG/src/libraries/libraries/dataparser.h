@@ -47,7 +47,7 @@ public:
     void save_template_2D(cv::Mat descriptors, int number_object, int number_view);
 
 
-    std::vector<std::vector<cv::Mat> >  getTemplates (int);    /**Returns all the descriptors previously stored*/
+    void  getTemplates (int, std::vector<std::vector<cv::Mat> > & );    /**Returns all the descriptors previously stored*/
     std::string get_path_to_pkg();
 
     int get_folder_number_of_items(std::string );
