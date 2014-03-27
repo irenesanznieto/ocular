@@ -230,14 +230,14 @@ int DataParser::get_folder_number_of_items(std::string path)
 }
 
 
-std::vector<std::vector<cv::Mat> > DataParser:: getTemplates ()
+std::vector<std::vector<cv::Mat> > DataParser:: getTemplates (int number_views)
 {
     //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
-    std::vector<std::string> number_of_objects_folders=this->get_file_names(templates_path);
-    if(number_of_objects_folders.size()>0)
+    std::vector<std::string> templates=this->get_file_names(templates_path);
+    if(templates.size()>0)
     {
         //the number of objects is the size of the previous vector
-        int total_objects=number_of_objects_folders.size();
+        int total_objects=templates.size()/number_views;
 
         std::stringstream path;
 
@@ -251,12 +251,10 @@ std::vector<std::vector<cv::Mat> > DataParser:: getTemplates ()
             //initialize the stringstream
             path.str(std::string());
             //add the path of the templates and the object folder
-            path<<templates_path<<object_number<<"/";
-            //get the file names of each object folder
-            std::vector <std::string> templates=get_file_names(path.str());
+            path<<templates_path;
 
             //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
-            for (unsigned int i=0; i<templates.size(); i++)
+            for (unsigned int i=0; i<number_views; i++)
             {
                 descriptors[object_number].push_back(load_descriptor(templates[i]));
                 //            temp_keyp.push_back(load_keypoint(keyp_t[i]));

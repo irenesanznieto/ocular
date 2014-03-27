@@ -33,6 +33,8 @@ private:
 
 
     Algorithm2D alg2D;
+    //    Algorithm2D alg2D(5);
+
 
     int number_views; /** Stores the total number of views to be extracted of each object */
     int number_views_it; /** Iterator that stores the current view number of the object */

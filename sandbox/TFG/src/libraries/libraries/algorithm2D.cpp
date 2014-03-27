@@ -2,31 +2,66 @@
 
 Algorithm2D::Algorithm2D()
 {
-
-    //Load the previously stored templates if there are any
-    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
-    if(dataparser.getNumberTemplates()>1)
-    {
-        std::cerr<<"1"<<std::endl;
-        this->descriptors=dataparser.getTemplates();
-        std::cerr<<"1"<<std::endl;
-        std::cerr<<"descriptors size"<<descriptors.size()<<std::endl;
-
-    }
-
+    //Initialize the matched_object_id to -1 until a match is found
     matched_object_id=-1;
+
+    //Initialize object_number to 0 so if there are no previous templates, the first object has ID 0
     this->object_number=0;
 
-
 }
+
+//Algorithm2D::Algorithm2D(int number_views)
+//{
+//    this->number_views=number_views;
+
+//    //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
+
+//    //Load the previously stored templates if there are any
+//    if(dataparser.getNumberTemplates()>1)
+//    {
+//        this->descriptors=dataparser.getTemplates();
+//    }
+
+//    for (unsigned int i=0; i<descriptors.size(); i++)
+//        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+
+//    Algorithm2D();
+//}
+
 
 Algorithm2D::~Algorithm2D()
 {
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
-         dataparser.save_template_2D(descriptors[i],i);
-         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+        dataparser.save_template_2D(descriptors[i],i);
+        //         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
     }
+}
+
+
+void Algorithm2D::set_number_views (int number_views)
+{
+    this->number_views=number_views;
+    this->object_number= this-> descriptors.size()/number_views;
+    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
+
+
+    //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
+    //Load the previously stored templates if there are any
+    if(dataparser.getNumberTemplates()>1)
+    {
+        this->descriptors=dataparser.getTemplates(number_views);
+    }
+
+    for (unsigned int i=0; i<descriptors.size(); i++)
+        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+
+}
+
+
+int Algorithm2D::get_number_views ()
+{
+    return this->number_views;
 }
 
 
@@ -54,7 +89,7 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg, int number
         image_cv.convertTo(image_cv,CV_32F);
 
         descriptors[this->object_number].push_back(image_cv);
-//        dataparser.save_template_2D(image_cv, this->object_number, number_view);
+        //        dataparser.save_template_2D(image_cv, this->object_number, number_view);
     }
 }
 
@@ -147,11 +182,11 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
 
         for (unsigned int j=0; j<descriptors[object_number].size(); j++)
         {
-        //match each algorithm with the new cv::Mat and output the result in the matches vector
-//            std::cerr<<"desc1.type: "<<desc1.type()<<"  descriptors[][].type: "<<descriptors[object_number][j].type()<<std::endl;
+            //match each algorithm with the new cv::Mat and output the result in the matches vector
+            //            std::cerr<<"desc1.type: "<<desc1.type()<<"  descriptors[][].type: "<<descriptors[object_number][j].type()<<std::endl;
             //throws here the assertion!
             alg2D[object_number].match( desc1,descriptors[object_number][j], matches[object_number]);
-//            std::cerr<<"Iteration number "<<object_number<<std::endl;
+            //            std::cerr<<"Iteration number "<<object_number<<std::endl;
 
 
         }
@@ -182,12 +217,12 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
             ratio[object_number]=-1;
         }
 
-//        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
+        //        std::cerr<<"Comparison with object "<<object_number<<" ratio: "<<ratio[object_number]<<std::endl;
 
     }
     //Obtain the object ID as the vector position with the maximum of the ratios
     this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
 
-//    std::cerr<<"Ratio recognized object: "<<ratio[this->matched_object_id]<<std::endl;
+    //    std::cerr<<"Ratio recognized object: "<<ratio[this->matched_object_id]<<std::endl;
     return ratio[this->matched_object_id];
 }

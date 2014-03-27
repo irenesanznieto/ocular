@@ -10,6 +10,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
     event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &LearnerRecognizerNode::setEvent, this);
 
     number_views=5; //the total number of views to be extracted of each object
+    alg2D.set_number_views(this->number_views); //pass the number of views to the algorithm 2D
+
     number_views_it=0;
 
     //Initialize new object to true so the algorithm starts learning a NEW object
