@@ -15,7 +15,7 @@ LearnerRecognizerNode::LearnerRecognizerNode()
     number_views_it=0;
 
     //Initialize new object to true so the algorithm starts learning a NEW object
-    alg2D.set_new_object(true);
+//    alg2D.set_new_object(true);
 
     //default mode: recognize
     this->learn=false;
@@ -32,7 +32,12 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
                 //This is a new object to learn
                 alg2D.set_new_object(true);
             }
-            else    //If last event was learn
+//            else if (msg->last_event!="recognize" && this->learn==false)   //If last event was learn
+//            {
+//                this->learn=true;
+//                alg2D.set_new_object(true);  //We are still learning views of the object
+//            }
+            else
             {
                 alg2D.set_new_object(false);  //We are still learning views of the object
             }
@@ -60,7 +65,6 @@ void LearnerRecognizerNode::descriptors_cb(const TFG::HandImageConstPtr & msg)
         if (number_views_it<number_views)
         {
             std::cerr<<"TRAINING VIEW "<< number_views_it<<std::endl;
-            this->learning=true;
             alg2D.add_descriptors(msg, number_views_it);
             number_views_it ++;
             sleep(1);

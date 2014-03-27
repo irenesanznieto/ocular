@@ -59,7 +59,9 @@ void Algorithm2D::set_number_views (int number_views)
         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
 
 
-    this->object_number=this->descriptors.size();
+    this->set_new_object(true);
+
+    this->alg2D.resize(descriptors.size());
 
         std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
     std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
@@ -98,6 +100,7 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg, int number
         //add the new view to the descriptors matrix
         image_cv.convertTo(image_cv,CV_32F);
 
+        std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
         descriptors[this->object_number].push_back(image_cv);
     }
 }

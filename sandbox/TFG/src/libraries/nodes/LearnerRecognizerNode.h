@@ -40,7 +40,6 @@ private:
     int number_views_it; /** Iterator that stores the current view number of the object */
     bool learn; /** Boolean that is true when the received event is learn and false otherwise*/
 
-    bool learning; /** Boolean that will "block" the response to other events while the training is being done*/
 };
 
 #endif // LEARNERRECOGNIZERNODE_H
