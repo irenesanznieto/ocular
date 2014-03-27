@@ -39,7 +39,7 @@ Algorithm2D::~Algorithm2D()
             descriptors[i].push_back(descriptors[i][0]);
         }
         dataparser.save_template_2D(descriptors[i],i);
-        //         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
     }
 }
 
@@ -52,19 +52,16 @@ void Algorithm2D::set_number_views (int number_views)
     //Load the previously stored templates if there are any
     if(dataparser.getNumberTemplates()>1)
     {
-        dataparser.getTemplates(number_views, this->descriptors);
+       dataparser.getTemplates(number_views,this->descriptors);
     }
 
     for (unsigned int i=0; i<descriptors.size(); i++)
         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
 
-//    this->object_number= this-> descriptors.size();
 
+    this->object_number=this->descriptors.size();
 
-    //    descriptors.push_back(std::vector<cv::Mat> ());
-
-
-    //    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
+        std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
     std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
 
 
@@ -102,7 +99,6 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg, int number
         image_cv.convertTo(image_cv,CV_32F);
 
         descriptors[this->object_number].push_back(image_cv);
-        //        dataparser.save_template_2D(image_cv, this->object_number, number_view);
     }
 }
 
@@ -131,7 +127,7 @@ void Algorithm2D ::set_new_object(bool new_object)
         //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
     }
 
-    this->object_number=alg2D.size()-1;
+    this->object_number=descriptors.size()-1;
 }
 
 
@@ -202,11 +198,11 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
     {
         desc1.convertTo(desc1, CV_32F);
 
-//        std::cerr<<"descriptors[object_number].size(): "<<descriptors[object_number].size()<<std::endl;
+        //        std::cerr<<"descriptors[object_number].size(): "<<descriptors[object_number].size()<<std::endl;
 
         for (unsigned int j=0; j<descriptors[object_number].size(); j++)
         {
-//            std::cerr<<"object_number: "<<object_number<<" j: "<<j<<std::endl;
+            //            std::cerr<<"object_number: "<<object_number<<" j: "<<j<<std::endl;
 
             //match each algorithm with the new cv::Mat and output the result in the matches vector
             //            std::cerr<<"desc1.type: "<<desc1.type()<<"  descriptors[][].type: "<<descriptors[object_number][j].type()<<std::endl;
