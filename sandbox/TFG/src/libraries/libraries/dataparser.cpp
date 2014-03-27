@@ -246,18 +246,23 @@ std::vector<std::vector<cv::Mat> > DataParser:: getTemplates (int number_views)
         descriptors.resize(total_objects);
 
 
-        for (int object_number=1;object_number>total_objects; object_number++ )
+        int object_number=0;
+        int counter=0;
+        for (int j=0; j<total_objects; j++ )
         {
-            //initialize the stringstream
-            path.str(std::string());
-            //add the path of the templates and the object folder
-            path<<templates_path;
 
             //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
             for (unsigned int i=0; i<number_views; i++)
             {
-                descriptors[object_number].push_back(load_descriptor(templates[i]));
-                //            temp_keyp.push_back(load_keypoint(keyp_t[i]));
+//                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
+                descriptors[j].push_back(this->load_descriptor(templates[counter]));
+
+
+                if(i==number_views-1)
+                    object_number++;
+
+                counter++;
+
             }
         }
 

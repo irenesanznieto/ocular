@@ -33,6 +33,10 @@ Algorithm2D::~Algorithm2D()
 {
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
+        while (descriptors[i].size()<this->number_views)
+        {
+            descriptors[i].push_back(descriptors[i][0]);
+        }
         dataparser.save_template_2D(descriptors[i],i);
         //         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
     }
@@ -53,8 +57,8 @@ void Algorithm2D::set_number_views (int number_views)
         this->descriptors=dataparser.getTemplates(number_views);
     }
 
-    for (unsigned int i=0; i<descriptors.size(); i++)
-        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+//    for (unsigned int i=0; i<descriptors.size(); i++)
+//        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
 
 }
 

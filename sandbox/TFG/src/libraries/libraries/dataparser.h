@@ -55,8 +55,11 @@ public:
 
     int  getNumberAlgorithms();
 
-private:
+    //make private!!!
     std::vector <std::string> get_file_names (std::string );    /**Returns a vector of strings with the names of the files that are within the folder specified by the argument */
+
+
+private:
 
 
     std::string algorithms_2D_path; /**Path where the 2D algorithms are stored*/
