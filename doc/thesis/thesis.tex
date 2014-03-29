@@ -4,7 +4,9 @@
 \usepackage{graphicx}
 \usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
 
-\pagestyle{empty}
+
+\pagestyle{plain}
+
 \usepackage{tikz}
 
 %algunos símbolos matemáticos y paquete para usar subimágenes
@@ -34,9 +36,15 @@
 }
 
 
+
+\pagestyle{fancy}
+
+
+
+
 \begin{document}
 
-%elementos antes del trabajo en sí se meten dentro de frontmatter
+%Elements that appear before the thesis itself
 \frontmatter
 
 %cada incluye referencia a un archivo de tipo .tex
@@ -46,39 +54,45 @@
 
 %\include{evaluacion}
 
-%\include{agradecimientos}
+
+\include{acknowledgments}
 
 %\include{resumen}
 
 
 %%%%%% TABLE OF CONTENTS %%%%%%
-\begin{huge}
-{title & whatever}
-\end{huge}
-
-
-
-%%%%%% TABLE OF CONTENTS %%%%%%
-\newpage
 \tableofcontents
 
 %%%%%% TABLE OF FIGURES %%%%%%
-\newpage
 \listoffigures
-\newpage
 
-%%%%%% INTRO %%%%%%
+
+%%%%%% DESCRIPTIVE PART %%%%%%
+\mainmatter
+
+
 \include{intro}
 
-%%%%%% PART 1 %%%%%%
+% state of the art
 
+% technologies being used: 
 \include{opencv}
-
 \include {pcl}
-
 \include {ros}
-%%%%%% BIBLIOGRAPHY %%%%%%
-\newpage
+\include {kinect}
+
+
+
+
+%partes finales del trabajo: conclusiones, bibliografia y anexos
+\backmatter
+
+%\include{conclusion}
+
+\cleardoublepage
+
+% bibliography %
+\addcontentsline{toc}{chapter}{Bibliography}
 \include{bibliography}
 
 \end{document}
