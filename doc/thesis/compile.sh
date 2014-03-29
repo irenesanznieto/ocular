@@ -5,5 +5,5 @@ bibtex thesis
 latex thesis
 pdflatex thesis
 
-rm *.aux *.log *.bbl *.dvi *.blg *.toc *.lof
+rm *.aux *.log *.bbl *.dvi *.blg *.toc *.lof *.out
 

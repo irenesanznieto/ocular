@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[10pt,a4paper]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -7,8 +7,49 @@
 \pagestyle{empty}
 \usepackage{tikz}
 
+%algunos símbolos matemáticos y paquete para usar subimágenes
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{appendix}
+
+%Hyperrefs without borders
+\usepackage[hidelinks]{hyperref}
+
+
+%parametros del documento (sus propiedades)
+\hypersetup{
+    pdftitle={Irene Sanz Nieto - In-hand object recognition and on-line learning using 2D and 3D information - 2014},
+    pdfsubject={Bachelor's Thesis - 2014},
+    pdfauthor={Irene Sanz Nieto},
+    pdfkeywords={palabraclave1} {palabraclave2} {palabraclave3},
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+}
+
 
 \begin{document}
+
+%elementos antes del trabajo en sí se meten dentro de frontmatter
+\frontmatter
+
+%cada incluye referencia a un archivo de tipo .tex
+\include{front}
+
+%\include{licencia}
+
+%\include{evaluacion}
+
+%\include{agradecimientos}
+
+%\include{resumen}
+
 
 %%%%%% TABLE OF CONTENTS %%%%%%
 \begin{huge}
