@@ -6,13 +6,20 @@ In this section the most important algorithms regarding object learning and reco
 
 	\addcontentsline{toc}{section}{Object Learning and Recognition}
 	\section*{Object Learning and Recognition}
+The most used algorithms due to their relation between performance, invariantness and speed are exposed below. They are presented chronologically and the differences, similarities and improvements between them are explained. 
+\\
+
+The selection of one algorithm or another depends on the requisites and the hardware of the application. Which algorithm is finally used and the reasons to chose it can be found in the methods part.%%%% reference! 
+\\
+
+These first algorithms, SIFT, SURF and ORB are used to obtain descriptors for 2D data. 
 
 		\input{state_of_the_art/sift}
 		\input{state_of_the_art/surf}
 		\input{state_of_the_art/orb}
 
 		
-
+The following algorithms are used to describe 3D data. 
 		\addcontentsline{toc}{subsection}{PFH}
 		\subsection*{PFH}
 		

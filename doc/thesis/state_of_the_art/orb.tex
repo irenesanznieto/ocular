@@ -1,3 +1,20 @@
 \addcontentsline{toc}{subsection}{ORB}
 \subsection*{ORB}
-ORB\cite{orb}
+ORB (Oriented FAST and Rotated BRIEF) is a fast rotation invariant, noise resistant binary descriptor based on BRIEF \cite{orb}.
+It is claimed in its presentation paper that it is two orders of magnitude faster than SIFT while matching its performance in many situations. As it can be seen, since ORB is not scale invariant, if the scale difference is noticeable the SURF algorithm will outperform ORB. 
+\\
+
+The features used in ORB builds on the FAST\cite{fast} keypoint detector and the BRIEF\cite{brief} descriptor. Both of this previous algorithms offer a good performance and computing time relation. Since neither of them had the orientation taken into account, the main improvement made by the ORB developers is to include this feature in the algorithms. Also, the computation of oriented BRIEF features was improved and an analysis of variance and correlation for this features created. 
+\\
+
+FAST is mainly used to find keypoints in real-time systems that match visual features. The orientation operator included in this algorithm is the centroid operator described in \cite{orientation_corners}. This technique is not computationally demanding and also, unlike SIFT, it returns a single dominant result. 
+\\
+
+BRIEF uses simple binary tests whose performance is similar to SIFT with regard to robustness to lighting, blur and perspective distortion, but it is sensitive to in-plane rotation. In order to eliminate this drawback, the lowest computing costing solution is to steer BRIEF accordingly with the orientation of the keypoints. 
+\\
+
+In the different tests in \cite{orb} can be seen that the percentage of inliers obtained with ORB are higher and do not variate as much as those obtained by SIFT or SURF. 
+ORB is then a good alternative for the latter if the application does not need a scale invariant descriptor. 
+\\
+
+Finally, it is noticeable that this algorithm is Open Source, since the previous ones are proprietary. 
