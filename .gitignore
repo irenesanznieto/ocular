@@ -20,7 +20,7 @@ sandbox/TFG/data/*
 *.txt.user
 *.ps
 
-img/
+
 
 sandbox/TFG/msg_gen/*
 sandbox/TFG/src/TFG/*
