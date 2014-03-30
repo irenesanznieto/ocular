@@ -33,23 +33,73 @@ That is why, using three-dimensional information as the input of a software requ
 
 
 %%%%%% CAMERAS %%%%%%
-\addcontentsline{toc}{section}{Cameras}
-\section*{Cameras}
+%\addcontentsline{toc}{section}{Cameras}
+%\section*{Cameras}
 
 
 
 
 %%%%%% RGB-D SENSORS %%%%%%
-\addcontentsline{toc}{section}{RGB-D Sensors}
-\section*{RGB-D Sensors}
-Computer vision is a field that needs specific hardware to retrieve a description of the world. This description has been done for a number of years in two dimensions. But this changed when the first version of an affordable RGB-D sensor appeared in 2010: the Kinect.
+\addcontentsline{toc}{section}{RGB-D Sensors or Natural Interaction Devices}
+\section*{RGB-D Sensors or Natural Interaction Devices}
+
+\addcontentsline{toc}{subsection}{History}
+\subsection*{History}
+
+Computer vision is a field that needs specific hardware to retrieve a description of the world. This description has been done for a number of years in two dimensions. But this changed when the first version of an affordable RGB-D sensor appeared in 2010: the Kinect. This project uses a Kinect RGB-D sensor as the input of the system.
 \\
 
 This sensor was designed to be used in games, but developers soon realized the huge potential of the hardware for Computer Vision.  
 Now, instead of a two-dimensional information as an input it was possible to have three-dimensional information. 
 \\
 
-Two-dimensional information is a projection of a three-dimensional world and so there appear ambiguities when using that data. That is why having three-dimensional information is a big advantage. 
+The Microsoft corporation released the SDK (Software Development Kit) on June, 2011 \cite{kinectSDK}.
 \\
+
+But one year before, PrimeSense released their open source drivers and motion tracking middleware called NITE\cite{NITE}. 
+PrimeSense is a company that manufactures RGB-D sensors and, in fact, the Kinect is based on their depth sensing reference. Hence, the software released by PrimeSense worked with the Kinect as well. 
+
+From that time on, the OpenSource software related with the kinect has increased as well as the different models of RGB-D sensors available in the market.
+In November 2010 OpenNI was created. Openni is an open-source software framework that can read the data from RGB-D sensors \cite{openni}.  
+
+\addcontentsline{toc}{subsection}{How does the Kinect work?}
+\subsection*{How does the Kinect work?}
+In this section the main components and functioning principles of the Kinect are going to be presented. Most of them are common with the other RGB-D sensors but others such as the VGA camera are optional, for example in some PrimeSense\cite{PrimeSense} models. 
+
+
+
+\begin{figure}[h]
+	\begin{center}
+\includegraphics[scale=0.5]{img/kinect/kinect2.eps}
+	\caption[Kinect Sensors]{Kinect sensors: depth sensor and VGA camera location.}
+	\end{center}
+\end{figure}
+
+
+The parts that compose the Kinect sensor are the following: 
+
+\begin{itemize}
+	\item{VGA camera}\\
+	The camera contained by the kinect has a pixel resolution of 640x480 and a frame rate of 30 fps. It is used mainly to provide the output data with the RGB components for each point. 
+	
+	\item{Depth sensor}\\
+	The depth sensor consists on an infra-red projector combined with a monochrome CMOS sensor. This latter measures the time it takes the light to come back after being reflected on the objects. Knowing the speed of light it can be easily obtained the distance of the objects from the depth sensor. 
+
+	\item{Multi-array microphone}\\
+	This array of four microphones are included because the kinect was designed as a gaming device. They are not used for the three-dimensional world retrieving. 
+	
+	\item{Motorized tilt}\\
+	This is another feature for games. It allows the kinect to follow the player's movements around the room. \cite{howkinectworks}
+\end{itemize}
+
+
+
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[scale=0.2]{img/kinect/kinect_parts.eps}
+	\caption[Kinect Parts]{Kinect dismounted. Parts and components.}
+	\end{center}
+\end{figure}
+
 
 

@@ -1,0 +1,17 @@
+\addcontentsline{toc}{subsection}{SURF}
+\subsection*{SURF}
+SURF(Speeded Up Robust Features) is a scale and rotation invariant interest point detector and descriptor \cite{surf}. 
+It is a proprietary algorithm that simplifies the detection, extraction of the descriptors and matching steps thus obtaining them much faster than previous algorithms without losing repeatability, distinctiveness or robustness. 
+\\
+
+The first step of the algorithm is to identify the interest points such as corners, blobs or T-junctions. As it can be seen, this algorithm will be useful when evaluating a textured object. 
+\\
+
+The next step is to represent the neighbourhood of the interest points as a feature vector. 
+\\
+
+The final step is to match the descriptor vectors between different images, in order to stablish a recognition of a pattern. Usually the matching is performed using as a reference the distance between the vectors. 
+In this part, it can be perceived that the size of the descriptor vectors affects directly the performance of the algorithm. SIFT aims to reduce that size without losing distinctiveness in the features. 
+
+
+

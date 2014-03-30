@@ -1,0 +1,29 @@
+\addcontentsline{toc}{chapter}{Software}
+\chapter*{Software}
+
+In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
+
+
+	\addcontentsline{toc}{section}{Object Learning and Recognition}
+	\section*{Object Learning and Recognition}
+
+		\input{state_of_the_art/sift}
+		\input{state_of_the_art/surf}
+		\input{state_of_the_art/orb}
+
+		
+
+		\addcontentsline{toc}{subsection}{PFH}
+		\subsection*{PFH}
+		
+		\addcontentsline{toc}{subsection}{LINEMOD}
+		\subsection*{LINEMOD}
+		
+	\addcontentsline{toc}{section}{Joint tracking}
+	\section*{Joint tracking}
+	
+	
+	
+	\addcontentsline{toc}{section}{In-hand object learning and recognition}
+	\section*{In-hand object learning and recognition}
+	
