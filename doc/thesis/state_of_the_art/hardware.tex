@@ -1,15 +1,52 @@
 \addcontentsline{toc}{chapter}{Hardware}
 \chapter*{Hardware}
 
+ 
+%%%%%%% INTRODUCTION %%%%%%
+\addcontentsline{toc}{section}{Introduction}
+\section*{Introduction}
+The advance in the computer vision discipline is greatly linked with the development in the hardware. The main components of a computer vision system are the following: 
 
-\addcontentsline{toc}{chapter}{Hardware}
-\chapter*{Hardware}
+\begin{itemize}
+	\item{Power Supply: } Device needed by the other components in order to work. 
+	\item{Acquisition device: } Device that captures the world and represents it as an array of data. That data can be two or three dimensional. 
+	\item{Processing unit:} Receives the information from the acquisition device and processes it. It is usually programmable. Nowadays the most used processing units are PCs. 
+	\item{I/O unit: } Serves as a bridge between the acquisition device and the processing unit if needed. 
 
-Computer vision is a field that needs specific hardware to retreive a description of the world. This description has been done for a number of years in two dimensions. But this changed when the first version of an affordable RGB-D sensor appeared in 2010: the Kinect.
+\end{itemize}
+
+In this chapter the state of the art of the different acquisition devices is going to be presented. 
+
+%%%%%% ACQUISITION DEVICES %%%%%%
+\addcontentsline{toc}{section}{Acquisition devices}
+\section*{Acquisition devices}
+There are different acquisition devices being used in the computer vision field. They are usually classified depending on the output data they provide: 
+
+\begin{itemize}
+	\item{Cameras:}	The output data is two-dimensional. 
+	\item{RGB-D sensors:} The output data is three-dimensional. 
+\end{itemize}
+
+The usage of one or another acquisition device depends on the application. The RGB-D sensors provide a higher number of information than the cameras. They reduce the ambiguities produced by the cameras when projecting the three-dimensional world into to dimensions. But also the RGB-D sensors output a higher amount of data. 
+That is why, using three-dimensional information as the input of a software requires a higher-capacity processing unit than using two-dimensional data.
+
+
+
+%%%%%% CAMERAS %%%%%%
+\addcontentsline{toc}{section}{Cameras}
+\section*{Cameras}
+
+
+
+
+%%%%%% RGB-D SENSORS %%%%%%
+\addcontentsline{toc}{section}{RGB-D Sensors}
+\section*{RGB-D Sensors}
+Computer vision is a field that needs specific hardware to retrieve a description of the world. This description has been done for a number of years in two dimensions. But this changed when the first version of an affordable RGB-D sensor appeared in 2010: the Kinect.
 \\
 
 This sensor was designed to be used in games, but developers soon realized the huge potential of the hardware for Computer Vision.  
-Now, instead of a two-dimensional information as an input to the various softwares it was possible to have three-dimensional information. 
+Now, instead of a two-dimensional information as an input it was possible to have three-dimensional information. 
 \\
 
 Two-dimensional information is a projection of a three-dimensional world and so there appear ambiguities when using that data. That is why having three-dimensional information is a big advantage. 
