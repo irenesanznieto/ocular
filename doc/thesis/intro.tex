@@ -1,50 +1,11 @@
-\addcontentsline{toc}{chapter}{Introduction}
-\chapter*{Introduction}
+\addcontentsline{toc}{part}{Introduction}
+\part*{Introduction}
 
-% Intro
+	\input{intro/intro} 
+	\input{intro/motivation} 
+	\input{intro/context}
+	\input{intro/uses}	% future applications
 
-This bachelor's thesis consists on a software that implements an in-hand object learning and recognition using 2D and 3D information. 
-\\
-
-The code was designed to be running inside a robot. Hence, everything is modularized and all processes are designed to run in parallel. 
-
-The hardware needed for this project is an RGB-D sensor and a computer. 
-
-\addcontentsline{toc}{section}{What does the software do?}
-\section*{What does the software do?}
-% What does it do?
-The input of the software is the image and the point cloud provided by the RGB-D sensor. The output of the system is different depending on the mode we are working. If the user is making it learn a new object, the output is the percentage of learning completed. On the other hand, if the user is utilizing the recognizing mode, the output of the system is the identifier of the object, i.e. the number that represents which object in the dataset seems to be more similar to the one being shown to it currently. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%PICTURE
-
-\addcontentsline{toc}{section}{How can it be used?}
-\section*{How can it be used?}
-% How it is used?
-From the beginning, a easy and intuitive human-machine interface was a must. In order to achieve this, this simple state 
-machine was designed:
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%PICTURE
-
-The software only allows one hand being used at a time. It will select the hand that is located highest. 
-
-In order to switch between the learning and recognizing modes of the program, the distance between the hand and the body
-is being used: 
-
-If the hand is stretched out towards the RGB-D sensor, the software will start learning. If it is closer to the body, 
-it will launch the recognizing mode, which is the default. 
-
-\addcontentsline{toc}{section}{General characteristics of the software}
-\section*{General characteristics of the software}
-% How is the code coded?
-
-The Robotic Operating System is being used in this project since it has numerous features that allow a more efficient and 
-easier implementation of software that has the characteristics described above. More information about this operating 
-system may be found in the section.
-%%%%%%%%%%%%%%%%%%%%%%%%%%(!!!!SECTION).
-
-The software developed in this thesis is a ROS package. The last release might be downloaded from the following link. 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%LINK
+	\input{intro/thesis_structure}
 
 
-\addcontentsline{toc}{section}{Thesis structure}
-\section*{ Thesis structure}
