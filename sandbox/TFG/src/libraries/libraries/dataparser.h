@@ -23,6 +23,9 @@
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
 
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+
 //* DataParser
 /**
 * Performs the saving and loading of the different templates and algorithms.
@@ -65,6 +68,8 @@ public:
 
 
 private:
+
+    void save_descriptor(sensor_msgs::PointCloud2 &descriptors, std::string filename);
 
 
     std::string algorithms_2D_path; /**Path where the 2D algorithms are stored*/
