@@ -38,7 +38,7 @@
 	<node pkg="TFG" type="featureextractor2D" name="featureextractor2D" args="segmented_image:=/TFG/ROI2D/segmented_image descriptors2D:=/TFG/FE2D/descriptors2D image_with_keypoints:=/TFG/ROI2D/segmented_image_with_keypoints"/>
 		
 <!--    		3D-->
-<!--	<node pkg="TFG" type="featureextractor3D" name="featureextractor3D" args="segmented_pc:=/TFG/ROI3D/segmented_pc descriptors3D:=/TFG/FE3D/descriptors3D"/>-->
+	<node pkg="TFG" type="featureextractor3D" name="featureextractor3D" args="segmented_pc:=/TFG/ROI3D/segmented_pc descriptors3D:=/TFG/FE3D/descriptors3D"/>
 	
 <!--	LEARNER-->
 <!--	<node pkg="TFG" type="learner" name="learner" output="screen" launch-prefix="xterm -e" args="descriptors2D:=/TFG/FE2D/descriptors2D event:=/TFG/EVENTHANDLER/event"/>-->
@@ -47,12 +47,13 @@
 
 <!--	RECOGNIZER-->
 <!--	<node pkg="TFG" type="recognizer" name="recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id event:=/TFG/EVENTHANDLER/event"/>-->
-<!--	-->
+
+
 <!--	EVENT HANDLER-->
 	<node pkg="TFG" type="event_handler" name="event_handler"  args="event:=/TFG/EVENTHANDLER/event skeleton:=/skeleton" />
 
 <!--	LEARNER RECOGNIZER-->
-	<node pkg="TFG" type="learner_recognizer" name="learner_recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id event:=/TFG/EVENTHANDLER/event"/>
+	<node pkg="TFG" type="learner_recognizer" name="learner_recognizer" args="descriptors2D:=/TFG/FE2D/descriptors2D object_id:=/TFG/object_id event:=/TFG/EVENTHANDLER/event descriptors3D:=/TFG/FE3D/descriptors3D"/>
 
 
 <!--	IMAGE VIEW-->

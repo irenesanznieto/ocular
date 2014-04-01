@@ -49,17 +49,44 @@ public:
     * \brief Public constructor
     */
     Algorithm3D();
-    int match2D(const TFG::HandImageConstPtr & msg);
-    void match3D(const sensor_msgs::PointCloud2ConstPtr &);
+
+    ~Algorithm3D();
+
+    void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
+
+    void add_descriptors(const TFG::HandImageConstPtr &, int number_view);
+
+
+    int match3D(const sensor_msgs::PointCloud2ConstPtr &);
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
 
+    void set_number_views (int);
+
+    void add_descriptors(const sensor_msgs::PointCloud2ConstPtr & , int );
 
 private:
+
+    std::vector <pcl::KdTreeFLANN<pcl::PFHSignature125> >alg3D;
 
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
     std::vector<cv::FlannBasedMatcher> algorithms2D;
 
     int flann_comparison (cv::Mat &, float);
+
+    bool new_object;
+
+    std::vector<std::vector<sensor_msgs::PointCloud2> >descriptors;    /** Vector that will store the descriptors dataset */
+
+
+    int matched_object_id;  /** Number that represents the object being matched by the algorithm. **/
+
+    int matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
+
+    int object_number;
+
+    int number_views;
+
 };
+
 #endif //ALGORITHM_3D_H

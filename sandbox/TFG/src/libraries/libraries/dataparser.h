@@ -21,7 +21,7 @@
 #include <opencv2/opencv.hpp>
 #include <fstream>
 #include <ros/ros.h>
-
+#include <sensor_msgs/PointCloud2.h>
 
 //* DataParser
 /**
@@ -47,7 +47,12 @@ public:
     void save_template_2D(cv::Mat descriptors, int number_object, int number_view);
 
 
+    void save_template_3D(std::vector<sensor_msgs::PointCloud2> & , int ); /**Saves a new 2D template in the predefined path */
+
+
     void getTemplates (int, std::vector<std::vector<cv::Mat> > &  );    /**Returns all the descriptors previously stored*/
+    void getTemplates (int, std::vector<std::vector<sensor_msgs::PointCloud2> > &  );    /**Returns all the descriptors previously stored*/
+
     std::string get_path_to_pkg();
 
     int get_folder_number_of_items(std::string );

@@ -2,14 +2,81 @@
 
 Algorithm3D::Algorithm3D()
 {
-    if (dataparser.getNumberAlgorithms()>1)
+    //    if (dataparser.getNumberAlgorithms()>1)
+    //    {
+    //        this->algorithms2D=dataparser.load_algorithms_2D();
+    //    }
+
+    //Initialize the matched_object_id to -1 until a match is found
+    matched_object_id=-1;
+
+    //Initialize object_number to 0 so if there are no previous templates, the first object has ID 0
+    this->object_number=0;
+}
+
+Algorithm3D::~Algorithm3D()
+{
+    for (unsigned int i=0; i<descriptors.size(); i++)
     {
-        this->algorithms2D=dataparser.load_algorithms_2D();
+        while (descriptors[i].size()< this->number_views)
+        {
+            //            std::cerr<<"Object: "<<i<<"descriptor[i].size(): "<<descriptors[i].size()<<std::endl;
+            descriptors[i].push_back(descriptors[i][0]);
+        }
+        dataparser.save_template_3D(descriptors[i],i);
+        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
     }
 }
 
+void Algorithm3D::set_number_views (int number_views)
+{
+    this->number_views=number_views;
 
-void Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
+    //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
+    //Load the previously stored templates if there are any
+    if(dataparser.getNumberTemplates()>1)
+    {
+        dataparser.getTemplates(number_views,this->descriptors);
+    }
+
+    for (unsigned int i=0; i<descriptors.size(); i++)
+        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+
+
+    this->set_new_object(true);
+
+    this->alg3D.resize(descriptors.size());
+
+    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
+    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
+}
+
+
+void Algorithm3D::add_descriptors(const sensor_msgs::PointCloud2ConstPtr & msg, int number_view)
+{
+    //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
+//    std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
+    descriptors[this->object_number].push_back(*msg);
+
+}
+
+void Algorithm3D ::set_new_object(bool new_object)
+{
+    this->new_object=new_object;
+
+    if(this->new_object)
+    {
+        descriptors.push_back(std::vector<sensor_msgs::PointCloud2> ());
+        alg3D.push_back(pcl::KdTreeFLANN <pcl::PFHSignature125> ());
+
+        //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
+    }
+
+    this->object_number=descriptors.size()-1;
+}
+
+
+int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
     //transform to pcl format
     pcl::PointCloud<pcl::PFHSignature125>::Ptr msg_pcl (new pcl::PointCloud<pcl::PFHSignature125> ());
@@ -40,4 +107,6 @@ void Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
         correspondences_out[i] = k_indices[0];
         correspondence_scores_out[i] = k_squared_distances[0];
     }
+
+    //    return object_id;
 }

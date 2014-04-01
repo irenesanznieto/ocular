@@ -25,7 +25,10 @@ private:
 
 
 
-    void descriptors_cb(const TFG::HandImageConstPtr & );
+    void descriptors2D_cb(const TFG::HandImageConstPtr & );
+
+    void descriptors3D_cb(const sensor_msgs::PointCloud2ConstPtr & );
+
 
     void train3D_cb();
 
@@ -33,12 +36,13 @@ private:
 
 
     Algorithm2D alg2D;
-    //    Algorithm2D alg2D(5);
+    Algorithm3D alg3D;
 
 
-    int number_views; /** Stores the total number of views to be extracted of each object */
-    int number_views_it; /** Iterator that stores the current view number of the object */
-    bool learn; /** Boolean that is true when the received event is learn and false otherwise*/
+    // In these vectors, the first position will be related to 2D and the second to 3D
+    std::vector<int> number_views; /** Stores the total number of views to be extracted of each object */
+    std::vector<int> number_views_it; /** Iterator that stores the current view number of the object */
+    std::vector<bool> learn; /** Boolean that is true when the received event is learn and false otherwise*/
 
 };
 

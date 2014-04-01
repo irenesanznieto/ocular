@@ -22,18 +22,18 @@ DataParser::DataParser()
     std::string dummy=mkdir+templates_path;
     system(dummy.c_str());
 
-//    //create the algorithms folder
-//    dummy=mkdir+algorithms_2D_path;
-//    dummy.erase(dummy.end()-3, dummy.end());
-//    system(dummy.c_str());
+    //    //create the algorithms folder
+    //    dummy=mkdir+algorithms_2D_path;
+    //    dummy.erase(dummy.end()-3, dummy.end());
+    //    system(dummy.c_str());
 
-//    //create the algorithms 2D folder
-//    dummy=mkdir+algorithms_2D_path;
-//    system(dummy.c_str());
+    //    //create the algorithms 2D folder
+    //    dummy=mkdir+algorithms_2D_path;
+    //    system(dummy.c_str());
 
-//    //create the algorithms 3D folder
-//    dummy=mkdir+algorithms_3D_path;
-//    system(dummy.c_str());
+    //    //create the algorithms 3D folder
+    //    dummy=mkdir+algorithms_3D_path;
+    //    system(dummy.c_str());
 
 }
 
@@ -108,12 +108,12 @@ void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number
     //The name of the file will be a number [the position of the object in the vector of descriptors]
     path<<templates_path<<number_object;
 
-//    //        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
+    //    //        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
 
-//    //create a folder in the templates_path with the number of the position of the object in the vector
-//    std::stringstream command;
-//    command<<"mkdir "<<path.str();
-//    system(command.str().c_str());
+    //    //create a folder in the templates_path with the number of the position of the object in the vector
+    //    std::stringstream command;
+    //    command<<"mkdir "<<path.str();
+    //    system(command.str().c_str());
 
     std::stringstream filename;
     //Store each matrix of descriptors corresponding to different views of the object in a different yml file inside the same object's folder
@@ -164,6 +164,12 @@ void DataParser::save_template_2D(cv::Mat descriptors, int number_object, int nu
     this->save_descriptor(descriptors, filename.str());
 }
 
+
+void DataParser::save_template_3D(std::vector<sensor_msgs::PointCloud2> & descriptors, int number)
+{
+
+
+}
 
 
 void DataParser::save_descriptor(cv::Mat &descriptors, std::string filename)
@@ -254,7 +260,7 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
             //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
             for (unsigned int i=0; i<number_views; i++)
             {
-//                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
+                //                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
                 descriptors[j].push_back(this->load_descriptor(templates[counter]));
 
                 if(i==number_views-1)
@@ -263,12 +269,54 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
                 counter++;
             }
 
-//            std::cerr<<"descriptors[j].size(): "<<descriptors[j].size()<<std::endl;
+            //            std::cerr<<"descriptors[j].size(): "<<descriptors[j].size()<<std::endl;
         }
 
-//        std::cerr<<"dataparser: descriptors.size(): "<<descriptors.size()<<std::endl;
+        //        std::cerr<<"dataparser: descriptors.size(): "<<descriptors.size()<<std::endl;
 
     }
 }
+
+
+
+void DataParser:: getTemplates (int number_views, std::vector<std::vector<sensor_msgs::PointCloud2> > & descriptors)
+{
+//    //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
+//    std::vector<std::string> templates=this->get_file_names(templates_path);
+//    if(templates.size()>0)
+//    {
+//        //the number of objects is the size of the previous vector
+//        int total_objects=templates.size()/number_views;
+
+//        std::stringstream path;
+
+//        //the size of the descriptors matrix will be the same as the objects in the folder
+//        descriptors.resize(total_objects);
+
+
+//        int object_number=0;
+//        int counter=0;
+//        for (int j=0; j<total_objects; j++ )
+//        {
+//            //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
+//            for (unsigned int i=0; i<number_views; i++)
+//            {
+//                //                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
+//                descriptors[j].push_back(this->load_descriptor(templates[counter]));
+
+//                if(i==number_views-1)
+//                    object_number++;
+
+//                counter++;
+//            }
+
+//            //            std::cerr<<"descriptors[j].size(): "<<descriptors[j].size()<<std::endl;
+//        }
+
+//        //        std::cerr<<"dataparser: descriptors.size(): "<<descriptors.size()<<std::endl;
+
+//    }
+}
+
 
 
