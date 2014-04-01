@@ -38,7 +38,7 @@ Algorithm2D::~Algorithm2D()
             //            std::cerr<<"Object: "<<i<<"descriptor[i].size(): "<<descriptors[i].size()<<std::endl;
             descriptors[i].push_back(descriptors[i][0]);
         }
-        dataparser.save_template_2D(descriptors[i],i);
+        dataparser.save_template(descriptors[i],i);
         std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
     }
 }

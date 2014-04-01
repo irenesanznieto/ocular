@@ -100,7 +100,7 @@ std::vector <std::string> DataParser::get_file_names (std::string path)
 }
 
 
-void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number_object)
+void DataParser::save_template(std::vector<cv::Mat> & descriptors, int number_object)
 {
     //NAME CODE:
     std::stringstream path;
@@ -134,7 +134,7 @@ void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number
 }
 
 
-void DataParser::save_template_2D(cv::Mat descriptors, int number_object, int number_view)
+void DataParser::save_template(cv::Mat descriptors, int number_object, int number_view)
 {
     //NAME CODE:
     std::stringstream path;
@@ -165,7 +165,7 @@ void DataParser::save_template_2D(cv::Mat descriptors, int number_object, int nu
 }
 
 
-void DataParser::save_template_3D(std::vector<sensor_msgs::PointCloud2> & descriptors, int number_object)
+void DataParser::save_template(std::vector<sensor_msgs::PointCloud2> & descriptors, int number_object)
 {
     //NAME CODE:
     std::stringstream path;

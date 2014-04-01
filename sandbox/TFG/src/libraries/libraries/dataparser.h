@@ -46,11 +46,11 @@ public:
     cv::Mat load_descriptor (std::string ); /**Loads the descriptors specified by the input string*/
     std::vector<cv::FlannBasedMatcher> load_algorithms_2D();    /**Loads the FlannBasedMatcher algorithms information previously stored*/
     void save_algorithm_2D(cv::FlannBasedMatcher & , int ); /**Stores the FlannBasedMatcher algorithm information to the algorithms folder*/
-    void save_template_2D(std::vector<cv::Mat> & , int ); /**Saves a new 2D template in the predefined path */
-    void save_template_2D(cv::Mat descriptors, int number_object, int number_view);
+    void save_template(std::vector<cv::Mat> & , int ); /**Saves a new 2D template in the predefined path */
+    void save_template(cv::Mat descriptors, int number_object, int number_view);
 
 
-    void save_template_3D(std::vector<sensor_msgs::PointCloud2> & , int ); /**Saves a new 2D template in the predefined path */
+    void save_template(std::vector<sensor_msgs::PointCloud2> & , int ); /**Saves a new 2D template in the predefined path */
 
 
     void getTemplates (int, std::vector<std::vector<cv::Mat> > &  );    /**Returns all the descriptors previously stored*/
