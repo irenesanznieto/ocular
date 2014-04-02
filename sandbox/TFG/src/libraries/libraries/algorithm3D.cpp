@@ -84,6 +84,9 @@ int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
 
     pcl::PointCloud<pcl::PFHSignature125>::Ptr cloud (new pcl::PointCloud<pcl::PFHSignature125> ());
 
+    std::vector<int> ratio;
+    ratio.resize(descriptors.size());
+
     //match3D
     for (unsigned int i=0; i<alg3D.size(); i++)
     {
@@ -105,13 +108,16 @@ int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
         for (size_t j = 0; j < descriptors[i].size (); ++j)
         {
             pcl::fromROSMsg(descriptors[i][j], *cloud);
-            alg3D[i].nearestKSearch (*cloud, j, k, k_indices, k_squared_distances);
+            //            alg3D[i].nearestKSearch (*cloud, j, k, k_indices, k_squared_distances);
+            alg3D[i].radiusSearch(*cloud, j, k, k_indices, k_squared_distances);
+
             correspondences_out[j] = k_indices[0];
             correspondence_scores_out[j] = k_squared_distances[0];
         }
-
-
+        ratio[i]=std::distance(correspondences_out.begin(), std::max_element(correspondences_out.begin(), correspondences_out.end()));
     }
 
-    //    return object_id;
+    this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+
+    return matched_object_id;
 }

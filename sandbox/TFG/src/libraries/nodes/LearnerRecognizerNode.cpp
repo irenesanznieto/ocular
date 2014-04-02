@@ -26,6 +26,9 @@ LearnerRecognizerNode::LearnerRecognizerNode()
     this->learn.push_back(false);
     this->learn.push_back(false);
 
+    this->object_id.push_back(-1);
+    this->object_id.push_back(-1);
+
 }
 
 
@@ -106,11 +109,8 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 
     else if (!this->learn[0])      //If the mode is recognize
     {
-        int object_id;
         //    match & publish the resulting object ID
-        object_id=alg2D.match2D(msg);
-
-        object_pub.publish(object_id);
+        this->object_id[0]=alg2D.match2D(msg);
     }
 }
 
@@ -148,10 +148,20 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
 
     else if (!this->learn[1])      //If the mode is recognize
     {
-        int object_id;
         //    match & publish the resulting object ID
-        object_id=alg3D.match3D(msg);
+        object_id[1]=alg3D.match3D(msg);
 
-//        object_pub.publish(object_id);
+        this->resulting_id();
     }
+}
+
+
+void LearnerRecognizerNode::resulting_id()
+{
+    //choose the object id and publish it
+    if(this->object_id[0]==this->object_id[1])
+        object_pub.publish(object_id[0]);
+    else
+        object_pub.publish(object_id[1]);
+
 }

@@ -87,6 +87,7 @@ private:
 
     int number_views;
 
+    int object_id;
 };
 
 #endif //ALGORITHM_3D_H
