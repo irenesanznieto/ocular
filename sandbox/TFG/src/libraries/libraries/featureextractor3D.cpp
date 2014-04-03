@@ -13,8 +13,12 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features(const sensor_msg
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_msg ( new pcl::PointCloud<pcl::PointXYZ>);
     pcl::fromROSMsg(*msg, *pcl_msg);
+
+
     // Create the PFH estimation class, and pass the input dataset+normals to it
     pcl::PFHEstimation<pcl::PointXYZ, pcl::Normal, pcl::PFHSignature125> pfh;
+
+
     pfh.setInputCloud (pcl_msg);
 
 

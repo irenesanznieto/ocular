@@ -21,7 +21,7 @@ void RoiSegmenter3DNode:: hand_name_cb(const TFG::EventHandlerConstPtr & msg)
 void RoiSegmenter3DNode :: point_cloud_cb (const sensor_msgs::PointCloud2ConstPtr &msg)
 {
     sensor_msgs::PointCloud2 result=roiSegmenter3D.segment(msg);
-    if (!result.data.empty())
+//    if (!result.data.empty())
         point_cloud_pub.publish(result);
 
 }

@@ -100,23 +100,13 @@ void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg, int number
         //add the new view to the descriptors matrix
         image_cv.convertTo(image_cv,CV_32F);
 
-        std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
+//        std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
         descriptors[this->object_number].push_back(image_cv);
     }
 }
 
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!
 
-
-
-//void Algorithm2D::train3D ()
-//{
-//    //train 3D features
-
-//    //store template
-
-//    //store algorithm
-//}
 
 void Algorithm2D ::set_new_object(bool new_object)
 {
@@ -248,4 +238,9 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
 
     //    std::cerr<<"Ratio recognized object: "<<ratio[this->matched_object_id]<<std::endl;
     return ratio[this->matched_object_id];
+}
+
+int Algorithm2D::get_number_template()
+{
+    return this->object_number;
 }

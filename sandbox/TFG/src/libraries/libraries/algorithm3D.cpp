@@ -121,3 +121,8 @@ int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
 
     return matched_object_id;
 }
+
+int Algorithm3D::get_number_template()
+{
+    return this->object_number;
+}

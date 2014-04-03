@@ -11,8 +11,6 @@
 #include <pcl/io/pcd_io.h>
 
 
-
-
 #include <opencv2/opencv.hpp>
 #include <ros/ros.h>
 

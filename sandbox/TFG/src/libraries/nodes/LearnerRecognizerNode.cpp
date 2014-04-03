@@ -46,14 +46,10 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
             this->alg3D.set_new_object(true);
 
         }
-        //            else if (msg->last_event!="recognize" && this->learn==false)   //If last event was learn
-        //            {
-        //                this->learn=true;
-        //                alg2D.set_new_object(true);  //We are still learning views of the object
-        //            }
         else
         {
             this->alg2D.set_new_object(false);  //We are still learning views of the object
+            this->alg3D.set_new_object(false);  //We are still learning views of the object
         }
 
     }
@@ -84,7 +80,7 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
         if (number_views_it[0]<number_views[0])
         {
-            std::cerr<<"TRAINING VIEW 2D "<< number_views_it[0]<<std::endl;
+            std::cerr<<"*** 2D *** ----> TRAINING OBJECT "<<alg2D.get_number_template()<<"VIEW  "<< number_views_it[0]<<std::endl;
             alg2D.add_descriptors(msg, number_views_it[0]);
             number_views_it[0] ++;
             sleep(1);
@@ -123,7 +119,8 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
         if (number_views_it[1]<number_views[1])
         {
-            std::cerr<<"TRAINING VIEW 3D "<< number_views_it[1]<<std::endl;
+            std::cerr<<"*** 3D *** ----> TRAINING OBJECT "<<alg3D.get_number_template()<<"VIEW  "<< number_views_it[1]<<std::endl;
+
             alg3D.add_descriptors(msg, number_views_it[1]);
             number_views_it[1] ++;
             sleep(1);

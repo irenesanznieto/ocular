@@ -64,6 +64,9 @@ public:
 
     int get_number_views ();
 
+    int get_number_template();  /** Returns the number of the template being currently learned */
+
+
 private:
 
     std::vector<cv::FlannBasedMatcher >alg2D;   /** Vector of FlannBasedMatcher algorithms, one per object */

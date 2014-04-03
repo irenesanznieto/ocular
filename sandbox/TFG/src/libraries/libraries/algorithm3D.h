@@ -65,6 +65,9 @@ public:
 
     void add_descriptors(const sensor_msgs::PointCloud2ConstPtr & , int );
 
+    int get_number_template();  /** Returns the number of the template being currently learned */
+
+
 private:
 
     std::vector <pcl::KdTreeFLANN<pcl::PFHSignature125> >alg3D;
