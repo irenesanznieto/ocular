@@ -63,6 +63,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features(const sensor_msg
     pcl::toROSMsg(*pfhs, result );
 
     return result;
+
 }
 
 

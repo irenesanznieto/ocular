@@ -16,5 +16,8 @@ void RoiSegmenter2DNode::hand_coordinates_2D_cb(const TFG::HandLocPxConstPtr &ms
 
 void RoiSegmenter2DNode::original_image_cb(const sensor_msgs::ImageConstPtr &msg)
 {
-    hands_images_pub.publish(roiSegmenter2D.segment(msg));
+    TFG::HandImage result=roiSegmenter2D.segment(msg);
+
+    if (!result.image.empty())
+        hands_images_pub.publish(result);
 }

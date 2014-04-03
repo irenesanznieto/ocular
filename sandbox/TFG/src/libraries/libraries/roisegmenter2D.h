@@ -68,7 +68,8 @@ public:
     /**
      * @brief Checks if the 2D coordinates received are inside the screen's limits.
      */
-    void checkLimits(int & , int& );
+//    void checkLimits(int & , int& );
+    bool checkLimits(int & , int& );
 
 
     TFG::HandLocPx getHandLocPx();

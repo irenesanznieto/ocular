@@ -12,7 +12,9 @@ void FeatureExtractor2DNode::input_image_cb (const TFG::HandImageConstPtr &msg)
 {
     try
     {
-    descriptors_pub.publish(fe2D.extract_features(msg));
+        TFG::HandImage result=fe2D.extract_features(msg);
+        if(!result.image.empty())
+            descriptors_pub.publish(result);
     }
     catch(std::exception & e)
     {}

@@ -82,7 +82,7 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
     if(this->learn[0])
     {
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
-        if (number_views_it<number_views)
+        if (number_views_it[0]<number_views[0])
         {
             std::cerr<<"TRAINING VIEW 2D "<< number_views_it[0]<<std::endl;
             alg2D.add_descriptors(msg, number_views_it[0]);
@@ -90,7 +90,7 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
             sleep(1);
 
         }
-        else if (number_views_it==number_views)
+        else if (number_views_it[0]==number_views[0])
         {
             //when the iterator is equal to the total number of views, reset the iterator
             number_views_it[0]=0;
