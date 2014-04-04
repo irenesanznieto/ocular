@@ -55,7 +55,7 @@ public:
 
     void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
 
-    void add_descriptors(const TFG::HandImageConstPtr &, int number_view);
+    void add_descriptors(TFG::HandImage);
 
     int match2D(const TFG::HandImageConstPtr & msg);
 

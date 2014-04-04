@@ -123,8 +123,12 @@ TEST_F(EventHandlerTest , select_event_hand)
     TFG::EventHandler result;
     result=events.select_event_hand(msg);
 
-//    EXPECT_EQ (1, variable);
+    EXPECT_EQ ("recognize", result.event);
+    EXPECT_EQ ("recognize", result.last_event);
+
+
 }
+
 
 
 

@@ -77,16 +77,16 @@ int Algorithm2D::get_number_views ()
 }
 
 
-void Algorithm2D::add_descriptors(const TFG::HandImageConstPtr & msg, int number_view)
+void Algorithm2D::add_descriptors( TFG::HandImage msg)
 {
 
     //convert from ros image msg to opencv image
     cv_bridge::CvImagePtr cv_ptr;
-    for (unsigned int i=0; i<msg->image.size(); i++)
+    for (unsigned int i=0; i<msg.image.size(); i++)
     {
         try
         {
-            cv_ptr = cv_bridge::toCvCopy(msg->image[i], sensor_msgs::image_encodings::MONO8);
+            cv_ptr = cv_bridge::toCvCopy(msg.image[i], sensor_msgs::image_encodings::MONO8);
         }
         catch (cv_bridge::Exception& e)
         {
@@ -116,7 +116,6 @@ void Algorithm2D ::set_new_object(bool new_object)
     {
         descriptors.push_back(std::vector<cv::Mat> ());
         alg2D.push_back(cv::FlannBasedMatcher ());
-
         //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
     }
 
