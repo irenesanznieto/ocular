@@ -9,7 +9,7 @@ class EventHandler
 {
 public:
     EventHandler();
-    TFG::EventHandler select_event_hand(const pi_tracker::SkeletonConstPtr & );
+    TFG::EventHandler select_event_hand( pi_tracker::Skeleton );
 
 private:
     std::string last_event;

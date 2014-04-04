@@ -9,6 +9,6 @@ EventHandlerNode::EventHandlerNode()
 
 void EventHandlerNode::event_cb(const pi_tracker::SkeletonConstPtr &msg)
 {
-    event_pub.publish(eventHandler.select_event_hand(msg));
+    event_pub.publish(eventHandler.select_event_hand(*msg));
 }
 

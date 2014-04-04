@@ -5,22 +5,22 @@ EventHandler::EventHandler()
     this->last_event="recognize";
 }
 
-TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonConstPtr & msg)
+TFG::EventHandler EventHandler::select_event_hand( pi_tracker::Skeleton msg)
 {
     TFG::EventHandler event;
 
     event.last_event=this->last_event;
 
     pcl::PointXYZ left_hand;
-    left_hand.x=msg->position[5].x;
-    left_hand.y=msg->position[5].y;
-    left_hand.z=msg->position[5].z;
+    left_hand.x=msg.position[5].x;
+    left_hand.y=msg.position[5].y;
+    left_hand.z=msg.position[5].z;
 
 
     pcl::PointXYZ right_hand;
-    right_hand.x=msg->position[8].x;
-    right_hand.y=msg->position[8].y;
-    right_hand.z=msg->position[8].z;
+    right_hand.x=msg.position[8].x;
+    right_hand.y=msg.position[8].y;
+    right_hand.z=msg.position[8].z;
 
     float max_distance_to_kinect;
 
@@ -59,7 +59,7 @@ TFG::EventHandler EventHandler::select_event_hand(const pi_tracker::SkeletonCons
 
 
 
-//    ROS_ERROR("left hand: %f  right hand: %f", msg->position[5].z, msg->position[8].z);
+//    ROS_ERROR("left hand: %f  right hand: %f", msg.position[5].z, msg.position[8].z);
 //    ROS_ERROR("right-left: %f ",right_hand.z - left_hand.z);
 
 
