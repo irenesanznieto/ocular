@@ -114,28 +114,28 @@ TEST_F(RoiSegmenter2DTest,checkLimits)
     int x=660;
     int y=500;
 
-    roiseg2D.checkLimits(x,y);
+    bool out=roiseg2D.checkLimits(x,y);
 
-    EXPECT_EQ(640, x);
-    EXPECT_EQ(480, y);
+    EXPECT_EQ(true, out);
+    EXPECT_EQ(true, out);
 
 
     x=-20;
     y=-100;
 
-    roiseg2D.checkLimits(x,y);
+   out= roiseg2D.checkLimits(x,y);
 
-    EXPECT_EQ(0, x);
-    EXPECT_EQ(0, y);
+    EXPECT_EQ(true,out);
+    EXPECT_EQ(true, out);
 
 
     x=20;
     y=100;
 
-    roiseg2D.checkLimits(x,y);
+    out=roiseg2D.checkLimits(x,y);
 
-    EXPECT_EQ(20, x);
-    EXPECT_EQ(100, y);
+    EXPECT_EQ(false, out);
+    EXPECT_EQ(false, out);
 }
 
 TEST_F(RoiSegmenter2DTest,coordinates)
