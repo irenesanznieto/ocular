@@ -16,11 +16,11 @@ public:
     }
 };
 
-TEST_F(Algorithm2DTest,segment)
-{
+//TEST_F(Algorithm2DTest,segment)
+//{
 
-    //    EXPECT_EQ (1, variable);
-}
+//    //    EXPECT_EQ (1, variable);
+//}
 
 
 

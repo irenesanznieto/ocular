@@ -16,11 +16,11 @@ public:
     }
 };
 
-TEST_F(DataParserTest,segment)
-{
+//TEST_F(DataParserTest,segment)
+//{
 
-    //    EXPECT_EQ (1, variable);
-}
+//    //    EXPECT_EQ (1, variable);
+//}
 
 
 

@@ -16,11 +16,11 @@ public:
     }
 };
 
-TEST_F(Algorithm3DTest,segment)
-{
+//TEST_F(Algorithm3DTest,segment)
+//{
 
-    //    EXPECT_EQ (1, variable);
-}
+//    //    EXPECT_EQ (1, variable);
+//}
 
 
 

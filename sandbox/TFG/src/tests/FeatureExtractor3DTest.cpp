@@ -16,11 +16,11 @@ public:
     }
 };
 
-TEST_F(FeatureExtractor3DTest,segment)
-{
+//TEST_F(FeatureExtractor3DTest,segment)
+//{
 
-    //    EXPECT_EQ (1, variable);
-}
+//    //    EXPECT_EQ (1, variable);
+//}
 
 
 

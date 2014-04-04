@@ -80,14 +80,27 @@ target_link_libraries(learner_recognizer custom_libs)
 #target_link_libraries(dummy custom_libs)
 
 #GTESTS:
-rosbuild_add_gtest(test/TestConverter src/tests/ConverterTest.cpp)
-rosbuild_add_gtest(test/TestROISegmenter3D src/tests/RoiSegmenter3DTest.cpp)
-rosbuild_add_gtest(test/TestROISegmenter2D src/tests/RoiSegmenter2DTest.cpp)
-rosbuild_add_gtest(test/TestFeatureExtractor2D src/tests/FeatureExtractor2DTest.cpp)
+rosbuild_add_gtest(TestConverter src/tests/ConverterTest.cpp)
+rosbuild_add_gtest(TestROISegmenter3D src/tests/RoiSegmenter3DTest.cpp)
+rosbuild_add_gtest(TestROISegmenter2D src/tests/RoiSegmenter2DTest.cpp)
+rosbuild_add_gtest(TestFeatureExtractor2D src/tests/FeatureExtractor2DTest.cpp)
 
-target_link_libraries(test/TestConverter custom_libs)
-target_link_libraries(test/TestROISegmenter3D custom_libs)
-target_link_libraries(test/TestROISegmenter2D custom_libs)
-target_link_libraries(test/TestFeatureExtractor2D custom_libs)
+rosbuild_add_gtest(TestAlgorithm2D src/tests/Algorithm2DTest.cpp)
+rosbuild_add_gtest(TestAlgorithm3D src/tests/Algorithm3DTest.cpp)
+rosbuild_add_gtest(TestDataParser src/tests/DataParserTest.cpp)
+rosbuild_add_gtest(TestFeatureExtractor3D src/tests/FeatureExtractor3DTest.cpp)
+rosbuild_add_gtest(TestEventHandler src/tests/EventHandlerTest.cpp)
 
+
+
+target_link_libraries(TestConverter custom_libs)
+target_link_libraries(TestROISegmenter3D custom_libs)
+target_link_libraries(TestROISegmenter2D custom_libs)
+target_link_libraries(TestFeatureExtractor2D custom_libs)
+
+target_link_libraries(TestAlgorithm2D  custom_libs)
+target_link_libraries(TestAlgorithm3D  custom_libs)
+target_link_libraries(TestDataParser custom_libs)
+target_link_libraries(TestFeatureExtractor3D custom_libs)
+target_link_libraries(TestEventHandler custom_libs)
 
