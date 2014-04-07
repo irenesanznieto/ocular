@@ -68,7 +68,6 @@ void Algorithm3D ::set_new_object(bool new_object)
     {
         descriptors.push_back(std::vector<sensor_msgs::PointCloud2> ());
         alg3D.push_back(pcl::KdTreeFLANN <pcl::PFHSignature125> ());
-
         //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
     }
 
@@ -117,7 +116,11 @@ int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
         ratio[i]=std::distance(correspondences_out.begin(), std::max_element(correspondences_out.begin(), correspondences_out.end()));
     }
 
-    this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+    if (ratio.size()>0)
+        this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+
+    else
+        this->matched_object_id=-1;
 
     return matched_object_id;
 }
