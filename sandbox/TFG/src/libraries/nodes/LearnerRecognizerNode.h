@@ -47,6 +47,8 @@ private:
 
     std::vector <int> object_id;
 
+    bool view3D_taken(bool, int);
+
 };
 
 #endif // LEARNERRECOGNIZERNODE_H

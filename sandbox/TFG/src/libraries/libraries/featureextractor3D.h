@@ -52,16 +52,28 @@
 //PFH INCLUDES:
 #include <pcl/io/io.h>
 #include <pcl/point_types.h>
+#include <pcl/features/normal_3d.h>
+
+//pfh:
 #include <pcl/features/pfh.h>
 
-#include <pcl/features/normal_3d.h>
+//fpfh:
+#include <pcl/features/fpfh.h>
+
+#include <pcl/filters/voxel_grid.h>
 
 class FeatureExtractor3D
 {
 public:
 
     FeatureExtractor3D();
-    sensor_msgs::PointCloud2  extract_features(const sensor_msgs::PointCloud2ConstPtr& msg);
+    sensor_msgs::PointCloud2  extract_features(std::string, const sensor_msgs::PointCloud2ConstPtr& msg);
+
+private:
+    sensor_msgs::PointCloud2  extract_features_pfh(const sensor_msgs::PointCloud2ConstPtr& msg);
+    sensor_msgs::PointCloud2  extract_features_fpfh(const sensor_msgs::PointCloud2ConstPtr& msg);
+
+
 };
 
 #endif //FEATURE_EXTRACTOR_3D_H
