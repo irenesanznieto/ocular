@@ -9,5 +9,5 @@ FeatureExtractor3DNode::FeatureExtractor3DNode()
 
 void FeatureExtractor3DNode:: segmented_pc_cb (const sensor_msgs::PointCloud2ConstPtr &msg)
 {
-    descriptors_pub.publish(fe3D.extract_features("fpfh", msg));
+    descriptors_pub.publish(fe3D.extract_features("pfh", msg));
 }

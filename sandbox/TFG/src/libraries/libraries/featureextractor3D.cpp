@@ -17,14 +17,14 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const senso
 {
     sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
 
-    std::cerr << "Original input msg size: "<<msg_in->data.size()<<std::endl;
+//    //std::cerr << "Original input msg size: "<<msg_in->data.size()<<std::endl;
     //Downsample point cloud:
     pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
     sor.setInputCloud (msg_in);
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*msg);
 
-    std::cerr << "Downsampled input msg size: "<<msg->data.size()<<std::endl;
+//    //std::cerr << "Downsampled input msg size: "<<msg->data.size()<<std::endl;
 
     pcl::PointCloud<pcl::Normal>::Ptr normals (new pcl::PointCloud<pcl::Normal> ());
 
@@ -33,7 +33,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const senso
 
    //Normal:
 
-        std::cerr<<"NORMAL COMPUTATION"<<std::endl;
+        //std::cerr<<"NORMAL COMPUTATION"<<std::endl;
 
     pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> norm_est;
 
@@ -73,7 +73,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const senso
 
     // Compute the features
     fpfh.compute (*fpfhs);
-    std::cerr<<"FEATURE COMPUTATION FNISHED"<<std::endl;
+    //std::cerr<<"FEATURE COMPUTATION FNISHED"<<std::endl;
 
 
     sensor_msgs::PointCloud2 result;
@@ -82,9 +82,20 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const senso
     return result;
 }
 
-sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor_msgs::PointCloud2ConstPtr & msg)
+sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor_msgs::PointCloud2ConstPtr & msg_in)
 {
     // COMPUTE PFH ONLY AT KEYPOINTS??  /Desktop/PFH Demo
+
+
+    sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
+
+//    std::cerr << "Original input msg size: "<<msg_in->data.size()<<std::endl;
+    //Downsample point cloud:
+    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
+    sor.setInputCloud (msg_in);
+    sor.setLeafSize (0.01f, 0.01f, 0.01f);
+    sor.filter (*msg);
+
     //PFH:
     pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_msg ( new pcl::PointCloud<pcl::PointXYZ>);
     pcl::fromROSMsg(*msg, *pcl_msg);
@@ -92,7 +103,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
     pcl::PointCloud<pcl::Normal>::Ptr normals_out (new pcl::PointCloud<pcl::Normal> ());
     //Normal:
 
-        std::cerr<<"NORMAL COMPUTATION"<<std::endl;
+        //std::cerr<<"NORMAL COMPUTATION"<<std::endl;
 
     pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> norm_est;
 
@@ -110,12 +121,12 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
     // Estimate the surface normals and store the result in "normals_out"
     norm_est.compute (*normals_out);
 
-    std::cerr<<"NORMAL ESTIMATION DONE"<<std::endl;
+    //std::cerr<<"NORMAL ESTIMATION DONE"<<std::endl;
 
     // Descriptors:
     // Create a PFHEstimation object
     pcl::PFHEstimation<pcl::PointXYZ, pcl::Normal, pcl::PFHSignature125> pfh_est;
-    std::cerr<<"PFH ESTIMATION"<<std::endl;
+    //std::cerr<<"PFH ESTIMATION"<<std::endl;
 
     const pcl::search::KdTree<pcl::PointXYZ>::Ptr tree2 (new pcl::search::KdTree<pcl::PointXYZ> ());
 
@@ -135,7 +146,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
     pcl::PointCloud<pcl::PFHSignature125>::Ptr descriptors_out(new pcl::PointCloud<pcl::PFHSignature125> ());
     pfh_est.compute (*descriptors_out);
 
-    std::cerr<<"PFH ESTIMATION DONE"<<std::endl;
+    //std::cerr<<"PFH ESTIMATION DONE"<<std::endl;
 
     sensor_msgs::PointCloud2 result;
     pcl::toROSMsg(*descriptors_out, result );
@@ -147,7 +158,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
 
 
 
-    ////    std::cerr<<"Input message size: "<<msg->data.size()<<std::endl<<"After fromROSMsg cloud size: "<<pcl_msg->size()<<std::endl;
+    ////    //std::cerr<<"Input message size: "<<msg->data.size()<<std::endl<<"After fromROSMsg cloud size: "<<pcl_msg->size()<<std::endl;
 
     //    // Create the normal estimation class, and pass the input dataset to it
     //    pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> ne;
@@ -173,7 +184,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
     //    ne.compute (*normals);
 
 
-    //    std::cerr<<"3D ----> Normals computed"<<std::endl;
+    //    //std::cerr<<"3D ----> Normals computed"<<std::endl;
 
     //    pfh.setInputNormals (normals);
     //    // alternatively, if cloud is of tpe PointNormal, do pfh.setInputNormals (cloud);
@@ -192,12 +203,12 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
     //    // IMPORTANT: the radius used here has to be larger than the radius used to estimate the surface normals!!!
     //    pfh.setRadiusSearch (0.05);
 
-    //    std::cerr<<"3D ----> Parameters setted"<<std::endl;
+    //    //std::cerr<<"3D ----> Parameters setted"<<std::endl;
 
     //    // Compute the features
     //    pfh.compute (*pfhs);
 
-    //    std::cerr<<"3D ----> Features computed"<<std::endl;
+    //    //std::cerr<<"3D ----> Features computed"<<std::endl;
 
     //    sensor_msgs::PointCloud2 result;
     //    pcl::toROSMsg(*pfhs, result );

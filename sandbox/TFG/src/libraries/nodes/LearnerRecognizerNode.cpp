@@ -115,11 +115,8 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 
 void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
-    std::cerr<<"-------------------------> 1. Learn[1]="<<learn[1]<<std::endl;
-
-    if(this->learn[1]==true)
+    if(this->learn[1])
     {
-        std::cerr<<"---------------------> 2. Learn[1]="<<learn[1]<<std::endl;
 
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
         if (number_views_it[1]<number_views[1])
@@ -147,8 +144,6 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
         else
             std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
     }
-
-
     else if (!this->learn[1])      //If the mode is recognize
     {
         //    match & publish the resulting object ID
