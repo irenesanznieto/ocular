@@ -34,21 +34,21 @@ void Algorithm3D::set_number_views (int number_views)
 
     //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
     //Load the previously stored templates if there are any
-    if(dataparser.getNumberTemplates()>1)
-    {
-        dataparser.getTemplates(number_views,this->descriptors);
-    }
+//    if(dataparser.getNumberTemplates()>1)
+//    {
+//        dataparser.getTemplates(number_views,this->descriptors);
+//    }
 
-    for (unsigned int i=0; i<descriptors.size(); i++)
-        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+//    for (unsigned int i=0; i<descriptors.size(); i++)
+//        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
 
 
-    this->set_new_object(true);
+//    this->set_new_object(true);
 
-    this->alg3D.resize(descriptors.size());
+//    this->alg3D.resize(descriptors.size());
 
-    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
-    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
+//    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
+//    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
 }
 
 
@@ -81,46 +81,70 @@ int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
     pcl::PointCloud<pcl::PFHSignature125>::Ptr msg_pcl (new pcl::PointCloud<pcl::PFHSignature125> ());
     pcl::fromROSMsg(*msg, *msg_pcl);
 
+
     pcl::PointCloud<pcl::PFHSignature125>::Ptr cloud (new pcl::PointCloud<pcl::PFHSignature125> ());
 
     std::vector<int> ratio;
     ratio.resize(descriptors.size());
 
+
+    //segmentation fault here :S xD:
+
     //match3D
     for (unsigned int i=0; i<alg3D.size(); i++)
     {
+
+        std::cerr<<"iteration "<<i<<std::endl;
 
         // Resize the output vector
         std::vector<int> correspondences_out;
         std::vector<float> correspondence_scores_out;
 
+        std::cerr<<"iteration "<<i<<std::endl;
+
         correspondences_out.resize (descriptors[i].size ());
         correspondence_scores_out.resize (descriptors[i].size ());
 
+        std::cerr<<"iteration "<<i<<std::endl;
+
         // Use a KdTree to search for the nearest matches in feature space
-        alg3D[i].setInputCloud (msg_pcl);
+        std::cerr<<"Algorithm size: "<<alg3D.size()<<std::endl
+                <<"input cloud size: "<<msg_pcl->size()<<std::endl;
+
+        alg3D[i].setInputCloud(msg_pcl);
+
+        std::cerr<<"iteration "<<i<<std::endl;
 
         // Find the index of the best match for each keypoint, and store it in "correspondences_out"
         const int k = 1;
         std::vector<int> k_indices (k);
         std::vector<float> k_squared_distances (k);
+
+        std::cerr<<"iteration "<<i<<std::endl;
+
+
         for (size_t j = 0; j < descriptors[i].size (); ++j)
         {
             pcl::fromROSMsg(descriptors[i][j], *cloud);
             //            alg3D[i].nearestKSearch (*cloud, j, k, k_indices, k_squared_distances);
             alg3D[i].radiusSearch(*cloud, j, k, k_indices, k_squared_distances);
+            //            cloud.reset();
 
             correspondences_out[j] = k_indices[0];
             correspondence_scores_out[j] = k_squared_distances[0];
         }
+        std::cerr<<"iteration "<<i<<std::endl;
+
         ratio[i]=std::distance(correspondences_out.begin(), std::max_element(correspondences_out.begin(), correspondences_out.end()));
     }
+
 
     if (ratio.size()>0)
         this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
 
     else
         this->matched_object_id=-1;
+
 
     return matched_object_id;
 }
