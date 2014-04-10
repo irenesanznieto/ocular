@@ -26,6 +26,11 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 
+//trying:
+#include <stdio.h>  /* defines FILENAME_MAX */
+#include <unistd.h>
+
+
 //* DataParser
 /**
 * Performs the saving and loading of the different templates and algorithms.
@@ -81,7 +86,7 @@ private:
 
     void save_descriptor(cv::Mat &, std::string );
 
-
+    std::string getexepath();
 
 
 };

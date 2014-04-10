@@ -2,13 +2,8 @@
 
 DataParser::DataParser()
 {
-    //    try{
     pkg_main_path=get_path_to_pkg();
-    //    }
-    //    catch (std::length_error  e)
-    //    {
-    //        ROS_ERROR("EXCEPTION 1");
-    //    }
+
     algorithms_2D_path=pkg_main_path+"/data/algorithms/2D/";
 
 
@@ -18,7 +13,7 @@ DataParser::DataParser()
 
 
     //create the templates folder
-    std::string mkdir="mkdir ";
+    std::string mkdir="mkdir -p ";
     std::string dummy=mkdir+templates_path;
     system(dummy.c_str());
 
@@ -37,30 +32,17 @@ DataParser::DataParser()
 
 }
 
+std::string DataParser::getexepath()
+{
+    char result[ PATH_MAX ];
+    ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX );
+    return  std::string( result, (count > 0) ? count : 0 );
+}
 
 std::string DataParser::get_path_to_pkg()
 {
-    //search for a certain library in order to obtain the full path
-    //    std::string sys_command="find . -print | grep 'sandbox/TFG/src/libraries/libraries/dataparser.h' > ~/dummy.txt";
-    //    system(sys_command.c_str());
-
-    //    std::string path;
-    //    std::ifstream myfile;
-    //    myfile.open ("~/dummy.txt");
-    //    std::getline( myfile, path);
-    //    myfile.close();
-
-    //    system ("rm ~/dummy.txt");
-
-    //    //remove the last part (/src/libraries/libraries/dataparser.h)
-    //    path.erase(path.end()-37, path.end());
-
-    //    //remove the beginning (./)
-    //    path.erase(path.begin(), path.begin()+2);
-
-
-    std::string path="/home/peko/tfg_git/sandbox/TFG";
-
+    std::string path=getexepath();
+    path.erase(path.end()-23, path.end());
     return path;
 }
 
@@ -316,41 +298,41 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
 
 void DataParser:: getTemplates (int number_views, std::vector<std::vector<sensor_msgs::PointCloud2> > & descriptors)
 {
-//    //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
-//    std::vector<std::string> templates=this->get_file_names(templates_path);
-//    if(templates.size()>0)
-//    {
-//        //the number of objects is the size of the previous vector
-//        int total_objects=templates.size()/number_views;
+    //    //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
+    //    std::vector<std::string> templates=this->get_file_names(templates_path);
+    //    if(templates.size()>0)
+    //    {
+    //        //the number of objects is the size of the previous vector
+    //        int total_objects=templates.size()/number_views;
 
-//        std::stringstream path;
+    //        std::stringstream path;
 
-//        //the size of the descriptors matrix will be the same as the objects in the folder
-//        descriptors.resize(total_objects);
+    //        //the size of the descriptors matrix will be the same as the objects in the folder
+    //        descriptors.resize(total_objects);
 
 
-//        int object_number=0;
-//        int counter=0;
-//        for (int j=0; j<total_objects; j++ )
-//        {
-//            //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
-//            for (unsigned int i=0; i<number_views; i++)
-//            {
-//                //                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
-//                descriptors[j].push_back(this->load_descriptor(templates[counter]));
+    //        int object_number=0;
+    //        int counter=0;
+    //        for (int j=0; j<total_objects; j++ )
+    //        {
+    //            //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
+    //            for (unsigned int i=0; i<number_views; i++)
+    //            {
+    //                //                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
+    //                descriptors[j].push_back(this->load_descriptor(templates[counter]));
 
-//                if(i==number_views-1)
-//                    object_number++;
+    //                if(i==number_views-1)
+    //                    object_number++;
 
-//                counter++;
-//            }
+    //                counter++;
+    //            }
 
-//            //            std::cerr<<"descriptors[j].size(): "<<descriptors[j].size()<<std::endl;
-//        }
+    //            //            std::cerr<<"descriptors[j].size(): "<<descriptors[j].size()<<std::endl;
+    //        }
 
-//        //        std::cerr<<"dataparser: descriptors.size(): "<<descriptors.size()<<std::endl;
+    //        //        std::cerr<<"dataparser: descriptors.size(): "<<descriptors.size()<<std::endl;
 
-//    }
+    //    }
 }
 
 
