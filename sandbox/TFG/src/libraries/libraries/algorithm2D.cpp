@@ -9,7 +9,6 @@ Algorithm2D::Algorithm2D()
     this->object_number=0;
     descriptors.resize(1);
     alg2D.resize(1);
-
 }
 
 Algorithm2D::~Algorithm2D()
@@ -45,19 +44,18 @@ void Algorithm2D::load_templates()
     if(dataparser.getNumberTemplates()>1)
     {
         dataparser.getTemplates(number_views,this->descriptors);
+        this->next_object();
+
+
+        for (unsigned int i=0; i<descriptors.size(); i++)
+            std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+
+        this->alg2D.resize(descriptors.size());
+
+        std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
+        std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
+
     }
-
-    for (unsigned int i=0; i<descriptors.size(); i++)
-        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
-
-
-    //    this->set_new_object(true);
-
-    this->alg2D.resize(descriptors.size());
-
-    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
-    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
-
 }
 
 int Algorithm2D::get_number_views ()

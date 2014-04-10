@@ -275,6 +275,8 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
 {
     //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
     std::vector<std::string> templates=this->get_file_names(templates_path);
+    templates.erase(templates.end());
+
     if(templates.size()>0)
     {
         //the number of objects is the size of the previous vector

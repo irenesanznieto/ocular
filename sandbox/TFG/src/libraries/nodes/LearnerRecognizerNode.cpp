@@ -16,6 +16,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
     this->alg2D.set_number_views(this->number_views2D); //pass the number of views to the algorithm 2D
 
+    this->alg2D.load_templates();
+
     this->alg3D.set_number_views(this->number_views3D); //pass the number of views to the algorithm 3D
 
     //Initialize the iterator of the number of views
