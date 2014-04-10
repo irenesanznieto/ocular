@@ -14,16 +14,19 @@ Algorithm2D::Algorithm2D()
 
 Algorithm2D::~Algorithm2D()
 {
-    //    for (unsigned int i=0; i<descriptors.size(); i++)
-    //    {
-    //        while (descriptors[i].size()< this->number_views)
-    //        {
-    //            //            std::cerr<<"Object: "<<i<<"descriptor[i].size(): "<<descriptors[i].size()<<std::endl;
-    //            descriptors[i].push_back(descriptors[i][0]);
-    //        }
-    //        dataparser.save_template(descriptors[i],i);
-    //        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
-    //    }
+    std::cerr<<std::endl<<"SAVING TEMPLATES 2D: "<<std::endl<<std::flush;
+    for (unsigned int i=0; i<descriptors.size(); i++)
+    {
+        if(descriptors[i].size()<this->number_views)
+        {
+            descriptors.erase(descriptors.begin()+i-1);
+        }
+        else
+        {
+            dataparser.save_template(descriptors[i],i);
+            std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
+        }
+    }
 }
 
 
@@ -36,23 +39,24 @@ void Algorithm2D::set_number_views (int number_views)
 void Algorithm2D::load_templates()
 {
 
-    //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
-    //Load the previously stored templates if there are any
-    //    if(dataparser.getNumberTemplates()>1)
-    //    {
-    //       dataparser.getTemplates(number_views,this->descriptors);
-    //    }
+    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
+    //    Load the previously stored templates if there are any
 
-    //    for (unsigned int i=0; i<descriptors.size(); i++)
-    //        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+    if(dataparser.getNumberTemplates()>1)
+    {
+        dataparser.getTemplates(number_views,this->descriptors);
+    }
+
+    for (unsigned int i=0; i<descriptors.size(); i++)
+        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
 
 
-    ////    this->set_new_object(true);
+    //    this->set_new_object(true);
 
-    //    this->alg2D.resize(descriptors.size());
+    this->alg2D.resize(descriptors.size());
 
-    //        std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
-    //    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
+    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
+    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
 
 }
 
@@ -69,31 +73,36 @@ void Algorithm2D::next_object()
     this->object_number=descriptors.size()-1;
 }
 
-void Algorithm2D::add_descriptors( TFG::HandImage msg)
+bool Algorithm2D::add_descriptors( TFG::HandImage msg)
 {
     //convert from ros image msg to opencv image
     cv_bridge::CvImagePtr cv_ptr;
-    for (unsigned int i=0; i<msg.image.size(); i++)
+
+    try
     {
-        try
-        {
-            cv_ptr = cv_bridge::toCvCopy(msg.image[i], sensor_msgs::image_encodings::MONO8);
-        }
-        catch (cv_bridge::Exception& e)
-        {
-            ROS_ERROR("cv_bridge exception: %s", e.what());
-        }
-
-        cv::Mat image_cv=cv_ptr->image.clone();
-
-        //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
-
-        //add the new view to the descriptors matrix
-        image_cv.convertTo(image_cv,CV_32F);
-
-        //        std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
-        descriptors[this->object_number].push_back(image_cv);
+        cv_ptr = cv_bridge::toCvCopy(msg.image[0], sensor_msgs::image_encodings::MONO8);
     }
+    catch (cv_bridge::Exception& e)
+    {
+        ROS_ERROR("cv_bridge exception: %s", e.what());
+    }
+
+    cv::Mat image_cv=cv_ptr->image.clone();
+
+    //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
+
+    //add the new view to the descriptors matrix
+    image_cv.convertTo(image_cv,CV_32F);
+
+    //        std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
+    if(image_cv.empty())
+        return -1;
+    if(!image_cv.empty())
+    {
+        descriptors[this->object_number].push_back(image_cv);
+        return 0;
+    }
+
 }
 
 //REMEMBER TO CHANGE SET_NEW_OBJECT TO TRUE WHENEVER WE ARE LEARNING A NEW OBJECT!!!!!

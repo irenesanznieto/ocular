@@ -78,10 +78,13 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 
         if (number_views_it_2D<number_views2D)
         {
-            learning_2D=true;
-            std::cerr<<"*** 2D *** ----> TRAINING OBJECT "<<alg2D.get_number_template()<<" VIEW  "<< number_views_it_2D<<std::endl<<std::flush;
+            int result;
+            do{
+                learning_2D=true;
+                std::cerr<<"*** 2D *** ----> TRAINING OBJECT "<<alg2D.get_number_template()<<" VIEW  "<< number_views_it_2D<<std::endl<<std::flush;
+                result=alg2D.add_descriptors(*msg);
 
-            alg2D.add_descriptors(*msg);
+            }while(result<0);
 
             number_views_it_2D ++;
             sleep(1);
