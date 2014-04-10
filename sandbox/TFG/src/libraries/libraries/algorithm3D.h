@@ -63,9 +63,11 @@ public:
 
     void set_number_views (int);
 
-    void add_descriptors(const sensor_msgs::PointCloud2ConstPtr & , int );
+    void add_descriptors(const sensor_msgs::PointCloud2ConstPtr &  );
 
     int get_number_template();  /** Returns the number of the template being currently learned */
+
+    void resize_vectors();
 
 
 private:
@@ -74,6 +76,9 @@ private:
 
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
     std::vector<cv::FlannBasedMatcher> algorithms2D;
+
+
+
 
     int flann_comparison (cv::Mat &, float);
 
@@ -91,6 +96,8 @@ private:
     int number_views;
 
     int object_id;
+
+    bool matching;
 };
 
 #endif //ALGORITHM_3D_H

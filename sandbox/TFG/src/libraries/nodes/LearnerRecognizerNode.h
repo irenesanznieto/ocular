@@ -41,15 +41,21 @@ private:
 
 
     // In these vectors, the first position will be related to 2D and the second to 3D
-    std::vector<int> number_views; /** Stores the total number of views to be extracted of each object */
-    std::vector<int> number_views_it; /** Iterator that stores the current view number of the object */
-    std::vector<bool> learn; /** Boolean that is true when the received event is learn and false otherwise*/
+    int number_views2D; /** Stores the total number of views to be extracted of each object */
+    int number_views3D; /** Stores the total number of views to be extracted of each object */
 
-    std::vector <int> object_id;
+    int number_views_it_2D; /** Iterator that stores the current view number of the object */
+    int number_views_it_3D; /** Iterator that stores the current view number of the object */
 
-    bool view3D_taken(bool, int);
+    bool learn_2D; /** Boolean that is true when the received event is learn and false otherwise*/
+    bool learn_3D; /** Boolean that is true when the received event is learn and false otherwise*/
 
-    std::vector<bool> finished_learning;
+    int object_id_2D;
+    int object_id_3D;
+
+
+    bool learning_2D;
+    bool learning_3D;
 
 };
 

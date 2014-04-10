@@ -52,18 +52,23 @@ void Algorithm3D::set_number_views (int number_views)
 }
 
 
-void Algorithm3D::add_descriptors(const sensor_msgs::PointCloud2ConstPtr & msg, int number_view)
+void Algorithm3D::add_descriptors(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
     //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
-    //    std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
+    std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
     descriptors[this->object_number].push_back(*msg);
+    std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
+
 
 }
 
 void Algorithm3D ::set_new_object(bool new_object)
 {
     this->new_object=new_object;
+}
 
+void Algorithm3D::resize_vectors()
+{
     if(this->new_object)
     {
         descriptors.push_back(std::vector<sensor_msgs::PointCloud2> ());
@@ -71,12 +76,16 @@ void Algorithm3D ::set_new_object(bool new_object)
         //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
     }
 
-    this->object_number=descriptors.size()-1;
-}
+    std::cerr<<"resizing vectors to: "<<descriptors.size()<<std::endl<<std::flush;
 
+    this->object_number=descriptors.size()-1;
+
+}
 
 int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
+    std::cerr<<"match3D"<<std::endl<<std::flush;
+
     //transform to pcl format
     pcl::PointCloud<pcl::PFHSignature125>::Ptr msg_pcl (new pcl::PointCloud<pcl::PFHSignature125> ());
     pcl::fromROSMsg(*msg, *msg_pcl);
@@ -94,33 +103,34 @@ int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
     for (unsigned int i=0; i<alg3D.size(); i++)
     {
 
-        std::cerr<<"iteration "<<i<<std::endl;
+        std::cerr<<"iteration "<<i<<std::endl<<std::flush;
 
         // Resize the output vector
         std::vector<int> correspondences_out;
         std::vector<float> correspondence_scores_out;
 
-        std::cerr<<"iteration "<<i<<std::endl;
+        std::cerr<<"iteration "<<i<<std::endl<<std::flush;
 
         correspondences_out.resize (descriptors[i].size ());
         correspondence_scores_out.resize (descriptors[i].size ());
 
-        std::cerr<<"iteration "<<i<<std::endl;
+        std::cerr<<"iteration "<<i<<std::endl<<std::flush;
 
         // Use a KdTree to search for the nearest matches in feature space
         std::cerr<<"Algorithm size: "<<alg3D.size()<<std::endl
-                <<"input cloud size: "<<msg_pcl->size()<<std::endl;
+                <<"input cloud size: "<<msg_pcl->size()<<std::endl<<std::flush;
 
-        alg3D[i].setInputCloud(msg_pcl);
+        if (msg_pcl->size()<10000)  //to avoid errors?? check
+            alg3D[i].setInputCloud(msg_pcl);
 
-        std::cerr<<"iteration "<<i<<std::endl;
+        std::cerr<<"iteration "<<i<<std::endl<<std::flush;
 
         // Find the index of the best match for each keypoint, and store it in "correspondences_out"
         const int k = 1;
         std::vector<int> k_indices (k);
         std::vector<float> k_squared_distances (k);
 
-        std::cerr<<"iteration "<<i<<std::endl;
+        std::cerr<<"iteration "<<i<<std::endl<<std::flush;
 
 
         for (size_t j = 0; j < descriptors[i].size (); ++j)
@@ -133,7 +143,7 @@ int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
             correspondences_out[j] = k_indices[0];
             correspondence_scores_out[j] = k_squared_distances[0];
         }
-        std::cerr<<"iteration "<<i<<std::endl;
+        std::cerr<<"iteration "<<i<<std::endl<<std::endl<<std::flush;
 
         ratio[i]=std::distance(correspondences_out.begin(), std::max_element(correspondences_out.begin(), correspondences_out.end()));
     }

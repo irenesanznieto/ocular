@@ -7,69 +7,54 @@ Algorithm2D::Algorithm2D()
 
     //Initialize object_number to 0 so if there are no previous templates, the first object has ID 0
     this->object_number=0;
+    descriptors.resize(1);
+    alg2D.resize(1);
 
 }
 
-//Algorithm2D::Algorithm2D(int number_views)
-//{
-//    this->number_views=number_views;
-
-//    //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
-
-//    //Load the previously stored templates if there are any
-//    if(dataparser.getNumberTemplates()>1)
-//    {
-//        this->descriptors=dataparser.getTemplates();
-//    }
-
-//    for (unsigned int i=0; i<descriptors.size(); i++)
-//        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
-
-//    Algorithm2D();
-//}
-
-
 Algorithm2D::~Algorithm2D()
 {
-    for (unsigned int i=0; i<descriptors.size(); i++)
-    {
-        while (descriptors[i].size()< this->number_views)
-        {
-            //            std::cerr<<"Object: "<<i<<"descriptor[i].size(): "<<descriptors[i].size()<<std::endl;
-            descriptors[i].push_back(descriptors[i][0]);
-        }
-        dataparser.save_template(descriptors[i],i);
-        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
-    }
+    //    for (unsigned int i=0; i<descriptors.size(); i++)
+    //    {
+    //        while (descriptors[i].size()< this->number_views)
+    //        {
+    //            //            std::cerr<<"Object: "<<i<<"descriptor[i].size(): "<<descriptors[i].size()<<std::endl;
+    //            descriptors[i].push_back(descriptors[i][0]);
+    //        }
+    //        dataparser.save_template(descriptors[i],i);
+    //        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
+    //    }
 }
 
 
 void Algorithm2D::set_number_views (int number_views)
 {
     this->number_views=number_views;
+}
+
+
+void Algorithm2D::load_templates()
+{
 
     //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
     //Load the previously stored templates if there are any
-    if(dataparser.getNumberTemplates()>1)
-    {
-       dataparser.getTemplates(number_views,this->descriptors);
-    }
+    //    if(dataparser.getNumberTemplates()>1)
+    //    {
+    //       dataparser.getTemplates(number_views,this->descriptors);
+    //    }
 
-    for (unsigned int i=0; i<descriptors.size(); i++)
-        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
-
-
-    this->set_new_object(true);
-
-    this->alg2D.resize(descriptors.size());
-
-        std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
-    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
+    //    for (unsigned int i=0; i<descriptors.size(); i++)
+    //        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
 
 
+    ////    this->set_new_object(true);
+
+    //    this->alg2D.resize(descriptors.size());
+
+    //        std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
+    //    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
 
 }
-
 
 int Algorithm2D::get_number_views ()
 {
@@ -77,9 +62,15 @@ int Algorithm2D::get_number_views ()
 }
 
 
+void Algorithm2D::next_object()
+{
+    descriptors.push_back(std::vector<cv::Mat> ());
+    alg2D.push_back(cv::FlannBasedMatcher ());
+    this->object_number=descriptors.size()-1;
+}
+
 void Algorithm2D::add_descriptors( TFG::HandImage msg)
 {
-
     //convert from ros image msg to opencv image
     cv_bridge::CvImagePtr cv_ptr;
     for (unsigned int i=0; i<msg.image.size(); i++)
@@ -100,7 +91,7 @@ void Algorithm2D::add_descriptors( TFG::HandImage msg)
         //add the new view to the descriptors matrix
         image_cv.convertTo(image_cv,CV_32F);
 
-//        std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
+        //        std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
         descriptors[this->object_number].push_back(image_cv);
     }
 }
@@ -111,15 +102,6 @@ void Algorithm2D::add_descriptors( TFG::HandImage msg)
 void Algorithm2D ::set_new_object(bool new_object)
 {
     this->new_object=new_object;
-
-    if(this->new_object)
-    {
-        descriptors.push_back(std::vector<cv::Mat> ());
-        alg2D.push_back(cv::FlannBasedMatcher ());
-        //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
-    }
-
-    this->object_number=descriptors.size()-1;
 }
 
 

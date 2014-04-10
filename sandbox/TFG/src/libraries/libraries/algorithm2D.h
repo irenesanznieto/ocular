@@ -66,6 +66,9 @@ public:
 
     int get_number_template();  /** Returns the number of the template being currently learned */
 
+    void next_object();
+    void load_templates();
+
 
 private:
 
