@@ -37,6 +37,7 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
     this->object_id_2D=-1;
     this->object_id_3D=-1;
+    this->object_id=-1;
 
     learning_2D=false;
     learning_3D=false;
@@ -159,64 +160,18 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
     {
         this->object_id_3D=alg3D.match(msg);
     }
-
-
-
-    //    if (alg3D.get_number_template()>0)
-
-    //    if(this->learn_3D)
-    //    {
-
-    //        alg3D.resize_vectors();
-    //        usleep(300);
-
-
-
-    //        // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
-    //        if (number_views_it_3D<=number_views3D)
-    //        {
-    //            if (number_views_it_3D==number_views3D)
-    //            {
-    //                //stop the training, all the views have already been trained
-    //                std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl;
-
-    //                //when the iterator is equal to the total number of views, reset the iterator
-    //                number_views_it_3D=0;
-
-    //                //stop the learning until a new recognize - learn events happen
-    //                this->learn_3D=false;
-
-    //            }
-    //            else
-    //            {
-
-    //                std::cerr<<"*** 3D *** ----> TRAINING OBJECT "<<alg3D.get_number_template()<<" VIEW  "<< number_views_it_3D<<std::endl;
-    //                alg3D.add_descriptors(msg);
-    //                number_views_it_3D ++;
-    //                sleep(1);
-    //            }
-    //        }
-
-    //        else
-    //            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
-    //    }
-    //    else if (!this->learn_3D)      //If the mode is recognize
-    //    {
-    //        //    match & publish the resulting object ID
-    //        object_id[1]=alg3D.match3D(msg);
-    //        this->resulting_id();
-    //    }
-
-
 }
 
 
 void LearnerRecognizerNode::resulting_id()
 {
     //choose the object id and publish it
-    //    if(this->object_id[0]==this->object_id[1])
-    //        object_pub.publish(object_id[0]);
-    //    else
-    //        object_pub.publish(object_id[1]);
+    if(this->object_id_2D==this->object_id_3D)                      //same match
+        this->object_id=this->object_id_2D;
+    else if (this->object_id_2D==-1 || this->object_id_3D==-1)      //no match
+        this->object_id=-1;
+    else if(this->object_id_2D!=this->object_id_3D)
+        this->object_id=this->object_id_3D;
 
+    object_pub.publish(object_id);
 }

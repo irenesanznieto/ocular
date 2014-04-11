@@ -53,6 +53,7 @@ private:
     int object_id_2D;
     int object_id_3D;
 
+    int object_id;
 
     bool learning_2D;
     bool learning_3D;

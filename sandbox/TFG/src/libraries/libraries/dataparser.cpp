@@ -8,8 +8,8 @@ DataParser::DataParser()
 
 
     algorithms_3D_path=pkg_main_path+"/data/algorithms/3D/";
-    templates_path_2D=pkg_main_path+"/data/templates/2D";
-    templates_path_3D=pkg_main_path+"/data/templates/3D";
+    templates_path_2D=pkg_main_path+"/data/templates/2D/";
+    templates_path_3D=pkg_main_path+"/data/templates/3D/";
     temp_path=pkg_main_path+"/data/temp.txt";
 
 
@@ -288,7 +288,7 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
 void DataParser:: getTemplates (int number_views, std::vector<std::vector<sensor_msgs::PointCloud2> > & descriptors)
 {
     //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
-    std::vector<std::string> templates=this->get_file_names(templates_path_2D);
+    std::vector<std::string> templates=this->get_file_names(templates_path_3D);
     templates.erase(templates.end());
 
     if(templates.size()>0)

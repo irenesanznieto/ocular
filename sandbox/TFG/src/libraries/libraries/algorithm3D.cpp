@@ -38,7 +38,7 @@ void Algorithm3D::load_templates()
 
         this->alg3D.resize(descriptors.size());
 
-        std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm3D]   LOADED "<<descriptors.size()-1<< " TEMPLATES 2D "<<std::endl<<std::endl<<std::flush;
+        std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm3D]   LOADED "<<descriptors.size()-1<< " TEMPLATES 3D "<<std::endl<<std::endl<<std::flush;
     }
 }
 
