@@ -69,6 +69,10 @@ public:
 
     void resize_vectors();
 
+    void load_templates();
+
+    void next_object();
+
 
 private:
 

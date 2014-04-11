@@ -28,27 +28,31 @@ Algorithm3D::~Algorithm3D()
     }
 }
 
+
+void Algorithm3D::load_templates()
+{
+    if(dataparser.getNumberTemplates("3D")>1)
+    {
+        dataparser.getTemplates(number_views,this->descriptors);
+        this->next_object();
+
+        this->alg3D.resize(descriptors.size());
+
+        std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm3D]   LOADED "<<descriptors.size()-1<< " TEMPLATES 2D "<<std::endl<<std::endl<<std::flush;
+    }
+}
+
+void Algorithm3D::next_object()
+{
+    descriptors.push_back(std::vector<sensor_msgs::PointCloud2> ());
+    alg3D.push_back(pcl::KdTreeFLANN <pcl::PFHSignature125> ());
+    this->object_number=descriptors.size()-1;
+
+}
+
 void Algorithm3D::set_number_views (int number_views)
 {
     this->number_views=number_views;
-
-    //    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
-    //Load the previously stored templates if there are any
-//    if(dataparser.getNumberTemplates()>1)
-//    {
-//        dataparser.getTemplates(number_views,this->descriptors);
-//    }
-
-//    for (unsigned int i=0; i<descriptors.size(); i++)
-//        std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
-
-
-//    this->set_new_object(true);
-
-//    this->alg3D.resize(descriptors.size());
-
-//    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
-//    std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
 }
 
 
@@ -67,20 +71,6 @@ void Algorithm3D ::set_new_object(bool new_object)
     this->new_object=new_object;
 }
 
-void Algorithm3D::resize_vectors()
-{
-    if(this->new_object)
-    {
-        descriptors.push_back(std::vector<sensor_msgs::PointCloud2> ());
-        alg3D.push_back(pcl::KdTreeFLANN <pcl::PFHSignature125> ());
-        //        std::cerr<<"descriptors & alg2D size: "<<descriptors.size()<<" "<<alg2D.size()<<std::endl;
-    }
-
-    std::cerr<<"resizing vectors to: "<<descriptors.size()<<std::endl<<std::flush;
-
-    this->object_number=descriptors.size()-1;
-
-}
 
 int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
 {

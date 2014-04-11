@@ -2,6 +2,7 @@
 
 LearnerRecognizerNode::LearnerRecognizerNode()
 {
+
     object_pub=nh.advertise<std_msgs::Int32>("object_id", 1);
 
     descriptors2D=nh.subscribe<TFG::HandImage>("descriptors2D", 1, &LearnerRecognizerNode::descriptors2D_cb, this);
@@ -10,15 +11,21 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
     event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &LearnerRecognizerNode::setEvent, this);
 
+
     //Inintialize the number of view to be taken for each template
     this->number_views2D=5; //the total number of views to be extracted of each object
     this->number_views3D=5; //the total number of views to be extracted of each object
 
-    this->alg2D.set_number_views(this->number_views2D); //pass the number of views to the algorithm 2D
 
+    //Set the number of views to be taken for each object and load the previous templates;
+    this->alg2D.set_number_views(this->number_views2D); //pass the number of views to the algorithm 2D
     this->alg2D.load_templates();
 
+
+    //Set the number of views to be taken for each object and load the previous templates;
     this->alg3D.set_number_views(this->number_views3D); //pass the number of views to the algorithm 3D
+    this->alg3D.load_templates();
+
 
     //Initialize the iterator of the number of views
     this->number_views_it_2D=0;

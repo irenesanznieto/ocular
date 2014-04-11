@@ -8,28 +8,18 @@ DataParser::DataParser()
 
 
     algorithms_3D_path=pkg_main_path+"/data/algorithms/3D/";
-    templates_path=pkg_main_path+"/data/templates/";
+    templates_path_2D=pkg_main_path+"/data/templates/2D";
+    templates_path_3D=pkg_main_path+"/data/templates/3D";
     temp_path=pkg_main_path+"/data/temp.txt";
 
 
     //create the templates folder
     std::string mkdir="mkdir -p ";
-    std::string dummy=mkdir+templates_path;
+    std::string dummy=mkdir+templates_path_2D;
     system(dummy.c_str());
 
-    //    //create the algorithms folder
-    //    dummy=mkdir+algorithms_2D_path;
-    //    dummy.erase(dummy.end()-3, dummy.end());
-    //    system(dummy.c_str());
-
-    //    //create the algorithms 2D folder
-    //    dummy=mkdir+algorithms_2D_path;
-    //    system(dummy.c_str());
-
-    //    //create the algorithms 3D folder
-    //    dummy=mkdir+algorithms_3D_path;
-    //    system(dummy.c_str());
-
+    dummy=mkdir+templates_path_3D;
+    system(dummy.c_str());
 }
 
 std::string DataParser::getexepath()
@@ -88,7 +78,7 @@ void DataParser::save_template(std::vector<cv::Mat> & descriptors, int number_ob
     std::stringstream path;
 
     //The name of the file will be a number [the position of the object in the vector of descriptors]
-    path<<templates_path<<number_object;
+    path<<templates_path_2D<<number_object;
 
     //    //        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
 
@@ -116,13 +106,14 @@ void DataParser::save_template(std::vector<cv::Mat> & descriptors, int number_ob
 }
 
 
+//2D
 void DataParser::save_template(cv::Mat descriptors, int number_object, int number_view)
 {
     //NAME CODE:
     std::stringstream path;
 
     //The name of the file will be a number [the position of the object in the vector of descriptors]
-    path<<templates_path<<number_object;
+    path<<templates_path_2D<<number_object;
 
     //        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
 
@@ -146,14 +137,14 @@ void DataParser::save_template(cv::Mat descriptors, int number_object, int numbe
     this->save_descriptor(descriptors, filename.str());
 }
 
-
+//3D
 void DataParser::save_template(std::vector<sensor_msgs::PointCloud2> & descriptors, int number_object)
 {
     //NAME CODE:
     std::stringstream path;
 
     //The name of the file will be a number [the position of the object in the vector of descriptors]
-    path<<templates_path<<number_object;
+    path<<templates_path_3D<<number_object;
 
     //    //        std::cerr<<"path: "<<path.str()<<"templates_path: "<<templates_path<<"number_object: "<<number_object<<std::endl;
 
@@ -242,9 +233,14 @@ int DataParser:: getNumberAlgorithms()
     return this->get_folder_number_of_items(algorithms_2D_path);
 }
 
-int DataParser:: getNumberTemplates()
+int DataParser:: getNumberTemplates(std::string type)
 {
-    return this->get_folder_number_of_items(templates_path);
+    if (type=="2D")
+        return this->get_folder_number_of_items(templates_path_2D);
+    else if (type=="3D")
+        return this->get_folder_number_of_items(templates_path_2D);
+    else
+        std::cerr<<"[ LearnerRecognizer --> DataParser ]    UNKNOWN template type"<<std::endl<<std::flush;
 }
 
 int DataParser::get_folder_number_of_items(std::string path)
@@ -253,10 +249,11 @@ int DataParser::get_folder_number_of_items(std::string path)
 }
 
 
+//2D
 void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Mat> > & descriptors)
 {
     //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
-    std::vector<std::string> templates=this->get_file_names(templates_path);
+    std::vector<std::string> templates=this->get_file_names(templates_path_2D);
     templates.erase(templates.end());
 
     if(templates.size()>0)
@@ -285,12 +282,7 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
 
                 counter++;
             }
-
-            //            std::cerr<<"descriptors[j].size(): "<<descriptors[j].size()<<std::endl;
         }
-
-        //        std::cerr<<"dataparser: descriptors.size(): "<<descriptors.size()<<std::endl;
-
     }
 }
 
@@ -298,41 +290,7 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
 
 void DataParser:: getTemplates (int number_views, std::vector<std::vector<sensor_msgs::PointCloud2> > & descriptors)
 {
-    //    //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
-    //    std::vector<std::string> templates=this->get_file_names(templates_path);
-    //    if(templates.size()>0)
-    //    {
-    //        //the number of objects is the size of the previous vector
-    //        int total_objects=templates.size()/number_views;
 
-    //        std::stringstream path;
-
-    //        //the size of the descriptors matrix will be the same as the objects in the folder
-    //        descriptors.resize(total_objects);
-
-
-    //        int object_number=0;
-    //        int counter=0;
-    //        for (int j=0; j<total_objects; j++ )
-    //        {
-    //            //extract the information from the yml files of each view of each object [number of views equal to the size of the vector templates containing the names of the files in that folder]
-    //            for (unsigned int i=0; i<number_views; i++)
-    //            {
-    //                //                std::cerr<<"object: "<<object_number<<" view "<<i<<" name: "<<templates[counter]<<std::endl;
-    //                descriptors[j].push_back(this->load_descriptor(templates[counter]));
-
-    //                if(i==number_views-1)
-    //                    object_number++;
-
-    //                counter++;
-    //            }
-
-    //            //            std::cerr<<"descriptors[j].size(): "<<descriptors[j].size()<<std::endl;
-    //        }
-
-    //        //        std::cerr<<"dataparser: descriptors.size(): "<<descriptors.size()<<std::endl;
-
-    //    }
 }
 
 

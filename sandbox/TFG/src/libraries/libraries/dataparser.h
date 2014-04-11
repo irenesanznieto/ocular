@@ -64,7 +64,7 @@ public:
     std::string get_path_to_pkg();
 
     int get_folder_number_of_items(std::string );
-    int getNumberTemplates();
+    int getNumberTemplates(std::string);
 
     int  getNumberAlgorithms();
 
@@ -79,7 +79,9 @@ private:
 
     std::string algorithms_2D_path; /**Path where the 2D algorithms are stored*/
     std::string algorithms_3D_path; /**Path where the 3D algorithms are stored*/
-    std::string templates_path; /**Path where the templates are stored*/
+    std::string templates_path_2D; /**Path where the templates 2D are stored*/
+    std::string templates_path_3D; /**Path where the templates 3D are stored*/
+
     std::string temp_path;  /**Temporal files path*/
 
     std::string pkg_main_path;  /**Path of the ROS package*/

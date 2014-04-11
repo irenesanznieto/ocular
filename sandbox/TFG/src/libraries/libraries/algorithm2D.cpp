@@ -40,22 +40,12 @@ void Algorithm2D::set_number_views (int number_views)
 void Algorithm2D::load_templates()
 {
 
-//    std::cerr<<"GET NUMBER OF TEMPLATES: "<<dataparser.getNumberTemplates()<<std::endl;
-    //    Load the previously stored templates if there are any
-
-    if(dataparser.getNumberTemplates()>1)
+    if(dataparser.getNumberTemplates("2D")>1)
     {
         dataparser.getTemplates(number_views,this->descriptors);
         this->next_object();
 
-
-        for (unsigned int i=0; i<descriptors.size(); i++)
-//            std::cerr<<"template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl;
-
         this->alg2D.resize(descriptors.size());
-
-//        std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl;
-//        std::cerr<<"Object number after setting number of views: "<<this->object_number<<std::endl;
 
         std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm2D]   LOADED "<<descriptors.size()-1<< " TEMPLATES 2D "<<std::endl<<std::endl<<std::flush;
     }
