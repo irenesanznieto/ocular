@@ -107,7 +107,7 @@ void Algorithm2D ::set_new_object(bool new_object)
 
 
 
-int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
+int Algorithm2D :: match(const TFG::HandImageConstPtr & msg)
 {
     cv_bridge::CvImagePtr cv_ptr;
 

@@ -56,14 +56,15 @@ void Algorithm3D::set_number_views (int number_views)
 }
 
 
-void Algorithm3D::add_descriptors(const sensor_msgs::PointCloud2ConstPtr & msg)
+int Algorithm3D::add_descriptors(sensor_msgs::PointCloud2 msg)
 {
-    //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
-    std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
-    descriptors[this->object_number].push_back(*msg);
-    std::cerr<<"adding descriptors in object_number: "<<object_number<<std::endl;
-
-
+    if(msg.data.empty())
+        return -1;
+    else if (!msg.data.empty())
+    {
+        descriptors[this->object_number].push_back(msg);
+        return 0;
+    }
 }
 
 void Algorithm3D ::set_new_object(bool new_object)
@@ -72,7 +73,7 @@ void Algorithm3D ::set_new_object(bool new_object)
 }
 
 
-int Algorithm3D::match3D(const sensor_msgs::PointCloud2ConstPtr & msg)
+int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
     std::cerr<<"match3D"<<std::endl<<std::flush;
 

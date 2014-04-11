@@ -33,7 +33,7 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
     //default mode: recognize
     this->learn_2D=false;
-    this->learn_2D=false;
+    this->learn_3D=false;
 
     this->object_id_2D=-1;
     this->object_id_3D=-1;
@@ -51,31 +51,15 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
         if (msg->last_event=="recognize")   //If last event was recognize
         {
             this->learn_2D=true;
-            //This is a new object to learn
-            //                this->alg2D.set_new_object(true);
-
             this->learn_3D=true;
-            //                this->alg3D.set_new_object(true);
-
         }
-        else
-        {
-            //                this->alg2D.set_new_object(false);  //We are still learning views of the object
-            //                this->alg3D.set_new_object(false);  //We are still learning views of the object
-        }
-
     }
     else if (msg->event=="recognize" && !learning_2D && !learning_3D)   //If the event is recognize
     {
 
         this->learn_2D=false;
         this->learn_3D=false;
-        //                this->alg2D.set_new_object(false);  //We are still learning views of the object
-        //                this->alg3D.set_new_object(false);  //We are still learning views of the object
     }
-
-
-
 }
 
 
@@ -122,9 +106,7 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 
     else if (!this->learn_2D)      //If the mode is recognize
     {
-        //    match & publish the resulting object ID
-        this->object_id_2D=alg2D.match2D(msg);
-        std::cerr<<object_id_2D<<std::endl<<std::flush;
+        this->object_id_2D=alg2D.match(msg);
     }
 }
 
@@ -132,6 +114,54 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 
 void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
+
+
+    if(this->learn_3D)
+    {
+        // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
+
+        if (number_views_it_3D<number_views3D)
+        {
+            int result;
+            do{
+                learning_3D=true;
+                std::cerr<<"*** 3D *** ----> TRAINING OBJECT "<<alg3D.get_number_template()<<" VIEW  "<< number_views_it_3D<<std::endl<<std::flush;
+                result=alg3D.add_descriptors(*msg);
+
+            }while(result<0);
+
+            number_views_it_3D ++;
+            sleep(1);
+
+        }
+        else if (number_views_it_3D==number_views3D)
+        {
+            //when the iterator is equal to the total number of views, reset the iterator
+            number_views_it_3D=0;
+
+            //stop the learning until a new recognize - learn events happen
+            this->learn_3D=false;
+
+            learning_3D=false;
+
+            alg3D.next_object();
+
+            //stop the training, all the views have already been trained
+            std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl<<std::flush;
+
+        }
+        else
+            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
+    }
+
+
+    else if (!this->learn_3D)      //If the mode is recognize
+    {
+        this->object_id_3D=alg3D.match(msg);
+    }
+
+
+
     //    if (alg3D.get_number_template()>0)
 
     //    if(this->learn_3D)

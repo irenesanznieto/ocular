@@ -57,7 +57,7 @@ public:
 
     bool add_descriptors(TFG::HandImage);
 
-    int match2D(const TFG::HandImageConstPtr & msg);
+    int match(const TFG::HandImageConstPtr & msg);
 
 
     void set_number_views (int);

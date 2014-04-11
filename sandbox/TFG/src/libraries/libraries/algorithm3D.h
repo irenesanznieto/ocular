@@ -54,16 +54,13 @@ public:
 
     void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
 
-    void add_descriptors(const TFG::HandImageConstPtr &, int number_view);
-
-
-    int match3D(const sensor_msgs::PointCloud2ConstPtr &);
+    int match(const sensor_msgs::PointCloud2ConstPtr &);
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
 
     void set_number_views (int);
 
-    void add_descriptors(const sensor_msgs::PointCloud2ConstPtr &  );
+    int add_descriptors(sensor_msgs::PointCloud2);
 
     int get_number_template();  /** Returns the number of the template being currently learned */
 

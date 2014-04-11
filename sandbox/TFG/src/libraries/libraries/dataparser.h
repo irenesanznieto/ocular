@@ -74,6 +74,8 @@ public:
 
 private:
 
+    sensor_msgs::PointCloud2 load_descriptor3D(std::string filename);
+
     void save_descriptor(sensor_msgs::PointCloud2 &descriptors, std::string filename);
 
 
