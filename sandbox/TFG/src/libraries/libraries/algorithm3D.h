@@ -52,8 +52,6 @@ public:
 
     ~Algorithm3D();
 
-    void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
-
     int match(const sensor_msgs::PointCloud2ConstPtr &);
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
@@ -73,8 +71,6 @@ public:
 
 private:
 
-    std::vector <pcl::KdTreeFLANN<pcl::PFHSignature125> >alg3D;
-
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
     std::vector<cv::FlannBasedMatcher> algorithms2D;
 
@@ -82,8 +78,6 @@ private:
 
 
     int flann_comparison (cv::Mat &, float);
-
-    bool new_object;
 
     std::vector<std::vector<sensor_msgs::PointCloud2> >descriptors;    /** Vector that will store the descriptors dataset */
 

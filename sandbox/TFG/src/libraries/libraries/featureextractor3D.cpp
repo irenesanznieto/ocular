@@ -9,8 +9,63 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features(std::string name
 {
     if (name=="pfh")
         return extract_features_pfh(msg);
-    if (name=="fpfh")
+    else if (name=="fpfh")
         return extract_features_fpfh(msg);
+    else if(name=="vhf")
+        return extract_features_vhf(msg);
+    else
+        std::cerr<<"[FeatureExtractor3D]    No such descriptor available"<<std::endl<<std::flush;
+
+
+}
+sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_vhf(const sensor_msgs::PointCloud2ConstPtr & msg_in)
+{
+    sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
+    //Downsample point cloud:
+    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
+    sor.setInputCloud (msg_in);
+    sor.setLeafSize (0.01f, 0.01f, 0.01f);
+    sor.filter (*msg);
+
+    // Cloud for storing the object.
+    pcl::PointCloud<pcl::PointXYZ>::Ptr object(new pcl::PointCloud<pcl::PointXYZ>);
+    // Object for storing the normals.
+    pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>);
+    // Object for storing the VFH descriptor.
+    pcl::PointCloud<pcl::VFHSignature308>::Ptr descriptor(new pcl::PointCloud<pcl::VFHSignature308>);
+
+    pcl::fromROSMsg(*msg, *object);
+
+
+    // Estimate the normals.
+    pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> normalEstimation;
+    normalEstimation.setInputCloud(object);
+    normalEstimation.setRadiusSearch(0.03);
+    pcl::search::KdTree<pcl::PointXYZ>::Ptr kdtree(new pcl::search::KdTree<pcl::PointXYZ>);
+    normalEstimation.setSearchMethod(kdtree);
+    normalEstimation.compute(*normals);
+
+
+    // VFH estimation object.
+    pcl::VFHEstimation<pcl::PointXYZ, pcl::Normal, pcl::VFHSignature308> vfh;
+    vfh.setInputCloud(object);
+    vfh.setInputNormals(normals);
+    vfh.setSearchMethod(kdtree);
+    // Optionally, we can normalize the bins of the resulting histogram,
+    // using the total number of points.
+    vfh.setNormalizeBins(true);
+    // Also, we can normalize the SDC with the maximum size found between
+    // the centroid and any of the cluster's points.
+    vfh.setNormalizeDistance(false);
+
+
+    // Compute the features
+    vfh.compute(*descriptor);
+
+    sensor_msgs::PointCloud2 result;
+    pcl::toROSMsg(*descriptor, result );
+
+    return result;
 }
 
 sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const sensor_msgs::PointCloud2ConstPtr & msg_in)
@@ -89,16 +144,80 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
 
     sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
 
-//    std::cerr << "Original input msg size: "<<msg_in->data.size()<<std::endl;
     //Downsample point cloud:
     pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
     sor.setInputCloud (msg_in);
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*msg);
 
+    pcl::PointCloud<pcl::PointXYZ>::Ptr msg_pcl (new pcl::PointCloud<pcl::PointXYZ> ());
+
+    pcl::fromROSMsg(*msg, *msg_pcl);
+
+
+//    std::cerr << "Original input msg size: "<<msg_in->data.size()<<std::endl;
+    //Downsample point cloud:
+//    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
+//    sor.setInputCloud (msg_in);
+//    sor.setLeafSize (0.01f, 0.01f, 0.01f);
+//    sor.filter (*msg);
+
+
     //PFH:
-    pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_msg ( new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::fromROSMsg(*msg, *pcl_msg);
+
+
+    // ------------> KEYPOINTS
+
+    //
+    //  ISS3D parameters
+    //
+    double iss_salient_radius_;
+    double iss_non_max_radius_;
+    double iss_gamma_21_ (0.975);
+    double iss_gamma_32_ (0.975);
+    double iss_min_neighbors_ (5);
+    int iss_threads_ (4);
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr model (new pcl::PointCloud<pcl::PointXYZ> ());
+    pcl::PointCloud<pcl::PointXYZ>::Ptr model_keypoints (new pcl::PointCloud<pcl::PointXYZ> ());
+    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ> ());
+
+    // Fill in the model cloud
+
+    pcl::fromROSMsg(*msg_in, *model);
+
+
+
+    double model_resolution=0.2;
+
+    // Compute model_resolution
+
+    iss_salient_radius_ = 6 * model_resolution;
+    iss_non_max_radius_ = 4 * model_resolution;
+
+    //
+    // Compute keypoints
+    //
+    pcl::ISSKeypoint3D<pcl::PointXYZ, pcl::PointXYZ> iss_detector;
+
+    iss_detector.setSearchMethod (tree);
+    iss_detector.setSalientRadius (iss_salient_radius_);
+    iss_detector.setNonMaxRadius (iss_non_max_radius_);
+    iss_detector.setThreshold21 (iss_gamma_21_);
+    iss_detector.setThreshold32 (iss_gamma_32_);
+    iss_detector.setMinNeighbors (iss_min_neighbors_);
+    iss_detector.setNumberOfThreads (iss_threads_);
+    iss_detector.setInputCloud (model);
+    iss_detector.compute (*model_keypoints);
+
+
+// ------------> KEYPOINTS
+
+
+
+
+
+
 
     pcl::PointCloud<pcl::Normal>::Ptr normals_out (new pcl::PointCloud<pcl::Normal> ());
     //Normal:
@@ -107,16 +226,16 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
 
     pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> norm_est;
 
-    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ> ());
+    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree3 (new pcl::search::KdTree<pcl::PointXYZ> ());
 
     // Use a FLANN-based KdTree to perform neighborhood searches
-    norm_est.setSearchMethod (tree);
+    norm_est.setSearchMethod (tree3);
 
     // Specify the size of the local neighborhood to use when computing the surface normals
     norm_est.setRadiusSearch (0.03);
 
     // Set the input points
-    norm_est.setInputCloud (pcl_msg);
+    norm_est.setInputCloud (msg_pcl);
 
     // Estimate the surface normals and store the result in "normals_out"
     norm_est.compute (*normals_out);
@@ -136,8 +255,9 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
     // Specify the radius of the PFH feature
     pfh_est.setRadiusSearch (0.03);
 
+      pfh_est.setSearchSurface (msg_pcl);
     // Set the input points and surface normals
-    pfh_est.setInputCloud (pcl_msg);
+    pfh_est.setInputCloud (model_keypoints);
 
     pfh_est.setInputNormals (normals_out);
 

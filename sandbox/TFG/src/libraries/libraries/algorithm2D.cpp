@@ -15,13 +15,13 @@ Algorithm2D::~Algorithm2D()
 {
     std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm2D]   SAVING TEMPLATES 2D: "<<std::endl<<std::flush;
 
-    std::cerr<<std::endl<<"2D descriptors.size(): "<<descriptors.size()<<std::endl<<std::flush;
+//    std::cerr<<std::endl<<"2D descriptors.size(): "<<descriptors.size()<<std::endl<<std::flush;
 
 
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
-        std::cerr<<"Iteration "<<i<<"---------> Descriptors[i].size: "<<descriptors[i].size()
-                << " -----------> number_views: "<<number_views<<std::endl<<std::flush;
+//        std::cerr<<"Iteration "<<i<<"---------> Descriptors[i].size: "<<descriptors[i].size()
+//                << " -----------> number_views: "<<number_views<<std::endl<<std::flush;
         if(descriptors[i].size()<this->number_views)
         {
             descriptors.erase(descriptors.begin()+i-1);

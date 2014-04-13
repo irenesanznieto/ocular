@@ -62,6 +62,11 @@
 
 #include <pcl/filters/voxel_grid.h>
 
+//vhf
+#include <pcl/features/vfh.h>
+
+#include <pcl/keypoints/iss_3d.h>
+
 class FeatureExtractor3D
 {
 public:
@@ -72,6 +77,8 @@ public:
 private:
     sensor_msgs::PointCloud2  extract_features_pfh(const sensor_msgs::PointCloud2ConstPtr& msg);
     sensor_msgs::PointCloud2  extract_features_fpfh(const sensor_msgs::PointCloud2ConstPtr& msg);
+
+   sensor_msgs::PointCloud2  extract_features_vhf(const sensor_msgs::PointCloud2ConstPtr& msg);
 
 
 };

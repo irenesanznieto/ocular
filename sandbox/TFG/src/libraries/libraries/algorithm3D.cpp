@@ -9,7 +9,6 @@ Algorithm3D::Algorithm3D()
     this->object_number=0;
 
     descriptors.resize(1);
-    alg3D.resize(1);
 }
 
 Algorithm3D::~Algorithm3D()
@@ -37,7 +36,6 @@ void Algorithm3D::load_templates()
     {
         dataparser.getTemplates(number_views,this->descriptors);
         this->next_object();
-        this->alg3D.resize(descriptors.size());
 
         std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm3D]   LOADED "<<descriptors.size()-1<< " TEMPLATES 3D "<<std::endl<<std::endl<<std::flush;
     }
@@ -46,7 +44,6 @@ void Algorithm3D::load_templates()
 void Algorithm3D::next_object()
 {
     descriptors.push_back(std::vector<sensor_msgs::PointCloud2> ());
-    alg3D.push_back(pcl::KdTreeFLANN <pcl::PFHSignature125> ());
     this->object_number=descriptors.size()-1;
 
 }
@@ -70,14 +67,11 @@ int Algorithm3D::add_descriptors(sensor_msgs::PointCloud2 msg)
     }
 }
 
-void Algorithm3D ::set_new_object(bool new_object)
-{
-    this->new_object=new_object;
-}
-
 
 int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
+
+//    PFH:
     pcl::PointCloud<pcl::PFHSignature125>::Ptr msg_pcl (new pcl::PointCloud<pcl::PFHSignature125> ());
     pcl::fromROSMsg(*msg, *msg_pcl);
 
@@ -85,6 +79,18 @@ int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
 
     // Use a KdTree to search for the nearest matches in feature space
     pcl::KdTreeFLANN <pcl::PFHSignature125> descriptor_kdtree;
+
+
+//      VFH:
+//    pcl::PointCloud<pcl::VFHSignature308>::Ptr msg_pcl (new pcl::PointCloud<pcl::VFHSignature308> ());
+//    pcl::fromROSMsg(*msg, *msg_pcl);
+
+//    pcl::PointCloud<pcl::VFHSignature308>::Ptr cloud (new pcl::PointCloud<pcl::VFHSignature308> ());
+
+//    // Use a KdTree to search for the nearest matches in feature space
+//    pcl::KdTreeFLANN <pcl::VFHSignature308> descriptor_kdtree;
+
+
     descriptor_kdtree.setInputCloud (msg_pcl);
 
     std::vector<int> correspondences;
