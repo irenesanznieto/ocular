@@ -59,15 +59,6 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
     {
         this->learn_2D=false;
         this->learn_3D=false;
-
-        if(msg->last_event=="learn")
-        {
-            std::cerr<<"TRAINING COMPLETED"<<std::endl<<std::flush;
-
-            this->resulting_id();
-
-            std::cerr<<"Object id: "<<this->object_id<<std::endl<<std::flush;
-        }
     }
 
 }
@@ -118,6 +109,8 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
     else if (!this->learn_2D)      //If the mode is recognize
     {
         this->object_id_2D=alg2D.match(msg);
+//        std::cerr<<"RECOGNIZED 2D: "<<object_id_2D<<std::endl<<std::flush;
+
     }
 }
 
@@ -168,6 +161,8 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
     else if (!this->learn_3D)      //If the mode is recognize
     {
         this->object_id_3D=alg3D.match(msg);
+//        std::cerr<<"RECOGNIZED 3D: "<<object_id_3D<<std::endl<<std::flush;
+        this->resulting_id();
     }
 }
 
@@ -182,5 +177,7 @@ void LearnerRecognizerNode::resulting_id()
     else if(this->object_id_2D!=this->object_id_3D)
         this->object_id=this->object_id_3D;
 
+
+    std::cerr<<"RECOGNIZING:"<<" 2D --> "<<object_id_2D<<" 3D --> "<<object_id_3D<<" Final: "<<object_id<<std::endl<<std::endl<<std::flush;
     object_pub.publish(object_id);
 }

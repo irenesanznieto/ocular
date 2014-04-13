@@ -45,20 +45,15 @@ public:
     */
     Algorithm2D();
 
-//    Algorithm2D(int);
 
 
     ~Algorithm2D();
 
 
-//    void train3D ();    /** Trains a 3D algorithm with a new view of the object*/
-
-    void set_new_object(bool new_object);   /** Sets the value of the private boolean new_object*/
 
     bool add_descriptors(TFG::HandImage);
 
     int match(const TFG::HandImageConstPtr & msg);
-
 
     void set_number_views (int);
 
