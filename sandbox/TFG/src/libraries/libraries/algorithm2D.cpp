@@ -16,6 +16,8 @@ Algorithm2D::~Algorithm2D()
     std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm2D]   SAVING TEMPLATES 2D: "<<std::endl<<std::flush;
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
+//        std::cerr<<"Descriptors[i].size: "<<descriptors[i].size()<<std::endl
+//                << "number_views: "<<number_views<<std::endl<<std::flush;
         if(descriptors[i].size()<this->number_views)
         {
             descriptors.erase(descriptors.begin()+i-1);
@@ -80,7 +82,8 @@ bool Algorithm2D::add_descriptors( TFG::HandImage msg)
 
     cv::Mat image_cv=cv_ptr->image.clone();
 
-    //        ROS_ERROR("OBJECT NUMBER %d DESCRIPTORS SIZE %d", object_number, descriptors.size());
+//    std::cerr<<"add descriptors 2D "<<std::endl<<std::flush;
+
 
     //add the new view to the descriptors matrix
     image_cv.convertTo(image_cv,CV_32F);
@@ -168,7 +171,7 @@ int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
     //    std::cerr<<"In flann_comparison function, alg2d.size(): "<<alg2D.size()<<std::endl<<"descriptors.size(): "<<descriptors.size()<<std::endl<< "descriptors[object_number].size(): "<<descriptors[object_number].size()<<std::endl;
 
     //for each algorithm, match the new descriptors with the algorithm's information
-    for (unsigned int object_number=0; object_number<descriptors.size(); object_number++)
+    for (unsigned int object_number=0; object_number<descriptors.size()-1; object_number++)
     {
         desc1.convertTo(desc1, CV_32F);
 

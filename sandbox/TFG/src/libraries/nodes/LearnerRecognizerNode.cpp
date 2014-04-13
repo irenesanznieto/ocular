@@ -57,10 +57,19 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
     }
     else if (msg->event=="recognize" && !learning_2D && !learning_3D)   //If the event is recognize
     {
-
         this->learn_2D=false;
         this->learn_3D=false;
+
+        if(msg->last_event=="learn")
+        {
+            std::cerr<<"TRAINING COMPLETED"<<std::endl<<std::flush;
+
+            this->resulting_id();
+
+            std::cerr<<"Object id: "<<this->object_id<<std::endl<<std::flush;
+        }
     }
+
 }
 
 
@@ -70,14 +79,15 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
     {
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
 
+//        std::cerr<<"2D: "<<number_views_it_2D<<" / "<<number_views2D<<std::endl<<std::flush;
+
         if (number_views_it_2D<number_views2D)
         {
-            int result;
+            int result=-1;
             do{
                 learning_2D=true;
                 std::cerr<<"*** 2D *** ----> TRAINING OBJECT "<<alg2D.get_number_template()<<" VIEW  "<< number_views_it_2D<<std::endl<<std::flush;
                 result=alg2D.add_descriptors(*msg);
-
             }while(result<0);
 
             number_views_it_2D ++;
@@ -97,7 +107,7 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
             alg2D.next_object();
 
             //stop the training, all the views have already been trained
-            std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl<<std::flush;
+            std::cerr<<"TRAINING 2D COMPLETED"<<std::endl<<std::flush;
 
         }
         else
@@ -121,14 +131,14 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
     {
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
 
+//        std::cerr<<"3D: "<<number_views_it_3D<<" / "<<number_views3D<<std::endl<<std::flush;
         if (number_views_it_3D<number_views3D)
         {
-            int result;
+            int result=-1;
             do{
                 learning_3D=true;
                 std::cerr<<"*** 3D *** ----> TRAINING OBJECT "<<alg3D.get_number_template()<<" VIEW  "<< number_views_it_3D<<std::endl<<std::flush;
                 result=alg3D.add_descriptors(*msg);
-
             }while(result<0);
 
             number_views_it_3D ++;
@@ -148,8 +158,7 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
             alg3D.next_object();
 
             //stop the training, all the views have already been trained
-            std::cerr<<"TRAINING COMPLETED, PLEASE TAKE YOUR HAND CLOSER TO THE BODY TO START THE RECOGNITION"<<std::endl<<std::flush;
-
+            std::cerr<<"TRAINING 3D COMPLETED"<<std::endl<<std::flush;
         }
         else
             std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
