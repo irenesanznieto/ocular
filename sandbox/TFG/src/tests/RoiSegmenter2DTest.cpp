@@ -80,23 +80,6 @@ TEST_F(RoiSegmenter2DTest,segment)
     const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
     roiseg2D.coordinates(msg_hand_loc_px_ptr);
 
-
-//    std::string sys_command="find . -print | grep 'sandbox/TFG/data/test/' > dummy.txt";
-//    system(sys_command.c_str());
-
-//    std::string path;
-//    std::ifstream myfile;
-//    myfile.open ("dummy.txt");
-//    myfile >>path;
-
-//    myfile.close();
-
-//    std::cout <<path<<std::endl;
-
-//    system("rm dummy.txt");
-
-//    TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage(path));
-
     TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage("/home/peko/tfg_git/sandbox/TFG/data/test/ros_groovy.jpg"));
     //TEST
     EXPECT_EQ (2, result_image.name.size());

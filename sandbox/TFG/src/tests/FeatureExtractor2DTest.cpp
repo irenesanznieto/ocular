@@ -21,9 +21,12 @@ public:
 
 TEST_F(FeatureExtractor2DTest,extract_features)
 {
-
     const TFG::HandImageConstPtr  msg_ptr=boost::make_shared<TFG::HandImage>(msg);
-    fe2d.extract_features(msg_ptr);
+    TFG::HandImage result=fe2d.extract_features(msg_ptr);
+
+    EXPECT_FALSE(msg_ptr->image.size(),result.image.size());
+//    EXPECT_TRUE()
+
 }
 
 

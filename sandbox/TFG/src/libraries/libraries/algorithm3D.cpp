@@ -71,7 +71,7 @@ int Algorithm3D::add_descriptors(sensor_msgs::PointCloud2 msg)
 int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
 
-//    PFH:
+    //    PFH:
     pcl::PointCloud<pcl::PFHSignature125>::Ptr msg_pcl (new pcl::PointCloud<pcl::PFHSignature125> ());
     pcl::fromROSMsg(*msg, *msg_pcl);
 
@@ -81,14 +81,14 @@ int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
     pcl::KdTreeFLANN <pcl::PFHSignature125> descriptor_kdtree;
 
 
-//      VFH:
-//    pcl::PointCloud<pcl::VFHSignature308>::Ptr msg_pcl (new pcl::PointCloud<pcl::VFHSignature308> ());
-//    pcl::fromROSMsg(*msg, *msg_pcl);
+    //      VFH:
+    //    pcl::PointCloud<pcl::VFHSignature308>::Ptr msg_pcl (new pcl::PointCloud<pcl::VFHSignature308> ());
+    //    pcl::fromROSMsg(*msg, *msg_pcl);
 
-//    pcl::PointCloud<pcl::VFHSignature308>::Ptr cloud (new pcl::PointCloud<pcl::VFHSignature308> ());
+    //    pcl::PointCloud<pcl::VFHSignature308>::Ptr cloud (new pcl::PointCloud<pcl::VFHSignature308> ());
 
-//    // Use a KdTree to search for the nearest matches in feature space
-//    pcl::KdTreeFLANN <pcl::VFHSignature308> descriptor_kdtree;
+    //    // Use a KdTree to search for the nearest matches in feature space
+    //    pcl::KdTreeFLANN <pcl::VFHSignature308> descriptor_kdtree;
 
 
     descriptor_kdtree.setInputCloud (msg_pcl);
@@ -103,6 +103,26 @@ int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
     // Find the index of the best match for each keypoint, and store it in "correspondences"
     const int k = 1;
 
+    //    NEARESTKSEARCH!
+    //    for(int obj_numb=0; obj_numb<descriptors.size()-1; obj_numb++)
+    //    {
+
+    //        std::vector<int> k_indices (k);
+    //        std::vector<float> k_squared_distances (k);
+
+
+    //        for (int i = 0; i < static_cast<int> (descriptors[obj_numb].size()); ++i)
+    //        {
+    //            pcl::fromROSMsg(descriptors[obj_numb][i], *cloud);
+    //            descriptor_kdtree.nearestKSearch(*cloud, i, k, k_indices, k_squared_distances);
+    //            correspondences.push_back(k_squared_distances[0]);
+    //        }
+
+    //        ratio[obj_numb]=std::distance(correspondences.begin(), std::max_element(correspondences.begin(), correspondences.end()));
+    //    }
+
+
+    //    RADIUSSEARCH
     for(int obj_numb=0; obj_numb<descriptors.size()-1; obj_numb++)
     {
 
@@ -113,13 +133,13 @@ int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
         for (int i = 0; i < static_cast<int> (descriptors[obj_numb].size()); ++i)
         {
             pcl::fromROSMsg(descriptors[obj_numb][i], *cloud);
-            descriptor_kdtree.nearestKSearch(*cloud, i, k, k_indices, k_squared_distances);
+            descriptor_kdtree.radiusSearch(*cloud, i, k, k_indices, k_squared_distances);
             correspondences.push_back(k_squared_distances[0]);
         }
 
         ratio[obj_numb]=std::distance(correspondences.begin(), std::max_element(correspondences.begin(), correspondences.end()));
-
     }
+
 
     if (ratio.size()>0)
         this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));

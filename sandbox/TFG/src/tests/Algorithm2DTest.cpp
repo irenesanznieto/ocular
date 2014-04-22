@@ -50,22 +50,22 @@ public:
     }
 };
 
-TEST_F(Algorithm2DTest, match2D)
-{
-//    int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
+//TEST_F(Algorithm2DTest, match2D)
+//{
+////    int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
 
-}
+//}
 
-TEST_F(Algorithm2DTest,add_descriptors)
-{
+//TEST_F(Algorithm2DTest,add_descriptors)
+//{
 
-}
+//}
 
-TEST_F(Algorithm2DTest,flann_comparison)
-{
-    //int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
+//TEST_F(Algorithm2DTest,flann_comparison)
+//{
+//    //int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
 
-}
+//}
 
 
 int main (int argc, char **argv)

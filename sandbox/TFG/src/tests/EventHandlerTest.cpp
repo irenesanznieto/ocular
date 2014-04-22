@@ -126,7 +126,6 @@ TEST_F(EventHandlerTest , select_event_hand)
     EXPECT_EQ ("recognize", result.event);
     EXPECT_EQ ("recognize", result.last_event);
 
-
 }
 
 

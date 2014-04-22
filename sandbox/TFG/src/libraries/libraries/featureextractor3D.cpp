@@ -139,8 +139,6 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const senso
 
 sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor_msgs::PointCloud2ConstPtr & msg_in)
 {
-    // COMPUTE PFH ONLY AT KEYPOINTS??  /Desktop/PFH Demo
-
 
     sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
 
@@ -155,63 +153,55 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
     pcl::fromROSMsg(*msg, *msg_pcl);
 
 
-//    std::cerr << "Original input msg size: "<<msg_in->data.size()<<std::endl;
-    //Downsample point cloud:
-//    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
-//    sor.setInputCloud (msg_in);
-//    sor.setLeafSize (0.01f, 0.01f, 0.01f);
-//    sor.filter (*msg);
-
-
     //PFH:
 
 
-    // ------------> KEYPOINTS
+//    // ------------> KEYPOINTS
 
-    //
-    //  ISS3D parameters
-    //
-    double iss_salient_radius_;
-    double iss_non_max_radius_;
-    double iss_gamma_21_ (0.975);
-    double iss_gamma_32_ (0.975);
-    double iss_min_neighbors_ (5);
-    int iss_threads_ (4);
+//    //
+//    //  ISS3D parameters
+//    //
+//    double iss_salient_radius_;
+//    double iss_non_max_radius_;
+//    double iss_gamma_21_ (0.975);
+//    double iss_gamma_32_ (0.975);
+//    double iss_min_neighbors_ (5);
+//    int iss_threads_ (4);
 
-    pcl::PointCloud<pcl::PointXYZ>::Ptr model (new pcl::PointCloud<pcl::PointXYZ> ());
-    pcl::PointCloud<pcl::PointXYZ>::Ptr model_keypoints (new pcl::PointCloud<pcl::PointXYZ> ());
-    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ> ());
+//    pcl::PointCloud<pcl::PointXYZ>::Ptr model (new pcl::PointCloud<pcl::PointXYZ> ());
+//    pcl::PointCloud<pcl::PointXYZ>::Ptr model_keypoints (new pcl::PointCloud<pcl::PointXYZ> ());
+//    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ> ());
 
-    // Fill in the model cloud
+//    // Fill in the model cloud
 
-    pcl::fromROSMsg(*msg_in, *model);
-
-
-
-    double model_resolution=0.2;
-
-    // Compute model_resolution
-
-    iss_salient_radius_ = 6 * model_resolution;
-    iss_non_max_radius_ = 4 * model_resolution;
-
-    //
-    // Compute keypoints
-    //
-    pcl::ISSKeypoint3D<pcl::PointXYZ, pcl::PointXYZ> iss_detector;
-
-    iss_detector.setSearchMethod (tree);
-    iss_detector.setSalientRadius (iss_salient_radius_);
-    iss_detector.setNonMaxRadius (iss_non_max_radius_);
-    iss_detector.setThreshold21 (iss_gamma_21_);
-    iss_detector.setThreshold32 (iss_gamma_32_);
-    iss_detector.setMinNeighbors (iss_min_neighbors_);
-    iss_detector.setNumberOfThreads (iss_threads_);
-    iss_detector.setInputCloud (model);
-    iss_detector.compute (*model_keypoints);
+//    pcl::fromROSMsg(*msg_in, *model);
 
 
-// ------------> KEYPOINTS
+
+//    double model_resolution=0.2;
+
+//    // Compute model_resolution
+
+//    iss_salient_radius_ = 6 * model_resolution;
+//    iss_non_max_radius_ = 4 * model_resolution;
+
+//    //
+//    // Compute keypoints
+//    //
+//    pcl::ISSKeypoint3D<pcl::PointXYZ, pcl::PointXYZ> iss_detector;
+
+//    iss_detector.setSearchMethod (tree);
+//    iss_detector.setSalientRadius (iss_salient_radius_);
+//    iss_detector.setNonMaxRadius (iss_non_max_radius_);
+//    iss_detector.setThreshold21 (iss_gamma_21_);
+//    iss_detector.setThreshold32 (iss_gamma_32_);
+//    iss_detector.setMinNeighbors (iss_min_neighbors_);
+//    iss_detector.setNumberOfThreads (iss_threads_);
+//    iss_detector.setInputCloud (model);
+//    iss_detector.compute (*model_keypoints);
+
+
+//// ------------> KEYPOINTS
 
 
 
@@ -257,7 +247,7 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
 
       pfh_est.setSearchSurface (msg_pcl);
     // Set the input points and surface normals
-    pfh_est.setInputCloud (model_keypoints);
+    pfh_est.setInputCloud (msg_pcl);
 
     pfh_est.setInputNormals (normals_out);
 
