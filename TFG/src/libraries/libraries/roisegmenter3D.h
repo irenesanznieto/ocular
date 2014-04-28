@@ -26,7 +26,7 @@
 //#include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/passthrough.h>
-#include <pcl/ros/conversions.h>
+#include <pcl/conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 
@@ -34,7 +34,7 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <TFG/HandLocPx.h>
 #include <TFG/HandLoc.h>
-
+#include <sensor_msgs/PointCloud.h>
 //* RoiSegmenter3D class 
 /**
 * Segments an input point cloud and extracts the Region Of Interest
