@@ -1,4 +1,4 @@
-IN-HAND OBJECT DETECTION AND TRACKING USING 2D AND 3D INFORMATION
+IN-HAND OBJECT LEARNING AND RECOGNITION USING 2D AND 3D INFORMATION
 =====
 
 Bachelor's Thesis
@@ -11,11 +11,17 @@ Index
 -------
 
 1.Introduction
+
 2.Compile and run
+
    2.1. Dependencies
+   
    2.2. Compiling
+   
    2.3  Running
+   
 3. Doxygen documentation
+
 4. More info
 
 
