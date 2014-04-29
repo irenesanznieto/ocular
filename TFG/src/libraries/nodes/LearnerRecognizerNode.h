@@ -27,7 +27,8 @@ private:
 
     void descriptors2D_cb(const TFG::HandImageConstPtr & );
 
-    void descriptors3D_cb(const sensor_msgs::PointCloud2ConstPtr & );
+    void descriptors3D_cb(const
+        pcl::PCLPointCloud2ConstPtr & );
 
     void resulting_id();
 

@@ -57,7 +57,8 @@ public:
     *
     * In this case, there are two segmented regions (both the right and left hands). The point cloud of interest is a cube with fixed dimensions extracted from the original point cloud.
     */
-    sensor_msgs::PointCloud2 segment(const sensor_msgs::PointCloud2ConstPtr &);
+
+        pcl::PCLPointCloud2  segment(const   pcl::PCLPointCloud2ConstPtr &);
 
 
     /*!

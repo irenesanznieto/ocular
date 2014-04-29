@@ -7,7 +7,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
     descriptors2D=nh.subscribe<TFG::HandImage>("descriptors2D", 1, &LearnerRecognizerNode::descriptors2D_cb, this);
 
-    descriptors3D=nh.subscribe<sensor_msgs::PointCloud2>("descriptors3D",1,&LearnerRecognizerNode::descriptors3D_cb, this);
+    descriptors3D=nh.subscribe<
+        pcl::PCLPointCloud2 >("descriptors3D",1,&LearnerRecognizerNode::descriptors3D_cb, this);
 
     event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &LearnerRecognizerNode::setEvent, this);
 
@@ -116,7 +117,8 @@ void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
 
 
 
-void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2ConstPtr & msg)
+void LearnerRecognizerNode::descriptors3D_cb(const
+        pcl::PCLPointCloud2ConstPtr & msg)
 {
 
 

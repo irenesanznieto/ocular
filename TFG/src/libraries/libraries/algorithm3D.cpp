@@ -22,7 +22,9 @@ Algorithm3D::~Algorithm3D()
         }
         else
         {
+
             dataparser.save_template(descriptors[i],i);
+
             std::cerr<<"    template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
         }
     }
@@ -43,7 +45,8 @@ void Algorithm3D::load_templates()
 
 void Algorithm3D::next_object()
 {
-    descriptors.push_back(std::vector<sensor_msgs::PointCloud2> ());
+    descriptors.push_back(std::vector<
+        pcl::PCLPointCloud2 > ());
     this->object_number=descriptors.size()-1;
 
 }
@@ -54,7 +57,8 @@ void Algorithm3D::set_number_views (int number_views)
 }
 
 
-int Algorithm3D::add_descriptors(sensor_msgs::PointCloud2 msg)
+int Algorithm3D::add_descriptors(
+        pcl::PCLPointCloud2  msg)
 {
     //    std::cerr<<"add descriptors 3D: data.empty?: "<<msg.data.empty()<<" object_number: "<<this->object_number<<" descriptors.size: "<<descriptors.size()<<std::endl<<std::flush;
 
@@ -68,7 +72,7 @@ int Algorithm3D::add_descriptors(sensor_msgs::PointCloud2 msg)
 }
 
 
-int Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr & msg)
+int Algorithm3D::match(const pcl::PCLPointCloud2ConstPtr & msg)
 {
 
     //    PFH:

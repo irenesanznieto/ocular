@@ -26,7 +26,9 @@
 
 #include <pcl/point_types.h>
 #include <pcl/filters/passthrough.h>
-#include <pcl/ros/conversions.h>
+#include <pcl/conversions.h>
+#include<pcl/ros/conversions.h>
+#include<pcl_conversions/pcl_conversions.h>
 
 #include <pcl/point_cloud.h>
 #include <pcl/filters/statistical_outlier_removal.h>
@@ -52,13 +54,14 @@ public:
 
     ~Algorithm3D();
 
-    int match(const sensor_msgs::PointCloud2ConstPtr &);
+    int match(const pcl::PCLPointCloud2ConstPtr &);
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
 
     void set_number_views (int);
 
-    int add_descriptors(sensor_msgs::PointCloud2);
+    int add_descriptors(
+        pcl::PCLPointCloud2 );
 
     int get_number_template();  /** Returns the number of the template being currently learned */
 
@@ -79,7 +82,7 @@ private:
 
     int flann_comparison (cv::Mat &, float);
 
-    std::vector<std::vector<sensor_msgs::PointCloud2> >descriptors;    /** Vector that will store the descriptors dataset */
+    std::vector<std::vector< pcl::PCLPointCloud2 > >descriptors;    /** Vector that will store the descriptors dataset */
 
 
     int matched_object_id;  /** Number that represents the object being matched by the algorithm. **/

@@ -5,7 +5,9 @@ FeatureExtractor3D::FeatureExtractor3D()
 }
 
 
-sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features(std::string name, const sensor_msgs::PointCloud2ConstPtr & msg)
+
+        pcl::PCLPointCloud2   FeatureExtractor3D:: extract_features(std::string name, const
+        pcl::PCLPointCloud2ConstPtr & msg)
 {
     if (name=="pfh")
         return extract_features_pfh(msg);
@@ -18,11 +20,16 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features(std::string name
 
 
 }
-sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_vhf(const sensor_msgs::PointCloud2ConstPtr & msg_in)
+
+        pcl::PCLPointCloud2   FeatureExtractor3D:: extract_features_vhf(const
+        pcl::PCLPointCloud2ConstPtr & msg_in)
 {
-    sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
+
+        pcl::PCLPointCloud2Ptr msg (new
+        pcl::PCLPointCloud2 ());
     //Downsample point cloud:
-    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
+    pcl::VoxelGrid<
+        pcl::PCLPointCloud2 > sor;
     sor.setInputCloud (msg_in);
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*msg);
@@ -62,19 +69,25 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_vhf(const sensor
     // Compute the features
     vfh.compute(*descriptor);
 
-    sensor_msgs::PointCloud2 result;
+
+        pcl::PCLPointCloud2  result;
     pcl::toROSMsg(*descriptor, result );
 
     return result;
 }
 
-sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const sensor_msgs::PointCloud2ConstPtr & msg_in)
+
+        pcl::PCLPointCloud2   FeatureExtractor3D:: extract_features_fpfh(const
+        pcl::PCLPointCloud2ConstPtr & msg_in)
 {
-    sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
+
+        pcl::PCLPointCloud2Ptr msg (new
+        pcl::PCLPointCloud2 ());
 
 //    //std::cerr << "Original input msg size: "<<msg_in->data.size()<<std::endl;
     //Downsample point cloud:
-    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
+    pcl::VoxelGrid<
+        pcl::PCLPointCloud2 > sor;
     sor.setInputCloud (msg_in);
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*msg);
@@ -131,19 +144,24 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_fpfh(const senso
     //std::cerr<<"FEATURE COMPUTATION FNISHED"<<std::endl;
 
 
-    sensor_msgs::PointCloud2 result;
+
+        pcl::PCLPointCloud2  result;
     pcl::toROSMsg(*fpfhs, result );
 
     return result;
 }
 
-sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor_msgs::PointCloud2ConstPtr & msg_in)
+
+        pcl::PCLPointCloud2   FeatureExtractor3D:: extract_features_pfh(const
+        pcl::PCLPointCloud2ConstPtr & msg_in)
 {
 
-    sensor_msgs::PointCloud2Ptr msg (new sensor_msgs::PointCloud2());
+
+        pcl::PCLPointCloud2Ptr msg (new pcl::PCLPointCloud2 ());
 
     //Downsample point cloud:
-    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
+    pcl::VoxelGrid<
+        pcl::PCLPointCloud2 > sor;
     sor.setInputCloud (msg_in);
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*msg);
@@ -258,7 +276,8 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
 
     //std::cerr<<"PFH ESTIMATION DONE"<<std::endl;
 
-    sensor_msgs::PointCloud2 result;
+
+        pcl::PCLPointCloud2  result;
     pcl::toROSMsg(*descriptors_out, result );
 
     return result;
@@ -320,7 +339,8 @@ sensor_msgs::PointCloud2  FeatureExtractor3D:: extract_features_pfh(const sensor
 
     //    //std::cerr<<"3D ----> Features computed"<<std::endl;
 
-    //    sensor_msgs::PointCloud2 result;
+    //
+    //    pcl::PCLPointCloud2  result;
     //    pcl::toROSMsg(*pfhs, result );
 
     //    return result;

@@ -25,6 +25,7 @@
 
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
+#include <pcl/ros/conversions.h>
 
 //trying:
 #include <stdio.h>  /* defines FILENAME_MAX */
@@ -55,11 +56,13 @@ public:
     void save_template(cv::Mat descriptors, int number_object, int number_view);
 
 
-    void save_template(std::vector<sensor_msgs::PointCloud2> & , int ); /**Saves a new 2D template in the predefined path */
+    void save_template(std::vector<
+        pcl::PCLPointCloud2 > & , int ); /**Saves a new 2D template in the predefined path */
 
 
     void getTemplates (int, std::vector<std::vector<cv::Mat> > &  );    /**Returns all the descriptors previously stored*/
-    void getTemplates (int, std::vector<std::vector<sensor_msgs::PointCloud2> > &  );    /**Returns all the descriptors previously stored*/
+    void getTemplates (int, std::vector<std::vector<
+        pcl::PCLPointCloud2 > > &  );    /**Returns all the descriptors previously stored*/
 
     std::string get_path_to_pkg();
 
@@ -74,9 +77,11 @@ public:
 
 private:
 
-    sensor_msgs::PointCloud2 load_descriptor3D(std::string filename);
 
-    void save_descriptor(sensor_msgs::PointCloud2 &descriptors, std::string filename);
+        pcl::PCLPointCloud2  load_descriptor3D(std::string filename);
+
+    void save_descriptor(
+        pcl::PCLPointCloud2  &descriptors, std::string filename);
 
 
     std::string algorithms_2D_path; /**Path where the 2D algorithms are stored*/
