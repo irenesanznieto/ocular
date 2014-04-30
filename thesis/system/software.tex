@@ -1,4 +1,78 @@
 \addcontentsline{toc}{chapter}{Software}
 \chapter*{Software}
 
- 
+ %%%%%%% INTRODUCTION %%%%%%
+%\addcontentsline{toc}{section}{Introduction}
+%\section*{Introduction}
+In this section the software developed in this Bachelor's Thesis is presented and thoroughly explained. 
+\\
+
+The code was created as a ROS package. ROS (Robotic Operating System) is an Operating System designed to be implemented in robots. It has libraries to enhance the communication between nodes, the processes management or the threads present in the code among other functionalities. 
+Since this code is intended to be running on a robot, the software developed was created as a ROS package. 
+\\
+
+In order to manage 2D and 3D information (images and pointclouds) two libraries has been used: OpenCV and PCL. Those two libraries implement basic and state-of-the-art algorithms that allow a easier and more time-efficient management of the data. 
+\\
+
+The software was structured in nodes. These nodes have a relatively small functionality and run in parallel. The fact that they run simultaneously improves the efficiency of the code lowering the lag due to time-expensive operations. 
+\\
+
+In the following sections, the software structure and tools used are described. 
+
+
+\newpage
+
+ %%%%%%% SOFTWARE STRUCTURE %%%%%%
+\addcontentsline{toc}{section}{Software structure}
+\section*{Software structure}
+
+%In this section, the code functionalities of each part or node of the software are explained. The communication between nodes is shown and the overall software flow is thoroughly described. 
+
+The code is structured in nodes. Each node contains a piece of the processing needed in the code. All nodes are related between them using ROS messages to transport the input and output data. 
+\\
+
+Computer vision is a field that involves high time-expensive algorithms. In the previous chapter it was explained that it uses 2D and 3D information. That information implies a matrix that has for each point 2 coordinates number (in the case of 2D) or 3 coordinates (in the case of 3D data), apart from the colour of that point, which is described using 3 more integers. \\
+
+As it can be seen the data handled is enormous an the way to reduce the time lag due to those computations is modularizing the computation and executing in parallel those processes. 
+\\
+
+The software was designed to be as modular as was possible so that each node performs an action that could be used in other applications. 
+As an example, the code could be easily changed to recognize hats or shoes, just changing the initial node that extracts the information of the desired joint. 
+\\
+
+In the following paragraphs the nodes' functionalities will be described and the communication between them presented. But first, the overall software workflow is shown using the flow diagram below. 
+
+\begin{figure}[h]
+	\begin{center}
+\includegraphics[scale=0.2]{img/diagrams/flowcharts.eps}
+	\caption[Software flowchart]{Complete Software flowchart showing the different processing steps between the input and the output}
+	\end{center}
+\end{figure}
+
+The input of the system is the information coming from the RGB-D sensor. There are two different data that are taken: the 2D information, i.e. the raw image detected by the sensor's camera, and the 3D information, i.e. the raw point cloud. Also, there is another input to the system that shows the position of the different user's joints. This data is provided by a third-party package called pi_tracker that is explained in the following chapters. 
+\\
+
+The software was designed to be running on a robot as was previously explained. This implies that there can not be a GUI (G** User Interface) on a screen because the robot being used might not have it. Also, the usability and easiness to learn how to interact with the program was important to allow different people not only investigators to use it. 
+\\
+
+In order to fulfil those requirements a gestural interface was designed. It is developed by a separate node so the processing lags will not affect the recognition of the different gestures. This fact also allows an easy change of the gestures being used. 
+\\
+
+The recognition of the location of the hand with respect to the user's body shows how the arm is positioned. If it is stretched towards the sensor, the software enters the dataset construction mode, i.e. the data acquisition and learning mode. If, otherwise, it is located closer to the body, the software starts the object recognition mode. 
+\\
+
+The upper part of the diagram shows the data acquisition work-flow. The first step is to extract the ROI (Region of Interest) from the input raw data. This is a crucial step that allows to reduce noticeably the amount of time due to computation reducing the size of the processed information. 
+\\
+
+After the extraction, the 2D and 3D features of the segmented data are obtained. The features or descriptors are characteristics that define and represent the data from where they were created. There are different algorithms that perform this task with better or worse repeatability and robustness. All the details about this process is explained in the next chapters. 
+\\
+
+That is the end of the data cycle of the learning process. It is iterated over the number of views for each object that is required in order to obtain all the templates necessary per object. 
+\\
+
+The other mode, the recognition mode was triggered when the hand was located near the user's body. 
+
+
+
+
+
