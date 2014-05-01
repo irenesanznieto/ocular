@@ -7,6 +7,8 @@ The processing needed to provide all the functionality is divided in nodes. Here
 
 \begin{itemize}
 	\item{\textbf{\large Converter}}\\
+		\label{converter}
+
 This node is the first step of the code. It transforms the input data from the pi\_tracker package into the custom message used within the software. The information provided by that third-party code contains the position in the space of each joint of the body. The converter node takes only both hand's position. 
 \\
 
@@ -21,6 +23,8 @@ It use case diagram of the node can be seen in the diagram below:
 
 	
 	\item{\textbf{ROI Segmenter 3D}}\\
+	\label{roi_segmenter_3d}
+
 The input of this node is the raw 3D information from the sensor and the hand's locations from the third-party package pi\_tracker, as well as the hand in which the user is holding the object. The node segments a prism from the original point cloud around the selected hand's center. The prism vertices coordinates are transformed from world coordinates to pixels. That information is the output of the node, together with the segmented point cloud. 
 
 \begin{figure}[h]
@@ -31,6 +35,7 @@ The input of this node is the raw 3D information from the sensor and the hand's 
 \end{figure}
  
 	\item{\textbf{ROI Segmenter 2D}}\\
+	\label{roi_segmenter_2d}
 The present node takes as the input the raw 2D information from the RGB-D sensor and the hand's locations in pixels returned from the ROI segmenter 3D node. Then, it extracts the ROI (Region Of Interest) taking a square section around the center of the hand. The size of that figure is fixed for simplicity. Since due to the RGB-D sensor's current resolutions the user must remain at a fixed distance from the sensor, the difference in the scale due to the distance is negligible and hence the size can be fixed. 
 \\
 

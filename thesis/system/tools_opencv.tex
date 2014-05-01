@@ -1,25 +1,63 @@
+\newpage
+
 \subsection{OpenCV}
 \label{opencv}
+
+%Intro
+OpenCV\cite{opencv} (Open Source Computer Vision) is a library that implements state of the art real-time computer vision 
+algorithms. 
+
+It is cross-platform and it is released under a BSD\cite{BSD} license. Previously it was integrated in ROS \cite{ros}, but
+now it is used as a stand-alone library.  
+
+\begin{figure}[h]
+	\begin{center}
+    \includegraphics[scale=1]{img/opencv/logo.eps}
+	\caption[OpenCV Logo]{OpenCV Logo}
+	\end{center}
+\end{figure}
+
+The qualities described above as well as its optimization of various algorithms make this library an extremely useful 
+asset for robotic vision projects. 
+
+% In this project's context
+
+In this project the C++ interface of the OpenCV library has been used. The functionalities provided by this library are used in all the 2D information management. The next paragraph details the operations for which this library has been used. 
+
+\subsubsection{Processes that use the OpenCV library}
+
+\begin{itemize}
+	\item\textbf{Segmentation of the ROI (Region Of Interest)\\ }
+
+	This library allows to crop the original raw image coming
+	from the RGB-D sensor. In this application, the region cropped is the one around the hand being used. More information about this operation can be found in the \ref{roi_segmenter_2d} section. 
+	
+
+	\item {Keypoints and descriptors extraction\\ }
+	 The OpenCV library implements multiple optimized state of the art algorithms. Among them, there are a number of descriptor extractors such as SIFT, SURF, ORB. This last one is being used in this project due to its open-sourceness, and robustness / speed relation. More information about the different algorithms implemented in OpenCV used to extract the descriptors can be found in the section \ref{features}.
+
+
+	\item {Descriptors matching\\ } There are many different matchers that might be used. In this project, a FlannBasedMatcher
+	is being used for this purpose. 
+\end{itemize}
 
 
 
 \subsubsection{Features}
+\label{features}
 In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
 
-
-	%\addcontentsline{toc}{section}{Object Learning and Recognition}
-	\section{Object Learning and Recognition}
 The most used algorithms due to their relation between performance, invariantness and speed are exposed below. They are presented chronologically and the differences, similarities and improvements between them are explained. 
 \\
 
-The selection of one algorithm or another depends on the requisites and the hardware of the application. Which algorithm is finally used and the reasons to chose it can be found in the methods part.%%%% reference! 
+The selection of one algorithm or another depends on the requisites and the hardware of the application.
 \\
 
 These first algorithms, SIFT, SURF and ORB are used to obtain descriptors for 2D data. 
 
-		\input{state_of_the_art/sift}
-		\input{state_of_the_art/surf}
-		\input{state_of_the_art/orb}
+		\input{system/sift}
+		\input{system/surf}
+		\input{system/orb}
 
 
-\subsubsection{ROS integration}
+
