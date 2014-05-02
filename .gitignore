@@ -19,8 +19,10 @@ sandbox/TFG/data/*
 *.dia~
 *.txt.user
 *.ps
-
+msg_gen/
 img/
+
+
 
 sandbox/TFG/msg_gen/*
 sandbox/TFG/src/TFG/*
