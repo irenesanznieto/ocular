@@ -2,15 +2,15 @@
 
 //RecognizerNode::RecognizerNode()
 //{
-//    descriptors2D_sub=nh.subscribe<TFG::HandImage>("descriptors2D", 1, &RecognizerNode::descriptors2D_cb, this);
+//    descriptors2D_sub=nh.subscribe<ocular::HandImage>("descriptors2D", 1, &RecognizerNode::descriptors2D_cb, this);
 //    object_pub=nh.advertise<std_msgs::Int32>("object_id", 1);
-//    event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &RecognizerNode::setEvent, this);
+//    event_sub=nh.subscribe<ocular::EventHandler>("event", 1, &RecognizerNode::setEvent, this);
 
 //    recognize=true; //the default mode is recognizer
 //}
 
 
-//void RecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
+//void RecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & msg)
 //{
 //    if (recognize)      //If the mode is recognize
 //    {
@@ -23,7 +23,7 @@
 //    }
 //}
 
-//void RecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
+//void RecognizerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
 //{
 //    if (msg->event=="learn")
 //    {

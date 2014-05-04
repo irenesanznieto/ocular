@@ -8,7 +8,7 @@ class Algorithm2DTest : public testing::Test
 public:
 
     Algorithm2D alg2D;
-    TFG::HandImage msg;
+    ocular::HandImage msg;
 
 
     virtual void SetUp()
@@ -52,7 +52,7 @@ public:
 
 //TEST_F(Algorithm2DTest, match2D)
 //{
-////    int Algorithm2D :: match2D(const TFG::HandImageConstPtr & msg)
+////    int Algorithm2D :: match2D(const ocular::HandImageConstPtr & msg)
 
 //}
 

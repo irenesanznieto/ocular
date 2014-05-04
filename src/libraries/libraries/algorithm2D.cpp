@@ -70,7 +70,7 @@ void Algorithm2D::next_object()
     this->object_number=descriptors.size()-1;
 }
 
-bool Algorithm2D::add_descriptors( TFG::HandImage msg)
+bool Algorithm2D::add_descriptors( ocular::HandImage msg)
 {
     //convert from ros image msg to opencv image
     cv_bridge::CvImagePtr cv_ptr;
@@ -105,7 +105,7 @@ bool Algorithm2D::add_descriptors( TFG::HandImage msg)
 
 
 
-int Algorithm2D :: match(const TFG::HandImageConstPtr & msg)
+int Algorithm2D :: match(const ocular::HandImageConstPtr & msg)
 {
     cv_bridge::CvImagePtr cv_ptr;
 

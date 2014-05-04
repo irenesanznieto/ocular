@@ -15,9 +15,9 @@ int main (int argc,char* argv[])
 
 // using actionlib
 //#include <actionlib/client/simple_action_client.h>
-//#include <TFG/LearnAction.h>
+//#include <ocular/LearnAction.h>
 
-//typedef actionlib::SimpleActionClient <TFG::LearnAction> Client;
+//typedef actionlib::SimpleActionClient <ocular::LearnAction> Client;
 
 //int main (int argc, char ** argv)
 //{
@@ -25,7 +25,7 @@ int main (int argc,char* argv[])
 //    Client client ("recognize", false);      //true --> don't need ros::spin()
 //    client.waitForServer();
 
-//    TFG::LearnGoal goal;
+//    ocular::LearnGoal goal;
 //    //fill in goal here
 //    goal.hand="I'm recognizing";
 

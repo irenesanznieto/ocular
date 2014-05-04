@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -21,7 +21,7 @@
 
 #include <ros/ros.h>
 #include <pi_tracker/Skeleton.h>
-#include <TFG/HandLoc.h>
+#include <ocular/HandLoc.h>
 
 #include "../libraries/converter.h"
 
@@ -50,7 +50,7 @@ private:
 
     ros::NodeHandle nh;             /** NodeHandle variable to control the nodes*/
     ros::Subscriber skeleton_sub;      /**Subscriber used to obtain the pi_tracker::Skeleton messages*/
-    ros::Publisher hand_location_pub;      /**Publisher used to publish the resulting custom message TFG::HandLoc with the hands information*/
+    ros::Publisher hand_location_pub;      /**Publisher used to publish the resulting custom message ocular::HandLoc with the hands information*/
 
 
     Converter converterObject;       /**Object of the Converter class*/
@@ -60,7 +60,7 @@ private:
     *
     *\param pi_tracker::SkeletonConstPtr message received through the topic
     *
-    * This method stores the Skeleton message provided by the pi_tracker package and uses the Converter object to convert it to the custom message TFG::HandLoc
+    * This method stores the Skeleton message provided by the pi_tracker package and uses the Converter object to convert it to the custom message ocular::HandLoc
     */
     void converter_cb(const pi_tracker::SkeletonConstPtr &);
 

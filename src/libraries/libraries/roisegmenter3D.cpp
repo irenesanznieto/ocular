@@ -50,9 +50,9 @@ RoiSegmenter3D::RoiSegmenter3D()
 }
 
 
-TFG::HandLocPx RoiSegmenter3D:: distance2px()
+ocular::HandLocPx RoiSegmenter3D:: distance2px()
 {
-    TFG::HandLocPx image_coord;
+    ocular::HandLocPx image_coord;
     image_coord.points.clear();
 
 
@@ -114,7 +114,7 @@ TFG::HandLocPx RoiSegmenter3D:: distance2px()
 
 }
 
-void RoiSegmenter3D::coordinates (const TFG::HandLoc & msg)
+void RoiSegmenter3D::coordinates (const ocular::HandLoc & msg)
 {
     coord.header=msg.header;
     coord.user_id=msg.user_id;
@@ -122,12 +122,12 @@ void RoiSegmenter3D::coordinates (const TFG::HandLoc & msg)
     coord.position=msg.position;
 }
 
-void RoiSegmenter3D::setHandLoc (TFG::HandLoc &coord)
+void RoiSegmenter3D::setHandLoc (ocular::HandLoc &coord)
 {
     this->coord=coord;
 }
 
-TFG::HandLoc RoiSegmenter3D::getHandLoc ()
+ocular::HandLoc RoiSegmenter3D::getHandLoc ()
 {
     return coord;
 }

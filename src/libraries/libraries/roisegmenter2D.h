@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -29,8 +29,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include <TFG/HandLocPx.h>
-#include <TFG/HandImage.h>
+#include <ocular/HandLocPx.h>
+#include <ocular/HandImage.h>
 
 //* RoiSegmenter2D class
 /**
@@ -50,14 +50,14 @@ public:
 
     /**
      * @brief Extracts the 2D ROI from the original image coming from the RGB-D sensor
-     * @return TFG::HandImage with the segmented image
+     * @return ocular::HandImage with the segmented image
      */
-    TFG::HandImage segment(const sensor_msgs::ImageConstPtr &);
+    ocular::HandImage segment(const sensor_msgs::ImageConstPtr &);
 
     /**
      * @brief Stores the pixel coordinates of the ROI in a private variable for its use within the class
      */
-    void coordinates(const TFG::HandLocPxConstPtr &);
+    void coordinates(const ocular::HandLocPxConstPtr &);
 
 
     /*!
@@ -72,16 +72,16 @@ public:
     bool checkLimits(int & , int& );
 
 
-    TFG::HandLocPx getHandLocPx();
+    ocular::HandLocPx getHandLocPx();
 
-    void setHandLocPx (TFG::HandLocPx &);
+    void setHandLocPx (ocular::HandLocPx &);
 
     const sensor_msgs::ImageConstPtr setInputImage(std::string );
 
 
 private:
 
-    TFG::HandLocPx coord;   /**TFG::HandLocPx used to store the 2D values of the ROI */
+    ocular::HandLocPx coord;   /**ocular::HandLocPx used to store the 2D values of the ROI */
 
 
 

@@ -2,7 +2,7 @@ bin/
 build/
 lib/
 devel/
-sandbox/TFG/data/*
+data/*
 *.aux
 *.dvi
 *.log
@@ -23,7 +23,6 @@ msg_gen/
 img/
 
 
-
-sandbox/TFG/msg_gen/*
-sandbox/TFG/src/TFG/*
+msg_gen/*
+src/ocular/*
 

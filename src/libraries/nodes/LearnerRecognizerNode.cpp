@@ -5,12 +5,12 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
     object_pub=nh.advertise<std_msgs::Int32>("object_id", 1);
 
-    descriptors2D=nh.subscribe<TFG::HandImage>("descriptors2D", 1, &LearnerRecognizerNode::descriptors2D_cb, this);
+    descriptors2D=nh.subscribe<ocular::HandImage>("descriptors2D", 1, &LearnerRecognizerNode::descriptors2D_cb, this);
 
     descriptors3D=nh.subscribe<
         pcl::PCLPointCloud2 >("descriptors3D",1,&LearnerRecognizerNode::descriptors3D_cb, this);
 
-    event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &LearnerRecognizerNode::setEvent, this);
+    event_sub=nh.subscribe<ocular::EventHandler>("event", 1, &LearnerRecognizerNode::setEvent, this);
 
 
     //Inintialize the number of view to be taken for each template
@@ -45,7 +45,7 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 }
 
 
-void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
+void LearnerRecognizerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
 {
 
     if (msg->event=="learn" )
@@ -65,7 +65,7 @@ void LearnerRecognizerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
 }
 
 
-void LearnerRecognizerNode::descriptors2D_cb(const TFG::HandImageConstPtr & msg)
+void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & msg)
 {
     if(this->learn_2D)
     {

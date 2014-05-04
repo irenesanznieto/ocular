@@ -3,9 +3,9 @@
 FeatureExtractor2D::FeatureExtractor2D()
 {}
 
-TFG::HandImage FeatureExtractor2D::extract_features(const TFG::HandImageConstPtr & msg)
+ocular::HandImage FeatureExtractor2D::extract_features(const ocular::HandImageConstPtr & msg)
 {
-    TFG::HandImage result;
+    ocular::HandImage result;
 
     cv_bridge::CvImagePtr cv_ptr;
     cv_bridge::CvImagePtr final_ptr;

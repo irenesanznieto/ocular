@@ -7,7 +7,7 @@ class RoiSegmenter3DTest : public testing::Test
 
 public:
     RoiSegmenter3D roiseg3D;
-    TFG::HandLoc msg_hand_loc;
+    ocular::HandLoc msg_hand_loc;
 
     sensor_msgs::PointCloud2 msg_cloud;
 
@@ -110,7 +110,7 @@ TEST_F(RoiSegmenter3DTest,segment)
 
 TEST_F(RoiSegmenter3DTest,distance2px)
 {
-    TFG::HandLocPx result;
+    ocular::HandLocPx result;
     roiseg3D.setHandLoc(msg_hand_loc);
     roiseg3D.setHandName("left_hand");
 
@@ -132,7 +132,7 @@ TEST_F(RoiSegmenter3DTest,distance2px)
 TEST_F(RoiSegmenter3DTest,coordinates)
 {
     roiseg3D.coordinates(msg_hand_loc);
-    TFG::HandLoc coordinates=roiseg3D.getHandLoc();
+    ocular::HandLoc coordinates=roiseg3D.getHandLoc();
 
     //TEST
     EXPECT_EQ(0,coordinates.position[0].x);

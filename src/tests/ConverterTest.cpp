@@ -111,7 +111,7 @@ TEST(Converter,handCoordinatesExtractor)
     message.position[14].z= 0.936475585938;
 
 //        Orientation -> not used and hence, not tested
-    TFG::HandLoc result=c.handCoordinatesExtractor(message);
+    ocular::HandLoc result=c.handCoordinatesExtractor(message);
 
 
 //        Header

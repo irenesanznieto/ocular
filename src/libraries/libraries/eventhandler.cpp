@@ -5,9 +5,9 @@ EventHandler::EventHandler()
     this->last_event="recognize";
 }
 
-TFG::EventHandler EventHandler::select_event_hand( pi_tracker::Skeleton msg)
+ocular::EventHandler EventHandler::select_event_hand( pi_tracker::Skeleton msg)
 {
-    TFG::EventHandler event;
+    ocular::EventHandler event;
 
     event.last_event=this->last_event;
 

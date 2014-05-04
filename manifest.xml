@@ -1,13 +1,13 @@
 <package>
-  <description brief="TFG">
+  <description brief="ocular">
 
-     TFG
+     ocular
 
   </description>
   <author>Irene Sanz Nieto</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/TFG</url>
+  <url>http://ros.org/wiki/ocular</url>
   <depend package="pcl_msgs"/>
   <depend package="pcl_ros"/>
   <depend package="roscpp"/>

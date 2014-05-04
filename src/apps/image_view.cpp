@@ -5,7 +5,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include <TFG/HandImage.h>
+#include <ocular/HandImage.h>
 
 class ImageConverter
 {
@@ -18,7 +18,7 @@ public:
     ImageConverter()
         : it_(nh_)
     {
-        image_sub_ = nh_.subscribe<TFG::HandImage>("image_in", 1,&ImageConverter::imageCb, this);
+        image_sub_ = nh_.subscribe<ocular::HandImage>("image_in", 1,&ImageConverter::imageCb, this);
         image_pub=it_.advertise("image_out", 1);
     }
 
@@ -26,7 +26,7 @@ public:
     ~ImageConverter()
     {}
 
-    void imageCb(const TFG::HandImageConstPtr& msg)
+    void imageCb(const ocular::HandImageConstPtr& msg)
     {
         for(unsigned int i=0; i<msg->image.size(); i++)
         {

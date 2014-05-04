@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -20,7 +20,7 @@
 #define FEATURE_EXTRACTOR_2D_H
 
 #include "roisegmenter2D.h"
-#include <TFG/HandImage.h>
+#include <ocular/HandImage.h>
 
 
 //* FeatureExtractor2D class
@@ -37,7 +37,7 @@ public:
     */
     FeatureExtractor2D();
 
-    TFG::HandImage extract_features(const TFG::HandImageConstPtr & );   /**Extracts the 2D descriptors from the segmented input image using the ORB algorithm */
+    ocular::HandImage extract_features(const ocular::HandImageConstPtr & );   /**Extracts the 2D descriptors from the segmented input image using the ORB algorithm */
 
     sensor_msgs::Image get_image_with_keypoints();
 

@@ -8,7 +8,7 @@ class FeatureExtractor2DTest : public testing::Test
 public:
 
     FeatureExtractor2D fe2d;
-    TFG::HandImage msg;
+    ocular::HandImage msg;
     virtual void SetUp()
     {
 
@@ -21,8 +21,8 @@ public:
 
 TEST_F(FeatureExtractor2DTest,extract_features)
 {
-    const TFG::HandImageConstPtr  msg_ptr=boost::make_shared<TFG::HandImage>(msg);
-    TFG::HandImage result=fe2d.extract_features(msg_ptr);
+    const ocular::HandImageConstPtr  msg_ptr=boost::make_shared<ocular::HandImage>(msg);
+    ocular::HandImage result=fe2d.extract_features(msg_ptr);
 
     EXPECT_FALSE(msg_ptr->image.size(),result.image.size());
 //    EXPECT_TRUE()
