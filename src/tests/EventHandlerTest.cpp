@@ -120,7 +120,7 @@ public:
 
 TEST_F(EventHandlerTest , select_event_hand)
 {
-    TFG::EventHandler result;
+    ocular::EventHandler result;
     result=events.select_event_hand(msg);
 
     EXPECT_EQ ("recognize", result.event);

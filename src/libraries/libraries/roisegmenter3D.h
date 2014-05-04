@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -32,8 +32,8 @@
 
 //Msgs
 #include <sensor_msgs/PointCloud2.h>
-#include <TFG/HandLocPx.h>
-#include <TFG/HandLoc.h>
+#include <ocular/HandLocPx.h>
+#include <ocular/HandLoc.h>
 
 //* RoiSegmenter3D class 
 /**
@@ -63,27 +63,27 @@ public:
     /*!
     * \brief Callback method that stores the hand location message in a class variable
     *
-    * Stores the TFG::HandLoc message in the coord private variable
+    * Stores the ocular::HandLoc message in the coord private variable
     */
-    void coordinates (const TFG::HandLoc &);
+    void coordinates (const ocular::HandLoc &);
 
     /*!
     * \brief Method that transforms the 3D world coordinates to pixels
     *
     * It is used to determine the limits of the 2D ROI.
     */
-    TFG::HandLocPx distance2px();
+    ocular::HandLocPx distance2px();
 
-    void setHandLoc (TFG::HandLoc &);
+    void setHandLoc (ocular::HandLoc &);
 
-    TFG::HandLoc getHandLoc ();
+    ocular::HandLoc getHandLoc ();
 
     void setHandName(std::string);
 
 private:
 
     pcl::PointXYZ box_size;     /** Stores the ROI dimensions (in 3D) */
-    TFG::HandLoc coord;     /** Stores the TFG::HandLoc message received from the ConverterNode */
+    ocular::HandLoc coord;     /** Stores the ocular::HandLoc message received from the ConverterNode */
     std::string hand_name;  /** Stores the hand being used in the software */
 };
 

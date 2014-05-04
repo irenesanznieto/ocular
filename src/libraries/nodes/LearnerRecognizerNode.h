@@ -6,7 +6,7 @@
 #include <std_msgs/Int32.h>
 
 #include <ros/ros.h>
-#include <TFG/EventHandler.h>
+#include <ocular/EventHandler.h>
 
 class LearnerRecognizerNode
 {
@@ -25,7 +25,7 @@ private:
 
 
 
-    void descriptors2D_cb(const TFG::HandImageConstPtr & );
+    void descriptors2D_cb(const ocular::HandImageConstPtr & );
 
     void descriptors3D_cb(const sensor_msgs::PointCloud2ConstPtr & );
 
@@ -33,7 +33,7 @@ private:
 
     void train3D_cb();
 
-    void setEvent(const TFG::EventHandlerConstPtr & );
+    void setEvent(const ocular::EventHandlerConstPtr & );
 
 
     Algorithm2D alg2D;

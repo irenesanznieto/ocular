@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -20,7 +20,7 @@
 #define ROISEGMENTER3DNODE_H
 
 #include "../libraries/roisegmenter3D.h"
-#include <TFG/EventHandler.h>
+#include <ocular/EventHandler.h>
 
 //* RoiSegmenter3DNode class
 /**
@@ -43,7 +43,7 @@ private:
 
     ros::NodeHandle nh;             /** NodeHandle variable to control the nodes*/
     ros::Subscriber point_cloud_sub;    /**Subscriber used to obtain the point clouds from the RGB-D sensor*/
-    ros::Subscriber coord_sub;  /**Subscriber used to obtain the TFG::HandLoc messages*/
+    ros::Subscriber coord_sub;  /**Subscriber used to obtain the ocular::HandLoc messages*/
     ros::Publisher point_cloud_pub; /**Publisher used to publish the resulting segmented point cloud*/
     ros::Publisher coord_pub;   /**Publisher used to publish the 2D ROI coordinates*/
 
@@ -61,10 +61,10 @@ private:
     /*!
     * \brief Callback function that extracts and publishes the 2D ROI's coordinates using a function of the RoiSegmenter3D object
     */
-    void hand_location_cb (const TFG::HandLocConstPtr &);
+    void hand_location_cb (const ocular::HandLocConstPtr &);
 
 
-    void hand_name_cb(const TFG::EventHandlerConstPtr &);
+    void hand_name_cb(const ocular::EventHandlerConstPtr &);
 };
 
 #endif // ROISEGMENTER3DNODE_H

@@ -2,7 +2,7 @@
 
 EventHandlerNode::EventHandlerNode()
 {
-    event_pub=nh.advertise<TFG::EventHandler>("event", 1);
+    event_pub=nh.advertise<ocular::EventHandler>("event", 1);
     skeleton_sub=nh.subscribe<pi_tracker::Skeleton>("skeleton", 1, &EventHandlerNode::event_cb, this);
 
 }

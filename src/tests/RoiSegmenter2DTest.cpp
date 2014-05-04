@@ -8,7 +8,7 @@ class RoiSegmenter2DTest : public testing::Test
 
 public:
     RoiSegmenter2D roiseg2D;
-    TFG::HandLocPx msg_hand_loc_px;
+    ocular::HandLocPx msg_hand_loc_px;
     sensor_msgs::Image msg_image;
 
     virtual void SetUp()
@@ -77,10 +77,10 @@ public:
 
 TEST_F(RoiSegmenter2DTest,segment)
 {
-    const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
+    const ocular::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<ocular::HandLocPx>(msg_hand_loc_px);
     roiseg2D.coordinates(msg_hand_loc_px_ptr);
 
-    TFG::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage("/home/peko/tfg_git/sandbox/TFG/data/test/ros_groovy.jpg"));
+    ocular::HandImage result_image=roiseg2D.segment(roiseg2D.setInputImage("/home/peko/ocular_git/sandbox/ocular/data/test/ros_groovy.jpg"));
     //TEST
     EXPECT_EQ (2, result_image.name.size());
     EXPECT_EQ(2, result_image.image.size());
@@ -123,10 +123,10 @@ TEST_F(RoiSegmenter2DTest,checkLimits)
 
 TEST_F(RoiSegmenter2DTest,coordinates)
 {
-    const TFG::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<TFG::HandLocPx>(msg_hand_loc_px);
+    const ocular::HandLocPxConstPtr& msg_hand_loc_px_ptr = boost::make_shared<ocular::HandLocPx>(msg_hand_loc_px);
     roiseg2D.coordinates(msg_hand_loc_px_ptr);
 
-    TFG::HandLocPx coordinates=roiseg2D.getHandLocPx();
+    ocular::HandLocPx coordinates=roiseg2D.getHandLocPx();
 
 
     //TEST

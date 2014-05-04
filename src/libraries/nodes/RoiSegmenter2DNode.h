@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -54,7 +54,7 @@ private:
     /**
      * @brief Callback function that stores the 2D ROI coordinates.
      */
-    void hand_coordinates_2D_cb(const TFG::HandLocPxConstPtr &);
+    void hand_coordinates_2D_cb(const ocular::HandLocPxConstPtr &);
 
     /**
      * @brief Callback function that passes the original image from the RGB-D sensor to a RoiSegmenter2D function in order to crop the 2D ROI for both hands

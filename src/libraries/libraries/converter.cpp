@@ -5,10 +5,10 @@ Converter::Converter()
 {}
 
 
-TFG::HandLoc Converter::handCoordinatesExtractor(const pi_tracker::Skeleton &msg)
+ocular::HandLoc Converter::handCoordinatesExtractor(const pi_tracker::Skeleton &msg)
 {
 
-   TFG::HandLoc hand_location;
+   ocular::HandLoc hand_location;
 
    hand_location.header=msg.header;
    hand_location.user_id=msg.user_id;

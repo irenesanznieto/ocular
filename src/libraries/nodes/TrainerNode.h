@@ -5,7 +5,7 @@
 //#include "../libraries/algorithm3D.h"
 
 //#include <ros/ros.h>
-//#include <TFG/EventHandler.h>
+//#include <ocular/EventHandler.h>
 
 //class TrainerNode
 //{
@@ -21,11 +21,11 @@
 //    ros::Subscriber event_sub;
 
 
-//    void train2D_cb(const TFG::HandImageConstPtr & );
+//    void train2D_cb(const ocular::HandImageConstPtr & );
 
 //    void train3D_cb();
 
-//    void setEvent(const TFG::EventHandlerConstPtr & );
+//    void setEvent(const ocular::EventHandlerConstPtr & );
 
 
 //    Algorithm2D alg2D;

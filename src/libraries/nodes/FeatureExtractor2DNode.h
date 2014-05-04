@@ -20,7 +20,7 @@ private:
     image_transport::Publisher image_with_keypoints_pub;
     image_transport::ImageTransport it;
 
-    void input_image_cb (const TFG::HandImageConstPtr &);
+    void input_image_cb (const ocular::HandImageConstPtr &);
     FeatureExtractor2D fe2D;
 };
 

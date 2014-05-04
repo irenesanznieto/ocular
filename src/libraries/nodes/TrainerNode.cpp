@@ -3,10 +3,10 @@
 //TrainerNode::TrainerNode()
 //{
 
-//    descriptors2D=nh.subscribe<TFG::HandImage>("descriptors2D", 1, &TrainerNode::train2D_cb, this);
+//    descriptors2D=nh.subscribe<ocular::HandImage>("descriptors2D", 1, &TrainerNode::train2D_cb, this);
 //    //    descriptors3D=nh.subscribe("3D descriptors",1,&train3D_cb, this);
 
-//    event_sub=nh.subscribe<TFG::EventHandler>("event", 1, &TrainerNode::setEvent, this);
+//    event_sub=nh.subscribe<ocular::EventHandler>("event", 1, &TrainerNode::setEvent, this);
 
 //    //    ROS_ERROR("ESTAMOS EN TRAINERNODE!!");
 
@@ -24,7 +24,7 @@
 
 
 
-//void TrainerNode::train2D_cb(const TFG::HandImageConstPtr & msg)
+//void TrainerNode::train2D_cb(const ocular::HandImageConstPtr & msg)
 //{
 //    if(learn)
 //    {
@@ -65,7 +65,7 @@
 
 //}
 
-//void TrainerNode::setEvent(const TFG::EventHandlerConstPtr & msg)
+//void TrainerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
 //{
 
 

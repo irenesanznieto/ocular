@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -26,7 +26,7 @@
 
 
 #include "dataparser.h"
-#include <TFG/HandImage.h>
+#include <ocular/HandImage.h>
 
 //* Algorithm2D
 /**
@@ -51,9 +51,9 @@ public:
 
 
 
-    bool add_descriptors(TFG::HandImage);
+    bool add_descriptors(ocular::HandImage);
 
-    int match(const TFG::HandImageConstPtr & msg);
+    int match(const ocular::HandImageConstPtr & msg);
 
     void set_number_views (int);
 

@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------
 //--
 //-- This file belongs to the Bachelor's Thesis "In-hand object detection and tracking using 2D and 3D information"
-//-- (https://github.com/irenesanznieto/TFG)
+//-- (https://github.com/irenesanznieto/ocular)
 //--
 //------------------------------------------------------------------------------
 //-- Author: Irene Sanz Nieto
@@ -19,13 +19,13 @@
 #define CONVERTER_H
 #include <ros/ros.h>
 #include <pi_tracker/Skeleton.h>
-#include <TFG/HandLoc.h>
+#include <ocular/HandLoc.h>
 #include <std_msgs/String.h>
 
 //* Converter
 /**
 * Bridge between the software used to locate the hand's position (in this case, the ROS package pi_tracker) and the project. 
-* From the pi_tracker::Skeleton message, it fills the TFG::HandLoc message. 
+* From the pi_tracker::Skeleton message, it fills the ocular::HandLoc message. 
 * \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
 * \date Feb 3rd, 2014
 *   
@@ -48,7 +48,7 @@ public:
     * the above brief description.
     * \param msg       The pi_tracker::Skeleton message provided by the ROS package pi_tracker
     */
-    TFG::HandLoc handCoordinatesExtractor(const pi_tracker::Skeleton & msg);
+    ocular::HandLoc handCoordinatesExtractor(const pi_tracker::Skeleton & msg);
 
 };
 #endif // CONVERTER_H

@@ -14,10 +14,10 @@ RoiSegmenter2D::~RoiSegmenter2D()
 
 }
 
-TFG::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
+ocular::HandImage RoiSegmenter2D::segment(const sensor_msgs::ImageConstPtr & msg)
 {
     cv_bridge::CvImagePtr cv_ptr;
-    TFG::HandImage final_image;
+    ocular::HandImage final_image;
 
     if (!coord.points.empty())
     {
@@ -116,17 +116,17 @@ bool RoiSegmenter2D::checkLimits(int & x, int& y)
 }
 
 
-void RoiSegmenter2D::coordinates(const TFG::HandLocPxConstPtr &msg)
+void RoiSegmenter2D::coordinates(const ocular::HandLocPxConstPtr &msg)
 {
     coord=*msg;
 }
 
-TFG::HandLocPx RoiSegmenter2D::getHandLocPx ()
+ocular::HandLocPx RoiSegmenter2D::getHandLocPx ()
 {
     return coord;
 }
 
-void RoiSegmenter2D::setHandLocPx (TFG::HandLocPx& coord)
+void RoiSegmenter2D::setHandLocPx (ocular::HandLocPx& coord)
 {
     this->coord=coord;
 }
