@@ -1,11 +1,84 @@
 %\addcontentsline{toc}{part}{Introduction}
 \part{Introduction}
 
-	\input{intro/intro} 
-	\input{intro/motivation} 
-	\input{intro/context}
-	\input{intro/uses}	% future applications
 
-	\input{intro/thesis_structure}
+%	\input{intro/motivation} 
+%	\input{intro/context}
+%	\input{intro/uses}	% future applications
 
 
+
+\chapter{Introduction}
+This bachelor's thesis consists on a software that implements an in-hand object learning and recognition using 2D and 3D information. 
+\\
+
+The code is Open-Source and it was designed to be running inside a robot. The idea is to create a new stand-alone module that could be included in every robot using ROS and a kinect or other RGB-D sensor. This way, having different modularized functionalities it could be possible to create a customized robot in a few seconds, just importing packages and compiling them. 
+\\[1cm]
+
+\chapter{Context and motivation}
+In the past fifteen years, there has been a change in the perception of the knowledge and whether it should be restricted using patents or not. Most of the scientific community now supports the open source initiative and this has caused a huge increase on the investigation field. \\
+
+
+
+The idea of creating common software, of aiding other investigators to easily replicate the work already done and continue from that point instead of "reinventing the wheel" started in the past century. In 1998 the Open Source Initiative (OSI)\cite{osi} was formed, and its definition is recognized as the standard. According to them, "Open source does not just mean access to the source code. The distribution terms of open-source software must comply with the following criteria: Free Redistribution, Source Code, Derived Works, Integrity of The Author's Source Code, No Discrimination Against Persons or Groups, No Discrimination Against Fields of Endeavor, Distribution of License, License Must Not Be Specific to a Product, License Must Not Restrict Other Software,  License Must Be Technology-Neutral"\cite{osi_def}. 
+\\
+
+It is my believe that Open Source is critical in the development of new knowledge and not only in the Software field, but in all the science and technical disciplines. This is how the idea of increasing that common pool of tools with another one that might be useful appeared. 
+\\
+%\begin{wrapfigure}{r}{0.3\textwidth}
+%	\centering
+%   \includegraphics[width=0.25\textwidth]{img/intro/open_source.eps}
+%	\caption[Open Source Initiative Logo]{Open Source Initiative Logo}
+%\end{wrapfigure}
+
+\begin{figure}[h]
+	\begin{center}
+    \includegraphics[scale=0.2]{img/intro/open_source.eps}
+	\caption[Open Source Initiative Logo]{Open Source Initiative Logo}
+	\end{center}
+\end{figure}
+
+
+It is noticeable the mark that Open Source has throughout the project. From the libraries being used in it to the Robotic Operating System of which this project is but another package. All of them are Open Source. Also, the tutorials, examples and different web-pages with useful comments and aids for those who are learning has been critical in this project's development. Nothing of this could have been possible without the idea of Open Source code. 
+\\
+
+%Apart from the want of making useful Open Source code, there remains another motivation unexplained. That is, the specific subject of this project. 
+\\
+
+%The bad economic context that exist nowadays has forced the different areas of the society to investigate new technologies that has a lower cost. 
+%Nowadays, advances regarding robotics appear everyday, and technologies such as 3D printing are having a tremendous impact in the society. Thanks to this instruments, now it is possible and relatively easy to customize prosthesis and also much affordable than it was before. 
+%\\
+
+%Robotics is a field that is experiencing a huge impulse currently. And more specifically, Open Source robotics is growing rapidly. 
+%\\
+
+One of the open-source projects that appeared with this new way of thinking was the low-cost 3D printers. These machines have changed the manner of investigating in robots, since they allow to design them easily and have a 3D reproduction in a few hours. 
+\\
+
+But they are used not only in robots, but also in medicine and many other fields. In medicine, they have been a revolution since they allow to create customized pieces in very few time. They have been used for prosthesis and implants for persons of various ages, even for babies. 
+\\
+
+Before, the prosthesis were very expensive and permitted only fixed movements and combinations. The adaptations to each individual were made in the final product itself, trying to make it as comfortable as possible for the wearer. Nowadays, the prosthesis are customized for each patient, reducing the bothers for them and increasing their usability. Also, they can be easily and cheaply adapted for children as an example, who are still experimenting many changes in their bodies. They are much cheaper than they were before, and everyone with a 3D printer may construct one. 
+\\
+
+Of course, in order to 3D print a piece a file with its description is needed. There are many web-pages that store open-source designs that ranges from decoration models to complex prosthesis. This fact is decisive because there is not needed a huge amount of knowledge or money to improve the life quality of a person using these technologies. 
+\\
+
+There are numerous open-source projects and developers that put in common their knowledge to improve the technology being used. I have used many of them in the previous years, to learn about 3D printing, robotics or programming among other fields. 
+\\
+
+The fact that previously I have developed other projects involving designing and constructing 3D-printed wheeled robots gave me the idea of developing a new package for different robots that allowed to easily obtain new functionalities.One of the most interesting fields that can be used in virtually all types of robots is Computer Vision. 
+\\
+
+Computer vision has experience an important improvement in the last years through the upgrade of the hardware and software that compose it. The hardware such as acquisition elements (cameras, depth sensors, etc) and computing elements (PCs or other programmable devices) have experienced a rapid advance in the past years. It allowed to process more data that is now obtained more accurately and with less noise. This increase in the computing power of the equipment created a possibility of introducing more complex libraries and frameworks and even operating systems. 
+\\
+
+But Computer Vision is an ample area, why choosing object recognition? The project being developed is intended to be useful, not just a mere hobby. It occurred to me that apart from being useful in the interaction with robots and cognitive robots more particularly, this software could be used with visually impaired people, as an example. Mainly, with people that had a sudden loss of vision and that is not used to detect the objects by its shape, or cannot differentiate them by the contour. 
+\\
+
+In summary, the software developed is open-source and is intended as a useful package for visually impaired persons, as well as for its integration within a robotic system. 
+
+\newpage
+\input{intro/intro} 
+\newpage
+\input{intro/thesis_structure}

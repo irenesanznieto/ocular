@@ -1,10 +1,4 @@
-%\addcontentsline{toc}{chapter}{Introduction}	%remove it from the index??
-\chapter{Introduction}
-This bachelor's thesis consists on a software that implements an in-hand object learning and recognition using 2D and 3D information. 
-\\
-
-The code is Open-Source and it was designed to be running inside a robot. The idea is to create a new stand-alone module that could be included in every robot using ROS and a kinect or other RGB-D sensor. This way, having different modularized functionalities it could be possible to create a customized robot in a few seconds, just importing packages and compiling them. 
-\\
+\chapter{The software}
 
 %%%%% WHAT DOES IT DO? %%%%%%
 %\addcontentsline{toc}{section}{What does the software do?}
@@ -29,18 +23,18 @@ This software has been thought to be used within a robot. This fact implies that
 
 That interface has to contemplate four possible situations. Those depend on the hand being used (left or right, the code is able to work with either of them) and the location of that hand, which switches between the two modes present in the project: the recognizing and the learning mode. 
 
-\begin{wrapfigure}{l}{0.5\textwidth}
+\begin{figure}
 	\centering
     \includegraphics[width=0.45\textwidth]{img/intro/learning.eps}
 	\caption[Learning Mode Triggering]{Learning mode triggering using the gestural interface}
-\end{wrapfigure}
+\end{figure}
 
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{figure}
 	\centering
     \includegraphics[width=0.45\textwidth]{img/intro/recognizing.eps}
 	\caption[Recognizing Mode Triggering]{Recognizing mode triggering using the gestural interface}
-\end{wrapfigure}
+\end{figure}
 
 The software only allows one hand being used at a time. It is designed to select the highest hand. In order to obtain a correct result and avoid possible fluctuations of the program and the other packages being used, the user should keep the other hand close to the body. 
 \\
@@ -60,7 +54,6 @@ it will launch the recognizing mode, which is the default.
 
 
 %%%%%% GENERAL CHARACTERISTICS %%%%%%
-%\addcontentsline{toc}{section}{General characteristics}
 \section{General characteristics}
 This project is aimed to be part of a robotic system. In order for it to work properly on it, the processes should be as simple as possible to consume the lowest computing time possible. Those processes or nodes should as well run in parallel for the robot to work correctly. As an example, a robot that is using this software while walking along with the user must be able to perform that other tasks that allow it to walk while recognizing objects. Also, there are critical nodes that must be running continuously as the sensor data retrieving which is a crucial security element. 
 \\
