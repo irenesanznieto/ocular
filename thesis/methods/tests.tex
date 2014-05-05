@@ -13,26 +13,38 @@ This structure easies the testing, since the first testing level is done in the 
 For further details about the tools used to perform the testing please read the section \ref{testing}.
 \\
 
-	\subsubsection{First level: Library unit test}
-A library unit test should test your code without ROS. If your code functionality is integrated directly with ROS functions, your library probably needs to be re-factored. 
-\\
+In the following sections the libraries being tested in each level are presented. 
 
-In the software developed the functionality of the nodes are separated from the ROS communication, allowing an easy unit testing. \\
+	\section{First level: Library unit test}
+		The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
+		In this level, the base classes are tested. Those classes are located in the src/libraries/libraries directory. The tests performed are: 
+			\subsection{Converter Test}
 
-The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
+			\subsection{ROI Segmenter 2D Test}
 
-	\subsubsection{Second level: ROS node unit test}
-In order to perform this testing level a library unit test and the rostest tool are needed. Here, the node unit tests start up the node and test its external API, the published and subscribed topics and services. 
-\\
+			\subsection{ROI Segmenter 3D Test}
 
-The rostest tool is explained in detail in the following \ref{rostest} section.
+			\subsection{Feature Extractor 2D Test}
 
-	\subsubsection{Third level: ROS node integration / regression test}
-	This type of testing is directed to try the functioning of multiple nodes at the same time. \\
+			\subsection{Feature Extractor 3D Test}
 
-	The debugging of a group of ROS nodes is similar to debugging mutithreaded code. \\
+			\subsection{Algorithm2D Test}
 
-	In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. 
+			\subsection{Algorithm3D Test}
+
+			\subsection{Event Handler Test}
+
+			\subsection{Data Parser Test}
+
+	\section{Second level: ROS node unit test}
+		In order to perform this testing level a library unit test and the rostest tool are needed.The rostest tool is explained in detail in the following \ref{rostest} section.\\
+
+		The tests developed in this level are the following: 
+			\subsection{}
+
+	\section{Third level: ROS node integration / regression test}
+		In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. In this project, the tests implemented of this level are the following: 
+			\subsection{}
 
 
 \chapter{Performance testing}
@@ -57,5 +69,47 @@ The bandwidth parameter in a ROS topic is the maximum amount of data received ov
 
 
 \chapter{Effectiveness testing}
-T
 
+	The effectiveness test is designed to obtain data related to the accuracy of the code. Since the code implements a learner and recognizer algorithm, this test presents how well it does its job. 
+\\
+
+	In the following section the conditions and parameters that affect the test are shown and explained. 
+
+	\section{Environment \& testing conditions}
+		The test is performed in a room without a blank background and with various objects at different depths. It is hence a crowded background. 
+		\\
+
+		The light source is located behind the RGB-D sensor, illuminating the user. The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. 
+
+	\section{Testing procedure}
+		The testing is performed following a certain sequence. First, the tester shows the first two objects that are going to be learned to the software. Afterwards, the recognition mode is tested identifying and storing in a file the output of the matching for both 2D and 3D. 
+		\\
+
+		Then, another new object is learned and again the recognition is tested. This sequence is iterated until there are no new objects to be learned. 
+		\\
+
+		The reason why doing an incremental learning is to observe the differences in the effectiveness and the benchmarking of the code when the dataset changes. 
+		\\
+
+		The whole procedure is going to be repeated for different number of object views to compare the differences in the software execution when increasing and decreasing them. Theoretically, decreasing the number of views should worse the effectiveness of the recognition but better the performance of the code, since the processing needed is reduced.
+
+	\section{Dataset}
+		The dataset that is going to be used was selected to be everyday use objects. This is because the software is intended to be running in a social robot that needs to recognize the most used objects. Also, the other possible application of the software is as an aiding software for visually impaired persons. In this case it is a requirement the recognition of daily objects as well.  
+		\\
+
+		Selecting this type of objects permits to obtain more reliable effectiveness testing. One characteristic that usually appears in these objects is the featurelessness. This fact difficult the object recognition, since the most textured objects are the ones that usually generate more reliable descriptors. \\
+
+		In the code, in order to better the recognition, different views of each object are obtained and compared when doing the matching. Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. 
+
+	\section{Effectiveness measurement}
+
+		The effectiveness is measured differently for the learning mode than for the recognizing mode. 
+		\\
+
+		The first mode do not have a possibility of failing in learning, since all the different classes are previously tested and an error on it could only come from a software error. Having this in mind, the effectiveness of this mode is to create the best descriptors possible. 
+		The best descriptor is that one that has a lower size but still is sufficiently robust to allow a good recognition performance. 
+		\\
+
+		In the case of the second mode, the recognizing, the effectiveness is measured in terms of false negatives and positives versus the true ones. The result is a percentage that indicates how well the features are matched. If the effectiveness is 0\%, the software has a 100\% of false positives and negatives, and if the effectiveness is a 100\%, there is a 100\% of true positives and negatives. \\
+
+		
