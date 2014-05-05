@@ -1,0 +1,134 @@
+\section{Software usage}
+\label{software_usage}
+
+In the present section the compilation and installation instructions of the software are presented as well as the usage instructions. 
+
+\subsection{Operating System}
+This project uses the ROS framework to compile and run. Since ROS is only available for Linux OS, this type of operating system should be installed in the computer used to run the code. 
+
+
+\subsection{Software needed}
+In order to use the software developed in this bachelor's thesis, the following packages are needed. 
+\subsubsection{ROS}
+The Robotic Operating System is used within the software as the means of communication between the different nodes. Also, different ROS packages are used to provide the input information to the system. Hence, it is needed to install it. 
+\\
+
+The code has been tested with the Groovy or Indigo ROS distributions. For installation instructions the webpage http://ros.org provide numerous tutorials. 
+\\
+
+Between those distributions there is another one which is called Hydro. For this particular one the code has not been tested but since there are no major changes between Hydro and Indigo, the code used for this latter should compile without problems. 
+
+
+\subsubsection{ROS package: openni\_camera / freenect\_camera}
+These packages are the drivers of the kinect. They should be installed via command-line, which is the recommended, or downloading and compiling the source code. 
+\\
+
+In order to install these packages using the terminal, please introduce the following commands: 
+\\
+
+sudo apt-get install ros-<distro>-openni\_camera
+\\
+
+sudo apt-get install ros-<distro>-freenect\_camera
+\\
+
+Replace the <distro> word by the distribution currently installed on your computer, Groovy or Indigo, in lower case. 
+
+
+
+\subsubsection{ROS package: openni\_launch / freenect\_launch}
+These package needs to be launched in parallel with the code provided in this bachelor's thesis. As the previous ones, they can be downloaded using the terminal or compiling the source code. 
+\\
+
+In oder to install them using the command-line please enter the following on it: 
+\\
+
+sudo apt-get install ros-<distro>-openni\_launch
+\\
+
+sudo apt-get install ros-<distro>-freenect\_launch
+\\
+
+This commands install the ROS package in the default directory in which the ROS libraries are stored, usually /opt/ros/<distro>. 
+
+
+
+\subsubsection{ROS package: pi\_tracker}
+The pi\_tracker package is needed in order to retrieve the position of the user's skeleton. Unfortunately it is not available for command-line installing. This means that the code must be downloaded and compiled in order to be used. 
+\\
+
+To do so, the source code must be downloaded into the ROS workspace already created. The source code might be found on the web-page: http://github.com/pi\_tracker. 
+\\
+
+For further details on how to download and install ROS packages using the source code please read the following section. 
+
+\subsection{ROS packages source code compilation}
+The first thing needed is the ROS workspace. Depending on the ROS distribution, this workspace might be a catkin workspace or a rosbuild workspace. 
+\\
+
+Catkin and rosbuild are two methods implemented by ROS to organize the code and to compile it. Both use CMAKE below to compile the code, with specific arguments for different compilation options. 
+\\
+
+\subsubsection{Catkin workspace}
+The first thing needed is to create a folder for the workspace and a src folder within the first one. This can be done through the interface or using the following command in a terminal: 
+\\
+
+mkdir -p <path-to-workspace>/<name-of-workspace>/src\\
+
+Then, insert the following command or open a terminal inside the src folder: \\
+
+cd <path-to-workspace>/<name-of-workspace>/src\\
+
+Finally, in order to initiate the catkin workspace, type: \\
+
+catkin\_init\_workspace\\
+
+This creates an empty workspace. The different packages must be located inside the src folder. \\
+
+In order to build the workspace, move to the upper folder of your workspace and insert the following command: \\
+
+catkin\_make\\
+
+This compiles all the packages within the catkin workspace. In order to use the packages inside this folder, it is necessary to source the setup bash files inside the devel folder. This overlays the workspace on top of your ROS environment. Enter the following command: \\
+
+source <path-to-workspace>/<name-of-workspace>/devel/setup.bash\\
+
+
+
+
+\subsubsection{Rosbuild workspace}
+First, introduce the following command in order to create the workspace folder: \\
+
+mkdir -p <path-to-workspace>/<name-of-workspace> \\
+
+Then, in order to create the workspace the rosws command is needed, which is not installed by default. It can be downloaded using the Ubuntu package manager introducing the following in a terminal: \\
+
+sudo apt-get install python-rosinstall\\
+
+Now it is possible to create the workspace using: \\
+
+rosws init <path-to-workspace>/<name-of-workspace> /opt/ros/<ROS-distro>\\
+
+In a rosbuild workspace the packages are located within the sandbox folder. To create it and set it insert the following: \\
+
+mkdir <path-to-workspace>/<name-of-workspace>/sandbox\\
+
+rosws set  <path-to-workspace>/<name-of-workspace>/sandbox\\
+
+Whenever the entries in the workspace suffer changes, it is necessary to re-source the setup file inside the workspace to make sure the updated ROS\_PACKAGE\_PATH is used. In order to source the workspace introduce this line in a terminal: \\
+
+source <path-to-workspace>/<name-of-workspace>/setup.bash\\
+
+
+
+
+\subsection{OCULAR compilation}
+The source code might be found in the repository : http://github.com/irenesanznieto/ocular. There are two branches within that code, one for the Groovy and the other for the Indigo distributions. 
+\\
+
+
+
+
+\subsection{Launch files}
+
+\subsection{Run the code}

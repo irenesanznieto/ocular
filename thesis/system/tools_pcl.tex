@@ -1,11 +1,71 @@
 \section{PCL}
 \label{pcl}
+PCL (Point Cloud Library) is a standalone library that is open source and implements state-of-the-art algorithms related to 2D and 3D image and point cloud processing. \\
+\begin{figure}[h]
+	\begin{center}
+    \includegraphics[scale=0.1]{img/pcl/pcl_logo.png}
+	\caption[PCL Logo]{PCL Logo}
+	\end{center}
+\end{figure}
 
-		
-The following algorithms are used to describe 3D data. 
-		%\addcontentsline{toc}{subsection}{PFH}
-		\subsection{PFH}
-		\label{pfh}
-		
-		%\addcontentsline{toc}{subsection}{LINEMOD}
-		\subsection{LINEMOD}
+It is released under a BSD license, being free for commercial and research use. Is cross-platform and currently has been successfully compiled on Linux, MacOS, Windows, Android and iOS. \\
+
+The library is divided in smaller code libraries that can be compiled separately. This modularity allows the PCL introduction on platforms with size constrains or that has a reduce computational size. \cite{Rusu_ICRA2011_PCL}
+\\
+
+
+
+\begin{figure}[h]
+	\begin{center}
+    \includegraphics[scale=0.4]{img/pcl/pcl_dependency.png}
+	\caption[PCL graph of libraries]{PCL graph of code libraries and their relations}
+	\end{center}
+\end{figure}
+
+
+\subsection{Point Cloud}
+A point cloud is a data structure that represents a set of multi-dimensional points that is used to represent three-dimensional data. There are two types of point clouds: 3D point cloud in which the points represent the x, y and z coordinates and that has no color information and 4D point cloud in which the color information is included. 
+\\
+
+Point clouds are acquired from hardware sensors such as RGB-D sensors, 3D scanners or time-of-flight cameras. Also, those data structures might be generated synthetically. PCL can process data from devices such as the PrimeSensor 3D cameras, the Microsoft Kinect or the Ausus XTionPRO.
+
+
+\subsection{PCL in this thesis}
+The Point Cloud Library is used within the software to perform transformations in the input point clouds and to perform descriptor extraction and matching in this data. 
+\\
+
+More specifically, PCL is used in the following processes: 
+
+\begin{itemize}
+	\item\textbf{Segmentation of the ROI (Region Of Interest)\\ }
+
+	This library allows to crop the original raw point cloud coming from the RGB-D sensor. In this application, the region cropped is the one around the hand being used. More information about this operation can be found in the \ref{roi_segmenter_3d} section. 
+	
+
+	\item\textbf{ {Keypoints and descriptors extraction\\ }}
+	 The PCL library implements multiple optimized state of the art algorithms. Among them, there are a number of descriptor extractors such as PFH, FPFH or LINEMOD. In this project, the PFH descriptor is used due to its speed. More information about the different 3D descriptors implemented in PCL can be found in the section \ref{3d_features}.
+
+
+	\item \textbf{{Descriptors matching\\ }}
+	There are different algorithms that allow to match the information provided by the descriptors, such as knn search or radius search. For further information about the type of matcher used in the present thesis, please visit the section \ref{learner_recognizer}
+\end{itemize}
+
+
+\subsubsection{3D Features}
+\label{3d_features}
+COMPLETE: how 3D features work in PCL 
+\\
+
+A feature is a characteristic of the data, in this case point clouds, that describes a point inside the data. Features or descriptors can be compared to determine whether the point described is the same in two different inputs. They are used in the object recognition field. 
+\\
+
+There are many different descriptors that can be used. Each of them has a certain speed in its computing and a reliability and robustness associated. Depending on the application in which they appear the developer must select the features depending on the specifications. 
+\\
+
+Two of the most used geometric point features are the underlying surface's estimated curvature and the normal at a specific query point. Both are local features and they characterize the point using the information provided by its neighbors. \\
+
+The local features are not reliable for the object recognition field since two specific points of different objects might have similar local features. In order to create more powerful descriptors, a global descriptor is needed. Usually global descriptors implement different techniques to 
+
+
+\subsubsection{PFH}
+\label{pfh}

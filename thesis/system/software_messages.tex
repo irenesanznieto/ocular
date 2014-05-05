@@ -1,11 +1,58 @@
 \section{Software messages}
 \label{software_messages}
 
+In this section the custom messages used within the software are explained. These messages allow an easier communication between nodes providing them with sufficient information to perform each task. 
+\\
+
+All messages have a header, that provides basic information such as the exact time at which it was send. 
+
 
 \subsection{EventHandler message}
-Header header
-string hand
-string event
-string last_event
+The structure of this message is as follows: \\
 
-\subsection{}
+Header header\\
+string hand\\
+string event\\
+string last\_event
+
+\\
+
+It is the message used within the event topic. Provides information about the hand the user is utilizing in the software, the event that is currently occurring and the last event that was produced. 
+\\
+
+The inclusion of the last event provides information about the changes in the events, allowing the software to recognize the different combinations that can appear and act accordingly. 
+\\
+
+That decision mechanism is implemented in the learner\_recognizer node. 
+
+\subsection{HandImage message}
+
+The HandImage message has the following structure: \\
+Header header\\
+string[] name\\
+sensor\_msgs/Image[] image
+
+This message only differs on the image standard message on the appearance of a name and on the vectorial nature of its attributes. It is intended to serve on future expansions of the code in which for each hand a different action is performed. 
+
+\subsection{HandLoc message}
+This message has the following structure: 
+Header header\\
+int32 user\_id\\
+string[] name\\
+geometry\_msgs/Vector3[] position
+\\
+
+It contains the information of the absolute position of the hand and its name. It is as well vectorial, that is the same message variable can store multiple informations that are accessed as the C arrays. 
+
+\subsection{HandLocPx message}
+The handlocpx message is as follows: 
+
+Header header\\
+int32 user\_id\\
+string[] name\\
+int32[] points\\
+
+As it can be seen is almost identical to the previous message. It only differs on the units in which the hand location is given. in the previous one it was given in meters and in this one, it is in pixels. 
+\\
+
+This message is filled by the ROI segmenter 3D node, who transforms the limits of the ROI in meters to pixels for the ROI segmenter 2D note to use. This latter subscribes to the topic in which the message is published and crops the raw input message accordingly. 

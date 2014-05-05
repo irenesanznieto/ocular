@@ -28,5 +28,17 @@ The path  is /TFG/ROI2D/segmented\_image. In this topic the  ROI Segmenter 2D no
 The topic's name is /TFG/ROI2D/segmented\_image\_with\_keypoints. This topic is filled with images showing the segmented 2D ROI with the keypoints drawn on it. The node that publishes this data is FeatureExtractor2D. The topic is intended for visualization and troubleshooting purposes. 
 
 \subsection{/TFG/ROI3D/segmented\_coordinates\_px}
+This topic is used to publish the information of the ROI location transformed to pixels. The topic is filled by the ROI Segmenter 3D node and the ROI Segmenter 2D node is subscribed to it. 
+
 \subsection{/TFG/ROI3D/segmented\_pc}
+The present topic contains the messages with the segmented point clouds. It is filled by the ROI Segmenter 3D node as well and the Feature Extractor 3D node is subscribed to it. It is also possible to visualize using rviz or other point cloud visualization software the segmented point cloud. 
+\\
+
+The complete path to the topic is /TTFG/ROI3D/segmented\_pc.
+
+
 \subsection{/TFG/object\_id}
+The name of the topic is /TFG/object\_id. This is the output of the system. The topic is filled by messages of type INT that represent the identification number of the recognized object. The numbers are assigned in the order they were previously learned. 
+\\
+
+Currently, the topic is only used in order to create a small feedback environment with the user. As part of the future work, another node could be developed to complete a natural interface with the user. This node would allow to give the learned object a name by talking to the software and in turn the code would output the recognized object as audio. For more information please read section \ref{conclusions}.
