@@ -1,0 +1,61 @@
+\chapter{Code testing}
+The code has been designed to be easily tested. The communication and ROS functions are separated from the actual computing of the nodes. 
+\\
+
+The class structure of the code is hence as follows: the base class performs the operations needed by the node and there exists a wrapper class that implements the publishing and subscribing to the different nodes. \\
+
+In the actual application, it is an object of this latter wrapper class the one that is created. 
+\\
+
+This structure easies the testing, since the first testing level is done in the base classes and the second and third on the wrapper classes.
+\\
+
+For further details about the tools used to perform the testing please read the section \ref{testing}.
+\\
+
+	\subsubsection{First level: Library unit test}
+A library unit test should test your code without ROS. If your code functionality is integrated directly with ROS functions, your library probably needs to be re-factored. 
+\\
+
+In the software developed the functionality of the nodes are separated from the ROS communication, allowing an easy unit testing. \\
+
+The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
+
+	\subsubsection{Second level: ROS node unit test}
+In order to perform this testing level a library unit test and the rostest tool are needed. Here, the node unit tests start up the node and test its external API, the published and subscribed topics and services. 
+\\
+
+The rostest tool is explained in detail in the following \ref{rostest} section.
+
+	\subsubsection{Third level: ROS node integration / regression test}
+	This type of testing is directed to try the functioning of multiple nodes at the same time. \\
+
+	The debugging of a group of ROS nodes is similar to debugging mutithreaded code. \\
+
+	In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. 
+
+
+\chapter{Performance testing}
+The performance testing is used to benchmark the software developed. The different tests are explained below, ordered by the component of the software that is tested. 
+
+
+\section{Package Benchmarking}
+The whole package is benchmarked in order to obtain the CPU and RAM usages. This two parameters determine which systems would be able to handle the software and the specifications of the hardware needed to run the code under the desired time limits. 
+
+\section{Node Benchmarking}
+The ROS package is modular, the processing is distributed over different nodes. Each part of the processing sequence followed has different CPU and RAM usages, so the particular behavior of each node is studied. 
+\\
+
+There is a high difference between nodes. Those nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption than the nodes that process the input images and point clouds. 
+
+\section{Topic Benchmarking}
+The topics communicate the nodes and allows the exchange of information. They are implemented in the ROS framework, which provides specific tools to measure their performance.
+The parameters that are benchmarked are the bandwidth of the topics and their publishing rate.\\
+
+The bandwidth parameter in a ROS topic is the maximum amount of data received over time, that is the maximum speed at which the data is transmitted. If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. This last possibility is due to the fact that rostopic is implemented in Python and hence it has a lower throughput than the roscpp-based nodes. 
+
+
+
+\chapter{Effectiveness testing}
+T
+
