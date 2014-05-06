@@ -4,7 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage[top=3cm, bottom=3cm, left=3cm, right=4cm]{geometry}
+\usepackage[top=2cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
 
 \usepackage[T1]{fontenc}
 
@@ -26,14 +26,20 @@
 \setlength{\headsep}{1.5cm}
 	\pagestyle{fancy}
 
-%%algunos símbolos matemáticos y paquete para usar subimágenes
-%\usepackage{amsmath}
-%\usepackage{amsfonts}
-%\usepackage{amssymb}
-%\usepackage{graphicx}
-%\usepackage{subfigure}
-%\usepackage{listings}
-%\usepackage{appendix}
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{-20\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    %\ifnum \c@secnumdepth >\m@ne
+    %    \huge\bfseries \@chapapp\space \thechapter
+    %    \par\nobreak
+    %    \vskip 20\p@
+    %\fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+  \makeatother
 
 %Hyperrefs without borders
 \usepackage[hidelinks]{hyperref}
@@ -131,7 +137,7 @@
 %%\addcontentsline{toc}{chapter}{Bibliography}
 \include{bibliography}
 
-\appendix
+%\appendix
 \include{appendix}
 
 

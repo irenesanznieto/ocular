@@ -130,6 +130,9 @@ The first region of interest segmented is the 3D. Using the hand's center positi
 No outlier filtering is done due to the high computing time required.  
 \\
 The limits of the 3D ROI extracted are converted to pixels and published in a topic. These limits are the inputs of the following node. 
+\begin{center}
+	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_3d.eps}
+\end{center}
 
 \paragraph{ROI Segmenter 2D Node\\[0.5cm]}
 As it was previously mentioned, the 2D ROI dimensions are extracted from the 3D ROI. The original image obtained from the RGB-D sensor is cropped using those points. 
@@ -138,20 +141,18 @@ The outputs of this node are two topics, one with the 2D ROI (a custom message t
 \\
 To decrease the computation time, the point clouds do not have the RGB component. Thus, the color information is obtained through the 2D ROI. 
 
-
-\begin{huge}
-CHANGE THIS DIAGRAM!!
-\end{huge}
-
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_2d.eps}
 \end{center}
 
 \subsubsection{Feature Extractor Node}
 This node extracts both 2D and 3D features and publish them. 
 
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_2d.eps}
+
+	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_3d.eps}
+
 \end{center}
 
 
@@ -168,11 +169,6 @@ This node stores the 2D and 3D features of each template of the same object in o
 		\includegraphics[scale=0.4]{img/diagrams/uc_event_handler.eps}
 	\end{center}
 	
-\subsubsection{Display Node}
-This node shows the output of the program. There is a window in which different information will be shown. 
-	\begin{center}
-		\includegraphics[scale=0.4]{img/diagrams/uc_display.eps}
-	\end{center}
 	
 \subsubsection{Object Learner Node}
 

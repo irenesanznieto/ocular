@@ -19,6 +19,26 @@ The software was structured in nodes. These nodes have a relatively small functi
 
 In the following sections, the software structure and tools used are described. 
 
+
+
+%\section{Structure}
+%\label{structure}
+
+%In this section, the code functionalities of each part or node of the software are explained. The communication between nodes is shown and the overall software flow is thoroughly described. 
+
+The code is structured in nodes. Each node contains a piece of the processing needed in the code. All nodes are related between them using ROS messages to transport the input and output data. 
+\\
+
+Computer vision is a field that involves high time-expensive algorithms. In the previous chapter it was explained that it uses 2D and 3D information. That information implies a matrix that has for each point 2 coordinates number (in the case of 2D) or 3 coordinates (in the case of 3D data), apart from the colour of that point, which is described using 3 more integers. \\
+
+As it can be seen the data handled is enormous an the way to reduce the time lag due to those computations is modularizing the computation and executing in parallel those processes. 
+\\
+
+The software was designed to be as modular as was possible so that each node performs an action that could be used in other applications. 
+As an example, the code could be easily changed to recognize hats or shoes, just changing the initial node that extracts the information of the desired joint. 
+\\
+
+In the following paragraphs the nodes' functionalities will be described and the communication between them presented. But first, the overall software work-flow is shown using the flow diagram below. 
 \newpage
 
 \input{system/software_structure}
