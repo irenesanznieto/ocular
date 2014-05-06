@@ -16,11 +16,11 @@ The processing needed to provide all the functionality is divided in nodes. Here
 
 	It use case diagram of the node can be seen in the diagram below: 
 
-	\begin{figure}[h]
-		\begin{center}
-	\includegraphics[scale=0.2]{img/diagrams/uc_converter.eps}
+	\begin{figure}[H]
+		\centering
+	\includegraphics[scale=0.4]{img/diagrams/uc_converter.eps}
 		\caption[Use case diagram converter node]{Use Case diagram of the converter node}
-		\end{center}
+		
 	\end{figure}
 
 	
@@ -29,11 +29,11 @@ The processing needed to provide all the functionality is divided in nodes. Here
 
 	The input of this node is the raw 3D information from the sensor and the hand's locations from the third-party package pi\_tracker, as well as the hand in which the user is holding the object. The node segments a prism from the original point cloud around the selected hand's center. The prism vertices coordinates are transformed from world coordinates to pixels. That information is the output of the node, together with the segmented point cloud. 
 
-	\begin{figure}[h]
-		\begin{center}
-	\includegraphics[scale=0.2]{img/diagrams/uc_roi_segmenter_3d.eps}
+	\begin{figure}[H]
+		\centering
+	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_3d.eps}
 		\caption[Use case diagram ROI segmenter 3D node]{Use Case diagram of the ROI segmenter 3D node}
-		\end{center}
+		
 	\end{figure}
  
 \subsection{ROI Segmenter 2D}\\
@@ -42,11 +42,11 @@ The processing needed to provide all the functionality is divided in nodes. Here
 	\\
 
 	In the following image the use case diagram of the node can be observed.
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[scale=0.2]{img/diagrams/uc_roi_segmenter_2d.eps}
+	\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_2d.eps}
 			\caption[Use case diagram ROI segmenter 2D node]{Use Case diagram of the ROI segmenter 2D node}
-		\end{center}
+		
 	\end{figure}
 
 
@@ -56,11 +56,11 @@ The processing needed to provide all the functionality is divided in nodes. Here
 	\\
 
 	The following figure represents the use case diagram of this node. 
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[scale=0.2]{img/diagrams/uc_feature_extractor_2d.eps}
+	\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_2d.eps}
 			\caption[Use case diagram Feature Extractor 2D node]{Use Case diagram of the Feature Extractor 2D node}
-		\end{center}
+		
 	\end{figure}
 
 \subsection{Feature Extractor 3D}\\
@@ -69,11 +69,11 @@ The processing needed to provide all the functionality is divided in nodes. Here
 
 	The picture below shows the use case diagram of the node. 
 
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[scale=0.2]{img/diagrams/uc_feature_extractor_3d.eps}
+	\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_3d.eps}
 			\caption[Use case diagram Feature Extractor 3D node]{Use Case diagram of the Feature Extractor 3D node}
-		\end{center}
+		
 	\end{figure}
 
 \subsection{Event Handler}\\
@@ -85,11 +85,11 @@ The processing needed to provide all the functionality is divided in nodes. Here
 	\\
 
 	The distance that triggers the modes is proportional to the distance between the user and the RGB-D sensor in order to obtain a range of use of the software higher. 
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[scale=0.2]{img/diagrams/uc_event_handler.eps}
+	\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.4]{img/diagrams/uc_event_handler.eps}
 			\caption[Use case diagram Event Handler node]{Use Case diagram of the Event Handler node}
-		\end{center}
+		
 	\end{figure}
 
 \subsection{Learner Recognizer}\\
@@ -103,11 +103,11 @@ The processing needed to provide all the functionality is divided in nodes. Here
 
 	The recognition sequence compares the newly obtained features both 2D and 3D with the ones that are stored in the dataset. Afterwards, a decision algorithm is followed and the result of the recognition published in the output topic. This is the output of the whole software. 
 
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[scale=0.2]{img/diagrams/uc_learner_recognizer.eps}
+	\begin{figure}[H]
+		\centering
+			\includegraphics[scale=0.4]{img/diagrams/uc_learner_recognizer.eps}
 			\caption[Use case diagram Learner Recognizer node]{Use Case diagram of the Learner Recognizer node}
-		\end{center}
+		
 	\end{figure}
 
 

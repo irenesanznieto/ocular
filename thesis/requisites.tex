@@ -41,7 +41,7 @@ information }\\[4cm]
 % Title
 {\Huge\bfseries{Software Requirements Specification}\\[2cm]}
 
-\Large{Version 0.3}
+\Large{Version 1.0}
 \\[11cm]
 
 
@@ -58,7 +58,7 @@ Irene Sanz Nieto\\
 Victor González Pacheco\end{flushright}\end{minipage}\vfill
 
 % Bottom of the page
-{\large \today}
+%{\large \today}
 
 \end{center}
 \end{titlepage}
@@ -117,7 +117,7 @@ There are different types of messages depending on the information that has to b
 This node converts the messages from other ROS packages to the internal message format used within the code. 
 
 \begin{center}
-	\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_converter.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_converter.eps}
 \end{center}
 	
 \subsubsection{ROI Segmenter Nodes}
@@ -144,34 +144,34 @@ CHANGE THIS DIAGRAM!!
 \end{huge}
 
 \begin{center}
-	\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_roi_segmenter.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter.eps}
 \end{center}
 
 \subsubsection{Feature Extractor Node}
 This node extracts both 2D and 3D features and publish them. 
 
 \begin{center}
-	\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_feature_extractor.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor.eps}
 \end{center}
 
 
 \subsubsection{Data Parser Node}
 This node stores the 2D and 3D features of each template of the same object in one file. 
 \begin{center}
-	\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_data_parser.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_data_parser.eps}
 \end{center}
 
 
 \subsubsection{Event Handler Node}
 	This node identifies the different user's gestures and act accordingly using a State Machine structure. 
 	\begin{center}
-		\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_event_handler.eps}
+		\includegraphics[scale=0.4]{img/diagrams/uc_event_handler.eps}
 	\end{center}
 	
 \subsubsection{Display Node}
 This node shows the output of the program. There is a window in which different information will be shown. 
 	\begin{center}
-		\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_display.eps}
+		\includegraphics[scale=0.4]{img/diagrams/uc_display.eps}
 	\end{center}
 	
 \subsubsection{Object Learner Node}
@@ -187,7 +187,7 @@ The learning of the objects is done in-hand. The training starts when the user e
 
 \begin{center}
 
-		\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_learner.eps}
+		\includegraphics[scale=0.4]{img/diagrams/uc_learner.eps}
 	\end{center}
 
 \subsubsection{Object Recognizer Node} 
@@ -206,7 +206,7 @@ Due to this fact, weights for the output of each algorithm will be given. Those 
 The object that is finally published in a topic will be the one with a higher percentage of similarity. 
 
 \begin{center}
-	\includegraphics[scale=0.4]{../../thesis/img/diagrams/uc_recognizer.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_recognizer.eps}
 \end{center}
 
 
@@ -224,7 +224,7 @@ In this project, it is used to filter, extract features and segment the RGB-D's 
 %In the following diagram it can be seen the interaction and the information exchanged between nodes.
 %\subsubsection{Use Case Diagram}
 %\begin{center}
-%\includegraphics[scale=0.3]{../../thesis/img/diagrams/use_case.eps}
+%\includegraphics[scale=0.3]{img/diagrams/use_case.eps}
 %\end{center}
 
 \subsubsection{Sequence Diagram}
@@ -233,13 +233,13 @@ The Event Handler node triggers the execution of the Recognizer and the Learner 
 The converter, ROI Segmenters, Feature Extractors, Data Parser and Display nodes are continuously working and publishing the information on their topics. 
 Hence, the information needed for the Event Handler, Recognizer and Learner nodes is obtained subscribing to those topics. 
 \begin{center}
-\includegraphics[scale=0.3]{../../thesis/img/diagrams/sequence.eps}
+\includegraphics[scale=0.3]{img/diagrams/sequence.eps}
 \end{center}
 
 \subsection{Flowchart}
 In the following diagram, the flow of the program is represented. 
 \begin{center}
-\includegraphics[scale=0.25]{../../thesis/img/diagrams/flowcharts.eps}
+\includegraphics[scale=0.25]{img/diagrams/flowcharts.eps}
 \end{center}
 
 
