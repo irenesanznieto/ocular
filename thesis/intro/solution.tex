@@ -1,0 +1,33 @@
+\section{The solution}
+
+In this thesis a new software has been developed that is intended to be used in robots as well as with visually impaired humans. The input of the system is an RGB-D sensor, which provides 3D information of the user located in front of it. 
+\\
+
+The requirements for both context are almost identical. The most important one is to have an intuitive human-machine interface. Also, the fast learning procedure is a requirement since the environment in the world is constantly changing and new objects may be needed to learn almost everyday. The quick recognition of objects is important as well in order to have an easy to use and comfortable software. 
+\\
+
+Having this requirements in mind, a gestural interface was designed that allows the passing of information from human to computer in a simple way. It can be seen that the software has two differentiated modes, the learning and the recognizing modes. The usability of the software is fully dependent on the easy transition for the user from one mode to the other. 
+Furthermore, the humans can hold an object with either hand and the information of which hand is holding the object must be passed to the program. 
+
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.45\textwidth]{img/intro/learning.eps}
+	\caption[Learning Mode Triggering]{Learning mode triggering using the gestural interface}
+\end{figure}
+
+The software is able to work with one hand at a time, and the hand that is located higher is the one being used. The gesture was designed to have the most comfortable and easy to maintain posture possible. In order to trigger the learning mode, the user only needs to extend his arm towards the sensor, like showing the item to it. This is a natural gesture usually performed between humans when introducing new objects to one another. Having the hand closer to the body the recognition mode is triggered and the program outputs the identification number of the object. 
+
+
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.45\textwidth]{img/intro/recognizing.eps}
+	\caption[Recognizing Mode Triggering]{Recognizing mode triggering using the gestural interface}
+\end{figure}
+
+
+The present project has been designed to be as modular and reusable as possible making an easier task to develop complementary software such as handbags recognition or hats recognition with slightly modifications. Its structure consists on nodes that run on parallel and minimizes the lag due to the computing processes. It is an Open Source project, meaning that anyone can use and modify it.
+\\
+
+In order to facilitate the usage of the code it has been developed as a ROS \cite{ros} package. The source code and further installation instructions and license details might be found in the following link to the software's \href{http://github.com/irenesanznieto/ocular}{\color{blue}\underline {repository}}. 
