@@ -1,4 +1,4 @@
-\chapter{Code testing}
+\section{Code testing}
 The code has been designed to be easily tested. The communication and ROS functions are separated from the actual computing of the nodes. 
 \\
 
@@ -15,52 +15,50 @@ For further details about the tools used to perform the testing please read the 
 
 In the following sections the libraries being tested in each level are presented. 
 
-	\section{First level: Library unit test}
+	\subsection{First level: Library unit test}
 		The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
 		In this level, the base classes are tested. Those classes are located in the src/libraries/libraries directory. The tests performed are: 
-			\subsection{Converter Test}
+			\subsubsection{Converter Test}
 
-			\subsection{ROI Segmenter 2D Test}
+			\subsubsection{ROI Segmenter 2D Test}
 
-			\subsection{ROI Segmenter 3D Test}
+			\subsubsection{ROI Segmenter 3D Test}
 
-			\subsection{Feature Extractor 2D Test}
+			\subsubsection{Feature Extractor 2D Test}
 
-			\subsection{Feature Extractor 3D Test}
+			\subsubsection{Feature Extractor 3D Test}
 
-			\subsection{Algorithm2D Test}
+			\subsubsection{Algorithm2D Test}
 
-			\subsection{Algorithm3D Test}
+			\subsubsection{Algorithm3D Test}
 
-			\subsection{Event Handler Test}
+			\subsubsection{Event Handler Test}
 
-			\subsection{Data Parser Test}
+			\subsubsection{Data Parser Test}
 
-	\section{Second level: ROS node unit test}
+	\subsection{Second level: ROS node unit test}
 		In order to perform this testing level a library unit test and the rostest tool are needed.The rostest tool is explained in detail in the following \ref{rostest} section.\\
 
 		The tests developed in this level are the following: 
-			\subsection{}
 
-	\section{Third level: ROS node integration / regression test}
+	\subsection{Third level: ROS node integration / regression test}
 		In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. In this project, the tests implemented of this level are the following: 
-			\subsection{}
 
 
 \chapter{Performance testing}
 The performance testing is used to benchmark the software developed. The different tests are explained below, ordered by the component of the software that is tested. 
 
 
-\section{Package Benchmarking}
+\subsection{Package Benchmarking}
 The whole package is benchmarked in order to obtain the CPU and RAM usages. This two parameters determine which systems would be able to handle the software and the specifications of the hardware needed to run the code under the desired time limits. 
 
-\section{Node Benchmarking}
+\subsection{Node Benchmarking}
 The ROS package is modular, the processing is distributed over different nodes. Each part of the processing sequence followed has different CPU and RAM usages, so the particular behavior of each node is studied. 
 \\
 
 There is a high difference between nodes. Those nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption than the nodes that process the input images and point clouds. 
 
-\section{Topic Benchmarking}
+\subsection{Topic Benchmarking}
 The topics communicate the nodes and allows the exchange of information. They are implemented in the ROS framework, which provides specific tools to measure their performance.
 The parameters that are benchmarked are the bandwidth of the topics and their publishing rate.\\
 
@@ -68,20 +66,20 @@ The bandwidth parameter in a ROS topic is the maximum amount of data received ov
 
 
 
-\chapter{Effectiveness testing}
+\section{Effectiveness testing}
 
 	The effectiveness test is designed to obtain data related to the accuracy of the code. Since the code implements a learner and recognizer algorithm, this test presents how well it does its job. 
 \\
 
 	In the following section the conditions and parameters that affect the test are shown and explained. 
 
-	\section{Environment \& testing conditions}
+	\subsection{Environment \& testing conditions}
 		The test is performed in a room without a blank background and with various objects at different depths. It is hence a crowded background. 
 		\\
 
 		The light source is located behind the RGB-D sensor, illuminating the user. The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. 
 
-	\section{Testing procedure}
+	\subsection{Testing procedure}
 		The testing is performed following a certain sequence. First, the tester shows the first two objects that are going to be learned to the software. Afterwards, the recognition mode is tested identifying and storing in a file the output of the matching for both 2D and 3D. 
 		\\
 
@@ -93,7 +91,7 @@ The bandwidth parameter in a ROS topic is the maximum amount of data received ov
 
 		The whole procedure is going to be repeated for different number of object views to compare the differences in the software execution when increasing and decreasing them. Theoretically, decreasing the number of views should worse the effectiveness of the recognition but better the performance of the code, since the processing needed is reduced.
 
-	\section{Dataset}
+	\subsection{Dataset}
 		The dataset that is going to be used was selected to be everyday use objects. This is because the software is intended to be running in a social robot that needs to recognize the most used objects. Also, the other possible application of the software is as an aiding software for visually impaired persons. In this case it is a requirement the recognition of daily objects as well.  
 		\\
 
@@ -101,7 +99,7 @@ The bandwidth parameter in a ROS topic is the maximum amount of data received ov
 
 		In the code, in order to better the recognition, different views of each object are obtained and compared when doing the matching. Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. 
 
-	\section{Effectiveness measurement}
+	\subsection{Effectiveness measurement}
 
 		The effectiveness is measured differently for the learning mode than for the recognizing mode. 
 		\\

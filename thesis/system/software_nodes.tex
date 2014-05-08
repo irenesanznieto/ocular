@@ -1,6 +1,6 @@
 %%%%%%% SOFTWARE NODES %%%%%%
 %\addcontentsline{toc}{subsection}{Software nodes}
-\section{Nodes}
+\subsection{Nodes}
 \label{nodes}
 
 
@@ -8,7 +8,7 @@ The processing needed to provide all the functionality is divided in nodes. Here
 \\
 
 
-\subsection{\large Converter}\\
+\subsubsection{\large Converter}\\
 		\label{converter}
 
 	This node is the first step of the code. It transforms the input data from the pi\_tracker package into the custom message used within the software. The information provided by that third-party code contains the position in the space of each joint of the body. The converter node takes only both hand's position. 
@@ -24,7 +24,7 @@ The processing needed to provide all the functionality is divided in nodes. Here
 	\end{figure}
 
 	
-\subsection{ROI Segmenter 3D}\\
+\subsubsection{ROI Segmenter 3D}\\
 	\label{roi_segmenter_3d}
 
 	The input of this node is the raw 3D information from the sensor and the hand's locations from the third-party package pi\_tracker, as well as the hand in which the user is holding the object. The node segments a prism from the original point cloud around the selected hand's center. The prism vertices coordinates are transformed from world coordinates to pixels. That information is the output of the node, together with the segmented point cloud. 
@@ -36,7 +36,7 @@ The processing needed to provide all the functionality is divided in nodes. Here
 		
 	\end{figure}
  
-\subsection{ROI Segmenter 2D}\\
+\subsubsection{ROI Segmenter 2D}\\
 	\label{roi_segmenter_2d}
 	The present node takes as the input the raw 2D information from the RGB-D sensor and the hand's locations in pixels returned from the ROI segmenter 3D node. Then, it extracts the ROI (Region Of Interest) taking a square section around the center of the hand. The size of that figure is fixed for simplicity. Since due to the RGB-D sensor's current resolutions the user must remain at a fixed distance from the sensor, the difference in the scale due to the distance is negligible and hence the size can be fixed. 
 	\\
@@ -50,7 +50,7 @@ The processing needed to provide all the functionality is divided in nodes. Here
 	\end{figure}
 
 
-\subsection{Feature Extractor 2D}\\
+\subsubsection{Feature Extractor 2D}\\
 	This node takes as an input the segmented 2D ROI from the previous nodes and extracts the features. The output of the system is a matrix with the descriptors values. The method used in order to compute the features was presented previously in the section  \ref{features}.
 
 	\\
@@ -63,7 +63,7 @@ The processing needed to provide all the functionality is divided in nodes. Here
 		
 	\end{figure}
 
-\subsection{Feature Extractor 3D}\\
+\subsubsection{Feature Extractor 3D}\\
 	The input of this node is the segmented point cloud from the ROI Segmenter 3D node. The descriptors are extracted from this information and are published in the output topic. 
 	\\
 
@@ -76,7 +76,7 @@ The processing needed to provide all the functionality is divided in nodes. Here
 		
 	\end{figure}
 
-\subsection{Event Handler}\\
+\subsubsection{Event Handler}\\
 
 	This is the node responsible of detecting the different event that can appear in the software usage. As it was previously stated, in order to interact with the software some gestures were defined. This is the module that detects those gestures and switches accordingly to the corresponding event. 
 	\\
@@ -92,7 +92,7 @@ The processing needed to provide all the functionality is divided in nodes. Here
 		
 	\end{figure}
 
-\subsection{Learner Recognizer}\\
+\subsubsection{Learner Recognizer}\\
 \label{learner_recognizer}
 
 	This node is the one that implements the state machine depending on the events recognized by the previous node. If the event received is "learn", the learning sequence starts. If the event is "recognize", the recognize sequence is triggered. 

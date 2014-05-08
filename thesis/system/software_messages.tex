@@ -1,4 +1,4 @@
-\section{Messages}
+\subsection{Messages}
 \label{messages}
 
 In this section the custom messages used within the software are explained. These messages allow an easier communication between nodes providing them with sufficient information to perform each task. 
@@ -7,7 +7,7 @@ In this section the custom messages used within the software are explained. Thes
 All messages have a header, that provides basic information such as the exact time at which it was send. 
 
 
-\subsection{EventHandler message}
+\subsubsection{EventHandler message}
 The structure of this message is as follows: \\
 
 Header header\\
@@ -25,7 +25,7 @@ The inclusion of the last event provides information about the changes in the ev
 
 That decision mechanism is implemented in the learner\_recognizer node. 
 
-\subsection{HandImage message}
+\subsubsection{HandImage message}
 
 The HandImage message has the following structure: \\
 Header header\\
@@ -34,7 +34,7 @@ sensor\_msgs/Image[] image
 
 This message only differs on the image standard message on the appearance of a name and on the vectorial nature of its attributes. It is intended to serve on future expansions of the code in which for each hand a different action is performed. 
 
-\subsection{HandLoc message}
+\subsubsection{HandLoc message}
 This message has the following structure: 
 Header header\\
 int32 user\_id\\
@@ -44,7 +44,7 @@ geometry\_msgs/Vector3[] position
 
 It contains the information of the absolute position of the hand and its name. It is as well vectorial, that is the same message variable can store multiple informations that are accessed as the C arrays. 
 
-\subsection{HandLocPx message}
+\subsubsection{HandLocPx message}
 The handlocpx message is as follows: 
 
 Header header\\

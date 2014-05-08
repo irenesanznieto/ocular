@@ -1,16 +1,16 @@
-\section{Testing}
+\subsection{Testing}
 \label{testing}
 In order to perform the code testing different technologies have been used that are specified in the following paragraphs. 
 \\
 
 
-\subsection {Levels of testing}
+\subsubsection {Levels of testing}
 
 There are different levels of testing that should be implemented in all software projects. Depending on the level of integration of the code within ROS, it is needed to code until one level or the other. 		\\
 
 If the software implements some ROS node that publishes or subscribes to a topic, then the three levels of testing are needed. If, on the contrary, it implements a ROS service, it is only necessary to test until the second level. A ROS-free library only needs the first level, the library unit testing. 
 
-	\subsubsection{First level: Library unit test}
+	\paragrah{First level: Library unit test}
 A library unit test should test your code without ROS. If your code functionality is integrated directly with ROS functions, your library probably needs to be re-factored. 
 \\
 
@@ -18,20 +18,20 @@ In the software developed the functionality of the nodes are separated from the 
 
 The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
 
-	\subsubsection{Second level: ROS node unit test}
+	\paragraph{Second level: ROS node unit test}
 In order to perform this testing level a library unit test and the rostest tool are needed. Here, the node unit tests start up the node and test its external API, the published and subscribed topics and services. 
 \\
 
 The rostest tool is explained in detail in the following \ref{rostest} section.
 
-	\subsubsection{Third level: ROS node integration / regression test}
+	\paragraph{Third level: ROS node integration / regression test}
 	This type of testing is directed to try the functioning of multiple nodes at the same time. \\
 
 	The debugging of a group of ROS nodes is similar to debugging mutithreaded code. \\
 
 	In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. 
 
-\subsection{gtest}
+\subsubsection{gtest}
 \label{gtest}
 Gtest (Google Test) is used within the code to perform the first level testing. It is a testing framework for C++ that is cross-platform. It is based in the xUnit architecture and supports automatic test discovery, many different and user-defined assertions, death tests, fatal and non-fatal failures and various options for running the tests as well as XML test report generation. 
 \\
