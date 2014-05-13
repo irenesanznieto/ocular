@@ -6,19 +6,23 @@ from subprocess import call
 import os
 import fnmatch
 import sys
-
+import numpy as np 
 from ocular.msg import RecognizedObject
 
 
 def callback (data):
 
-    f=file(path_file, 'a')
+    # f=file(path_file, 'a')
+
+    # for i in range(len(data.object_id)):
+    #     sum=str(data.object_id[i])+' '+str(data.grade_certainty[i])+'\n'
+    #     f.write(sum)
 
     for i in range(len(data.object_id)):
-        sum=str(data.object_id[i])+' '+str(data.grade_certainty[i])+'\n'
-        f.write(sum)
+        np.add(matrix, ([data.object_id[i], data.grade_certainty[i]] ) )
 
-#    rospy.loginfo(rospy.get_caller_id()+"I heard %s", data.data)
+    np.append(matrix, [0, 2])
+    print matrix
 
 
 def listener():
@@ -60,20 +64,21 @@ def pathfinder():
 
 
 path_file=pathfinder()
+matrix=np.zeros((1,2))
 
 if __name__=='__main__':
 
-    print path_file
+   print path_file
 
-    data=RecognizedObject()
+   data=RecognizedObject()
 
-    data.object_id[0]=20
-    data.object_id[1]=30
+   data.object_id[0]=20
+   data.object_id[1]=30
 
 
-    data.grade_certainty[0]=0.3
-    data.grade_certainty[1]=0.8
+   data.grade_certainty[0]=0.3
+   data.grade_certainty[1]=0.8
 
-    callback(data)
+   callback(data)
 
-#    listener()
+    # listener()
