@@ -4,7 +4,7 @@
 #include "../libraries/algorithm2D.h"
 #include "../libraries/algorithm3D.h"
 #include <std_msgs/Int32.h>
-
+#include <ocular/RecognizedObject.h>
 #include <ros/ros.h>
 #include <ocular/EventHandler.h>
 
@@ -50,13 +50,15 @@ private:
     bool learn_2D; /** Boolean that is true when the received event is learn and false otherwise*/
     bool learn_3D; /** Boolean that is true when the received event is learn and false otherwise*/
 
-    int object_id_2D;
-    int object_id_3D;
+    std::pair <int, float> object_id_2D;
+    std::pair <int, float> object_id_3D;
 
     int object_id;
 
     bool learning_2D;
     bool learning_3D;
+
+    ocular::RecognizedObject object;
 
 };
 

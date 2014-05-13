@@ -3,7 +3,7 @@
 LearnerRecognizerNode::LearnerRecognizerNode()
 {
 
-    object_pub=nh.advertise<std_msgs::Int32>("object_id", 1);
+    object_pub=nh.advertise<ocular::RecognizedObject>("object_id", 1);
 
     descriptors2D=nh.subscribe<ocular::HandImage>("descriptors2D", 1, &LearnerRecognizerNode::descriptors2D_cb, this);
 
@@ -35,8 +35,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
     this->learn_2D=false;
     this->learn_3D=false;
 
-    this->object_id_2D=-1;
-    this->object_id_3D=-1;
+    this->object_id_2D.first=-1;
+    this->object_id_3D.first=-1;
     this->object_id=-1;
 
     learning_2D=false;
@@ -169,15 +169,19 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
 
 void LearnerRecognizerNode::resulting_id()
 {
-    //choose the object id and publish it
-    if(this->object_id_2D==this->object_id_3D)                      //same match
-        this->object_id=this->object_id_2D;
-    else if (this->object_id_2D==-1 || this->object_id_3D==-1)      //no match
-        this->object_id=-1;
-    else if(this->object_id_2D!=this->object_id_3D)
-        this->object_id=this->object_id_3D;
+//    //choose the object id and publish it
+//    if(this->object_id_2D==this->object_id_3D)                      //same match
+//        this->object_id=this->object_id_2D;
+//    else if (this->object_id_2D==-1 || this->object_id_3D==-1)      //no match
+//        this->object_id=-1;
+//    else if(this->object_id_2D!=this->object_id_3D)
+//        this->object_id=this->object_id_3D;
 
+        object.object_id[0]=object_id_2D.first;
+        object.object_id[1]=object_id_3D.first;
+        object.grade_certainty[0]=object_id_2D.first;
+        object.grade_certainty[1]=object_id_3D.second;
 
-    std::cerr<<"RECOGNIZING:"<<" 2D --> "<<object_id_2D<<" 3D --> "<<object_id_3D<<" Final: "<<object_id<<std::endl<<std::endl<<std::flush;
-    object_pub.publish(object_id);
+//    std::cerr<<"RECOGNIZING:"<<" 2D --> "<<object_id_2D<<" 3D --> "<<object_id_3D<<" Final: "<<object_id<<std::endl<<std::endl<<std::flush;
+    object_pub.publish(this->object);
 }

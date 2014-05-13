@@ -52,7 +52,7 @@ public:
 
     ~Algorithm3D();
 
-    int match(const sensor_msgs::PointCloud2ConstPtr &);
+    std::pair<int, float> match(const sensor_msgs::PointCloud2ConstPtr &);
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
 
