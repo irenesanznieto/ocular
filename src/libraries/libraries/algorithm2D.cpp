@@ -105,7 +105,7 @@ bool Algorithm2D::add_descriptors( ocular::HandImage msg)
 
 
 
-int Algorithm2D :: match(const ocular::HandImageConstPtr & msg)
+std::pair <int, float> Algorithm2D :: match(const ocular::HandImageConstPtr & msg)
 {
     cv_bridge::CvImagePtr cv_ptr;
 
@@ -135,10 +135,10 @@ int Algorithm2D :: match(const ocular::HandImageConstPtr & msg)
         {}
     }
 
-    return matched_object_id;
+    return std::make_pair(matched_object_id,matched_object_ratio);
 }
 
-int Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
+float Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
 {
     //vector that will store the ratios of similarity between the new image and the templates
     std::vector< float> ratio;

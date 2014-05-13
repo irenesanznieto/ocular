@@ -72,7 +72,7 @@ int Algorithm3D::add_descriptors(
 }
 
 
-int Algorithm3D::match(const pcl::PCLPointCloud2ConstPtr & msg)
+std::pair <int, float> Algorithm3D::match(const pcl::PCLPointCloud2ConstPtr & msg)
 {
 
     //    PFH:
@@ -142,7 +142,7 @@ int Algorithm3D::match(const pcl::PCLPointCloud2ConstPtr & msg)
     std::cerr<<"ratio[matched_object_id]: "<<ratio[matched_object_id]<<std::endl;
 
 
-    return matched_object_id;
+    return std::make_pair(matched_object_id, ratio[matched_object_id]);
 
 
 }

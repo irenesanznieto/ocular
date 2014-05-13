@@ -53,7 +53,7 @@ public:
 
     bool add_descriptors(ocular::HandImage);
 
-    int match(const ocular::HandImageConstPtr & msg);
+    std::pair <int, float> match(const ocular::HandImageConstPtr & msg);
 
     void set_number_views (int);
 
@@ -73,7 +73,7 @@ private:
 
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
 
-    int flann_comparison (cv::Mat , float);
+    float flann_comparison (cv::Mat , float);
 
 
     bool new_object;    /**Boolean that is set to true whenever the new view is of a new object*/

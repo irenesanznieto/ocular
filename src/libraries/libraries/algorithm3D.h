@@ -54,7 +54,7 @@ public:
 
     ~Algorithm3D();
 
-    int match(const pcl::PCLPointCloud2ConstPtr &);
+    std::pair<int, float> match(const pcl::PCLPointCloud2ConstPtr &);
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
 
