@@ -4,6 +4,66 @@
 \label{libraries_and_technologies}
 
 This section covers the different technologies used in the development of this thesis.
+	\subsection{Hardware}
+
+		The hardware needed for the software of this project to work is an RGB-D sensor compatible with the openni\_launch ROS package previously mentioned, and a computer running Linux. 
+		The sensor being used for the experiments presented in the following chapter is the Kinect of the Xbox 360. The reason of chosing this specific sensor is that it is cheaper than the other
+		and also more accessible. The drawback with respect to other sensors such as the Asus Xtion PRO LIVE\cite{xtion} is that it needs a separate power plug to work, and also its size is bigger. 
+		\\
+
+		The characteristics of the Kinect used are the following: 
+
+
+		In this section the main components and functioning principles of the Kinect are going to be presented. Most of them are common with the other RGB-D sensors but others such as the VGA camera are optional, for example in some PrimeSense\cite{PrimeSense} models. 
+
+		\begin{figure}[h]
+			\begin{center}
+		\includegraphics[scale=0.5]{img/kinect/kinect2.eps}
+			\caption[Kinect Sensors]{Kinect sensors: depth sensor and VGA camera location.}
+			\end{center}
+		\end{figure}
+
+
+		The parts that compose the Kinect sensor are the following: 
+
+		\begin{itemize}
+			\item{VGA camera}\\
+			The camera contained by the kinect has a pixel resolution of 640x480 and a frame rate of 30 fps. It is used mainly to provide the output data with the RGB components for each point. 
+			
+			\item{Depth sensor}\\
+			The depth sensor consists on an infra-red projector combined with a monochrome CMOS sensor. This latter measures the time it takes the light to come back after being reflected on the objects. Knowing the speed of light it can be easily obtained the distance of the objects from the depth sensor. 
+
+			\item{Multi-array microphone}\\
+			This array of four microphones are included because the kinect was designed as a gaming device. They are not used for the three-dimensional world retrieving. 
+			
+			\item{Motorized tilt}\\
+			This is another feature for games. It allows the kinect to follow the player's movements around the room. \cite{howkinectworks}
+		\end{itemize}
+
+
+
+		\begin{figure}[h]
+			\begin{center}
+			\includegraphics[scale=0.2]{img/kinect/kinect_parts.eps}
+			\caption[Kinect Parts]{Kinect dismounted. Parts and components.}
+			\end{center}
+
+		\end{figure}
+
+
+		%%%%%% The system's hardware %%%%%%
+		%\addcontentsline{toc}{section}{The system's hardware}
+		\subsection{The system's hardware}
+
+		The hardware being used in this system is an RGB-D sensor. The information provided by this kind of device is more complete and makes the segmentation of the Region Of Interest easier. 
+		\\
+
+		Apart from that, there are various examples and libraries that allow an easy person tracking, showing its joints position in the 3-dimensional space. The 3D information allows a more precise, robust and noise-resistant joint location.
+		\\
+
+		Furthermore, the extra information handled permit a higher detail in the object recognition and learning nodes. Having two different algorithms running feature extraction and matching on different information makes a more robust description and recognition of the objects. 
+
+
 
 	\subsection{ROS}
 
