@@ -21,24 +21,6 @@ The qualities described above as well as its optimization of various algorithms 
 
 In this project the C++ interface of the OpenCV library has been used. The functionalities provided by this library are used in all the 2D information management. The next paragraph details the operations for which this library has been used. 
 
-\subsection{OpenCV in the software}
-
-\begin{itemize}
-	\item\textbf{Segmentation of the ROI (Region Of Interest)\\ }
-
-	This library allows to crop the original raw image coming
-	from the RGB-D sensor. In this application, the region cropped is the one around the hand being used. More information about this operation can be found in the \ref{roi_segmenter_2d} section. 
-	
-
-	\item {Keypoints and descriptors extraction\\ }
-	 The OpenCV library implements multiple optimized state of the art algorithms. Among them, there are a number of descriptor extractors such as SIFT, SURF, ORB. This last one is being used in this project due to its open-sourceness, and robustness / speed relation. More information about the different algorithms implemented in OpenCV used to extract the descriptors can be found in the section \ref{features}.
-
-
-	\item {Descriptors matching\\ } There are many different matchers that might be used. In this project, a FlannBasedMatcher
-	is being used for this purpose. 
-\end{itemize}
-
-
 
 \subsection{Features}
 \label{features}

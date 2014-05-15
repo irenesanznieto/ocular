@@ -30,25 +30,6 @@ A point cloud is a data structure that represents a set of multi-dimensional poi
 Point clouds are acquired from hardware sensors such as RGB-D sensors, 3D scanners or time-of-flight cameras. Also, those data structures might be generated synthetically. PCL can process data from devices such as the PrimeSensor 3D cameras, the Microsoft Kinect or the Ausus XTionPRO.
 
 
-\subsection{PCL in this thesis}
-The Point Cloud Library is used within the software to perform transformations in the input point clouds and to perform descriptor extraction and matching in this data. 
-\\
-
-More specifically, PCL is used in the following processes: 
-
-\begin{itemize}
-	\item\textbf{Segmentation of the ROI (Region Of Interest)\\ }
-
-	This library allows to crop the original raw point cloud coming from the RGB-D sensor. In this application, the region cropped is the one around the hand being used. More information about this operation can be found in the \ref{roi_segmenter_3d} section. 
-	
-
-	\item\textbf{ {Keypoints and descriptors extraction\\ }}
-	 The PCL library implements multiple optimized state of the art algorithms. Among them, there are a number of descriptor extractors such as PFH, FPFH or LINEMOD. In this project, the PFH descriptor is used due to its speed. More information about the different 3D descriptors implemented in PCL can be found in the section \ref{3d_features}.
-
-
-	\item \textbf{{Descriptors matching\\ }}
-	There are different algorithms that allow to match the information provided by the descriptors, such as knn search or radius search. For further information about the type of matcher used in the present thesis, please visit the section \ref{learner_recognizer}
-\end{itemize}
 
 
 \subsubsection{3D Features}

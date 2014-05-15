@@ -25,31 +25,3 @@ The ROS nodes are simply executables that uses the ROS messaging system to commu
 
 The messages are pieces of data that the nodes send to each other. In ROS, the messages might be customized combining the already defined standard messages and sensor messages to create the message with the information needed. In this project various custom messages has been defined. More information about those can be found in the \ref{software_messages} section. 
 
-
-\subsection{ROS package: openni\_camera / freenect\_camera}
-
-These two ROS packages are the RGB-D sensors drivers. Both can be used just changing the name of the executable or launch file. This is due to the fact that both publish the same information in identic topics. 
-\\
-
-They are needed in order to connect the kinect to the computer. They transfom the raw output information of the computer into a ros message with the different images and point clouds. 
-\\
-
-In this project both have been used indistinctly.  
-
-\subsection{ROS package: openni\_launch / freenect\_launch}
-
-These packages take as the input the information provided by the openni\_camera / freenect\_camera. They provide useful transformations and a launch file that executes nodelets with that information. This way, not only the raw image and point cloud from the kinect can be obtained but also the registered point cloud or the disparity image. 
-\\
-
-Both have been used in the code and they are the input to the pi\_tracker package which is explained in the next section. They are the input of the system as well, providing the point clouds and images that are later on segmented by this software. 
-
-
-\subsection{ROS package: pi\_tracker}
-
-This package was developed by an MIT group. It publishes in the output a relation of the position and pose of each joint of the user. It is capable of recognizing more than one person at a time and to give the information about it. 
-\\
-
-The package easies the hand tracking algorithm since the input to it is the hand's position. It is very helpful to determine gestures made by the user due to the completeness of the information provided. 
-\\
-
-n order to publish the information about the joints, a custom message pi\_tracker/Skeleton is created. 

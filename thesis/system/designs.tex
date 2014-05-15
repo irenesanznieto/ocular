@@ -1,0 +1,56 @@
+\section{Design alternatives}
+In the present section the different proposed designs and the steps that were taken in order to obtain the final system for solving the problem are presented. 
+\\
+
+\paragraph{First design}
+\mbox{} \\
+
+The first design was based in using a hardware with even lower cost and higher accessibility, a camera. The decision of including that device forced the input information to have only two dimensions. The C++ programming language was selected for its high performance and the OpenCV library was picked to aid in the data processing. It was seen that the two dimensional information was not sufficient to obtain a reliable hand tracking. Also, this task created a high lag due to the high amount of computing it needed. 
+\\
+
+
+\paragraph{Hand tracking problem}
+\mbox{} \\
+
+In order to reduce the time spent in the hand tracking, it was decided to introduce a new dimension in the input data of the software. The 3D data is provided by a RGB-D sensor, in this case a Kinect. The fact of having the information of the absolute position of the points in the space gave the new possibility of segmenting using the depth parameter. This reduced the amount of data that needed processing. At this point, it was necessary to create a hand-tracker before starting the project itself, that is, the object learning and recognition nodes. 
+Also, the introduction of the new coordinate created a problem. OpenCV is designed to deal with 2D images, another library with state-of-the-art algorithms was needed. At this point it was decided to use PCL to deal with the 3D input data. 
+\\
+
+
+\paragraph{Code structure}
+\mbox{} \\
+
+After coding some test cases it became evident that the lag created by the data processing was large enough to difficult the human-machine interaction. If the software was supposed to run on real time, it cannot be sequential. It was then when, the decision of distributing the tasks between nodes was made. Nevertheless, this decision created a new problem: the communication between nodes. This could be solved using pipes, sockets and shared memory but it obviously complicated the code programming. 
+\\
+
+
+\paragraph{Programming Framework}
+\mbox{} \\
+
+To overcome this difficulty, a programming framework was searched for and the ROS (Robotic Operating System) was found. This programming framework integrates node communication, threading and many Open Source packages that could be useful. Among those packages, the pi\_tracker was discovered. It implements a joint tracking software using the ROS tools. This software that was already present and available was useful because it solved the problem of the hand tracking and was already optimized. The output of the package is a ROS topic with the position of all the user's joints presented in a message. 
+\\
+
+Thereupon the ROS framework was used and all the already created code was transformed to adapt it properly. But the object learning phase was not yet defined. Some research on the field revealed various algorithms that needed many input samples and a long off-line period in order to have a good performance. 
+\\
+
+
+\paragraph{Dataset}
+\mbox{} \\
+
+The present project is intended as a solution for a use within a household both inside a robot or as a standalone software. Given that the number of different objects that appear there is not very high, the dataset would be relatively small. Also, the interaction with the user is a key of the software. It must work on real time and be able to learn new objects without losing a day in training the algorithm again with the new dataset. This fact was determinant in choosing the learning method of the software. It was decided to implement a template matching which do not compromise the efficiency of the software for small sized datasets and allowed a on-line learning. 
+\\
+
+The templates extracted in the code were initially to be only in 2D. The 3D information was only to be used in the segmentation of the Region Of Interest from the input raw data. But afterwards it was thought that extracting also the features of the point clouds could be helpful in the object recognition task. Since now the system has different nodes to perform the processing the lag added would be negligible. 
+\\
+
+\paragraph{Feature extraction}
+\mbox{} \\
+
+
+The object recognition is performed matching the descriptors extracted of the objects in the dataset and the new one obtained from the frame of the kinect. Since the descriptors are extracted from 2D and 3D data, different algorithms must be used for each information. After some research on the subject, the different methods already explained in the section \ref{state_of_the_art} were discovered and their characteristics evaluated. 
+\\
+
+The feature extraction in 2D is done using the ORB algorithm. It was chosen because it is faster than SIFT and SURF extracting the descriptors of the image. The drawback it has is that it is not scale invariant. Nevertheless, in the program presented in this thesis the user must remain within one and two or two meters and a half from the Kinect. In this range, the size of the object seen from the sensor do not change significantly. 
+\\
+
+On the other hand, the algorithm chosen for the 3D descriptor extraction is PFH. Its relation between robustness and extraction speed is compliant with the project's requisites. It is fast and the features extracted are computed using just a few neighboring points. Due to this fact there might appear similar clusters in different input data that produce false positives and negatives. The problem when using point clouds is the high amount of data that needs processing. Since the code is running in a personal computer, the computing capability is limited and hence the descriptor extraction must be as fast as possible. Nowadays the research of the field is centered in creating and improving the performance of the 3D information and hence probably in the following years this method could be substituted by another more efficient.  
