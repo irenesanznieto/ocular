@@ -46,38 +46,40 @@
 
 
 \section{Performance testing}
-The performance testing is used to benchmark the software developed. The different tests are explained below, ordered by the component of the software that is tested. 
-
+The performance testing is used to benchmark the software developed. The different tests are explained below, ordered by the component of the software that is tested. \\[0.5cm]
 
 \subsection{Package Benchmarking}
-The whole package is benchmarked in order to obtain the CPU and RAM usages. This two parameters determine which systems would be able to handle the software and the specifications of the hardware needed to run the code under the desired time limits. 
+The whole package is benchmarked in order to obtain the CPU and RAM usages. This parameters determine the performance of the software and with it, the minimum specifications of the computer used in order to obtain a real-time response of the system.  \\[0.5cm]
 
 \subsection{Node Benchmarking}
-The ROS package is modular, the processing is distributed over different nodes. Each part of the processing sequence followed has different CPU and RAM usages, so the particular behavior of each node is studied. 
+The package developed is modular and hence the processing is distributed over different nodes. Each part of the processing sequence has different CPU and RAM usages, so the particular behavior of each node is studied. 
 \\
 
-There is a high difference between nodes. Those nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption than the nodes that process the input images and point clouds. 
+There is a high difference between nodes. Those nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption than the nodes that process the input images and point clouds. \\[0.5cm]
 
 \subsection{Topic Benchmarking}
-The topics communicate the nodes and allows the exchange of information. They are implemented in the ROS framework, which provides specific tools to measure their performance.
-The parameters that are benchmarked are the bandwidth of the topics and their publishing rate.\\
+The topics communicate the nodes and allow the exchange of information. They are implemented in the ROS framework, which provides specific tools to measure their performance.
+The parameters that are measured are the bandwidth of the topics and their publishing rate.\\
 
-The bandwidth parameter in a ROS topic is the maximum amount of data received over time, that is the maximum speed at which the data is transmitted. If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. This last possibility is due to the fact that rostopic is implemented in Python and hence it has a lower throughput than the roscpp-based nodes. 
+The bandwidth parameter in a ROS topic is the maximum amount of data received over time, that is the maximum speed at which the data is transmitted. If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. This last possibility is due to the fact that rostopic is implemented in Python and hence it has a lower throughput than the roscpp-based nodes. \\
+
+The publishing rate of a ROS topic is measured in Hz and is the speed at which the messages are published on the corresponding ROS topic. 
 
 
+\newpage
 
 \section{Effectiveness testing}
 
-	The effectiveness test is designed to obtain data related to the accuracy of the code. Since the code implements a learner and recognizer algorithm, this test presents how well it does its job. 
-\\
+	The effectiveness test is designed to obtain data related to the accuracy of the code. Since the code implements a learner and recognizer algorithm, this test studies how well it does its job. 
+	\\
 
-	In the following section the conditions and parameters that affect the test are shown and explained. 
+	In the following sections the conditions and parameters that affect the test are shown and explained as well as the testing procedure that is followed. \\[0.5cm]
 
 	\subsection{Environment \& testing conditions}
-		The test is performed in a room without a blank background and with various objects at different depths. It is hence a crowded background. 
+		The test is performed in a room with a crowded background , that is, a room without a blank background and with various objects at different depths.
 		\\
 
-		The light source is located behind the RGB-D sensor, illuminating the user. The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. 
+		The light source is located behind the RGB-D sensor, illuminating directly the user. The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. \\[0.5cm]
 
 	\subsection{Testing procedure}
 		The testing is performed following a certain sequence. First, the tester shows the first two objects that are going to be learned to the software. Afterwards, the recognition mode is tested identifying and storing in a file the output of the matching for both 2D and 3D. 
@@ -86,18 +88,18 @@ The bandwidth parameter in a ROS topic is the maximum amount of data received ov
 		Then, another new object is learned and again the recognition is tested. This sequence is iterated until there are no new objects to be learned. 
 		\\
 
-		The reason why doing an incremental learning is to observe the differences in the effectiveness and the benchmarking of the code when the dataset changes. 
+		The reason behind this incremental learning is to observe the differences on the effectiveness and the benchmarking of the code when the dataset size changes. 
 		\\
 
-		The whole procedure is going to be repeated for different number of object views to compare the differences in the software execution when increasing and decreasing them. Theoretically, decreasing the number of views should worse the effectiveness of the recognition but better the performance of the code, since the processing needed is reduced.
+		The whole procedure is repeated for different number of object views to compare the differences in the software execution when increasing and decreasing them. Theoretically, decreasing the number of views should worse the effectiveness of the recognition but better the performance of the code, since the processing needed is reduced.\\[0.5cm]
 
 	\subsection{Dataset}
-		The dataset that is going to be used was selected to be everyday use objects. This is because the software is intended to be running in a social robot that needs to recognize the most used objects. Also, the other possible application of the software is as an aiding software for visually impaired persons. In this case it is a requirement the recognition of daily objects as well.  
+		The dataset that is going to be used is selected among everyday use objects. This is because the software is intended to be running in a social robot that needs to recognize the most used objects. Also, the other possible application of the software is as an aiding software for visually impaired persons. In this case it is a requirement the recognition of daily objects as well.  
 		\\
 
 		Selecting this type of objects permits to obtain more reliable effectiveness testing. One characteristic that usually appears in these objects is the featurelessness. This fact difficult the object recognition, since the most textured objects are the ones that usually generate more reliable descriptors. \\
 
-		In the code, in order to better the recognition, different views of each object are obtained and compared when doing the matching. Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. 
+		In order to better the recognition, different views of each object are obtained and compared when doing the matching. Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. \\[0.5cm]
 
 	\subsection{Effectiveness measurement}
 
@@ -108,6 +110,9 @@ The bandwidth parameter in a ROS topic is the maximum amount of data received ov
 		The best descriptor is that one that has a lower size but still is sufficiently robust to allow a good recognition performance. 
 		\\
 
-		In the case of the second mode, the recognizing, the effectiveness is measured in terms of false negatives and positives versus the true ones. The result is a percentage that indicates how well the features are matched. If the effectiveness is 0\%, the software has a 100\% of false positives and negatives, and if the effectiveness is a 100\%, there is a 100\% of true positives and negatives. \\
+		In the case of the second mode, the recognizing, the effectiveness is measured in terms of false negatives and positives versus the true ones. The result is a percentage that indicates how well the features are matched. If the effectiveness is 0\%, the software has a 100\% of false positives and negatives, and if the effectiveness is a 100\%, there is a 100\% of true positives and negatives. 
+		Also, a confusion matrix is constructed using the results of this test in order to offer a visual summary of the performance of the code. 	\\
+
+		Finally, the F-score or F-measure is computed in order to present the accuracy of the of the system developed in this thesis. 
 
 		
