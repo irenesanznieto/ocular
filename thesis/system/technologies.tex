@@ -1,9 +1,8 @@
 %%%%%%% TOOLS %%%%%%
-\newpage
 \section{Libraries and technologies}
 \label{libraries_and_technologies}
 
-This section covers the different libraries and technologies used in the development of this thesis. First, the programming framework present in the project's progression is displayed, as well as the different third-party libraries and packages that has been employed in the software. Afterwards, the hardware being used is presented and its main characteristics explained. 
+This section covers the different libraries and technologies used in the development of this thesis. First, the programming framework present in the project's progression is displayed, as well as the different third-party libraries and packages that has been employed in the software. Afterwards, the tools used for profiling and testing the code are analyzed and, finally, the hardware being used is presented and its main characteristics explained. 
 
 
 
@@ -140,7 +139,8 @@ This section covers the different libraries and technologies used in the develop
 	\subsection{Hardware}
 		\label{technologies_hardware}
 
-		The hardware needed in order to retrieve three-dimensional information is an RGB-D sensor compatible with the openni\_launch ROS package previously mentioned, and a computer running Linux. The information provided by this kind of device is more complete and makes the segmentation of the Region Of Interest easier. 
+		The hardware needed in order to retrieve three-dimensional information is an RGB-D sensor compatible with the openni\_launch ROS package previously mentioned, and a computer running Linux. The information provided by this kind of device is more complete and makes the segmentation of the Region Of Interest easier. \\
+
 		The sensor being used for the experiments presented in the following chapter is a Kinect of the Xbox 360. The reason of choosing this specific sensor is that it is cheaper than the other devices that include depth information. The main drawback with respect to other sensors such as the Asus Xtion PRO LIVE\cite{xtion} is that it needs a separate power plug to work, and also its size is bigger. 
 		\\
 
@@ -158,28 +158,27 @@ This section covers the different libraries and technologies used in the develop
 		The parts that compose the Kinect sensor are the following: 
 
 		\begin{itemize}
-			\item{VGA camera}\\
+			\item{\textbf{VGA camera}}\\
 			The camera contained by the kinect has a pixel resolution of 640x480 and a frame rate of 30 fps. It is used mainly to provide the output data with the RGB components for each point. 
 			
-			\item{Depth sensor}\\
+			\item{\textbf{Depth sensor}\\
 			The depth sensor consists on an infra-red projector combined with a monochrome CMOS sensor. This latter measures the time it takes the light to come back after being reflected on the objects. Knowing the speed of light it can be easily obtained the distance of the objects from the depth sensor. 
 
-			\item{Multi-array microphone}\\
+			\item{\textbf{Multi-array microphone}}\\
 			This array of four microphones are included because the kinect was designed as a gaming device. They are not used for the three-dimensional world retrieving. 
 			
-			\item{Motorized tilt}\\
-			This is another feature for games. It allows the kinect to follow the player's movements around the room. \cite{howkinectworks}
+			\item{\textbf{Motorized tilt}}\\
+			This is another feature for games. It allows the kinect to follow the player's movements around the room. \cite{howkinectworks} The openni drivers do not allow to control this motor, but the freenect library does. Since the project is supposed to work on a robot with an independent head movement, this feature is not needed for the software and hence not being able to control the motor is not an issue. 
 		\end{itemize}
 
 
 
-		\begin{figure}[h]
+		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[scale=0.2]{img/kinect/kinect_parts.eps}
 			\caption[Kinect Parts]{Kinect dismounted. Parts and components.}
 			\end{center}
-
 		\end{figure}
 
 
-		
+		The picture above shows the different parts that compose the kinect. In the middle of the image the depth sensor (IR emitter and receptor) and the VGA camera might be seen. Also, the boards with the signal conditioning circuit for the sensors are presented together with the different pieces of the structure of the sensor. The tilt motor is integrated within the support part and it is not visible. 
