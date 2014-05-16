@@ -6,13 +6,13 @@
 \usepackage{graphicx}
 \usepackage[top=2cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
 
-\usepackage[T1]{fontenc}
-
 \usepackage{wrapfig}
 
 \usepackage{pdfpages}
 
 \usepackage{tikz}
+
+\usepackage{cmap}   % PRODUCE A SEARCHABLE PDF !! :)
 
 \usepackage{float}
 
@@ -74,17 +74,17 @@
 \frontmatter
 
 %cada incluye referencia a un archivo de tipo .tex
-\include{front}
+\input{frontmatter/front}
 
-%\include{licencia}
+%\input{licencia}
 
-%\include{evaluacion}
-
-
-%\include{acknowledgments}
+%\input{evaluacion}
 
 
-%\include{abstract}
+%\input{frontmatter/acknowledgments}
+
+
+%\input{frontmatter/abstract}
 
 
 %%%%%% TABLE OF CONTENTS %%%%%%
@@ -98,36 +98,36 @@
 \mainmatter
 
 %%% INTRODUCTION
-%\include{intro}
+%\input{intro/intro}
 	
 
 %%% STATE OF THE ART
-%\include{state_of_the_art}
+%\input{state_of_the_art}
 
 %%% SYSTEM DESCRIPTION
-\include{system_description}
+\input{system/system_description}
 
 %%% METHODS
-%\include{methods}
+%\input{methods/methods}
 
 %%% RESULTS
-%\include{results}
+%\input{results/results}
 
 
 %%% DISCUSSION
-%\include{discussion}
+%\input{discussion/discussion}
 
 
 %%% CONCLUSIONS
-%\include{conclusions}
+%\input{conclusions/conclusions}
 
 %partes finales del trabajo: conclusiones, bibliografia y anexos
 \backmatter
 
 % bibliography %
-\include{bibliography}
+\input{backmatter/bibliography}
 
 %\appendix
-%\include{appendix}
+%\input{appendix}
 
 \end{document}

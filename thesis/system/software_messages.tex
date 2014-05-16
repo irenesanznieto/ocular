@@ -1,58 +1,60 @@
 \subsection{Messages}
 \label{messages}
 
-In this section the custom messages used within the software are explained. These messages allow an easier communication between nodes providing them with sufficient information to perform each task. 
-\\
+	In this section the custom messages used within the software are explained. These messages allow an easier communication between nodes providing them with sufficient information to perform each task. 
+	\\
 
-All messages have a header, that provides basic information such as the exact time at which it was send. 
+	All messages have a header, that provides basic information such as the exact time at which it was send. 
 
 
-\subsubsection{EventHandler message}
-The structure of this message is as follows: \\
+	\paragraph{EventHandler message}\mbox{} \\
+		The structure of this message is as follows: \\
 
-Header header\\
-string hand\\
-string event\\
-string last\_event
+		Header header\\
+		string hand\\
+		string event\\
+		string last\_event
 
-\\
+		\\
 
-It is the message used within the event topic. Provides information about the hand the user is utilizing in the software, the event that is currently occurring and the last event that was produced. 
-\\
+		It is the message used within the event topic. Provides information about the hand the user is utilizing in the software, the event that is currently occurring and the last event that was produced. 
+		\\
 
-The inclusion of the last event provides information about the changes in the events, allowing the software to recognize the different combinations that can appear and act accordingly. 
-\\
+		The inclusion of the last event provides information about the changes in the events, allowing the software to recognize the different combinations that can appear and act accordingly. 
+		\\
 
-That decision mechanism is implemented in the learner\_recognizer node. 
+		That decision mechanism is implemented in the learner\_recognizer node. 
 
-\subsubsection{HandImage message}
+	\paragraph{HandImage message}\mbox{} \\
 
-The HandImage message has the following structure: \\
-Header header\\
-string[] name\\
-sensor\_msgs/Image[] image
+		The HandImage message has the following structure: \\
+		Header header\\
+		string[] name\\
+		sensor\_msgs/Image[] image
 
-This message only differs on the image standard message on the appearance of a name and on the vectorial nature of its attributes. It is intended to serve on future expansions of the code in which for each hand a different action is performed. 
+		This message only differs on the image standard message on the appearance of a name and on the vectorial nature of its attributes. It is intended to serve on future expansions of the code in which for each hand a different action is performed. 
 
-\subsubsection{HandLoc message}
-This message has the following structure: 
-Header header\\
-int32 user\_id\\
-string[] name\\
-geometry\_msgs/Vector3[] position
-\\
+	\paragraph{HandLoc message}\mbox{} \\
 
-It contains the information of the absolute position of the hand and its name. It is as well vectorial, that is the same message variable can store multiple informations that are accessed as the C arrays. 
+		This message has the following structure: 
+		Header header\\
+		int32 user\_id\\
+		string[] name\\
+		geometry\_msgs/Vector3[] position
+		\\
 
-\subsubsection{HandLocPx message}
-The handlocpx message is as follows: 
+		It contains the information of the absolute position of the hand and its name. It is as well vectorial, that is the same message variable can store multiple informations that are accessed as the C arrays. 
 
-Header header\\
-int32 user\_id\\
-string[] name\\
-int32[] points\\
+	\paragraph{HandLocPx message}\mbox{} \\
+	
+		The handlocpx message is as follows: 
 
-As it can be seen is almost identical to the previous message. It only differs on the units in which the hand location is given. in the previous one it was given in meters and in this one, it is in pixels. 
-\\
+		Header header\\
+		int32 user\_id\\
+		string[] name\\
+		int32[] points\\
 
-This message is filled by the ROI segmenter 3D node, who transforms the limits of the ROI in meters to pixels for the ROI segmenter 2D note to use. This latter subscribes to the topic in which the message is published and crops the raw input message accordingly. 
+		As it can be seen is almost identical to the previous message. It only differs on the units in which the hand location is given. in the previous one it was given in meters and in this one, it is in pixels. 
+		\\
+
+	This message is filled by the ROI segmenter 3D node, who transforms the limits of the ROI in meters to pixels for the ROI segmenter 2D note to use. This latter subscribes to the topic in which the message is published and crops the raw input message accordingly. 

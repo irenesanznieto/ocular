@@ -1,44 +1,56 @@
 \subsection{Topics}
 \label{topics}
 
-The topics are the channels that communicate the nodes in the ROS framework. All the nodes in the software are constantly obtaining messages from the input topics and publishing the results of their computation to the output ones. 
-\\
+	The topics are the channels that communicate the nodes in the ROS framework. All the nodes in the software are constantly obtaining messages from the input topics and publishing the results of their computation to the output ones. 
+	\\
 
-In this section a relation of all the topics used in the software is presented. 
-
-
-\subsubsection{Hand location}
-The complete path of this node in the code is: /TFG/CONVERTER/hand\_location. The messages published in this node are the TFG/
-\subsection{Event}
-This node is filled by the node event\_handler. The message used by this node is the custom message TFG/EventHandler. The full name of this topic is /TFG/EVENTHANDLER/event. 
-
-\subsubsection{Descriptors 2D}
-The complete name is /TFG/FE2D/descriptors2D. In this topic the Feature Extractor 2D node publishes the matrix of descriptors extracted from the segmented image. To this topic the Learner Recognizer node is subscribed in order to obtain those descriptors.  
-
-\subsubsection{Descriptors 3D}
-In this topic the Feature Extractor 3D publishes the descriptors of the segmented point cloud. The Learner Recognizer node is subscribed to it. 
-The complete path to the topic is /TFG/FE3D/descriptors3D.
+	In this section a relation of all the topics used in the software is presented. 
 
 
-\subsubsection{/TFG/ROI2D/segmented\_image}
-The path  is /TFG/ROI2D/segmented\_image. In this topic the  ROI Segmenter 2D node publishes its output, the image with the region of interest. To this topic the Feature Extractor 2D is subscribed. 
+	\paragraph{Hand location}\mbox{} \\
+
+	The complete path of this node in the code is: /TFG/CONVERTER/hand\_location. The messages published in this node are the custom HandLoc message. It specifies the location of both user's hands in the space. 
+	\\
+
+	\paragraph{Event}\mbox{} \\
+
+	This node is filled by the node event\_handler. The message used by this node is the custom message TFG/EventHandler. The full name of this topic is /TFG/EVENTHANDLER/event. 
+
+	\paragraph{Descriptors 2D}\mbox{} \\
+
+		The complete name is /TFG/FE2D/descriptors2D. In this topic the Feature Extractor 2D node publishes the matrix of descriptors extracted from the segmented image. To this topic the Learner Recognizer node is subscribed in order to obtain those descriptors.  \\
+
+	\paragraph{Descriptors 3D}\mbox{} \\
+
+		In this topic the Feature Extractor 3D publishes the descriptors of the segmented point cloud. The Learner Recognizer node is subscribed to it. 
+		The complete path to the topic is /TFG/FE3D/descriptors3D.\\
 
 
-\subsubsection{/TFG/ROI2D/segmented\_image\_with\_keypoints}
-The topic's name is /TFG/ROI2D/segmented\_image\_with\_keypoints. This topic is filled with images showing the segmented 2D ROI with the keypoints drawn on it. The node that publishes this data is FeatureExtractor2D. The topic is intended for visualization and troubleshooting purposes. 
+	\paragraph{Segmented image}\mbox{} \\
 
-\subsubsection{/TFG/ROI3D/segmented\_coordinates\_px}
-This topic is used to publish the information of the ROI location transformed to pixels. The topic is filled by the ROI Segmenter 3D node and the ROI Segmenter 2D node is subscribed to it. 
-
-\subsubsection{/TFG/ROI3D/segmented\_pc}
-The present topic contains the messages with the segmented point clouds. It is filled by the ROI Segmenter 3D node as well and the Feature Extractor 3D node is subscribed to it. It is also possible to visualize using rviz or other point cloud visualization software the segmented point cloud. 
-\\
-
-The complete path to the topic is /TTFG/ROI3D/segmented\_pc.
+		The path  is /TFG/ROI2D/segmented\_image. In this topic the  ROI Segmenter 2D node publishes its output, the image with the region of interest. To this topic the Feature Extractor 2D is subscribed. \\
 
 
-\subsubsection{/TFG/object\_id}
-The name of the topic is /TFG/object\_id. This is the output of the system. The topic is filled by messages of type INT that represent the identification number of the recognized object. The numbers are assigned in the order they were previously learned. 
-\\
+	\paragraph{Image with keypoints}\mbox{} \\
 
-Currently, the topic is only used in order to create a small feedback environment with the user. As part of the future work, another node could be developed to complete a natural interface with the user. This node would allow to give the learned object a name by talking to the software and in turn the code would output the recognized object as audio. For more information please read section \ref{conclusions}.
+		The topic's name is /TFG/ROI2D/segmented\_image\_with\_keypoints. This topic is filled with images showing the segmented 2D ROI with the keypoints drawn on it. The node that publishes this data is FeatureExtractor2D. The topic is intended for visualization and troubleshooting purposes. \\
+
+	\paragraph{Segmented coordinates}\mbox{} \\
+
+		This topic is used to publish the information of the ROI location transformed to pixels. The topic is filled by the ROI Segmenter 3D node and the ROI Segmenter 2D node is subscribed to it. 
+			\\
+		The complete path of the topic is /TFG/ROI3D/segmented\_coordinates\_px. 
+
+	\paragraph{Segmented pc}\mbox{} \\
+
+		The present topic contains the messages with the segmented point clouds. It is filled by the ROI Segmenter 3D node as well and the Feature Extractor 3D node is subscribed to it. It is also possible to visualize using rviz or other point cloud visualization software the segmented point cloud. 
+		\\
+
+		The complete path to the topic is /TTFG/ROI3D/segmented\_pc.
+
+
+	\paragraph{Object id}\mbox{} \\
+
+		The name of the topic is /TFG/object\_id. This is the output of the system. The topic is filled by a custom message that contains information about the identification number of the recognized object and the grade of certainty in the recognition.\\
+
+		Currently, the topic is only used in order to create a small feedback environment with the user. As part of the future work, another node could be developed to complete a natural interface with the user. This node would allow to give the learned object a name by talking to the software and in turn the code would output the recognized object as audio. For more information please read section \ref{conclusions}.
