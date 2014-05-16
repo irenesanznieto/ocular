@@ -81,6 +81,16 @@ This section covers the different libraries and technologies used in the develop
 		\end{itemize}
 
 	\subsection{Profiling}
+		\label{profiling}
+		The profiling is the analysis of the dynamic behavior of a program. It is used mainly as an aid in the software optimization. There are different techniques to achieve this goal, but the used in the present project is the instrumentation. This technique consists on adding instructions to the target software to collect the information. In some cases, the profiling may cause changes in the performance and lead to inaccurate results. The severity of these problems depend on the information being collected and its level of detail. 
+		\\
+
+		More specifically, it is used a Runtime instrumentation in this software. This type of profiling instruments the code before it is executed. The program running is fully supervised and controlled by the profiling tool. 
+		\\
+
+		Valgrind \cite{valgrind} is the instrumentation framework used for the dynamic analysis of this thesis. It contains some tools that can detect memory management and threading bugs but it also allows to construct new debugging tools. It is Open Source and has numerous tutorials and documentation available online. \\
+
+		The results given by this profiler in the tests performed on the code might be seen in the \ref{results} section. 
 
 
 	\subsection{Testing}

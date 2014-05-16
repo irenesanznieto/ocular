@@ -1,23 +1,23 @@
-\section{Code testing}
-The code has been designed to be easily tested. The communication and ROS functions are separated from the actual computing of the nodes. 
-\\
+% \section{Code testing}
+% The code has been designed to be easily tested. The communication and ROS functions are separated from the actual computing of the nodes. 
+% \\
 
-The class structure of the code is hence as follows: the base class performs the operations needed by the node and there exists a wrapper class that implements the publishing and subscribing to the different nodes. \\
+% The class structure of the code is hence as follows: the base class performs the operations needed by the node and there exists a wrapper class that implements the publishing and subscribing to the different nodes. \\
 
-In the actual application, it is an object of this latter wrapper class the one that is created. 
-\\
+% In the actual application, it is an object of this latter wrapper class the one that is created. 
+% \\
 
-This structure easies the testing, since the first testing level is done in the base classes and the second and third on the wrapper classes.
-\\
+% This structure easies the testing, since the first testing level is done in the base classes and the second and third on the wrapper classes.
+% \\
 
-For further details about the tools used to perform the testing please read the section \ref{testing}.
-\\
+% For further details about the tools used to perform the testing please read the section \ref{testing}.
+% \\
 
-In the following sections the libraries being tested in each level are presented. 
+% In the following sections the libraries being tested in each level are presented. 
 
-	\subsection{First level: Library unit test}
-		The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
-		In this level, the base classes are tested. Those classes are located in the src/libraries/libraries directory. The tests performed are: 
+% 	\subsection{First level: Library unit test}
+% 		The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
+% 		In this level, the base classes are tested. Those classes are located in the src/libraries/libraries directory. The tests performed are: 
 			% \subsubsection{Converter Test}
 
 			% \subsubsection{ROI Segmenter 2D Test}
@@ -36,13 +36,13 @@ In the following sections the libraries being tested in each level are presented
 
 			% \subsubsection{Data Parser Test}
 
-	\subsection{Second level: ROS node unit test}
-		In order to perform this testing level a library unit test and the rostest tool are needed.The rostest tool is explained in detail in the following \ref{rostest} section.\\
+	% \subsection{Second level: ROS node unit test}
+	% 	In order to perform this testing level a library unit test and the rostest tool are needed.The rostest tool is explained in detail in the following \ref{rostest} section.\\
 
-		The tests developed in this level are the following: 
+	% 	The tests developed in this level are the following: 
 
-	\subsection{Third level: ROS node integration / regression test}
-		In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. In this project, the tests implemented of this level are the following: 
+	% \subsection{Third level: ROS node integration / regression test}
+	% 	In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. In this project, the tests implemented of this level are the following: 
 
 
 \section{Performance testing}
