@@ -83,6 +83,7 @@ void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & m
             do{
                 learning_2D=true;
                 std::cerr<<"*** 2D *** ----> TRAINING OBJECT "<<alg2D.get_number_template()<<" VIEW  "<< number_views_it_2D<<std::endl<<std::flush;
+//                std::cerr<<"image is empty?: "<<msg->image.empty()<<std::endl<<std::flush;
                 result=alg2D.add_descriptors(*msg);
             }while(result<0);
 

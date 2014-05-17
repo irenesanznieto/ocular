@@ -15,7 +15,8 @@ Algorithm2D::~Algorithm2D()
 {
     std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm2D]   SAVING TEMPLATES 2D: "<<std::endl<<std::flush;
 
-//    std::cerr<<std::endl<<"2D descriptors.size(): "<<descriptors.size()<<std::endl<<std::flush;
+//    std::cerr<<std::endl<<"2D descriptors.size(): "<<descriptors.size()<<std::endl<<
+//               "descriptors[0].size: "<<descriptors[0].size()<<std::endl<<std::flush;
 
 
     for (unsigned int i=0; i<descriptors.size(); i++)
@@ -24,11 +25,18 @@ Algorithm2D::~Algorithm2D()
 //                << " -----------> number_views: "<<number_views<<std::endl<<std::flush;
         if(descriptors[i].size()<this->number_views)
         {
-            descriptors.erase(descriptors.begin()+i-1);
+//            std::cerr<<"    removed template: "<<i<<std::endl<<std::flush;
+//            descriptors.erase(descriptors.begin()+i-1);
+            do{
+                descriptors[i].push_back(descriptors[i][0]);
+                dataparser.save_template_2D(descriptors[i],i);
+            }while(descriptors[i].size()<this->number_views);
+            std::cerr<<"    template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
+
         }
         else
         {
-            dataparser.save_template(descriptors[i],i);
+            dataparser.save_template_2D(descriptors[i],i);
             std::cerr<<"    template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
         }
     }
@@ -98,9 +106,12 @@ bool Algorithm2D::add_descriptors( ocular::HandImage msg)
     else if(!image_cv.empty())
     {
         descriptors[this->object_number].push_back(image_cv);
+
+//        if(descriptors[this->object_number].size()==this->number_views)
+//                dataparser.save_template_2D(descriptors[this->object_number],this->object_number);
+
         return 0;
     }
-
 }
 
 
