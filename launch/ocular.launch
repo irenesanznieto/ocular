@@ -46,6 +46,10 @@
 <!--	LEARNER RECOGNIZER-->
 	<node pkg="ocular" type="learner_recognizer" name="learner_recognizer" args="descriptors2D:=/ocular/FE2D/descriptors2D object_id:=/ocular/object_id event:=/ocular/EVENTHANDLER/event descriptors3D:=/ocular/FE3D/descriptors3D"/>
 
+<!--	 WRITE TO FILE-->
+<!--	<node pkg="ocular" type="write_to_file.py" name="write_to_file" args="object_id:=/ocular/object_id"/>-->
+
+
 
 <!--	IMAGE VIEW-->
 

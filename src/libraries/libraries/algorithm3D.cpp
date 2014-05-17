@@ -142,7 +142,7 @@ std::pair <int, float> Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr
 //    for (int k=0; k<ratio.size(); k++)
 //        std::cerr<<"ratio[]: "<<ratio[k]<<std::endl;
 
-    std::cerr<<"3d matched_object_ratio: "<<matched_object_ratio<<std::endl;
+//    std::cerr<<"3d matched_object_ratio: "<<matched_object_ratio<<std::endl;
 
 
     return std::make_pair(matched_object_id, matched_object_ratio);

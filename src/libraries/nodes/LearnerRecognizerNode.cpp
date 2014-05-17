@@ -173,7 +173,7 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
 //        std::cerr<<"recognize3D"<<std::endl<<std::flush;
 
         std::pair <int, float> dummy=alg3D.match(msg);
-        if(dummy.first!=0 && dummy.second!=0)
+//        if(dummy.first!=0 && dummy.second!=0)
             this->object_id_3D=dummy;
 //        std::cerr<<"RECOGNIZED 3D: "<<object_id_3D<<std::endl<<std::flush;
         this->resulting_id();
@@ -193,8 +193,8 @@ void LearnerRecognizerNode::resulting_id()
 
         object.object_id[0]=object_id_2D.first;
         object.object_id[1]=object_id_3D.first;
-        object.grade_certainty[0]=object_id_2D.second;
-        object.grade_certainty[1]=object_id_3D.second;
+        object.ratio[0]=object_id_2D.second;
+        object.ratio[1]=object_id_3D.second;
 
 //    std::cerr<<"RECOGNIZING:"<<" 2D --> "<<object_id_2D<<" 3D --> "<<object_id_3D<<" Final: "<<object_id<<std::endl<<std::endl<<std::flush;
     object_pub.publish(this->object);
