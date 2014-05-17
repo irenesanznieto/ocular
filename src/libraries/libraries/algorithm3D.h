@@ -84,7 +84,7 @@ private:
 
     int matched_object_id;  /** Number that represents the object being matched by the algorithm. **/
 
-    int matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
+    float matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
 
     int object_number;
 

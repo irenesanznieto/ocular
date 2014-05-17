@@ -97,48 +97,55 @@ std::pair <int, float> Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr
 
 
     std::vector<int> ratio;
-    ratio.resize(descriptors.size()-1);
 
+//    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl<<std::flush;
 
-    // Find the index of the best match for each keypoint, and store it in "correspondences"
-    const int k = 1;
-
-    //    NEARESTKSEARCH!
-    for(int obj_numb=0; obj_numb<descriptors.size()-1; obj_numb++)
+    if (descriptors.size()>1)
     {
+        ratio.resize(descriptors.size()-1);
 
-        std::vector<int> k_indices (k);
-        std::vector<float> k_squared_distances (k);
+        // Find the index of the best match for each keypoint, and store it in "correspondences"
+        const int k = 1;
 
-
-        for (int i = 0; i < static_cast<int> (descriptors[obj_numb].size()); ++i)
+        //    NEARESTKSEARCH!
+        for(int obj_numb=0; obj_numb<descriptors.size()-1; obj_numb++)
         {
-            pcl::fromROSMsg(descriptors[obj_numb][i], *cloud);
-            descriptor_kdtree.nearestKSearch(*cloud, i, k, k_indices, k_squared_distances);
-            correspondences.push_back(k_squared_distances[0]);
+
+            std::vector<int> k_indices (k);
+            std::vector<float> k_squared_distances (k);
+
+
+            for (int i = 0; i < static_cast<int> (descriptors[obj_numb].size()); ++i)
+            {
+                pcl::fromROSMsg(descriptors[obj_numb][i], *cloud);
+                descriptor_kdtree.nearestKSearch(*cloud, i, k, k_indices, k_squared_distances);
+                correspondences.push_back(k_squared_distances[0]);
+            }
+
+            ratio[obj_numb]=std::distance(correspondences.begin(), std::max_element(correspondences.begin(), correspondences.end()));
+
+
         }
 
-        ratio[obj_numb]=std::distance(correspondences.begin(), std::max_element(correspondences.begin(), correspondences.end()));
-
-
+        this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+        this->matched_object_ratio=ratio[matched_object_id];
+    }
+    else
+    {
+        this->matched_object_id=-1;
+        this->matched_object_ratio=-1;
     }
 
-    if (ratio.size()>0)
-        this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+//    if(matched_object_id>0)
+//        std::cerr<<"ratio[max_elem]: "<<ratio[matched_object_id]<<std::endl;
 
-    else
-        this->matched_object_id=-1;
+//    for (int k=0; k<ratio.size(); k++)
+//        std::cerr<<"ratio[]: "<<ratio[k]<<std::endl;
 
-    if(matched_object_id>0)
-        std::cerr<<"ratio[max_elem]: "<<ratio[matched_object_id]<<std::endl;
-
-    for (int k=0; k<ratio.size(); k++)
-        std::cerr<<"ratio[]: "<<ratio[k]<<std::endl;
-
-    std::cerr<<"ratio[matched_object_id]: "<<ratio[matched_object_id]<<std::endl;
+    std::cerr<<"3d matched_object_ratio: "<<matched_object_ratio<<std::endl;
 
 
-    return std::make_pair(matched_object_id, ratio[matched_object_id]);
+    return std::make_pair(matched_object_id, matched_object_ratio);
 
 
 }

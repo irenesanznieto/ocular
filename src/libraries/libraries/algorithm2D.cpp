@@ -135,6 +135,8 @@ std::pair <int, float> Algorithm2D :: match(const ocular::HandImageConstPtr & ms
         {}
     }
 
+    std::cerr<<"2D matched object ratio: "<<matched_object_ratio<<std::endl<<std::flush;
+
     return std::make_pair(matched_object_id,matched_object_ratio);
 }
 

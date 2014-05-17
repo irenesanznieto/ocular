@@ -46,6 +46,7 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
 void LearnerRecognizerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
 {
+//    std::cerr<<"setevent: "<<msg->event<<std::endl<<std::flush;
 
     if (msg->event=="learn" )
     {
@@ -66,8 +67,12 @@ void LearnerRecognizerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
 
 void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & msg)
 {
+//    std::cerr<<"descriptors2d"<<std::endl<<std::flush;
+
     if(this->learn_2D)
     {
+//        std::cerr<<"learn2D"<<std::endl<<std::flush;
+
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
 
 //        std::cerr<<"2D: "<<number_views_it_2D<<" / "<<number_views2D<<std::endl<<std::flush;
@@ -102,14 +107,16 @@ void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & m
 
         }
         else
-            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
+            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl<<std::flush;
     }
 
 
     else if (!this->learn_2D)      //If the mode is recognize
     {
-        this->object_id_2D=alg2D.match(msg);
-//        std::cerr<<"RECOGNIZED 2D: "<<object_id_2D<<std::endl<<std::flush;
+
+        std::pair <int, float> dummy=alg2D.match(msg);
+        if(dummy.first!=0 && dummy.second!=0)
+            this->object_id_2D=dummy;
 
     }
 }
@@ -119,9 +126,12 @@ void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & m
 void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2ConstPtr & msg)
 {
 
+//    std::cerr<<"descriptors3d"<<std::endl<<std::flush;
 
     if(this->learn_3D)
     {
+//        std::cerr<<"learn3d"<<std::endl<<std::flush;
+
         // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
 
 //        std::cerr<<"3D: "<<number_views_it_3D<<" / "<<number_views3D<<std::endl<<std::flush;
@@ -154,13 +164,17 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
             std::cerr<<"TRAINING 3D COMPLETED"<<std::endl<<std::flush;
         }
         else
-            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl;
+            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl<<std::flush;
     }
 
 
     else if (!this->learn_3D)      //If the mode is recognize
     {
-        this->object_id_3D=alg3D.match(msg);
+//        std::cerr<<"recognize3D"<<std::endl<<std::flush;
+
+        std::pair <int, float> dummy=alg3D.match(msg);
+        if(dummy.first!=0 && dummy.second!=0)
+            this->object_id_3D=dummy;
 //        std::cerr<<"RECOGNIZED 3D: "<<object_id_3D<<std::endl<<std::flush;
         this->resulting_id();
     }
@@ -179,7 +193,7 @@ void LearnerRecognizerNode::resulting_id()
 
         object.object_id[0]=object_id_2D.first;
         object.object_id[1]=object_id_3D.first;
-        object.grade_certainty[0]=object_id_2D.first;
+        object.grade_certainty[0]=object_id_2D.second;
         object.grade_certainty[1]=object_id_3D.second;
 
 //    std::cerr<<"RECOGNIZING:"<<" 2D --> "<<object_id_2D<<" 3D --> "<<object_id_3D<<" Final: "<<object_id<<std::endl<<std::endl<<std::flush;
