@@ -22,6 +22,7 @@ data/*
 msg_gen/
 img/
 
+*.pyc
 
 msg_gen/*
 src/ocular/*
