@@ -2,7 +2,8 @@ bin/
 build/
 lib/
 devel/
-data/*
+data/templates
+data/test
 *.aux
 *.dvi
 *.log

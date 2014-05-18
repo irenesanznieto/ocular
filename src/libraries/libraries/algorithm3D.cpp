@@ -105,7 +105,7 @@ std::pair <int, float> Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr
         ratio.resize(descriptors.size()-1);
 
         // Find the index of the best match for each keypoint, and store it in "correspondences"
-        const int k = 10;
+        const int k = 1;
 
         //    NEARESTKSEARCH!
         for(int obj_numb=0; obj_numb<descriptors.size()-1; obj_numb++)
