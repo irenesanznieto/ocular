@@ -93,10 +93,10 @@ std::pair <int, float> Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr
 
     descriptor_kdtree.setInputCloud (msg_pcl);
 
-    std::vector<int> correspondences;
+    std::vector<float> correspondences;
 
 
-    std::vector<int> ratio;
+    std::vector<float> ratio;
 
 //    std::cerr<<"descriptors.size(): "<<descriptors.size()<<std::endl<<std::flush;
 
@@ -105,7 +105,7 @@ std::pair <int, float> Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr
         ratio.resize(descriptors.size()-1);
 
         // Find the index of the best match for each keypoint, and store it in "correspondences"
-        const int k = 1;
+        const int k = 10;
 
         //    NEARESTKSEARCH!
         for(int obj_numb=0; obj_numb<descriptors.size()-1; obj_numb++)
@@ -119,15 +119,22 @@ std::pair <int, float> Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr
             {
                 pcl::fromROSMsg(descriptors[obj_numb][i], *cloud);
                 descriptor_kdtree.nearestKSearch(*cloud, i, k, k_indices, k_squared_distances);
-                correspondences.push_back(k_squared_distances[0]);
+                for (int j=0; j<k; j++)
+                    std::cerr<<"Object: "<<obj_numb<<" view: "<<i<<" squared distance: "<<k_squared_distances[j]<<std::endl<<std::flush;
+
+                correspondences.push_back(k_squared_distances[std::distance(k_squared_distances.begin(), std::min_element(k_squared_distances.begin(), k_squared_distances.end()))]);
             }
 
-            ratio[obj_numb]=std::distance(correspondences.begin(), std::max_element(correspondences.begin(), correspondences.end()));
+//            ratio[obj_numb]=std::distance(correspondences.begin(), std::max_element(correspondences.begin(), correspondences.end()));
+            ratio[obj_numb]=correspondences[std::distance(correspondences.begin(), std::min_element(correspondences.begin(), correspondences.end()))];
+            correspondences.clear();
 
-
+            std::cerr<<"ratio["<<obj_numb<<"]: "<<ratio[obj_numb]<<std::endl;
         }
 
-        this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+//        this->matched_object_id=std::distance(ratio.begin(),std::max_element(ratio.begin(), ratio.end()));
+        this->matched_object_id=std::distance(ratio.begin(),std::min_element(ratio.begin(), ratio.end()));
+
         this->matched_object_ratio=ratio[matched_object_id];
     }
     else
