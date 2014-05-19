@@ -195,6 +195,7 @@ float Algorithm2D::flann_comparison(cv::Mat  desc1,float threshold)
         if (matches[object_number].size()>0)
         {
             ratio[object_number]=(float)(good_matches[object_number].size())/(float)(matches[object_number].size());
+//            std::cerr<<"ratio that victor said : "<<(float)matches[object_number].size()/ (float)descriptors[object_number].size()<<std::endl<<std::flush;
         }
         else if (matches[object_number].size()<=0)
         {
@@ -212,4 +213,9 @@ float Algorithm2D::flann_comparison(cv::Mat  desc1,float threshold)
 int Algorithm2D::get_number_template()
 {
     return this->object_number;
+}
+
+int Algorithm2D::get_number_templates()
+{
+    return this->descriptors.size();
 }

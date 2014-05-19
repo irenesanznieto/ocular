@@ -13,8 +13,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
 
     //Inintialize the number of view to be taken for each template
-    this->number_views2D=5; //the total number of views to be extracted of each object
-    this->number_views3D=5; //the total number of views to be extracted of each object
+    this->number_views2D=10; //the total number of views to be extracted of each object
+    this->number_views3D=10; //the total number of views to be extracted of each object
 
 
     //Set the number of views to be taken for each object and load the previous templates;
@@ -35,8 +35,9 @@ LearnerRecognizerNode::LearnerRecognizerNode()
     this->learn_2D=false;
     this->learn_3D=false;
 
-    this->object_id_2D.first=-1;
-    this->object_id_3D.first=-1;
+
+    this->object_id_2D.push_back(std::make_pair(-1,-1));
+    this->object_id_3D.push_back(std::make_pair(-1,-1));
     this->object_id=-1;
 
     learning_2D=false;
@@ -67,59 +68,70 @@ void LearnerRecognizerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
 
 void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & msg)
 {
-////    std::cerr<<"descriptors2d"<<std::endl<<std::flush;
+//    std::cerr<<"descriptors2d"<<std::endl<<std::flush;
 
-//    if(this->learn_2D)
-//    {
-////        std::cerr<<"learn2D"<<std::endl<<std::flush;
+    if(this->learn_2D)
+    {
+//        std::cerr<<"learn2D"<<std::endl<<std::flush;
 
-//        // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
+        // take each view and train the algorithm with it, until the iterator is larger than the total number of views to be taken
 
-////        std::cerr<<"2D: "<<number_views_it_2D<<" / "<<number_views2D<<std::endl<<std::flush;
+//        std::cerr<<"2D: "<<number_views_it_2D<<" / "<<number_views2D<<std::endl<<std::flush;
 
-//        if (number_views_it_2D<number_views2D)
+        if (number_views_it_2D<number_views2D)
+        {
+            int result=-1;
+            do{
+                learning_2D=true;
+                std::cerr<<"*** 2D *** ----> TRAINING OBJECT "<<alg2D.get_number_template()<<" VIEW  "<< number_views_it_2D<<std::endl<<std::flush;
+//                std::cerr<<"image is empty?: "<<msg->image.empty()<<std::endl<<std::flush;
+                result=alg2D.add_descriptors(*msg);
+            }while(result<0);
+
+            number_views_it_2D ++;
+            sleep(1);
+
+        }
+        else if (number_views_it_2D==number_views2D)
+        {
+            //when the iterator is equal to the total number of views, reset the iterator
+            number_views_it_2D=0;
+
+            //stop the learning until a new recognize - learn events happen
+            this->learn_2D=false;
+
+            learning_2D=false;
+
+            alg2D.next_object();
+
+            //stop the training, all the views have already been trained
+            std::cerr<<"TRAINING 2D COMPLETED"<<std::endl<<std::flush;
+
+        }
+        else
+            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl<<std::flush;
+    }
+
+
+    else if (!this->learn_2D)      //If the mode is recognize
+    {
+
+        std::pair <int, float> dummy=alg2D.match(msg);
+
+//        if(dummy.first==last_object_id_2D.first)
 //        {
-//            int result=-1;
-//            do{
-//                learning_2D=true;
-//                std::cerr<<"*** 2D *** ----> TRAINING OBJECT "<<alg2D.get_number_template()<<" VIEW  "<< number_views_it_2D<<std::endl<<std::flush;
-////                std::cerr<<"image is empty?: "<<msg->image.empty()<<std::endl<<std::flush;
-//                result=alg2D.add_descriptors(*msg);
-//            }while(result<0);
-
-//            number_views_it_2D ++;
-//            sleep(1);
-
-//        }
-//        else if (number_views_it_2D==number_views2D)
-//        {
-//            //when the iterator is equal to the total number of views, reset the iterator
-//            number_views_it_2D=0;
-
-//            //stop the learning until a new recognize - learn events happen
-//            this->learn_2D=false;
-
-//            learning_2D=false;
-
-//            alg2D.next_object();
-
-//            //stop the training, all the views have already been trained
-//            std::cerr<<"TRAINING 2D COMPLETED"<<std::endl<<std::flush;
-
-//        }
-//        else
-//            std::cerr<<"Iterator of number of views greater than the total number of views"<<std::endl<<std::flush;
-//    }
-
-
-//    else if (!this->learn_2D)      //If the mode is recognize
-//    {
-
-//        std::pair <int, float> dummy=alg2D.match(msg);
-//        if(dummy.first!=0 && dummy.second!=0)
 //            this->object_id_2D=dummy;
+//            last_object_id_2D=dummy;
+//        }
+//        else{
+//            this->object_id_2D.first=-1;
+//            this->object_id_2D.second=-1;
+//        }
 
-//    }
+        this->object_id_2D.push_back(dummy);
+        this->resulting_id("2D");
+
+    }
 }
 
 
@@ -171,32 +183,56 @@ void LearnerRecognizerNode::descriptors3D_cb(const sensor_msgs::PointCloud2Const
 
     else if (!this->learn_3D)      //If the mode is recognize
     {
-//        std::cerr<<"recognize3D"<<std::endl<<std::flush;
-
         std::pair <int, float> dummy=alg3D.match(msg);
-//        if(dummy.first!=0 && dummy.second!=0)
-            this->object_id_3D=dummy;
-//        std::cerr<<"RECOGNIZED 3D: "<<object_id_3D<<std::endl<<std::flush;
-        this->resulting_id();
+
+//        if(dummy.first==last_object_id_3D.first)
+//            this->object_id_3D=dummy;
+//        else{
+//            this->object_id_3D.first=-1;
+//            this->object_id_3D.second=-1;
+//        }
+//        last_object_id_3D=dummy;
+
+
+        this->object_id_3D.push_back(dummy);
+
+        this->resulting_id("3D");
     }
 }
 
 
-void LearnerRecognizerNode::resulting_id()
+void LearnerRecognizerNode::resulting_id(std::string name)
 {
-//    //choose the object id and publish it
-//    if(this->object_id_2D==this->object_id_3D)                      //same match
-//        this->object_id=this->object_id_2D;
-//    else if (this->object_id_2D==-1 || this->object_id_3D==-1)      //no match
-//        this->object_id=-1;
-//    else if(this->object_id_2D!=this->object_id_3D)
-//        this->object_id=this->object_id_3D;
 
-        object.object_id[0]=object_id_2D.first;
-        object.object_id[1]=object_id_3D.first;
-        object.ratio[0]=object_id_2D.second;
-        object.ratio[1]=object_id_3D.second;
+//    if(object_id_2D.size()==5 && object_id_3D.size()==5)
+//    {
+//        std::vector<int> count;
+//        int number_templates=alg2D.get_number_templates();
 
-//    std::cerr<<"RECOGNIZING:"<<" 2D --> "<<object_id_2D<<" 3D --> "<<object_id_3D<<" Final: "<<object_id<<std::endl<<std::endl<<std::flush;
-    object_pub.publish(this->object);
+//        for (int i=0; i<number_templates;i++)
+//            count.push_back(std::count (object_id_2D.begin(), object_id_2D.end(), i));
+
+////        object_pub.publish(this->object);
+//    }
+//    else{
+//        if(name=="2D")
+//        {
+
+//        }
+
+//        if(name=="3D")
+//        {
+
+//        }
+
+//    }
+        object.object_id[0]=object_id_2D[0].first;
+        object.object_id[1]=object_id_3D[0].first;
+        object.ratio[0]=object_id_2D[0].second;
+        object.ratio[1]=object_id_3D[0].second;
+
+        object_id_2D.clear();
+        object_id_3D.clear();
+        object_pub.publish(this->object);
+
 }
