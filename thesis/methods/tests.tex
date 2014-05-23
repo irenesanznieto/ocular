@@ -46,73 +46,152 @@
 
 
 \section{Performance testing}
-The performance testing is used to benchmark the software developed. The different tests are explained below, ordered by the component of the software that is tested. \\[0.5cm]
+	The performance testing is used to benchmark the system.
+	The different tests are explained below, ordered by the component of the software that is tested. 
+	\\[0.5cm]
 
-\subsection{Package Benchmarking}
-The whole package is benchmarked in order to obtain the CPU and RAM usages. This parameters determine the performance of the software and with it, the minimum specifications of the computer used in order to obtain a real-time response of the system.  \\[0.5cm]
+	\begin{itemize}
+		\item{\textbf{Package Benchmarking}}
+		\\
 
-\subsection{Node Benchmarking}
-The package developed is modular and hence the processing is distributed over different nodes. Each part of the processing sequence has different CPU and RAM usages, so the particular behavior of each node is studied. 
-\\
+		The whole package is benchmarked in order to obtain the CPU and RAM usages. 
+		This parameters determine the performance of the software and with it, the minimum specifications of the computer used in order to obtain a real-time response of the system.  
+		\\[0.5cm]
 
-There is a high difference between nodes. Those nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption than the nodes that process the input images and point clouds. \\[0.5cm]
+		\item{\textbf{Node Benchmarking}}
+		\\
 
-\subsection{Topic Benchmarking}
-The topics communicate the nodes and allow the exchange of information. They are implemented in the ROS framework, which provides specific tools to measure their performance.
-The parameters that are measured are the bandwidth of the topics and their publishing rate.\\
+		The package developed is composed of different nodes. 
+		Since the computing is distributed, each node has different CPU and RAM usages.
+		That is why in these experiments the particular behavior of each node is evaluated. 
+		\\[0.5cm]
 
-The bandwidth parameter in a ROS topic is the maximum amount of data received over time, that is the maximum speed at which the data is transmitted. If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. This last possibility is due to the fact that rostopic is implemented in Python and hence it has a lower throughput than the roscpp-based nodes. \\
+		\item{\textbf{Topic Benchmarking}}\\
 
-The publishing rate of a ROS topic is measured in Hz and is the speed at which the messages are published on the corresponding ROS topic. 
+		The topics communicate the nodes and allow the exchange of information. 
+		The parameters that characterizes the topics are the bandwidth and the publishing frequency.
+		\\
 
+		The bandwidth parameter is the speed at which the data is transmitted. 
+		Its units are bytes per second. 
+		The ROS framework has a built-in command that allows to retrieve the maximum, minimum and mean bandwidth of a topic. 
+		% If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. 
+		\\
+
+		The publishing frequency of a ROS topic is the number of messages published on it over time. 
+		It is measured in Hz. 
+		There is a command which is similar to the one above that returns the maximum, minimum and mean publishing frequency of the topic. 
+			\end{itemize}
 
 \newpage
 
-\section{Effectiveness testing}
+\section{Accuracy experiment}
 
-	The effectiveness test is designed to obtain data related to the accuracy of the code. Since the code implements a learner and recognizer algorithm, this test studies how well it does its job. 
+	This experiment is designed to obtain data related to the accuracy of the system. 
+	% Since the code implements a learner and recognizer algorithm, this test studies how well it does its job. 
 	\\
 
 	In the following sections the conditions and parameters that affect the test are shown and explained as well as the testing procedure that is followed. \\[0.5cm]
 
-	\subsection{Environment \& testing conditions}
+	% \subsection{Environment \& testing conditions}
 		The test is performed in a room with a crowded background , that is, a room without a blank background and with various objects at different depths.
+		The light source is located behind the RGB-D sensor, directly illuminating the user. 
+		The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. 
+		\\%[0.5cm]
+
+	\paragraph{Experiment procedure}\mbox{}\\
+
+		The testing is performed following this sequence. 
+		% First, the tester shows the first two objects that are going to be learned. 
+		% Afterwards, the recognition mode is tested identifying and storing in a file the output of the matching for both 2D and 3D. 
+		% \\
+
+		% Then, another new object is learned and again the recognition is tested. 
+		% This sequence is iterated until there are no new objects to be learned. 
+		% \\
+
+		% The reason behind this incremental learning is to observe the differences on the effectiveness and the benchmarking of the system when the dataset size changes. 
+		% \\
+
+		First, the objects are stored in the program's dataset. 
+		In order to do so, each object is recorded using the data acquisition mode of the software. 
+		Afterwards, the recognition mode is used.
+		Each of the objects are taken for the same amount of time, 20 seconds. 
+		The objects are positioned still during 10 seconds in the most natural grasping position. 
+		Then, they are rotated the remaining 10 seconds. 
+		This is done to measure the robustness of the system to rotation changes. 
+
+		% It is then when the accuracy of the system is measured. 
+		The software's output is recorded to a file for further processing. 
+		That data is presented in the next chapter, number \ref{results}.
 		\\
 
-		The light source is located behind the RGB-D sensor, illuminating directly the user. The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. \\[0.5cm]
+		The software allows to specify the number of views being taken per object in the data acquisition phase. 
+		Taking advantage of this feature, the whole procedure described above is repeated for one, five and ten object views.
+		Theoretically, decreasing the number of views should worse the effectiveness of the recognition but better the performance of the system, since the processing needed is reduced.
+		\\%[0.5cm]
 
-	\subsection{Testing procedure}
-		The testing is performed following a certain sequence. First, the tester shows the first two objects that are going to be learned to the software. Afterwards, the recognition mode is tested identifying and storing in a file the output of the matching for both 2D and 3D. 
+	% \subsection{Dataset}
+		The dataset is composed of common objects. 
+		%This is because the software is intended to be running in a social robot that needs to recognize the most used objects. 
+		%Also, the other possible application of the software is as an aiding software for visually impaired persons. 
+		%In this case it is a requirement the recognition of daily objects as well.  
+		%\\
+
+		This fact allows to obtain more reliable experiment results, since they were obtained under working conditions. 
+		Common objects are usually featureless. 
+		That characteristic complicates the object recognition, since the most textured objects are the ones that usually generate more robust descriptors. 
+		In order to overcome this difficulty, different views of each object are obtained and compared when doing the matching. 
+		Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. 
+		\\%[0.5cm]
+
+	% \subsection{Effectiveness measurement}
+
+		% The effectiveness is measured differently for the learning mode than for the recognizing mode. 
+		% \\
+
+		% The first mode do not have a possibility of failing in learning, since all the different classes are previously tested and an error on it could only come from a software error. Having this in mind, the effectiveness of this mode is to create the best descriptors possible. 
+		% The best descriptor is that one that has a lower size but still is sufficiently robust to allow a good recognition performance. 
+		% \\
+
+		% In the case of the second mode, the recognizing, the effectiveness is measured in terms of false negatives and positives versus the true ones. The result is a percentage that indicates how well the features are matched. If the effectiveness is 0\%, the software has a 100\% of false positives and negatives, and if the effectiveness is a 100\%, there is a 100\% of true positives and negatives. 
+		% Also, a confusion matrix is constructed using the results of this test in order to offer a visual summary of the performance of the code. 	\\
+
+		% Finally, the F-score or F-measure is computed in order to present the accuracy of the of the system developed in this thesis. 
+		\paragraph{Accuracy measurement}\mbox{}\\
+
+
+		The accuracy of the system is measured using the F-score or F-measure. 
+		The general formula for a positive real $\beta$ is the following: 
 		\\
 
-		Then, another new object is learned and again the recognition is tested. This sequence is iterated until there are no new objects to be learned. 
+		$F_\beta=(1+\beta^2)\cdot\frac{precision \cdot recall}{(\beta^2 \cdot precision )+recall}$
 		\\
 
-		The reason behind this incremental learning is to observe the differences on the effectiveness and the benchmarking of the code when the dataset size changes. 
+		The precision is the fraction of retrieved results that are relevant.  
+		The recall is the fraction of the results that are relevant and that have succeeded. 
+		\\
+		The 
+		The F-score may be expressed in terms of true and false positives and negatives as shown below: 
 		\\
 
-		The whole procedure is repeated for different number of object views to compare the differences in the software execution when increasing and decreasing them. Theoretically, decreasing the number of views should worse the effectiveness of the recognition but better the performance of the code, since the processing needed is reduced.\\[0.5cm]
-
-	\subsection{Dataset}
-		The dataset that is going to be used is selected among everyday use objects. This is because the software is intended to be running in a social robot that needs to recognize the most used objects. Also, the other possible application of the software is as an aiding software for visually impaired persons. In this case it is a requirement the recognition of daily objects as well.  
+		$F_\beta=\frac{(1+\beta^2)\cdot true\_positives}{(1+\beta^2)\cdot true\_positives +\beta^2 \cdot false\_negatives +false\_positives}$
 		\\
 
-		Selecting this type of objects permits to obtain more reliable effectiveness testing. One characteristic that usually appears in these objects is the featurelessness. This fact difficult the object recognition, since the most textured objects are the ones that usually generate more reliable descriptors. \\
-
-		In order to better the recognition, different views of each object are obtained and compared when doing the matching. Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. \\[0.5cm]
-
-	\subsection{Effectiveness measurement}
-
-		The effectiveness is measured differently for the learning mode than for the recognizing mode. 
+		The $F_1 score$ is used when the weight of having false positives and negatives is the same. 
+		This weight depends on the applications of the system being tested. 
+		For example, in critical systems such as a police face recognition software it is preferable to have false positives than false negatives. 
+		It is obtained from the general formula for $\beta=1$: 	
 		\\
 
-		The first mode do not have a possibility of failing in learning, since all the different classes are previously tested and an error on it could only come from a software error. Having this in mind, the effectiveness of this mode is to create the best descriptors possible. 
-		The best descriptor is that one that has a lower size but still is sufficiently robust to allow a good recognition performance. 
+		$F_1=2\cdot\frac{precision \cdot recall}{precision + recall}$
 		\\
 
-		In the case of the second mode, the recognizing, the effectiveness is measured in terms of false negatives and positives versus the true ones. The result is a percentage that indicates how well the features are matched. If the effectiveness is 0\%, the software has a 100\% of false positives and negatives, and if the effectiveness is a 100\%, there is a 100\% of true positives and negatives. 
-		Also, a confusion matrix is constructed using the results of this test in order to offer a visual summary of the performance of the code. 	\\
+		In the system there is no difference between both errors and hence the $F_1 score$ is the ratio being used. 
+		Since the experiments retrieve the true and false positives and negatives, the formula that is used is the one below: 
+		\\
 
-		Finally, the F-score or F-measure is computed in order to present the accuracy of the of the system developed in this thesis. 
 
-		
+		$F_\beta=\frac{2\cdot true\_positives}{2\cdot true\_positives + false\_negatives +false\_positives}$
+		\\
+
