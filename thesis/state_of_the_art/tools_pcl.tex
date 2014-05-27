@@ -31,22 +31,3 @@ Point clouds are acquired from hardware sensors such as RGB-D sensors, 3D scanne
 
 
 
-
-\subsubsection{3D Features}
-\label{3d_features}
-COMPLETE: how 3D features work in PCL  &&  mail [TFG] 3D descriptors
-\\
-
-A feature is a characteristic of the data, in this case point clouds, that describes a point inside the data. Features or descriptors can be compared to determine whether the point described is the same in two different inputs. They are used in the object recognition field. 
-\\
-
-There are many different descriptors that can be used. Each of them has a certain speed in its computing and a reliability and robustness associated. Depending on the application in which they appear the developer must select the features depending on the specifications. 
-\\
-
-Two of the most used geometric point features are the underlying surface's estimated curvature and the normal at a specific query point. Both are local features and they characterize the point using the information provided by its neighbors. \\
-
-The local features are not reliable for the object recognition field since two specific points of different objects might have similar local features. In order to create more powerful descriptors, a global descriptor is needed. Usually global descriptors implement different techniques to 
-
-
-\subsubsection{PFH}
-\label{pfh}

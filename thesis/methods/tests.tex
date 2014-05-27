@@ -53,34 +53,34 @@
 	\begin{itemize}
 		\item{\textbf{Package Benchmarking}}
 		\\
-
 		The whole package is benchmarked in order to obtain the CPU and RAM usages. 
 		This parameters determine the performance of the software and with it, the minimum specifications of the computer used in order to obtain a real-time response of the system.  
 		\\[0.5cm]
 
 		\item{\textbf{Node Benchmarking}}
 		\\
-
 		The package developed is composed of different nodes. 
 		Since the computing is distributed, each node has different CPU and RAM usages.
 		That is why in these experiments the particular behavior of each node is evaluated. 
 		\\[0.5cm]
 
 		\item{\textbf{Topic Benchmarking}}\\
-
 		The topics communicate the nodes and allow the exchange of information. 
 		The parameters that characterizes the topics are the bandwidth and the publishing frequency.
 		\\
 
+		% \paragraph{Bandwidth}\mbox{}\\
 		The bandwidth parameter is the speed at which the data is transmitted. 
-		Its units are bytes per second. 
-		The ROS framework has a built-in command that allows to retrieve the maximum, minimum and mean bandwidth of a topic. 
+		Its units are kilobytes per second. 
+		The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
 		% If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. 
 		\\
 
+		% \paragraph{Publishing frequency}\mbox{}\\
 		The publishing frequency of a ROS topic is the number of messages published on it over time. 
 		It is measured in Hz. 
-		There is a command which is similar to the one above that returns the maximum, minimum and mean publishing frequency of the topic. 
+		There is a command which is similar to the one above that returns the maximum, minimum and the standard deviation of the time between messages in seconds. 
+		Also, it returns the average publishing frequency.  
 			\end{itemize}
 
 \newpage
@@ -98,6 +98,14 @@
 		The light source is located behind the RGB-D sensor, directly illuminating the user. 
 		The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. 
 		\\%[0.5cm]
+
+	\begin{figure}[H]
+		\begin{center}
+	    \includegraphics[scale=0.3]{img/testing_environment.eps}
+		\caption[Testing Environment]{Testing Environment}
+		\end{center}
+	\end{figure}
+
 
 	\paragraph{Experiment procedure}\mbox{}\\
 
