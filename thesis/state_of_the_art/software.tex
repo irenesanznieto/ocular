@@ -77,11 +77,11 @@ This change in the input creates an additional difficulty due to the hand's segm
 
 	In this thesis I present a system that allows to easily learn and recognize hand-held objects in real time. 
 	It is intended to be the previous step to the association between the object and the action. 
+\\[1cm]
 
-
-\\
-
-
+In the object recognition field the description of the objects is crucial. 
+The quality of the features extracted as the model of the object determine the quality of the algorithm. 
+Due to this importance, the next section is devoted to the descriptors that can be obtained from 2D and 3D data. 
 
 % \paragraph{Template matching}
 
@@ -213,3 +213,14 @@ The local features are not reliable for the object recognition field since two s
 
 \subsubsection{PFH}
 \label{pfh}
+
+The Point Feature Histogram \cite{Rusu} is a local 3D descriptor. 
+It is fast to compute but its level of detail is limited. 
+They are computed approximating the geometry of a point's k-neighborhood with a few values. 
+This fact results in the possibility of obtaining a similar set of points in a very different object. 
+\\
+
+The PFH descriptors are rotation, position and point cloud density. 
+They also perform well with noisy data. 
+The features are created representing the mean curvature around the query point using a histogram of values. 
+The normals' direction and magnitude of the points in the k-neighborhood of that point are studied. 
