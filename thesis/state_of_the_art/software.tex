@@ -1,10 +1,55 @@
-\section{In-hand object learning recognition}
-This field has been mainly exploited using wearable cameras. 
-There are numerous works, among them \cite{Roth2006}. The system presented in it consisted on a camera used to capture daily objects to construct a dataset more easily. 
+\section{Object learning and recognition}
+
+This field of study has a huge previous art publications. 
+In this section the most important works related to this thesis are exposed. 
+
+\paragraph{Object learning and recognition using 2D and 3D input data}\mbox{}\\
+
+This special branch in the object learning and recognition field has been investigated for many years. 
+In 1992 there appeared \cite{D.M.Gavrila1991} in which is described a system that performs 3D object recognition using 2D input data. 
+A 3D model was performed and then the new 2D projection was matched to this model.
+A geometric hashing method of matching was applied to the input 2D projection. 
+If it had an error within certain thresholds to a nearby 2D projection, the image was matched to that model. 
+The testing was performed under a controlled environment and using textured objects. 
+The system would not give the same results in a real environment with noise and loosely defined objects. 
+Also, the use of hashing limits the size of the dataset due to its high computing cost. 
+\\
+
+Later systems as \cite{Sheta2012} explored different descriptors for the objects that resulted less time-consuming. 
+In this case, fuzzy logic was used to match the learned features to the new ones. 
+Those descriptors were a set that included Affine, Zemike and Hu moments invariants among others. 
+The results were promising, obtaining a high percentage of true positives. 
+But, again, the system used a controlled setup:
+The input was collected from three cameras that had a known illumination and orientation. 
+The objects were white with significant form changes and they rested in a black background while learning and recognizing. 
+The applications in which it could be used are more related to the industrial field than the robotics field. 
+\\
+
+In outside environments, \cite{Zia2013} demonstrated the effectiveness of two methods when combined: local descriptors and 3D wireframes. 
+The system developed was able to distinguish between cars and bicycles and estimate their pose. 
+The input of the recognition is a single 2D image. 
+Nevertheless, the training of the system was made offline, using a high number of CAD model's views. 
+
+These systems differ with the one presented in this thesis in one major aspect: 
+the user-software interaction. 
+This thesis is based on providing an easy and intuitive interface. 
+The learning process is performed easily and on-line and the recognition is real-time. 
+There is no setting needed, no previous processing and care about the environment. 
+The combination of 2D and 3D information in my system makes up for the extra noise added to it.  
+
+
+
+\paragraph{In-hand object learning and recognition}\mbox{}\\
+
+Most of the literature in this specific branch of object learning and recognition has been developed using wearable cameras as the input of the system. 
+There are numerous works, among them \cite{Roth2006}.
+The system presented in it consists on a camera used to capture daily objects to construct a dataset more easily. 
 Its main feature is that it eliminates the necessity of manually segmenting and labeling the learning datasets for object recognition libraries. 
-It was not intended to be used directly in a robot, it is just a tool. 
-Another example is \cite{Philipose2009}, a benchmarking of the egocentric object recognition is performed. 
+It only learns new templates that are later feed to a offline learning algorithm. 
+Another example is \cite{Philipose2009}, in which a benchmarking of an egocentric object recognition system is performed. 
 This in-hand object recognition uses as input an image that has the object used at the center. 
+The background is not segmented in this system. 
+
 \\
 
 In this thesis I present an in-hand object recognition and learning in which the user is located in front of the acquisition device. 
@@ -34,33 +79,56 @@ This change in the input creates an additional difficulty due to the hand's segm
 	It is intended to be the previous step to the association between the object and the action. 
 
 
-
-\section{Object recognition}
-
-\section{Template extraction}
-
-\section{2D descriptors}
-\label{features}
-In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
-
-\\
-A feature or descriptor is defined differently depending on the application and context of the computer vision project. In general, it is an interesting or important characteristic, point or region of an image. The application will determine which feature describes better the object of study. 
 \\
 
-The best feature or descriptor is that which has a higher repeatability, i.e the ability of obtaining the same output given different inputs. This is useful when making a feature matching to compare two object, which is the case in this project. 
+
+
+% \paragraph{Template matching}
+
+
+
+
+\section{Descriptors}
+\label{descriptors}
+% In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
+
+\\
+A feature or descriptor is defined differently depending on the application and context of the computer vision project. 
+In general, it is an interesting or important characteristic, point or region of an image. 
+The application determines which feature describes better the object of study. 
+Descriptors may have different forms and characteristics. 
+For example, if we want to recognize rectangles, its height could be a descriptor.
+The height is not scale invariant, but it is rotation invariant. 
+If the application needs an scale independent descriptor, the ratio between the height and the width of the rectangle may be used. 
+This simple example shows how a feature is defined when the sample object is known. 
+But in this thesis I present a system that must be able to recognize all kind of common objects. 
+There is no straight forward method to extract a feature as in the example. 
 \\
 
-Hence, it can be seen that the recognition algorithm has as a bottle neck in its performance the repeatability of the features used to describe the different objects. 
-
-The most used algorithms due to their relation between performance, invariantness and speed are exposed below. They are presented chronologically and the differences, similarities and improvements between them are explained. 
+Descriptors may be local or general. 
+A local descriptor is the one that represents a point using the information of the points around it. 
+Local features from one object may be almost identical to a local feature from a very different object. 
+In order to overcome this problem, general descriptors are computed. 
+A general descriptor is usually a set of local descriptors that undergo a transformation. 
+This process is usually performed to obtain a more representative description of the studied object. 
 \\
 
-The selection of one algorithm or another depends on the requisites and the hardware of the application.
+The best feature or descriptor is that which has a higher repeatability, i.e the ability of obtaining the same output given different inputs. 
+This is useful when making a feature matching to compare two object, which is the case in this project. 
 \\
 
-These first algorithms, SIFT, SURF and ORB are used to obtain descriptors for 2D data. 
+Hence, it can be seen that the recognition algorithm has as a bottle neck in its performance: the repeatability of the features used to describe the different objects. 
 
-\subsection{SIFT}
+The most used algorithms for general object recognition are presented in this section. 
+% due to their relation between performance, invariantness and speed are exposed below. 
+They appear chronologically and the differences, similarities and improvements between them are explained. 
+The selection of one algorithm or another depends on the application.
+\\
+
+\subsection{2D Features}
+\label{2d_features}
+
+\paragraph{SIFT}\mbox{}\\
 
 SIFT (Scale Invariant Feature Transform) is a scale and rotation invariant feature descriptor\cite{sift}. 
 
@@ -81,7 +149,8 @@ In relation with object recognition, this algorithm has a good performance in me
 
 
 
-\subsection{SURF}
+\paragraph{SURF}\mbox{}\\
+
 SURF(Speeded Up Robust Features) is a scale and rotation invariant interest point detector and descriptor \cite{surf}. 
 It is a proprietary algorithm that simplifies the detection, extraction of the descriptors and matching steps thus obtaining them much faster than previous algorithms without losing repeatability, distinctiveness or robustness. 
 \\
@@ -103,7 +172,8 @@ First, an orientation based on the information extracted from a circular region 
 From the experiments in \cite{surf} it can be seen that the performance of this descriptors equals and in some cases improves the one of the SIFT descriptors. Also, the SURF descriptors are much faster computed and matched. 
 
 
-\subsection{ORB}
+\paragraph{ORB}\mbox{}\\
+
 ORB (Oriented FAST and Rotated BRIEF) is a fast rotation invariant, noise resistant binary descriptor based on BRIEF \cite{orb}.
 It is claimed in its presentation paper that it is two orders of magnitude faster than SIFT while matching its performance in many situations. As it can be seen, since ORB is not scale invariant, if the scale difference is noticeable the SURF algorithm will outperform ORB. 
 \\
@@ -124,10 +194,9 @@ ORB is then a good alternative for the latter if the application does not need a
 Finally, it is noticeable that this algorithm is Open Source, since the previous ones are proprietary. 
 
 
-\section{3D descriptors}
-
-\subsubsection{3D Features}
+\subsection{3D Features}
 \label{3d_features}
+
 COMPLETE: how 3D features work in PCL  &&  mail [TFG] 3D descriptors
 \\
 
