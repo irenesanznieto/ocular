@@ -12,7 +12,7 @@ for _file in os.listdir(path):
 
         infile = path+_file
 
-        outline = ' '
+        outline = _file[3:-4]+'\naverage mean min max\n'
         outfile = path+'processed/'+'values_'+_file[:-3]+'ods'
         out_txt = path+'processed/'+'values_'+_file
 
@@ -27,7 +27,7 @@ for _file in os.listdir(path):
                 #AVERAGE RATE:
                 result = line.find("average: ")
                 if result != -1:
-                    outline = line[result + 9: result + 9+4]
+                    outline += line[result + 9: result + 9+4]
 
 
                  #MEAN
