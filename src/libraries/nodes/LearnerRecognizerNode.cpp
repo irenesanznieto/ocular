@@ -13,8 +13,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
 
     //Inintialize the number of view to be taken for each template
-    this->number_views2D=10; //the total number of views to be extracted of each object
-    this->number_views3D=10; //the total number of views to be extracted of each object
+    this->number_views2D=5; //the total number of views to be extracted of each object
+    this->number_views3D=5; //the total number of views to be extracted of each object
 
 
     //Set the number of views to be taken for each object and load the previous templates;
