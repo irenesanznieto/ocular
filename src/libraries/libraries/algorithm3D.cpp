@@ -119,10 +119,11 @@ std::pair <int, float> Algorithm3D::match(const sensor_msgs::PointCloud2ConstPtr
             {
                 pcl::fromROSMsg(descriptors[obj_numb][i], *cloud);
                 descriptor_kdtree.nearestKSearch(*cloud, i, k, k_indices, k_squared_distances);
-                for (int j=0; j<k; j++)
+//                for (int j=0; j<k; j++)
 //                    std::cerr<<"Object: "<<obj_numb<<" view: "<<i<<" squared distance: "<<k_squared_distances[j]<<std::endl<<std::flush;
 
                 correspondences.push_back(k_squared_distances[std::distance(k_squared_distances.begin(), std::min_element(k_squared_distances.begin(), k_squared_distances.end()))]);
+//                correspondences.push_back(1-k_squared_distances[0]/100);
             }
 
 //            ratio[obj_numb]=std::distance(correspondences.begin(), std::max_element(correspondences.begin(), correspondences.end()));
