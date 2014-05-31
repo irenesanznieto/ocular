@@ -12,40 +12,55 @@ def frequency_counter(a):
     return c.values(),  c.keys()
 
 def callback(data):
-    iterations=10
+    iterations=30
 
     if not hasattr(callback, "counter"):
         callback.counter = 0  # it doesn't exist yet, so initialize it
 
-    if not hasattr(callback, "f2D"):
-        callback.f2D=[]  # it doesn't exist yet, so initialize it
+    if not hasattr(callback, "f2d"):
+        callback.f2d=[]  # it doesn't exist yet, so initialize it
 
-    if not hasattr(callback, "f3D"):
-        callback.f3D=[]  # it doesn't exist yet, so initialize it
+    if not hasattr(callback, "f3d"):
+        callback.f3d=[]  # it doesn't exist yet, so initialize it
 
     callback.counter += 1
 
-   # print "counter: ",callback.counter
+
 
     if callback.counter<=iterations:
-        callback.f2D.append(data.object_id[0]);
-        callback.f3D.append(data.object_id[1]);
+    	#add the new data to the lists
+        callback.f2d.append(data.object_id[0]);
+        callback.f3d.append(data.object_id[1]);
+
 
         if callback.counter == iterations:
-            values, keys=frequency_counter(callback.a)
-            print(values, keys)
-            max_it = (max(xrange(len(values)),key=values.__getitem__))
-            print('Max frequency: %d', keys[max_it])
+        	#obtain the frequency of each element in the lists
+            v2d, k2d=frequency_counter(callback.f2d)
+            v3d, k3d=frequency_counter(callback.f3d)
 
-            pub.publish(keys[max_it])
+			#obtain index of maximum element
+            max2d = (max(xrange(len(v2d)),key=v2d.__getitem__))
+            max3d = (max(xrange(len(v3d)),key=v3d.__getitem__))
+            
+            #print object_id 2D and 3D 
+            print('2D  Max frequency: ', k2d[max2d]) #,v2d ,k2d)
+            print('3D  Max frequency: ', k3d[max3d]) #, v3d ,k3d)
 
-            callback.a = []
+			#decide final object & publish it
+			#values=0.6*v2d + 0.4*v3d
+			#max_index = (max(xrange(len(values)),key=values.__getitem__))
+            #pub.publish(keys[max_it])
+
+
+			#clear lists and counter
+            callback.f2d = []
+            callback.f3d = []
             callback.counter = 0
 
 
 
 if __name__ == "__main__":
-    pub = rospy.Publisher('output',Int16, queue_size=10)
+    pub = rospy.Publisher('output',Int16)
     rospy.init_node('system_output',anonymous=True)
     r=rospy.Rate(10)
     rospy.Subscriber("object_id", RecognizedObject, callback)

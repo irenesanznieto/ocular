@@ -49,7 +49,7 @@
 <!--	 WRITE TO FILE-->
 <!--	<node pkg="ocular" type="write_to_file.py" name="write_to_file" args="object_id:=/ocular/object_id"/>-->
 
-
+<!--	<node pkg="ocular" type="system_output" name="system_output.py" args="object_id:=/ocular/object_id"/>-->
 
 <!--	IMAGE VIEW-->
 
