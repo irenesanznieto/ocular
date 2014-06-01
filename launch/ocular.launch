@@ -1,12 +1,12 @@
 <launch>
 
     <arg name="fixed_frame" value="camera_depth_frame" />
-    <param name="robot_description" command="$(find xacro)/xacro.py '$(find pi_tracker)/urdf/pi_robot.urdf.xacro'" />
-    <param name="/use_sim_time" value="False" />
+<!--    <param name="robot_description" command="$(find xacro)/xacro.py '$(find pi_tracker)/urdf/pi_robot.urdf.xacro'" />-->
+<!--    <param name="/use_sim_time" value="False" />-->
 
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
-    <param name="publish_frequency" value="20.0"/>
-    </node>
+<!--    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">-->
+<!--    <param name="publish_frequency" value="20.0"/>-->
+<!--    </node>-->
 
 <!--    <include file="$(find openni_launch)/launch/kinect_frames.launch" />-->
 
@@ -49,7 +49,7 @@
 <!--	 WRITE TO FILE-->
 <!--	<node pkg="ocular" type="write_to_file.py" name="write_to_file" args="object_id:=/ocular/object_id"/>-->
 
-<!--	<node pkg="ocular" type="system_output" name="system_output.py" args="object_id:=/ocular/object_id"/>-->
+	<node pkg="ocular" type="system_output.py" name="system_output" args="object_id:=/ocular/object_id"/>
 
 <!--	IMAGE VIEW-->
 

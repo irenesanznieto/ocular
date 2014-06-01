@@ -14,58 +14,56 @@ def frequency_counter(a):
 
 def decision(v2d, k2d, v3d, k3d):
 
+    #if there are any -1s they are relocated to the beginning of the list:
+    if k2d[len(k2d)-1]==-1:
+        k2d.insert(0,k2d.pop(len(k2d)-1))
+        v2d.insert(0,v2d.pop(len(k2d)-1))
+    if k3d[len(k3d)-1]==-1:
+        k3d.insert(0,k3d.pop(len(k3d)-1))
+        v3d.insert(0,v3d.pop(len(k3d)-1))
+        
+    #find max_id:
+    
     if k2d[len(k2d)-1] >= k3d[len(k3d)-1]:
         max_object_id = k2d[len(k2d)-1]
-
     else:
         max_object_id = k3d[len(k3d)-1]
-
+    
     #print max_object_id
-
-#    while len(k2d)<max_object_id:
-#        k2d.append(0)
-
-#    while len(k3d)<max_object_id:
-#        k3d.append(0)
-
-	for i in range(0, max_object_id+1):
-		#print (k2d, k3d,i)
-		#print (len(k2d), len(k3d), i) 
-		
-		if (len(k2d)-1)<i:
-			k2d.append(i)
-			v2d.append(0)
-			
-		else:
-			if k2d[i] != i:
-				k2d.insert(i, i)
-				v2d.insert(i, 0)
-
-		if (len(k3d)-1)<i:
-			k3d.append(i)
-			v3d.append(0)
-			
-		else:
-			if k3d[i] != i:
-				k3d.insert(i, i)
-				v3d.insert(i, 0)
-
+    
+    for i in range(-1, max_object_id+1):
+        #print (k2d, k3d,i)
+        #print (len(k2d), len(k3d), i)
+        if (len(k2d)-1)<=i:
+            k2d.append(i)
+            v2d.append(0)
+        else:
+            if k2d[i+1] != i:
+                k2d.insert(i+1, i)
+                v2d.insert(i+1, 0)
+        if (len(k3d)-1)<=i:
+            k3d.append(i)
+            v3d.append(0)
+        else:
+            if k3d[i+1] != i:
+                k3d.insert(i+1, i)
+                v3d.insert(i+1, 0)
         #print (k2d[i], k3d[i],i,"\n")
+        #print(k2d, k3d,i)#, v2d , v3d)
 
-    #print(k2d, k3d)#, v2d , v3d)
-	
-	if len(v2d) == len(v3d):
-		values=np.multiply(0.6,v2d)+np.multiply(0.4,v3d)
+	if len(v2d)==len(v3d):
+		values=np.multiply(0.5,v2d)+np.multiply(0.5,v3d)
 		keys=k2d
 		max_value = (max(xrange(len(values)), key=values.__getitem__))
-		print (v2d, v3d, values)
-		print ('Final decision: ', keys[max_value])
+		#print (v2d, v3d, values)
+		#print ('Final decision: ', keys[max_value])
 		return keys[max_value]
 		
 	else: 
-		print ('lenght vectors not matching: ', v2d, v3d)
+		print 'wrong len'
 
-
+        
+        
 
 def callback(data):
     iterations=30
@@ -85,34 +83,31 @@ def callback(data):
 
     if callback.counter<=iterations:
     	#add the new data to the lists
-    	if data.object_id[0] != -1 : 
-        	callback.f2d.append(data.object_id[0]);
-        
-		if data.object_id[1] != -1 : 
-			callback.f3d.append(data.object_id[1]);
+		callback.f2d.append(data.object_id[0]);  
+		callback.f3d.append(data.object_id[1]);
 
 
-        if callback.counter == iterations and len(callback.f3d) >0 and len (callback.f2d)>0:
-        	#obtain the frequency of each element in the lists
-            v2d, k2d=frequency_counter(callback.f2d)
-            v3d, k3d=frequency_counter(callback.f3d)
+		if callback.counter == iterations and len(callback.f3d) >0 and len (callback.f2d)>0:
+			#obtain the frequency of each element in the lists
+			v2d, k2d=frequency_counter(callback.f2d)
+			v3d, k3d=frequency_counter(callback.f3d)
 
 			#obtain index of maximum element
-            max2d = (max(xrange(len(v2d)),key=v2d.__getitem__))
-            max3d = (max(xrange(len(v3d)),key=v3d.__getitem__))
-            
-            #print object_id 2D and 3D 
-            #print('2D ', k2d[max2d]) #,v2d ,k2d)
-            #print('3D ', k3d[max3d]) #, v3d ,k3d)
-            
-            #decide final object & publish it
-            pub.publish(decision(v2d, k2d, v3d, k3d))
+			max2d = (max(xrange(len(v2d)),key=v2d.__getitem__))
+			max3d = (max(xrange(len(v3d)),key=v3d.__getitem__))
 
-			
+			#print object_id 2D and 3D 
+			#print('2D ', k2d[max2d]) #,v2d ,k2d)
+			#print('3D ', k3d[max3d]) #, v3d ,k3d)
+
+			#decide final object & publish it
+			pub.publish(decision(v2d, k2d, v3d, k3d))
+
+
 			#clear lists and counter
-            callback.f2d = []
-            callback.f3d = []
-            callback.counter = 0
+			callback.f2d = []
+			callback.f3d = []
+			callback.counter = 0
 
 
 
