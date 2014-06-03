@@ -1,3 +1,33 @@
 %\addcontentsline{toc}{part}{Discussion}
 \chapter{Discussion}
 \label{discussion}
+
+This chapter covers the discussion of the tests results presented in the previous section, number \ref{results}.
+It follows the same structure than the last two parts. 
+First, the benchmarking of both the nodes and the topics is discussed. 
+Afterwards, the results obtained in the accuracy experiment are explained and justified. 
+\\
+
+The last section of the thesis is devoted to the improvement of the system based on the observations performed on the experiments. 
+
+\section{Performance testing}
+
+	\begin{itemize}
+		\item{\textbf{Package Benchmarking}}
+		\\
+
+			The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D. 
+			Since the 3D data has a higher size, the usage of the nodes using 3D information is much higher than those processing 2D data. 
+			\\
+
+			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
+			This is because the last ones perform simple conversions and computations of integers and floating data. 
+			On the other hand, the learner recognizer node implements the state machine of the software. 
+			This means it has to deal with a higher amount of data than the previous nodes. 
+
+
+
+
+		\item{\textbf{Topic Benchmarking}}\\
+
+	\end{itemize}
