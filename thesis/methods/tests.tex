@@ -70,9 +70,9 @@
 		\\[0.5cm]
 		The results are shown in the next chapter in a table as the one below. 
 
-		\begin{figure}[h]
+		\begin{figure}[H]
 				\begin{center}
-			    \includegraphics[scale=0.35]{img/tests/node_model.png}
+			    \includegraphics[scale=0.48]{img/tests/node_model.png}
 				\caption[Node benchmarking - Table model]{Node benchmarking - Table model}
 				\end{center}
 		\end{figure}
@@ -88,7 +88,7 @@
 		The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
 		The results are shown in the next chapter in a table as the one below. 
 
-		\begin{figure}[h]
+		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/topic_bw_model.png}
 				\caption[Topic benchmarking - Bandwidth table model]{Topic benchmarking - Bandwidth table model}
@@ -104,7 +104,7 @@
 		Also, it returns the average publishing frequency.  
 		The results are shown in the next chapter in a table as the one below. 
 
-		\begin{figure}[h]
+		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/topic_hz_model.png}
 				\caption[Topic benchmarking - Publishing rate table model]{Topic benchmarking - Publishing rate table model}
@@ -174,8 +174,17 @@
 		%Also, the other possible application of the software is as an aiding software for visually impaired persons. 
 		%In this case it is a requirement the recognition of daily objects as well.  
 		%\\
+		The ones being used in the present experiment may be seen in the image below. 
 
-		This fact allows to obtain more reliable experiment results, since they were obtained under working conditions. 
+		\begin{figure}[H]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/dataset.jpg}
+				\caption[Experimental dataset]{Experimental dataset}
+				\end{center}
+		\end{figure}
+
+
+		Using common objects allow to obtain more reliable experiment results, since they were obtained under working conditions. 
 		Common objects are usually featureless. 
 		That characteristic complicates the object recognition, since the most textured objects are the ones that usually generate more robust descriptors. 
 		In order to overcome this difficulty, different views of each object are obtained and compared when doing the matching. 
@@ -230,7 +239,7 @@
 		The confusion matrix in which the results are being presented is the same as the figure below. 
 
 
-		\begin{figure}[h]
+		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/matrix_model.png}
 				\caption[Confusion matrix model]{Confusion matrix model}
@@ -239,19 +248,23 @@
 
 
 		The precision is the fraction of retrieved results that are relevant.  
+		Using a confusion matrix as the one above, the precision is computed from it as follows: 
 		\\
 
-		$precision=$
+		$precision_{ij}=\frac{M_{ij}}{\sum M_j}$
 		\\
 
 		The recall is the fraction of the results that are relevant and that have succeeded. 
+		It may be obtained using the confusion matrix with this formula: 
 		\\
 
-		$recall=$
+		$recall_{ij}=\frac{M_{ij}}{\sum M_i}$
 		\\
 
+		The precision and recall is computed for each of the six objects conforming the dataset. 
+		Those two parameters together with the F1-score is presented in a table as the one that can be seen below. 
 
-		\begin{figure}[h]
+		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/fscore_model.png}
 				\caption[F1-score table model]{F1-score table model using precision and recall measurements}

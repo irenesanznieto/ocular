@@ -11,9 +11,7 @@ Afterwards, the results obtained in the accuracy experiment are explained and ju
 The last section of the thesis is devoted to the improvement of the system based on the observations performed on the experiments. 
 
 \section{Performance testing}
-
-	\begin{itemize}
-		\item{\textbf{Package Benchmarking}}
+	\paragraph{Package and nodes benchmarking}\mbox{}
 		\\
 
 			The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D. 
@@ -28,6 +26,70 @@ The last section of the thesis is devoted to the improvement of the system based
 
 
 
-		\item{\textbf{Topic Benchmarking}}\\
+		\paragraph{Topic benchmarking}\mbox{}\\
 
-	\end{itemize}
+			The previous chapter presented the results of the topic benchmarking. 
+			Two different characteristics were measured: the publishing rate and the bandwidth used. 
+			The actual numbers can be found in the figures \ref{hz} and \ref{bw} respectively. 
+			\\
+
+			\begin{itemize}
+				\item{\textbf{Publishing rate}}\\
+
+			The publishing rate varies significantly between topics. 
+			The first column shows the average number of messages published in each topic. 
+			It can be seen that those topics with lower-sized messages experiment a higher average publishing rate. 
+			This is due to the reduced processing time and hence delay between message publishes. 
+			All topics but one have a more or less similar average publishing rate. 
+			\\
+
+			The one different topic is the final object ID. 
+			This node transmits the output of the system, as was previously explained in chapter \ref{system_description}.
+			The node that publishes it is buffering the object ID topic messages. 
+			This creates a delay and the node publishes approximately one message per second in the final object ID topic. 
+			This knowledge matches the average rate observed of 0.75 messages per second. 
+			It is also confirmed when looking at the next column, in which the minimum time between messages is presented. 
+			All the previous topics have a zero or almost zero seconds. 
+			But final object ID observes a minimum time of around one second. 
+			\\
+
+			The maximum time shows results that increase with the complexity of the processing performed by the node that publishes in that topic. 
+			As an example, the segmented and descriptors topics have similar time, around half a second. 
+			It is remarkable the value obtained for the object ID topic. 
+			It was previously seen that this topic publishes the instant value of the estimated recognized object. 
+			The time between messages depend on the previous data transformation required. 
+			But also the event that the software is undergoing (learning or recognizing) affects that time. 
+			When the system is learning, no estimations of the object ID are performed and hence no messages are published. 
+			On the other hand, when the system is recognizing, the topic is filled at a rate of almost thirty messages per second. 
+			\\
+
+			This is reflected on the standard deviation column. 
+			The values for both object ID and final object ID, which are dependent on the system's event, are much higher than the rest of the topics. 
+
+			\\
+
+			\item{\textbf{Bandwidth}}\\
+
+			The  bandwidth results presented in figure \ref{bw} show the different sizes the data used have. 
+			The numbers range from the bytes to the megabytes. 
+			The topics using custom messages use a higher bandwidth than those using a standard message such as a number. 
+			\\
+
+			This can be illustrated with the final object ID topic. 
+			It publishes integer messages and its average bandwidth is around 1 B/s. 
+			The next that follows in the lowest bandwidth is the segmented coordinates in pixels. 
+			Its messages are vectors composed of two integers. 
+			The average bandwidth is around 200B/s. 
+			\\
+
+			In the kilobytes range, the hand location, descriptors 2D, event and object ID are located. 
+			All but descriptors 2D are filled with custom made messages. 
+			The data consists on integers and floats mixed with strings. 
+			For more information about custom messages, please read the chapter \ref{system_description}.
+			It might be noted that the descriptors 2D topic is an order of magnitude higher than the other ones. 
+			This is due to the fact that its messages are images and hence have a higher size than the other ones. 
+			\\
+
+			Finally, the megabytes range houses the segmented image topics as well as the segmented point cloud and the descriptors 3D. 
+			All are filled with heavy messages that store two-dimensional and three-dimensional data. 
+		\end{itemize}

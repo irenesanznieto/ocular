@@ -53,7 +53,59 @@ Also, the improvements that could be applied to better its performance are enume
 	
 	\paragraph{ROI segmentation}\mbox{}\\
 
+	It was seen in previous chapters that the ROI segmentation was performed by two separate nodes. 
+	One node computed the 2D segmentation and the other the 3D. 
+	\\
+
+	The 3D segmentation may be improved by removing the hand of the point cloud. 
+	The system uses right now a point cloud without RGB component to reduce the computing load of the node. 
+	Adding that information would allow to segment the hand off the point cloud used to learn and recognize the object. 
+	The hand segmentation may be done by a color segmentation as in the previous paragraph or modeling the hand's form. 
+	The model would be an union of cylinders and conical frustums.
+	\\
+
+	The introduction of noise to the system would be highly reduced.
+	The hand's position and location would only have an effect in the keypoints occlusion in the image. 
+	\\
+
+	Regarding 2D segmentation, a mask could be performed from the 3D hand segmentation. 
+	This way the hand would be removed and the same improvements than in the 3D segmentation would appear. 
+	In 2D segmentation the background is kept in the image. 
+	It was not removed due to the problems derived from using a background subtractor. 
+	Those problems are that the foreground could be considered background after a certain time. 
+	If that time is increased to avoid that problem, certain parts of the background would then become foreground. 
+	Those algorithms depend heavily on the lighting conditions. 
+	The 3D depth segmentation could be used to perform a better background subtractor for the 2D data. 
+	The contour of the object might be obtained in world coordinates and then transformed to pixels. 
+	Then, passing that information to the 2D ROI segmenter a new mask could be obtained to eliminate the background. 
+	\\
+
+
+
 	\paragraph{Feature extraction}\mbox{}\\
 
-	\paragrpah{Learning and recognizing methods}\mbox{}\\
+	As in the previous point, the feature extraction in the system is performed in 2D and 3D data. 
+	The 2D features are the state-of-the-art best solution for this application. 
+	They are faster and less time-consuming than the alternatives with comparable experimental results, as stated by \cite{Miksik2012}. 
+	The 3D features are computed using many approximations in order to reduce the huge computing time they require. 
+	Hence, they are less representative and is easier to obtain matches of features from different objects. 
+	\\
 
+	The main improvement in this field would be then to better the 3D features. 
+	It is a field that is still being investigated for object recognition.
+	Some new algorithms such as the one described in \cite{Hinterstoisser2012} are appearing. 
+	In this particular one, new descriptors for texture-less objects are defined. 
+	The inclusion of a feature extractor similar to this one would improve the system's output. 
+	Many of the common objects do not posses a marked texture. 
+	\\ 
+
+	\paragraph{Learning and recognizing methods}\mbox{}\\
+
+	This system implements a recognizing procedure using template matching. 
+	That methodology does not contemplate a learning of the algorithm. 
+	The descriptors extracted in each frame are matched against the ones stored as templates. 
+	The one that is more similar is the output of the system. 
+	There exists other machine learning algorithms that could be used for the learning and recognizing phase. 
+	\\
+
+	As an example, random forests (\cite{Gall2012}) or SVMs (\cite{Pontil1998}) might be implemented in order to upgrade the system's performance over time. 
