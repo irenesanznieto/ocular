@@ -1,3 +1,59 @@
 %\addcontentsline{toc}{part}{Conclusions}
-\chapter{Conclusions}
+\chapter{Conclusions and future work}
 \label{conclusions}
+
+This last chapter is devoted to present the conclusions drawn from the system. 
+Also, the improvements that could be applied to better its performance are enumerated and explained. 
+
+	\section{Conclusions}
+
+
+
+
+	\section{Future work}
+
+	The present section contains the upgrades that could be implemented in the software to better different aspects of it. 
+	The improvements could be done in some of the system's tasks.
+	As it was previously explained, each task is performed by a different node. 
+	This creates a modular code that can be easily enhanced. 
+	\\
+
+	This section is divided in subsections to observe the particular upgrades that could be done in each node of the system. 
+
+	\paragraph{Hardware}\mbox{}\\
+
+	The hardware being used in this thesis is a kinect. 
+	It is a type of RGB-D sensor that was launched in 2010. 
+	It has a lower resolution than the recent kinect 2 launched the past year. 
+	When using small objects at the operating distance range of about 1.5m the image and point cloud retrieved have a small size. 
+	This leads to lower quality descriptors.
+	\\
+
+	Another drawback of this devices is the noise. 
+	The sunlight and in summary all light sources that emit infrared radiation affect the output of the sensor. 
+	This noise creates a variation in the depth measures that is translated in erroneous event recognition or even hand recognition. 
+	The improvement in the noise resistance would improve the software's performance. 
+
+
+	\paragraph{Hand location}\mbox{}\\
+
+	The ROS package used for this task implements a good solution to this problem. 
+	Nevertheless, since it is based on clutters, when a person catches an object it immediately is incorporated to the arm's recognition. 
+	This means that the returned hand's position is not accurate if there is an object in the hand. 
+	It affects the system in the ROI segmentation stage. 
+	Certain objects are not segmented correctly due to its size.  
+	\\
+
+	The solution would be to implement a new hand location taking into account for example the skin color. 
+	This way, other objects that are held and are not skin-colored are rejected for the hand's location computation. 
+	Another solution would be to create a wrapper to the existing package that creates an offset to the given position using the same principle. 
+	Alternatively, the center of mass could be computed in the hand. 
+	Assuming the user is holding a medium-sized object, the center of mass of the hand and object cluster is a good approximation to the center of the hand. 
+	\\
+	
+	\paragraph{ROI segmentation}\mbox{}\\
+
+	\paragraph{Feature extraction}\mbox{}\\
+
+	\paragrpah{Learning and recognizing methods}\mbox{}\\
+

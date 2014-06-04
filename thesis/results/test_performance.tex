@@ -1,7 +1,7 @@
 \section{Performance testing}
 
 	\begin{itemize}
-		\item{\textbf{Package Benchmarking}}
+		\item{\textbf{Package and nodes benchmarking}}
 		\\
 
 			As it was said in the previous chapter, the benchmarking is made in the different nodes that compose the software. 
@@ -13,7 +13,7 @@
 
 			\begin{figure}[h]
 				\begin{center}
-			    \includegraphics[scale=0.35]{img/nodes.png}
+			    \includegraphics[scale=0.35]{img/tests/node.png}
 				\caption[Nodes benchmarking]{Nodes benchmarking}
 				\end{center}
 			\end{figure}
@@ -30,7 +30,40 @@
 
 			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
 			
+			\newpage
 
-		\item{\textbf{Topic Benchmarking}}\\
+		\item{\textbf{Topic benchmarking}}\\
+
+			The following figures show the publishing rate and bandwidth of the different topics. 
+			In figure \ref{hz} can be appreciated the difference in the average rate between topics. 
+			Also it is noticeable the minimum rate column. 
+			Most of the topics have a minimum publishing rate of 0 seconds.
+			The only one that is different is the final object ID topic. 
+			Another singular fact is the maximum column. 
+			In it, all topics but two have less than 1 second. 
+			Those two are again final object ID and the object ID topic. 
+			The reasons behind this particular behaviour are discussed in the next chapter. 
+
+			\begin{figure}[h]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/topic_hz.png}
+				\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
+				\label{hz}
+				\end{center}
+			\end{figure}
+
+			The table below shows the bandwidth consumed. 
+			It can be seen a huge difference between topics. 
+			The data ranges from the bytes to megabytes. 
+			The nodes using a bandwidth of bytes are segmented coordinates and final object ID. 
+			They are closely followed by the hand location, descriptors 2D, event and object ID topics that are in the kilobytes range. 
+			Finally, the ones using a higher bandwidth are the segmented image with and without keypoints, the segmented point cloud and the descriptors 3D topics. 
+			\begin{figure}[h]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/topic_bw.png}
+				\caption[Topic benchmarking - Bandwidth]{Topic benchmarking - Bandwidth}
+				\label{bw}
+				\end{center}
+			\end{figure}
 
 	\end{itemize}

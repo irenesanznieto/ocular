@@ -68,6 +68,14 @@
 		The CPU usage is hence represented from the 0 to the 800\%.
 		The RAM usage is represented from 0 to 100\%.
 		\\[0.5cm]
+		The results are shown in the next chapter in a table as the one below. 
+
+		\begin{figure}[h]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/node_model.png}
+				\caption[Node benchmarking - Table model]{Node benchmarking - Table model}
+				\end{center}
+		\end{figure}
 
 		\item{\textbf{Topic Benchmarking}}\\
 		The topics communicate the nodes and allow the exchange of information. 
@@ -78,6 +86,14 @@
 		The bandwidth parameter is the speed at which the data is transmitted. 
 		Its units are kilobytes per second. 
 		The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
+		The results are shown in the next chapter in a table as the one below. 
+
+		\begin{figure}[h]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/topic_bw_model.png}
+				\caption[Topic benchmarking - Bandwidth table model]{Topic benchmarking - Bandwidth table model}
+				\end{center}
+		\end{figure}
 		% If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. 
 		\\
 
@@ -86,6 +102,14 @@
 		It is measured in Hz. 
 		There is a command which is similar to the one above that returns the maximum, minimum and the standard deviation of the time between messages in seconds. 
 		Also, it returns the average publishing frequency.  
+		The results are shown in the next chapter in a table as the one below. 
+
+		\begin{figure}[h]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/topic_hz_model.png}
+				\caption[Topic benchmarking - Publishing rate table model]{Topic benchmarking - Publishing rate table model}
+				\end{center}
+		\end{figure}
 			\end{itemize}
 
 \newpage
@@ -181,15 +205,14 @@
 		$F_\beta=(1+\beta^2)\cdot\frac{precision \cdot recall}{(\beta^2 \cdot precision )+recall}$
 		\\
 
-		The precision is the fraction of retrieved results that are relevant.  
-		The recall is the fraction of the results that are relevant and that have succeeded. 
-		\\
-		The 
-		The F-score may be expressed in terms of true and false positives and negatives as shown below: 
-		\\
 
-		$F_\beta=\frac{(1+\beta^2)\cdot true\_positives}{(1+\beta^2)\cdot true\_positives +\beta^2 \cdot false\_negatives +false\_positives}$
-		\\
+
+		
+		% The F-score may be expressed in terms of true and false positives and negatives as shown below: 
+		% \\
+
+		% $F_\beta=\frac{(1+\beta^2)\cdot true\_positives}{(1+\beta^2)\cdot true\_positives +\beta^2 \cdot false\_negatives +false\_positives}$
+		% \\
 
 		The $F_1 score$ is used when the weight of having false positives and negatives is the same. 
 		This weight depends on the applications of the system being tested. 
@@ -201,10 +224,44 @@
 		\\
 
 		In the system there is no difference between both errors and hence the $F_1 score$ is the ratio being used. 
-		Since the experiments retrieve the true and false positives and negatives, the formula that is used is the one below: 
+		In order to evaluate the accuracy, a confusion matrix is constructed for each experiment. 
+		This matrix shows the number of times each different object was predicted when each of the real objects were presented to the system. 
+		In this system, each different retrieved a different number of results and hence the matrix is constructed with a ratio from 0 to 1. 
+		The confusion matrix in which the results are being presented is the same as the figure below. 
+
+
+		\begin{figure}[h]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/matrix_model.png}
+				\caption[Confusion matrix model]{Confusion matrix model}
+				\end{center}
+		\end{figure}
+
+
+		The precision is the fraction of retrieved results that are relevant.  
+		\\
+
+		$precision=$
+		\\
+
+		The recall is the fraction of the results that are relevant and that have succeeded. 
+		\\
+
+		$recall=$
 		\\
 
 
-		$F_\beta=\frac{2\cdot true\_positives}{2\cdot true\_positives + false\_negatives +false\_positives}$
-		\\
+		\begin{figure}[h]
+				\begin{center}
+			    \includegraphics[scale=0.35]{img/tests/fscore_model.png}
+				\caption[F1-score table model]{F1-score table model using precision and recall measurements}
+				\end{center}
+		\end{figure}
+
+		% Since the experiments retrieve the true and false positives and negatives, the formula that is used is the one below: 
+		% \\
+
+
+		% $F_\beta=\frac{2\cdot true\_positives}{2\cdot true\_positives + false\_negatives +false\_positives}$
+		% \\
 
