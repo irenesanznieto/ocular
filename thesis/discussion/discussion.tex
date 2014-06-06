@@ -93,3 +93,118 @@ The last section of the thesis is devoted to the improvement of the system based
 			Finally, the megabytes range houses the segmented image topics as well as the segmented point cloud and the descriptors 3D. 
 			All are filled with heavy messages that store two-dimensional and three-dimensional data. 
 		\end{itemize}
+
+\section{Accuracy measurement}
+	This section discusses the results obtained in the accuracy measurement experiment. 
+	To consult them please refer to section \ref{results_accuracy_measurement}.
+	Each different experiment is discussed in a different subsection.
+
+
+	\subsection{Template using 1 view}
+	Figure \ref{1view_matrix} shows the confusion matrix for the experiment. 
+	The diagonal marked in blue color is the fraction of true positives obtained. 
+	It can be seen that the software has around a 50\% of success in all objects. 
+	Figure \ref{1view_fscore} presents the precision, recall and F1 score for each of the testing objects. 
+	\\
+	The bottle is the object with a higher success rate. 
+	Also, it can be seen that is the object that was recognized more times when other ones were shown to the system. 
+	This phenomena is similar in the mobile, the calculator and the ball. 
+	On the other hand, the skull and the calculator had lower false detections. 
+	\\
+
+	In figure \ref{1view_fscore} it can be seen that the calculator is the one with a larger F1 score. 
+
+	\subsection{Template using 5 views}
+	In figure \ref{5views_matrix} the confusion matrix of this experiment may be seen.
+	The figure \ref{5views_fscore} represents the F1 score computation per object.  
+	The success fraction represented in the diagonal of figure \ref{5views_matrix} has improved with respect to the previous experiment. 
+	Now, the higher rated object is the ball. 
+	It can be observed that the system only recognized two different objects when the ball was presented to it: the skull and the mobile. 
+	The skull is similar to the ball in its 3D form, which could be the reason behind those false recognitions. 
+	The fraction of confusions because of the mobile are negligible. 
+	\\
+	The skull has around a 0.6 success rate. 
+	Most of the 40\% of recognitions were ball. 
+	This supports the theory that the similarity between those objects can confuse the algorithms used for the recognition. 
+	\\
+	The cup has a higher rate than the skull, a 0.66. 
+	It is noticeable that the system outputted a cup only when it was shown to it. 
+	This leads to the maximum precision possible, 1, which can be seen in figure \ref{5views_fscore}.
+	Nevertheless, the system recognized the skull, the bottle and the ball and calculator when the cup was shown to it. 
+	The two last objects had a low rate and can be neglected. 
+	The skull was recognized a ratio of 0.2, which is high. 
+	The reason behind it could be the similarity in the 2D texture of skull and cup. 
+	Both are white objects with drawings that contrast with that background. 
+	\\
+	The bottle has a ratio of 0.69. 
+	Both the ball and the skull were outputted when the bottle was shown to the system. 
+	The most probable reason is that all three objects have curved sides that could be almost identical in terms of PFH 3D descriptors. 
+	Also, the calculator was recognized a negligible amount of times. 
+	The bottle was detected when the cup, the mobile and the calculator were presented to the system. 
+	Nevertheless, the ratio for all three of them is low, a 0.07. 
+	\\
+	The mobile has a success of 67\%. 
+	It is remarkable that it was detected wrongly when the ball was shown. 
+	And in this case, the amount of false recognitions is low, a 0.3. 
+	Figure \ref{5views_matrix} shows that when the mobile was shown to the system, the skull, the ball and the bottle were detected. 
+	The mobile has rounded corners and sides that could make 3D descriptors on those locations be similar to the previous objects. 
+	Also, the mobile is white with details represented in the 2D texture. 
+	This feature is common with the bottle and the cup. 
+	For certain positions of the cup and the mobile the 2D projection could be similar and lead to obtain less representative descriptors of the object. 
+	\\
+	Finally, the calculator has a score of 0.62. 
+	It was recognized in all previous measurements except when the ball was shown to the system. 
+	Nonetheless, the ratio of false positives is negligible ( a 3\%). 
+	The objects that were detected when the calculator was presented are the skull, the ball and the bottle. 
+	Since the calculator has a very cluttered 2D texture it is possible that some descriptors are similar to the ones extracted in other objects. 
+	\\
+
+	Figure \ref{5views_fscore} shows that the object with a higher F1 score is the cup, thanks mainly to its extremely high precision.  
+	All testing objects obtained similar scores, around the 70 \% except the skull and the ball. 
+	This is because the high 3D similarity between both. 
+
+
+	\subsection{Template using 10 views}
+	The results of this experiment may be found in figures \ref{10views_matrix} and \ref{10views_fscore}. 
+	It can be observed an improvement with respect to the previous measurements. 
+	Now, all success rates of the objects are above the 69\%. 
+	Also it can be seen that the number of false recognitions was reduced noticeably mainly in the bottle, mobile and calculator objects. 
+	\\
+
+	The ball is the object with highest success rate, a 93\%. 
+	This time it was only confused with the cup a 7\%. 
+	When the skull, the calculator and the mobile were presented to the system, the ball was detected a 0.31, 0.21 and 0.07. 
+	Also, it was recognized a negligible ratio when the cup and the bottle were shown. 
+	Those results are high and may be attributed to the improvable segmentation performed in the system. 
+	Possible upgrades are explained in section \ref{conclusions}.
+	\\
+	The skull was detected correctly a 69\% of times. 
+	It was only confused with the skull due to their shape similarity already mentioned.The skull was also recognized when the cup, the bottle and the mobile were being used. 
+	\\
+	The cup had a success rate of 76\%. 
+	The system recognized wrongly the skull 14 \% and the ball, the mobile and calculator a negligigle amount of times. 
+	The skull has a similar 2D texture, a white background with highly defined drawings on it. 
+	This could be the reason of the system's error. 
+	The cup was also detected when the ball and the mobile were shown to the system. 
+	\\
+	The bottle obtained a 89\% success rate. 
+	The system only made a false recognition of the bottle when the calculator was being shown to it, and the ratio is negligigle. 
+	The bottle was confused with the skull and the ball, for the sames reasons as the cup. 
+	Those objects, the skull, the cup and the bottle have similar 2D features that may be matched wrongly. 
+	\\
+	The mobile obtained a 0.72 rate. 
+	The cup, ball, skull and calculator were recognized badly. 
+	The mobile was wrongly recognized only when the cup was being shown to the system and the ratio is negligible (0.3). 
+	\\
+	Finally, the calculator has a 76\% success rate. 
+	The system detected the ball a 21\% of times in this measurement. 
+	It is possible that the dense 2D textures of both the ball and the calculator affected the system in the matching process. 
+	The calculator was recognized a negligible amount of times when the mobile and the cup were being used. 
+	\\
+
+	Figure \ref{10views_fscore} presents much better results than the previous experiments (Figures \ref{1view_fscore} and \ref{5views_fscore}).
+	The bottle is the object with a higher F1 score. 
+	It is noticeable that the bad precision presented in the ball recognition limited its F1 score result. 
+
+
+	\subsection{Comparison of the experiments results using different number of views}

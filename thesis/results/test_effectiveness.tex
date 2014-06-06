@@ -1,20 +1,33 @@
 \section{Accuracy measurement}
-
+\label{results_accuracy_measurement}
+This sections presents the results obtained in the accuracy measurement experiment. 
+It was previously explained that the different objects may be learned using one or more views per template. 
+The accuracy is analyzed depending on the number of views learned. 
+One, five and ten views were used and the same experiment was performed in each of them. 
+The data in the confusion matrices shown below is normalized to range [0,1].
+This is due to the fact that the publishing rate of the topics varies with the amount of templates. 
+Hence, for an experiment that lasts the same amount of time a larger number of messages would appear when the algorithm has 1 view templates. 
+The discussion of the results can be found in section \ref{discussion}.
 
 \subsection{Template using 1 view}
+This experiment was performed adding to the dataset one view per object. 
+Figure \ref{1view_matrix} shows the confusion matrix obtained with the experiment. 
+
+The F1-score obtained per object as well as their precision and recall values may be found in figure \ref{1view_fscore}.
+
 	\begin{figure}[H]
 		\begin{center}
-	    \includegraphics[scale=0.35]{img/tests/1view_matrix.png}
+	    \includegraphics[width=\linewidth]{img/tests/1view_matrix.png}
 		\caption[Confusion matrix - templates using 1 view]{Confusion matrix using a template that stores one view per object. The results are given in a 0 to 1 range. }
-		\label{nodes}
+		\label{1view_matrix}
 		\end{center}
 	\end{figure}
 
 	\begin{figure}[H]
 		\begin{center}
-		\includegraphics[scale=0.35]{img/tests/1view_fscore.png}
+		\includegraphics[width=0.55\linewidth]{img/tests/1view_fscore.png}
 		\caption[F1-score - templates using 1 view]{F1-score calculation using the precision and recall parameters. Results for templates using one view per object. }
-		\label{nodes}
+		\label{1view_fscore}
 		\end{center}
 	\end{figure}
 
@@ -22,37 +35,63 @@
 
 
 \subsection{Template using 5 views}
+In this experiment, five views were retrieved per object. 
+The confusion matrix may be seen in figure \ref{5views_matrix}. 
+Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as well as the precision and recall per object. 
 	\begin{figure}[H]
 		\begin{center}
-	    \includegraphics[scale=0.35]{img/tests/5views_matrix.png}
+	    \includegraphics[width=\linewidth]{img/tests/5views_matrix.png}
 		\caption[Confusion matrix - templates using 5 views]{Confusion matrix using a template that stores five views per object. The results are given in a 0 to 1 range. }
-		\label{nodes}
+		\label{5views_matrix}
 		\end{center}
 	\end{figure}
 
 	\begin{figure}[H]
 		\begin{center}
-		\includegraphics[scale=0.35]{img/tests/5views_fscore.png}
+		\includegraphics[width=0.55\linewidth]{img/tests/5views_fscore.png}
 		\caption[F1-score - templates using 5 views]{F1-score calculation using the precision and recall parameters. Results for templates using five views per object. }
-		\label{nodes}
+		\label{5views_fscore}
 		\end{center}
 	\end{figure}
 
 
 
 \subsection{Template using 10 views}
+The last experiment was performed introducing ten views per object in the dataset. 
+Figure \ref{10views_matrix} represents the confusion matrix obtained. 
+The F1-score and the precision and recall per object may be found in figure \ref{10views_fscore}.
 	\begin{figure}[H]
 		\begin{center}
-	    \includegraphics[scale=0.35]{img/tests/10views_matrix.png}
+	    \includegraphics[width=\linewidth]{img/tests/10views_matrix.png}
 		\caption[Confusion matrix - templates using 10 views]{Confusion matrix using a template that stores ten views per object. The results are given in a 0 to 1 range. }
-		\label{nodes}
+		\label{10views_matrix}
 		\end{center}
 	\end{figure}
 
 	\begin{figure}[H]
 		\begin{center}
-		\includegraphics[scale=0.35]{img/tests/10views_fscore.png}
+		\includegraphics[width=0.55\linewidth]{img/tests/10views_fscore.png}
 		\caption[F1-score - templates using 10 views]{F1-score calculation using the precision and recall parameters. Results for templates using ten views per object. }
-		\label{nodes}
+		\label{10views_fscore}
+		\end{center}
+	\end{figure}
+
+	\subsection{Comparison of the experiments results using different number of views}
+	In this subsection the results presented in this section are summarized and presented together. 
+	This is performed to offer a more global view of the system's performance as a function of the number of templates being used. 
+
+	\begin{figure}[H]
+		\begin{center}
+	    \includegraphics[width=0.8\linewidth]{img/tests/comparison_success.png}
+		\caption[Comparison of the success rate]{Comparison of the success rate when using templates with 1, 5 and 10 views per object.}
+		\label{comparison_success}
+		\end{center}
+	\end{figure}
+
+	\begin{figure}[H]
+		\begin{center}
+	    \includegraphics[width=0.8\linewidth]{img/tests/comparison_fscore.png}
+		\caption[Comparison of the F1 score]{Comparison of the F1 score when using templates with 1, 5 and 10 views per object.}
+		\label{comparison_success}
 		\end{center}
 	\end{figure}
