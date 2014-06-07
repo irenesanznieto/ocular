@@ -1,6 +1,5 @@
 \section{System design}
 \label{system_design}
-
 Computer vision is a field that involves high time-expensive algorithms. 
 The input to a computer vision system may be 2D and 3D information. 
 2D data is structured as a matrix that has for each point 2 coordinates numbers and the color information encoded in RGB components. 
@@ -24,13 +23,6 @@ In the following sections, the nodes' functionalities are be described and the c
 But first, the overall software work-flow and processing is explained. 
 
 
-
-
-
-
-
-
-
 \subsection{Solution description}
 
 The input of the system is the information coming from the RGB-D sensor. 
@@ -38,26 +30,33 @@ There are two different data used as input: the 2D information, i.e. the raw ima
 Also, there is another input to the system that shows the position of the different user's joints. This data is provided by a third-party package called \textit{pi\_tracker} that is explained in the following chapters. 
 \\
 
-The software was designed to be running on a robot as was previously explained. This implies that there can not be a GUI (Graphical User Interface) on a screen because the robot being used might not have it. Also, the usability and easiness to learn how to interact with the program was important to allow different people not only investigators to use it. 
+The software was designed to be running on a robot as was previously explained. 
+This implies that there can not be a GUI (Graphical User Interface) on a screen because the robot being used might not have it. 
+Also, the usability and easiness to learn how to interact with the program was important to allow different people not only investigators to use it. 
+In order to fulfill those requirements, a gestural interface was designed. 
+%It is developed by a separate node so the processing lags will not affect the recognition of the different gestures. This fact also allows an easy change of the gestures being used. 
 \\
+
+The recognition of the location of the hand with respect to the user's body shows how the arm is positioned. 
+If it is stretched towards the sensor, the software enters in the dataset construction mode, i.e. the data acquisition and learning mode. 
+If, on the contrary, the user's hand is located close to the body, the software starts the object recognition mode. 
+\\
+
+%The upper part of the diagram shows the data acquisition work-flow. 
+Figure \ref{flowchart} presents the work and data flow of the system. 
+The first step is to extract the ROI (Region of Interest) from the input raw data. 
+This is a crucial step that allows to reduce noticeably the amount of time due to computation reducing the size of the processed information. 
+
 
 
 \begin{figure}[H]
 	\begin{center}
-\includegraphics[scale=0.3]{img/diagrams/flowcharts.eps}
+\includegraphics[width=\linewidth]{img/diagrams/flowcharts.eps}
 	\caption[Software flowchart]{Complete Software flowchart showing the different processing steps between the input and the output}
 	\end{center}
+	\label{flowchart}
 \end{figure}
 
-
-In order to fulfill those requirements a gestural interface was designed. It is developed by a separate node so the processing lags will not affect the recognition of the different gestures. This fact also allows an easy change of the gestures being used. 
-\\
-
-The recognition of the location of the hand with respect to the user's body shows how the arm is positioned. If it is stretched towards the sensor, the software enters the dataset construction mode, i.e. the data acquisition and learning mode. If, otherwise, it is located closer to the body, the software starts the object recognition mode. 
-\\
-
-
-The upper part of the diagram shows the data acquisition work-flow. The first step is to extract the ROI (Region of Interest) from the input raw data. This is a crucial step that allows to reduce noticeably the amount of time due to computation reducing the size of the processed information. 
 \\
 
 After the extraction, the 2D and 3D features of the segmented data are obtained. The features or descriptors are characteristics that define and represent the data from where they were created. There are different algorithms that perform this task with better or worse repeatability and robustness. All the details about this process is explained in the next chapters. 
