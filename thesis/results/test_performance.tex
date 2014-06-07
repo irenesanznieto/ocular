@@ -4,18 +4,17 @@
 		\item{\textbf{Package and nodes benchmarking}}
 		\\
 
-			As it was said in the previous chapter, the benchmarking is made in the different nodes that compose the software. 
+			As it was said in chapter \ref{methods}, the benchmarking is made in the different nodes that compose the software. 
 			There is a high difference in the CPU and RAM usage between nodes.
-			The nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption than the nodes that process the input images and point clouds. 
-			\\
-
-			The table below shows the results of the node benchmarking. 
+			The nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption.
+			The nodes that process the input images and point clouds have much higher values. 
+			Figure \ref{node} shows the results of the node benchmarking. 
 
 			\begin{figure}[h]
 				\begin{center}
 			    \includegraphics[width=\linewidth]{img/tests/node.png}
 				\caption[Nodes benchmarking]{Nodes benchmarking}
-				\label{nodes}
+				\label{node}
 				\end{center}
 			\end{figure}
 

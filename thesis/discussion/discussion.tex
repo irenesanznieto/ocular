@@ -6,9 +6,8 @@ This chapter covers the discussion of the tests results presented in the previou
 It follows the same structure than the last two parts. 
 First, the benchmarking of both the nodes and the topics is discussed. 
 Afterwards, the results obtained in the accuracy experiment are explained and justified. 
-\\
-
-The last section of the thesis is devoted to the improvement of the system based on the observations performed on the experiments. 
+%\\
+Chapter \ref{conclusions} is devoted to the improvement of the system based on the observations performed on the experiments. 
 
 \section{Performance testing}
 	\paragraph{Package and nodes benchmarking}\mbox{}
@@ -17,7 +16,6 @@ The last section of the thesis is devoted to the improvement of the system based
 			The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D. 
 			Since the 3D data has a higher size, the usage of the nodes using 3D information is much higher than those processing 2D data. 
 			\\
-
 			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
 			This is because the last ones perform simple conversions and computations of integers and floating data. 
 			On the other hand, the learner recognizer node implements the state machine of the software. 
@@ -28,9 +26,9 @@ The last section of the thesis is devoted to the improvement of the system based
 
 		\paragraph{Topic benchmarking}\mbox{}\\
 
-			The previous chapter presented the results of the topic benchmarking. 
+			Chapter \ref{results} presented the results of the topic benchmarking. 
 			Two different characteristics were measured: the publishing rate and the bandwidth used. 
-			The actual numbers can be found in the figures \ref{hz} and \ref{bw} respectively. 
+			That data can be found in the figures \ref{hz} and \ref{bw} respectively. 
 			\\
 
 			\begin{itemize}
@@ -106,13 +104,44 @@ The last section of the thesis is devoted to the improvement of the system based
 	It can be seen that the software has around a 50\% of success in all objects. 
 	Figure \ref{1view_fscore} presents the precision, recall and F1 score for each of the testing objects. 
 	\\
+
 	The bottle is the object with a higher success rate. 
-	Also, it can be seen that is the object that was recognized more times when other ones were shown to the system. 
-	This phenomena is similar in the mobile, the calculator and the ball. 
-	On the other hand, the skull and the calculator had lower false detections. 
+	Nevertheless, the system recognized this object a high number of times when all the other objects of the dataset were presented to it. 
+	Hence, the precision in the bottle recognition is low, as can be seen in figure \ref{1view_fscore}.
+	Also, its recall is low because different objects such as the ball or the mobile were detected when the bottle was being presented to the software.  
 	\\
 
-	In figure \ref{1view_fscore} it can be seen that the calculator is the one with a larger F1 score. 
+	The ball has a precision and recall of exactly the same value. 
+	It is a low value because there were false positives when the ball was being used. 
+	The system recognized the bottle and the mobile a large number of times. 
+	Also, the output of the system showed a ball when the bottle and the mobile were shown with high rates. 
+	It also appeared when the calculator and the skull were presented but a lower and almost negligible amount of times. 
+	\\
+
+	The skull presents a very good precision. 
+	It is almost negligible the amount of times it was detected when other objects were being held in front of the system. 
+	Nevertheless, the recall is worse since the cup and the bottle were outputted a high amount of times when the skull was being used. 
+	It could be because all three objects have very similar 2D texture, leading to matchable 2D descriptors. 
+	\\
+
+	The cup's results are similar to the ball's. 
+	The precision and recall are similar in number and low. 
+	The features extracted from this object were not descriptive enough.
+	It was confused with the mobile and the bottle, probably due to the similarity in 2D texture as was the case with the skull. 
+	Also, the cup was outputted when all the other objects in the dataset were being used, with a specially high ratio in the skull and mobile. 
+	\\
+
+	The mobile has even a lower precision than the cup and the results are comparable to the previous ones. 
+	The system detected the ball, the cup and the bottle when the mobile was being used a noticeable amount of times.
+	Apart from that, the software recognized the mobile when all the other objects but the skull were presented a very high amount of times. 
+	\\
+
+	The calculator is the object with the best precision and F1 score of the dataset. 
+	It can be seen that it was detected when other objects were shown to the system a negligible amount of times. 
+	Nevertheless, when the calculator was being used the system outputted the mobile, the bottle with a high ratio and the cup and the ball with a lower one.
+	Since the calculator is a heavily 2D textured object, is possible that a descriptor is very similar to other obtained in the mobile or the object. 
+	Also, the 3D shape of calculator, mobile and bottle is similar and could lead to 3D confusions.  
+
 
 	\subsection{Template using 5 views}
 	In figure \ref{5views_matrix} the confusion matrix of this experiment may be seen.
@@ -127,6 +156,7 @@ The last section of the thesis is devoted to the improvement of the system based
 	Most of the 40\% of recognitions were ball. 
 	This supports the theory that the similarity between those objects can confuse the algorithms used for the recognition. 
 	\\
+
 	The cup has a higher rate than the skull, a 0.66. 
 	It is noticeable that the system outputted a cup only when it was shown to it. 
 	This leads to the maximum precision possible, 1, which can be seen in figure \ref{5views_fscore}.
@@ -136,6 +166,7 @@ The last section of the thesis is devoted to the improvement of the system based
 	The reason behind it could be the similarity in the 2D texture of skull and cup. 
 	Both are white objects with drawings that contrast with that background. 
 	\\
+
 	The bottle has a ratio of 0.69. 
 	Both the ball and the skull were outputted when the bottle was shown to the system. 
 	The most probable reason is that all three objects have curved sides that could be almost identical in terms of PFH 3D descriptors. 
@@ -143,6 +174,7 @@ The last section of the thesis is devoted to the improvement of the system based
 	The bottle was detected when the cup, the mobile and the calculator were presented to the system. 
 	Nevertheless, the ratio for all three of them is low, a 0.07. 
 	\\
+
 	The mobile has a success of 67\%. 
 	It is remarkable that it was detected wrongly when the ball was shown. 
 	And in this case, the amount of false recognitions is low, a 0.3. 
@@ -152,6 +184,7 @@ The last section of the thesis is devoted to the improvement of the system based
 	This feature is common with the bottle and the cup. 
 	For certain positions of the cup and the mobile the 2D projection could be similar and lead to obtain less representative descriptors of the object. 
 	\\
+
 	Finally, the calculator has a score of 0.62. 
 	It was recognized in all previous measurements except when the ball was shown to the system. 
 	Nonetheless, the ratio of false positives is negligible ( a 3\%). 
@@ -178,15 +211,18 @@ The last section of the thesis is devoted to the improvement of the system based
 	Those results are high and may be attributed to the improvable segmentation performed in the system. 
 	Possible upgrades are explained in section \ref{conclusions}.
 	\\
+	
 	The skull was detected correctly a 69\% of times. 
-	It was only confused with the skull due to their shape similarity already mentioned.The skull was also recognized when the cup, the bottle and the mobile were being used. 
+	It was only confused with the skull due to their shape similarity already mentioned.
+	The skull was also recognized when the cup, the bottle and the mobile were being used. 
 	\\
 	The cup had a success rate of 76\%. 
-	The system recognized wrongly the skull 14 \% and the ball, the mobile and calculator a negligigle amount of times. 
+	The system recognized wrongly the skull 14 \% and the ball, the mobile and calculator a negligible amount of times. 
 	The skull has a similar 2D texture, a white background with highly defined drawings on it. 
 	This could be the reason of the system's error. 
 	The cup was also detected when the ball and the mobile were shown to the system. 
 	\\
+
 	The bottle obtained a 89\% success rate. 
 	The system only made a false recognition of the bottle when the calculator was being shown to it, and the ratio is negligigle. 
 	The bottle was confused with the skull and the ball, for the sames reasons as the cup. 
@@ -208,3 +244,17 @@ The last section of the thesis is devoted to the improvement of the system based
 
 
 	\subsection{Comparison of the experiments results using different number of views}
+	Figures \ref{comparison_success} and \ref{comparison_fscore} present a compilation of all the data extracted from the experiments. 
+	In \ref{comparison_success} it can be seen that through the experiments the success rate has increased. 
+	The differences between objects are almost identical from one experiment to the other. 
+	This demonstrates that the errors of the system due to 2D or 3D similarity between objects may be improved using a higher number of views. 
+	\\
+	On the other hand, in \ref{comparison_fscore} it can be seen that the improvement with the number of views is not the same as the success rate. 
+	It is particular the case of the skull. 
+	When the views were increased from one to five, the system outputted the skull more when other objects were being used. 
+	This reduced the ball's precision and even though the recall was improved, the final F1 score was affected.  
+	The same phenomena occurred with the cup but when the number of views was increased from five to ten. 
+	All the other objects obtained normal results. 
+	With lower number of views, the F1 score is lower than with higher amount of views. 
+	The results of the experiment using ten views are very promising. 
+	Further measurements with higher amount of views could be performed to determine the optimum balance between F1 score and processing requirements. 

@@ -47,17 +47,17 @@
 
 \section{Performance testing}
 	The performance testing is used to benchmark the system.
-	The different tests are explained below, ordered by the component of the software that is tested. 
+	There are different items of the system that are tested. 
+	Since the code is divided in nodes, the performance of each node is evaluated. 
+	The sum of those performances gives the total package benchmarking. 
+	Also, the topics used to communicate the nodes are evaluated. 
+	The details may be found in the sections below. 
 	\\[0.5cm]
 
 	\begin{itemize}
-		\item{\textbf{Package Benchmarking}}
-		\\
-		The whole package is benchmarked in order to obtain the CPU and RAM usages. 
-		This parameters determine the performance of the software and with it, the minimum specifications of the computer used in order to obtain a real-time response of the system.  
-		\\[0.5cm]
 
-		\item{\textbf{Node Benchmarking}}
+
+		\item{\textbf{Package and node benchmarking}}
 		\\
 		The package developed is composed of different nodes. 
 		Since the computing is distributed, each node has different CPU and RAM usages.
@@ -68,31 +68,36 @@
 		The CPU usage is hence represented from the 0 to the 800\%.
 		The RAM usage is represented from 0 to 100\%.
 		\\[0.5cm]
-		The results are shown in the next chapter in a table as the one below. 
+
+		The whole package benchmarking is obtained summing the performances of the different nodes. 
+		This information is important to know the minimum specifications of the computer used in order to obtain a real-time response of the system.  
+
+		The results are being shown in section \ref{results} in a table as the one in figure \ref{node_model}.
 
 		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.48]{img/tests/node_model.png}
 				\caption[Node benchmarking - Table model]{Node benchmarking - Table model}
 				\end{center}
+				\label{node_model}
 		\end{figure}
 
 		\item{\textbf{Topic Benchmarking}}\\
 		The topics communicate the nodes and allow the exchange of information. 
 		The parameters that characterizes the topics are the bandwidth and the publishing frequency.
-		\\
-
+	
 		% \paragraph{Bandwidth}\mbox{}\\
 		The bandwidth parameter is the speed at which the data is transmitted. 
 		Its units are kilobytes per second. 
 		The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
-		The results are shown in the next chapter in a table as the one below. 
+		The results are presented in a table as the one in figure \ref{topic_bw_model}. 
 
 		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/topic_bw_model.png}
 				\caption[Topic benchmarking - Bandwidth table model]{Topic benchmarking - Bandwidth table model}
 				\end{center}
+				\label{topic_bw_model}
 		\end{figure}
 		% If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. 
 		\\
@@ -102,13 +107,14 @@
 		It is measured in Hz. 
 		There is a command which is similar to the one above that returns the maximum, minimum and the standard deviation of the time between messages in seconds. 
 		Also, it returns the average publishing frequency.  
-		The results are shown in the next chapter in a table as the one below. 
+		A table like the one in figure \ref{topic_hz_model} is used to present the results.
 
 		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/topic_hz_model.png}
 				\caption[Topic benchmarking - Publishing rate table model]{Topic benchmarking - Publishing rate table model}
 				\end{center}
+				\label{topic_hz_model}
 		\end{figure}
 			\end{itemize}
 
@@ -117,24 +123,24 @@
 \section{Accuracy experiment}
 
 	This experiment is designed to obtain data related to the accuracy of the system. 
-	% Since the code implements a learner and recognizer algorithm, this test studies how well it does its job. 
-	\\
-
-	In the following sections the conditions and parameters that affect the test are shown and explained as well as the testing procedure that is followed. \\[0.5cm]
+	In the following sections the conditions and parameters that affect the test are shown and explained as well as the testing procedure that is followed. 
+	%\\[0.5cm]
 
 	% \subsection{Environment \& testing conditions}
-		The test is performed in a room with a crowded background , that is, a room without a blank background and with various objects at different depths.
-		The light source is located behind the RGB-D sensor, directly illuminating the user. 
-		The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. 
-		\\%[0.5cm]
+		% The test is performed in a room with a crowded background , that is, a room without a blank background and with various objects at different depths.
+		% The light source is located behind the RGB-D sensor, directly illuminating the user. 
+		% The objects that conform the dataset are located next to the tester to facilitate the accessibility to them. 
+	%	The test is performed in a room with uniform background and lightning. 
 
-	\begin{figure}[H]
-		\begin{center}
-	    \includegraphics[scale=0.3]{img/testing_environment.eps}
-		\caption[Testing Environment]{Testing Environment}
-		\end{center}
-	\end{figure}
 
+		%\\%[0.5cm]
+
+	% \begin{figure}[H]
+	% 	\begin{center}
+	%     \includegraphics[scale=0.3]{img/testing_environment.eps}
+	% 	\caption[Testing Environment]{Testing Environment}
+	% 	\end{center}
+	% \end{figure}
 
 	\paragraph{Experiment procedure}\mbox{}\\
 
@@ -152,43 +158,52 @@
 
 		First, the objects are stored in the program's dataset. 
 		In order to do so, each object is recorded using the data acquisition mode of the software. 
+		It is done turning the the object in the process in order to obtain as many different views as possible. 
+		This improves the performance of the recognition phase when the object is presented in different positions. 
 		Afterwards, the recognition mode is used.
-		Each of the objects are taken for the same amount of time, 20 seconds. 
+		Each of the objects are presented to the system the same amount of time, 30 seconds. 
 		The objects are positioned still during 10 seconds in the most natural grasping position. 
-		Then, they are rotated the remaining 10 seconds. 
+		Then, they are rotated the remaining 20 seconds. 
 		This is done to measure the robustness of the system to rotation changes. 
 
 		% It is then when the accuracy of the system is measured. 
 		The software's output is recorded to a file for further processing. 
-		That data is presented in the next chapter, number \ref{results}.
+		That data is presented in chapter \ref{results}.
 		\\
 
 		The software allows to specify the number of views being taken per object in the data acquisition phase. 
 		Taking advantage of this feature, the whole procedure described above is repeated for one, five and ten object views.
-		Theoretically, decreasing the number of views should worse the effectiveness of the recognition but better the performance of the system, since the processing needed is reduced.
+		Theoretically, decreasing the number of views should worse the effectiveness of the recognition. %but better the performance of the system, since the processing needed is reduced.
+		This experiment is designed to confirm this intuition. 
 		\\%[0.5cm]
 
-	% \subsection{Dataset}
-		The dataset is composed of common objects. 
-		%This is because the software is intended to be running in a social robot that needs to recognize the most used objects. 
-		%Also, the other possible application of the software is as an aiding software for visually impaired persons. 
-		%In this case it is a requirement the recognition of daily objects as well.  
-		%\\
-		The ones being used in the present experiment may be seen in the image below. 
+
 
 		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/dataset.jpg}
 				\caption[Experimental dataset]{Experimental dataset}
 				\end{center}
+				\label{dataset}
 		\end{figure}
+	% \subsection{Dataset}
+		The dataset is composed of common objects. 
 
+		%This is because the software is intended to be running in a social robot that needs to recognize the most used objects. 
+		%Also, the other possible application of the software is as an aiding software for visually impaired persons. 
+		%In this case it is a requirement the recognition of daily objects as well.  
+		%\\
+		The ones being used in the present experiment may be seen in figure \ref{dataset}. 
+		
 
 		Using common objects allow to obtain more reliable experiment results, since they were obtained under working conditions. 
 		Common objects are usually featureless. 
 		That characteristic complicates the object recognition, since the most textured objects are the ones that usually generate more robust descriptors. 
 		In order to overcome this difficulty, different views of each object are obtained and compared when doing the matching. 
 		Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. 
+		This particular dataset is conformed of objects that could be easily confused by a computer vision system using descriptors. 
+		As an example, the 3D shape of the ball and the skull is very similar, a fact that would lead to akin 3D descriptors. 
+		Also, the cup, the bottle and the mobile have comparable 2D texture. 
 		\\%[0.5cm]
 
 	% \subsection{Effectiveness measurement}
@@ -210,8 +225,9 @@
 		The accuracy of the system is measured using the F-score or F-measure. 
 		The general formula for a positive real $\beta$ is the following: 
 		\\
-
+		\begin{center}
 		$F_\beta=(1+\beta^2)\cdot\frac{precision \cdot recall}{(\beta^2 \cdot precision )+recall}$
+		\end{center}
 		\\
 
 
@@ -228,15 +244,17 @@
 		For example, in critical systems such as a police face recognition software it is preferable to have false positives than false negatives. 
 		It is obtained from the general formula for $\beta=1$: 	
 		\\
-
+		\begin{center}
 		$F_1=2\cdot\frac{precision \cdot recall}{precision + recall}$
+		\end{center}
+
 		\\
 
 		In the system there is no difference between both errors and hence the $F_1 score$ is the ratio being used. 
 		In order to evaluate the accuracy, a confusion matrix is constructed for each experiment. 
 		This matrix shows the number of times each different object was predicted when each of the real objects were presented to the system. 
 		In this system, each different retrieved a different number of results and hence the matrix is constructed with a ratio from 0 to 1. 
-		The confusion matrix in which the results are being presented is the same as the figure below. 
+		The confusion matrix in which the results are being presented is the same as the figure \ref{matrix_model}. 
 
 
 		\begin{figure}[H]
@@ -244,31 +262,36 @@
 			    \includegraphics[scale=0.35]{img/tests/matrix_model.png}
 				\caption[Confusion matrix model]{Confusion matrix model}
 				\end{center}
+				\label{matrix_model}
 		\end{figure}
 
 
 		The precision is the fraction of retrieved results that are relevant.  
 		Using a confusion matrix as the one above, the precision is computed from it as follows: 
 		\\
-
+		\begin{center}
 		$precision_{ij}=\frac{M_{ij}}{\sum M_j}$
+		\end{center}
+
 		\\
 
 		The recall is the fraction of the results that are relevant and that have succeeded. 
 		It may be obtained using the confusion matrix with this formula: 
 		\\
-
+		\begin{center}
 		$recall_{ij}=\frac{M_{ij}}{\sum M_i}$
-		\\
+		\end{center}
+		\\	
 
 		The precision and recall is computed for each of the six objects conforming the dataset. 
-		Those two parameters together with the F1-score is presented in a table as the one that can be seen below. 
+		Those two parameters together with the F1-score is presented in a table as the one in figure \ref{fscore_model}. 
 
 		\begin{figure}[H]
 				\begin{center}
 			    \includegraphics[scale=0.35]{img/tests/fscore_model.png}
 				\caption[F1-score table model]{F1-score table model using precision and recall measurements}
 				\end{center}
+				\label{fscore_model}
 		\end{figure}
 
 
