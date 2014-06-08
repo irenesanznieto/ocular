@@ -1,4 +1,5 @@
 \subsection{Third party libraries that process the input data to the system}
+\label{ros_packages}
 In this section the ROS packages that are used in our system are presented. 
 All of them are used for the initial processing of the data coming from the RGB-D sensor. 
 The connection between them and the developed nodes are explained in this section and in section \ref{nodes}.
@@ -291,9 +292,12 @@ In the following sections the processing performed by each node is presented.
 
 
 \paragraph{System Output}\mbox{}\\
+
 	This nodes implements a buffer and a decision algorithm. 
 	The input of the node is the object ID message from the Learner Recognizer process as can be seen in figure \ref{node_output}.
-	The output is the final object ID. 
+	The node stores thirty values of instantaneous object estimations. 
+	Since the Kinect runs at 30 frames per second, each second a new final object estimation appears. 
+	The output of the node is the final object ID. 
 
 
 		\begin{figure}[H]
@@ -304,7 +308,23 @@ In the following sections the processing performed by each node is presented.
 			\end{center}
 		\end{figure}
 
-
+	The decision is performed as follows. 
+	The input to the algorithm are two vectors containing the 2D and 3D object estimations. 
+	The frequency of each class is obtained. 
+	Let us represent as $y'_{2D}$ and $y'_{3D}$ the vectors containing in each element the frequency of the object with $object_id = element$. 
+	Both informations are combined in one vector called $y'$. 
+	\\
+	\begin{center}
+	$y'=0.6*y'_{2D}+0.4*y'_{3D}$
+	\end{center}
+	More importance is being given to the 2D estimations since the 2D descriptors are more robust than the 3D ones. 
+	The estimated final object id ($Y$) is obtained as the vector element that has the highest value. 
+	\\
+	\begin{center}
+		$Y'= argmax(y')$
+	\end{center} 
+	This number $Y$ is the output of this whole system. 
+	\\
 	Figure \ref{uc_output} shows the use case diagram of this node. 
 
 	\begin{figure}[H]

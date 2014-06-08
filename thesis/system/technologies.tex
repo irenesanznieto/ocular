@@ -28,6 +28,9 @@ This section covers the different libraries and technologies used in the develop
 	The ROS nodes are simply executables that uses the ROS messaging system to communicate with other nodes. The ROS topics are a messaging units in which the nodes can publish messages. Also, the nodes may subscribe to those topics in order to retrieve the messages already published on them. 
 	\\
 	The messages are pieces of data that the nodes send to each other. In ROS, the messages might be customized combining the already defined standard messages and sensor messages to create the message with the information needed. 
+	\\
+
+	Further information about the ROS packages being used in the system may be found in section \label{ros_packages}.
 	%In this project various custom messages has been defined. More information about those can be found in the \ref{software_messages} section. 
 
 
@@ -163,7 +166,7 @@ The library is divided in smaller code libraries that can be compiled separately
 		The sensor being used for the experiments presented in the following chapter is a Kinect of the Xbox 360. The reason of choosing this specific sensor is that it is cheaper than the other devices that include depth information. The main drawback with respect to other sensors such as the Asus Xtion PRO LIVE\cite{xtion} is that it needs a separate power plug to work, and also its size is bigger. 
 		\\
 
-
+		Further information about the Kinect's functioning may be found in section \ref{state_of_the_art}
 		%  In this section the main components and functioning principles of the Kinect are going to be presented. Most of them are common with the other RGB-D sensors but others such as the VGA camera are optional, for example in some PrimeSense\cite{PrimeSense} models. 
 
 		% \begin{figure}[h]
@@ -174,17 +177,17 @@ The library is divided in smaller code libraries that can be compiled separately
 		% \end{figure}
 
 
-		The parts that compose the Kinect sensor are the following: 
+		% The parts that compose the Kinect sensor are the following: 
 
-		\begin{itemize}
-			\item{\textbf{VGA camera}}\\
-			The camera contained by the kinect has a pixel resolution of 640x480 and a frame rate of 30 fps. It is used mainly to provide the output data with the RGB components for each point. 
+		% \begin{itemize}
+		% 	\item{\textbf{VGA camera}}\\
+		% 	The camera contained by the kinect has a pixel resolution of 640x480 and a frame rate of 30 fps. It is used mainly to provide the output data with the RGB components for each point. 
 			
-			\item{\textbf{Depth sensor}\\
-			The depth sensor consists on an infra-red projector combined with a monochrome CMOS sensor. This latter measures the time it takes the light to come back after being reflected on the objects. Knowing the speed of light it can be easily obtained the distance of the objects from the depth sensor. 
+		% 	\item{\textbf{Depth sensor}\\
+		% 	The depth sensor consists on an infra-red projector combined with a monochrome CMOS sensor. This latter measures the time it takes the light to come back after being reflected on the objects. Knowing the speed of light it can be easily obtained the distance of the objects from the depth sensor. 
 
-			\item{\textbf{Multi-array microphone}}\\
-			This array of four microphones are included because the kinect was designed as a gaming device. They are not used for the three-dimensional world retrieving. 
+		% 	\item{\textbf{Multi-array microphone}}\\
+		% 	This array of four microphones are included because the kinect was designed as a gaming device. They are not used for the three-dimensional world retrieving. 
 
-		\end{itemize}
+		% \end{itemize}
 

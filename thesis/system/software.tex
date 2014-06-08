@@ -43,34 +43,80 @@ If, on the contrary, the user's hand is located close to the body, the software 
 \\
 
 %The upper part of the diagram shows the data acquisition work-flow. 
-Figure \ref{flowchart} presents the work and data flow of the system. 
-The first step is to extract the ROI (Region of Interest) from the input raw data. 
-This is a crucial step that allows to reduce noticeably the amount of time due to computation reducing the size of the processed information. 
-
+Figure \ref{flowchart1} presents the generalized system's flowchart. 
+It can be seen that the learning phase or dataset acquisition mode is started when the event recognized is "learn". 
+On the other hand, if the event is "recognize", the system exploitation phase is started. 
+This latter consists on the recognition of the objects that are inputted to the system until a new "learn" event occurs. 
+In the next sections each of those modes are detailed. 
 
 
 \begin{figure}[H]
 	\begin{center}
-\includegraphics[width=\linewidth]{img/diagrams/flowcharts.eps}
-	\caption[Software flowchart]{Complete Software flowchart showing the different processing steps between the input and the output}
+\includegraphics[width=0.8\linewidth]{img/diagrams/flowchart1.eps}
+	\caption[General system's flowchart]{General system's flowchart showing the different modes depending on the event}
+	\label{flowchart1}
 	\end{center}
-	\label{flowchart}
 \end{figure}
 
+
+
+% \begin{figure}[H]
+% 	\begin{center}
+% \includegraphics[width=\linewidth]{img/diagrams/flowcharts.eps}
+% 	\caption[Software flowchart]{Complete Software flowchart showing the different processing steps between the input and the output}
+% 	\end{center}
+% 	\label{flowchart}
+% \end{figure}
+
+\paragraph{Dataset acquisition or learning mode}\mbox{}
 \\
 
-After the extraction, the 2D and 3D features of the segmented data are obtained. The features or descriptors are characteristics that define and represent the data from where they were created. There are different algorithms that perform this task with better or worse repeatability and robustness. All the details about this process is explained in the next chapters. 
+The first step is to extract the ROI (Region of Interest) from the input raw data. 
+This is a crucial step that allows to reduce noticeably the amount of time due to computation reducing the size of the processed information. 
+
+Figure \ref{flowchart2} shows the process followed in the segmentation. 
+First, the 3D ROI is extracted, and the limits of that region are transformed into pixel coordinates. 
+Afterwards, the ROI segmenter 2D node crops the 2D region of interest. 
+\begin{figure}[H]
+	\begin{center}
+\includegraphics[width=\linewidth]{img/diagrams/flowchart2.eps}
+	\caption[Dataset acquisition flowchart]{Flowchart detailing the dataset acquisition or learning mode of the system.}
+		\label{flowchart2}
+
+	\end{center}
+\end{figure}
+
+
 \\
 
-That is the end of the data cycle of the learning process. It is iterated over the number of views for each object that is required in order to obtain all the templates necessary per object. 
+After the extraction, the 2D and 3D features of the segmented data are obtained. The features or descriptors are characteristics that define and represent the data from where they were created. 
 \\
+That is the end of the data cycle of the learning process. 
+This cycle is repeated as many times as number of views has been defined in the system. 
+As an example, if the software is configured to accept five views per object, the process is repeated five times. 
+Between repetitions there is a pause to allow the user to rotate the object and hence obtain as much information as possible. 
 
-The recognition mode was triggered when the hand was located near the user's body. This mode can be seen in the lower part of the previous diagram. 
+
+\paragraph{System exploitation or recognition mode}\mbox{}
+
+
+The recognition mode is triggered when the hand is located near the user's body. 
+Figure \ref{flowchart3} shows the detailed flowchart of the system exploitation. 
 \\
-
 The steps that compose this part of the software are the following: 
 First, the input information is converted to the custom message used within the code. Afterwards, as in the previous mode, the Region Of Interest is segmented from both 2D and 3D original information. Then, the descriptors are extracted exactly the same way as in the previous mode. 
 \\
+
+\begin{figure}[H]
+	\begin{center}
+\includegraphics[width=\linewidth]{img/diagrams/flowchart3.eps}
+	\caption[System exploitation flowchart]{Flowchart detailing the system exploitation or recognition phase.}
+		\label{flowchart3}
+
+	\end{center}
+\end{figure}
+
+
 
 The next step is the recognition algorithm. This matches the descriptors from both the image and the point cloud and decides which object of the dataset is more similar to the one that is currently on the user's hand. More details about this algorithm may be found in this section. 
 \\
