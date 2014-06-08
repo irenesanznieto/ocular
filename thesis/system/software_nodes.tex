@@ -1,3 +1,62 @@
+\subsection{Third party libraries that process the input data to the system}
+In this section the ROS packages that are used in our system are presented. 
+All of them are used for the initial processing of the data coming from the RGB-D sensor. 
+The connection between them and the developed nodes are explained in this section and in section \ref{nodes}.
+
+\paragraph{ROS package: openni\_camera}\mbox{} \\
+\label{openni_camera}
+
+This packages implements the RGB-D sensors drivers.
+% It is needed to connect the kinect to the computer. 
+% The package is composed of nodes that perform different tasks and publish the results in topics. 
+% As an example, a node transforms the raw output information of the kinect into a data array for further processing. 
+The package transforms the input raw data coming from the kinect into structured one. 
+This information is prepared hence for further processing. 
+Figure \ref{diagram_kinect_data} shows the inputs and outputs of this package and its position in the RGB-D sensor data processing chain. 
+ 
+ 		\begin{figure}[H]
+			\begin{center}
+			\includegraphics[width=0.5\linewidth]{img/diagrams/kinect_data.eps}
+			\caption[Kinect data processing]{Kinect data processing using the openni ROS packages (openni\_camera and openni\_launch).}
+			\label{diagram_kinect_data}
+			\end{center}
+		\end{figure}
+
+
+\paragraph{ROS package: openni\_launch}\mbox{}\\
+\label{openni_launch}
+
+This package provide useful transformations taking as input the openni\_camera topics. %and a launch file that executes nodelets with that information. 
+It is composed of various nodes that can be executed using a launch file. 
+Each node processes the raw input information from the driver into more complicated and useful data. 
+That data may be a registered point cloud or a disparity image for example. 
+The output of the nodes is published into different topics. 
+The developed nodes described in section \ref{nodes} are subscribed to these topics in order to obtain the input point cloud and image. 
+
+
+
+\paragraph{ROS package: pi\_tracker}\mbox{}\\
+
+This ROS package implements a joint tracker.
+It is used within the system to determine the position and orientation of the user's joints. 
+This task is performed by the skeleton tracker node.  
+Figure \ref{diagram_skeleton} shows the inputs and outputs of this node. 
+The diagram presented in figure \ref{diagram_kinect_data} is simplified in the next figures.  
+
+		\begin{figure}[H]
+			\begin{center}
+			\includegraphics[width=0.3\linewidth]{img/diagrams/node_pi_tracker.eps}
+			\caption[Skeleton Tracker I/O]{Inputs and outputs of the Skeleton Tracker node.}
+			\label{diagram_skeleton}
+			\end{center}
+		\end{figure}
+
+It can be seen that the node takes as input the output data of the openni\_launch ROS package. 
+The node outputs the Skeleton message in which the positions and orientations of the joints are represented. 
+
+
+
+\newpage
 %%%%%%% SOFTWARE NODES %%%%%%
 %\addcontentsline{toc}{subsection}{Software nodes}
 \subsection{Developed nodes}
@@ -26,23 +85,6 @@ In the following sections the processing performed by each node is presented.
 		\end{figure}
 
 \newpage
-\paragraph{\large Skeleton Tracker}\mbox{}\\
-\label{skeleton_tracker}
-
-This node belongs to the \textit{pi\_tracker} package. 
-It implements the joint tracker used as an input to the system. 
-Figure \ref{diagram_skeleton} shows the inputs and outputs of this node. 
-
-		\begin{figure}[H]
-			\begin{center}
-			\includegraphics[width=0.3\linewidth]{img/diagrams/node_skeleton.png}
-			\caption[Skeleton Tracker I/O]{Inputs and outputs of the Skeleton Tracker node.}
-			\label{diagram_skeleton}
-			\end{center}
-		\end{figure}
-
-It can be seen that the node takes as input the output data of the RGB-D sensor. 
-The node outputs the Skeleton message in which the positions and orientations of the joints are represented. 
 
 
 
@@ -106,7 +148,7 @@ The node outputs the Skeleton message in which the positions and orientations of
 		
 	\end{figure}
  
- \newpage
+%\newpage
 
 \paragraph{ROI Segmenter 2D}\mbox{}\\
 	\label{roi_segmenter_2d}
@@ -138,7 +180,7 @@ The node outputs the Skeleton message in which the positions and orientations of
 		\label{uc_roi2d}
 	\end{figure}
 
-\newpage
+%\newpage
 
 \paragraph{Feature Extractor 2D}\mbox{}\\
 
@@ -166,7 +208,7 @@ The node outputs the Skeleton message in which the positions and orientations of
 		\label{uc_fe2d}
 	\end{figure}
 
-\newpage
+%\newpage
 
 \paragraph{Feature Extractor 3D}\mbox{}\\
 
@@ -189,7 +231,7 @@ The node outputs the Skeleton message in which the positions and orientations of
 		
 	\end{figure}
 
-\newpage
+%\newpage
 
 \paragraph{Event Handler}\mbox{}\\
 
@@ -215,7 +257,7 @@ The node outputs the Skeleton message in which the positions and orientations of
 		\label{uc_event}
 	\end{figure}
 
-\newpage
+%\newpage
 
 \paragraph{Learner Recognizer}\mbox{}\\
 \label{learner_recognizer}
@@ -234,19 +276,24 @@ The node outputs the Skeleton message in which the positions and orientations of
 	The learn sequence consists on obtaining and storing the features both 2D and 3D and waiting a second allowing the user to move the object to capture a new view of it. 
 	\\
 
-	The recognition sequence compares the newly obtained features both 2D and 3D with the ones that are stored in the dataset. Afterwards, a decision algorithm is followed and the result of the recognition published in the output topic. This is the output of the whole software. 
+	The recognition sequence compares the newly obtained features both 2D and 3D with the ones that are stored in the dataset. 
+	Afterwards, the result of the recognition for both types of descriptors are published in the output topic. 
+	Figure \ref{uc_learner_recognizer} presents the use case diagram of the node. 
 
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_learner_recognizer.eps}
 			\caption[Use case diagram Learner Recognizer node]{Use Case diagram of the Learner Recognizer node}
-		
+			\label{uc_learner_recognizer}
 	\end{figure}
 
-\newpage
+%\newpage
 
 
 \paragraph{System Output}\mbox{}\\
+	This nodes implements a buffer and a decision algorithm. 
+	The input of the node is the object ID message from the Learner Recognizer process as can be seen in figure \ref{node_output}.
+	The output is the final object ID. 
 
 
 		\begin{figure}[H]
@@ -258,10 +305,11 @@ The node outputs the Skeleton message in which the positions and orientations of
 		\end{figure}
 
 
+	Figure \ref{uc_output} shows the use case diagram of this node. 
 
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_system_output.eps}
 			\caption[Use case diagram System Output node]{Use Case diagram of the System Output node}
-		
+			\label{uc_output}
 	\end{figure}

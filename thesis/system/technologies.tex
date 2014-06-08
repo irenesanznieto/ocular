@@ -8,57 +8,130 @@ This section covers the different libraries and technologies used in the develop
 
 
 	\subsection{ROS}
-		\label{technologies_ros}
-		\paragraph{ROS package: openni\_camera / freenect\_camera}\mbox{} \\
+		\label{ros}
 
-		These two ROS packages are the RGB-D sensors drivers. Both can be used just changing the name of the executable or launch file. This is due to the fact that both publish the same information in identic topics. 
-		\\
-
-		They are needed in order to connect the kinect to the computer. They transfom the raw output information of the computer into a ros message with the different images and point clouds. 
-		\\
-
-		In this project both have been used indistinctly.  
-
-		\paragraph{ROS package: openni\_launch / freenect\_launch}\mbox{} \\
-
-		These packages take as the input the information provided by the openni\_camera / freenect\_camera. They provide useful transformations and a launch file that executes nodelets with that information. This way, not only the raw image and point cloud from the kinect can be obtained but also the registered point cloud or the disparity image. 
-		\\
-
-		Both have been used in the code and they are the input to the pi\_tracker package which is explained in the next section. They are the input of the system as well, providing the point clouds and images that are later on segmented by this software. 
+	ROS is the acronym of Robot Operating System\cite{ros}. It is an open source set of libraries and various tools that are aimed at robot applications. It is intended as well to improve the efficacy of collaborative robotics development, allowing easy interconnection of ROS packages. 
 
 
-		\paragraph{ROS package: pi\_tracker}\mbox{} \\
+	\begin{figure}[h]
+		\begin{center}
+	    \includegraphics[scale=0.3]{img/ros/groovy.eps}
+		\caption[ROS Groovy Logo]{ROS Groovy Logo}
+		\end{center}
+	\end{figure}
 
-		This package was developed by an MIT group. It publishes in the output a relation of the position and pose of each joint of the user. It is capable of recognizing more than one person at a time and to give the information about it. 
-		\\
+	The tools, libraries and third-party packages available in the different ROS distributions are very useful when programming software for a robot. This is the main reason why this Operating System was selected as the framework in which develop the code of this Bachelor's Thesis. 
+	\\
+	The structure of the software is detailed in the chapter \ref{system_design}.  It is a node structure in which different processes are executed in parallel in order to improve the efficiency of the code. Each node executes a different computation in the data-flow. 
+	\\
+	Since each node is part of a chain of information between the input and output of the system, they must be connected. This information sharing is produced using the ROS topics. 
+	The ROS nodes are simply executables that uses the ROS messaging system to communicate with other nodes. The ROS topics are a messaging units in which the nodes can publish messages. Also, the nodes may subscribe to those topics in order to retrieve the messages already published on them. 
+	\\
+	The messages are pieces of data that the nodes send to each other. In ROS, the messages might be customized combining the already defined standard messages and sensor messages to create the message with the information needed. 
+	%In this project various custom messages has been defined. More information about those can be found in the \ref{software_messages} section. 
 
-		The package easies the hand tracking algorithm since the input to it is the hand's position. It is very helpful to determine gestures made by the user due to the completeness of the information provided. 
-		\\
 
-		In order to publish the information about the joints, a custom message pi\_tracker/Skeleton is created. 
+		% \paragraph{ROS package: openni\_camera / freenect\_camera}\mbox{} \\
 
-	\subsection{OpenCV}
-		\label{technologies_opencv}
+		% These two ROS packages are the RGB-D sensors drivers. Both can be used just changing the name of the executable or launch file. This is due to the fact that both publish the same information in identic topics. 
+		% \\
+
+		% They are needed in order to connect the kinect to the computer. They transfom the raw output information of the computer into a ros message with the different images and point clouds. 
+		% \\
+
+		% In this project both have been used indistinctly.  
+
+		% \paragraph{ROS package: openni\_launch / freenect\_launch}\mbox{} \\
+
+		% These packages take as the input the information provided by the openni\_camera / freenect\_camera. They provide useful transformations and a launch file that executes nodelets with that information. This way, not only the raw image and point cloud from the kinect can be obtained but also the registered point cloud or the disparity image. 
+		% \\
+
+		% Both have been used in the code and they are the input to the pi\_tracker package which is explained in the next section. They are the input of the system as well, providing the point clouds and images that are later on segmented by this software. 
+
+
+		% \paragraph{ROS package: pi\_tracker}\mbox{} \\
+
+		% This package was developed by an MIT group. It publishes in the output a relation of the position and pose of each joint of the user. It is capable of recognizing more than one person at a time and to give the information about it. 
+		% \\
+
+		% The package easies the hand tracking algorithm since the input to it is the hand's position. It is very helpful to determine gestures made by the user due to the completeness of the information provided. 
+		% \\
+
+		% In order to publish the information about the joints, a custom message pi\_tracker/Skeleton is created. 
+
+	\subsection{Open Source Computer Vision (OpenCV)}
+	\label{opencv}
+
+	%Intro
+	OpenCV\cite{opencv} is a library that implements state of the art real-time computer vision 
+	algorithms. 
+
+	It is cross-platform and it is released under a BSD\cite{BSD} license. 
+	Figure \ref{opencv_logo} shows the logo of the OpenCV library. 
+	% Previously it was integrated in ROS \cite{ros}, but now it is used as a stand-alone library.  
+
+	\begin{figure}[h]
+		\begin{center}
+	    \includegraphics[scale=1]{img/opencv/logo.eps}
+		\caption[OpenCV Logo]{OpenCV Logo}
+		\label{opencv_logo}
+		\end{center}
+	\end{figure}
+
+	The qualities described above as well as its optimization of various algorithms make this library an extremely useful asset for robotic vision projects. 
+	In this project the C++ interface of the OpenCV library has been used. 
+	The functionalities provided by this library are used in all the 2D data processing. 
+	The next paragraph details the operations for which this library has been used. 
+
 		\begin{itemize}
-		\item\textbf{Segmentation of the ROI (Region Of Interest)\\ }
+		\item\textbf{Segmentation of the 2D ROI (Region Of Interest)\\ }
 
-		This library allows to crop the original raw image coming
-		from the RGB-D sensor. In this application, the region cropped is the one around the hand being used. More information about this operation can be found in the \ref{roi_segmenter_2d} section. 
+		This library allows to crop the original raw image coming from the RGB-D sensor. 
+		In our application, the segmentation is done around the user's hand. 
+		For further details please read section \ref{roi_segmenter_2d}. 
 		
 
 		\item\textbf{ {Keypoints and descriptors extraction\\ }}
 
-		 The OpenCV library implements multiple optimized state of the art algorithms. Among them, there are a number of descriptor extractors such as SIFT, SURF, ORB. This last one is being used in this project due to its open-sourceness, and robustness / speed relation. More information about the different algorithms implemented in OpenCV used to extract the descriptors can be found in the section \ref{feature_extraction}.
+		 The OpenCV library implements multiple optimized state of the art algorithms. 
+		 Among them, there are a number of descriptor extractors that has been already presented in chapter \ref{state_of_the_art}. 
+		 The Oriented FAST and Rotated BRIEF (ORB)\cite{orb} algorithm is being used in this project due to its open-sourceness, and robustness / speed relation. 
+		 More information about the different algorithms implemented in OpenCV used to extract the descriptors can be found in section \ref{feature_extraction}.
 
 
 		\item\textbf{ {Descriptors matching\\ } }
 
-		There are many different matchers that might be used. In this project, a FlannBasedMatcher
-		is being used for this purpose. 
+		There are different matchers that might be used and that are implemented in the OpenCV library.
+		The FlannBasedMatcher and the BruteForceMatcher are the two most used matchers due to its speed. 
+		In this project, a FlannBasedMatcher (Fast Library for Approximate Nearest Neighbors Based Matcher) is being used for this purpose. 
+		It is faster than the BruteForceMatcher specially for larger datasets. 
+		It was selected to allow the use of more objects without losing efficiency. 
 		\end{itemize}
 
-	\subsection{PCL}
-		\label{technologies_pcl}
+	\subsection{Point Cloud Library (PCL)}
+\label{pcl}
+PCL is a standalone library that is open source and implements state-of-the-art algorithms related to 2D and 3D image and point cloud processing. \\
+\begin{figure}[h]
+	\begin{center}
+    \includegraphics[scale=0.1]{img/pcl/pcl_logo.png}
+	\caption[PCL Logo]{PCL Logo}
+	\end{center}
+\end{figure}
+
+It is released under a BSD license, being free for commercial and research use. Is cross-platform and currently has been successfully compiled on Linux, MacOS, Windows, Android and iOS. \\
+
+The library is divided in smaller code libraries that can be compiled separately. This modularity allows the PCL introduction on platforms with size constrains or that has a reduce computational size. \cite{Rusu_ICRA2011_PCL}
+\\
+
+
+
+\begin{figure}[h]
+	\begin{center}
+    \includegraphics[scale=0.4]{img/pcl/pcl_dependency.png}
+	\caption[PCL graph of libraries]{PCL graph of code libraries and their relations}
+	\end{center}
+\end{figure}
+
 		The Point Cloud Library is used within the software to perform transformations in the input point clouds and to perform descriptor extraction and matching in this data. 
 		\\
 
@@ -80,70 +153,6 @@ This section covers the different libraries and technologies used in the develop
 			There are different algorithms that allow to match the information provided by the descriptors, such as knn search or radius search. For further information about the type of matcher used in the present thesis, please visit the section \ref{learner_recognizer}
 		\end{itemize}
 
-	\subsection{Profiling}
-		\label{profiling}
-		The profiling is the analysis of the dynamic behavior of a program. It is used mainly as an aid in the software optimization. There are different techniques to achieve this goal, but the used in the present project is the instrumentation. This technique consists on adding instructions to the target software to collect the information. In some cases, the profiling may cause changes in the performance and lead to inaccurate results. The severity of these problems depend on the information being collected and its level of detail. 
-		\\
-
-		More specifically, it is used a Runtime instrumentation in this software. This type of profiling instruments the code before it is executed. The program running is fully supervised and controlled by the profiling tool. 
-		\\
-
-		Valgrind \cite{valgrind} is the instrumentation framework used for the dynamic analysis of this thesis. It contains some tools that can detect memory management and threading bugs but it also allows to construct new debugging tools. It is Open Source and has numerous tutorials and documentation available online. \\
-
-		The results given by this profiler in the tests performed on the code might be seen in the \ref{results} section. 
-
-
-	\subsection{Testing}
-		\label{technologies_testing}
-		In order to perform the code testing different technologies have been used that are specified in the following paragraphs. 
-		\\
-
-
-		\paragraph {Testing levels}\mbox{} \\
-
-		There are different levels of testing that should be implemented in all software projects. Depending on the level of integration of the code within ROS, it is needed to code until one level or the other. 		\\
-
-		If the software implements some ROS node that publishes or subscribes to a topic, then the three levels of testing are needed. If, on the contrary, it implements a ROS service, it is only necessary to test until the second level. A ROS-free library only needs the first level, the library unit testing. 
-		\begin{itemize}
-
-			\item{\textbf{First level: Library unit test}}\\
-
-		A library unit test should test your code without ROS. If your code functionality is integrated directly with ROS functions, your library probably needs to be re-factored. 
-		\\
-
-		In the software developed the functionality of the nodes are separated from the ROS communication, allowing an easy unit testing. \\
-
-		The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
-
-			\item{\textbf{Second level: ROS node unit test\\}}
-
-		In order to perform this testing level a library unit test and the rostest tool are needed. Here, the node unit tests start up the node and test its external API, the published and subscribed topics and services. 
-		\\
-
-		The rostest tool is explained in detail in the following \ref{rostest} section.
-
-			\item{\textbf{Third level: ROS node integration / regression test}}\\
-
-			This type of testing is directed to try the functioning of multiple nodes at the same time. 
-			The debugging of a group of ROS nodes is similar to debugging mutithreaded code. \\
-
-			In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. 
-		\end{itemize}
-
-		\paragraph{gtest}\mbox{} \\
-
-		\label{gtest}
-		Gtest (Google Test) is used within the code to perform the first level testing. It is a testing framework for C++ that is cross-platform. It is based in the xUnit architecture and supports automatic test discovery, many different and user-defined assertions, death tests, fatal and non-fatal failures and various options for running the tests as well as XML test report generation. 
-		\\
-
-		Currently is included in ROS as a rosdep package that is installed automatically together with the Operating System. 
-
-
-		\paragraph{rostest}\mbox{} \\
-
-		\label{rostest}
-		Rostest is an extention to roslaunch that allow launch files to be used as test fixtures. 
-		In order to use it, new test nodes must be written that execute unit tests. 
 
 
 	\subsection{Hardware}
@@ -155,14 +164,14 @@ This section covers the different libraries and technologies used in the develop
 		\\
 
 
-		% In this section the main components and functioning principles of the Kinect are going to be presented. Most of them are common with the other RGB-D sensors but others such as the VGA camera are optional, for example in some PrimeSense\cite{PrimeSense} models. 
+		%  In this section the main components and functioning principles of the Kinect are going to be presented. Most of them are common with the other RGB-D sensors but others such as the VGA camera are optional, for example in some PrimeSense\cite{PrimeSense} models. 
 
-		\begin{figure}[h]
-			\begin{center}
-		\includegraphics[scale=0.5]{img/kinect/kinect2.eps}
-			\caption[Kinect Sensors]{Kinect sensors: depth sensor and VGA camera location.}
-			\end{center}
-		\end{figure}
+		% \begin{figure}[h]
+		% 	\begin{center}
+		% \includegraphics[scale=0.5]{img/kinect/kinect2.eps}
+		% 	\caption[Kinect Sensors]{Kinect sensors: depth sensor and VGA camera location.}
+		% 	\end{center}
+		% \end{figure}
 
 
 		The parts that compose the Kinect sensor are the following: 
@@ -176,19 +185,6 @@ This section covers the different libraries and technologies used in the develop
 
 			\item{\textbf{Multi-array microphone}}\\
 			This array of four microphones are included because the kinect was designed as a gaming device. They are not used for the three-dimensional world retrieving. 
-			
-			\item{\textbf{Motorized tilt}}\\
-			This is another feature for games. It allows the kinect to follow the player's movements around the room. \cite{howkinectworks} The openni drivers do not allow to control this motor, but the freenect library does. Since the project is supposed to work on a robot with an independent head movement, this feature is not needed for the software and hence not being able to control the motor is not an issue. 
+
 		\end{itemize}
 
-
-
-		\begin{figure}[H]
-			\begin{center}
-			\includegraphics[scale=0.2]{img/kinect/kinect_parts.eps}
-			\caption[Kinect Parts]{Kinect dismounted. Parts and components.}
-			\end{center}
-		\end{figure}
-
-
-		The picture above shows the different parts that compose the kinect. In the middle of the image the depth sensor (IR emitter and receptor) and the VGA camera might be seen. Also, the boards with the signal conditioning circuit for the sensors are presented together with the different pieces of the structure of the sensor. The tilt motor is integrated within the support part and it is not visible. 

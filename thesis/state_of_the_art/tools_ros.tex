@@ -1,27 +1,2 @@
 \section{ROS}
-\label{ros}
-
-ROS is the acronym of Robot Operating System\cite{ros}. It is an open source set of libraries and various tools that are aimed at robot applications. It is intended as well to improve the efficacy of collaborative robotics development, allowing easy interconnection of ROS packages. 
-
-
-\begin{figure}[h]
-	\begin{center}
-    \includegraphics[scale=0.3]{img/ros/groovy.eps}
-	\caption[ROS Groovy Logo]{ROS Groovy Logo}
-	\end{center}
-\end{figure}
-
-The tools, libraries and third-party packages available in the different ROS distributions are very useful when programming software for a robot. This is the main reason why this Operating System was selected as the framework in which develop the code of this Bachelor's Thesis. 
-\\
-
-The structure of the software is detailed in the chapter \ref{software_structure}.  It is a node structure in which different processes are executed in parallel in order to improve the efficiency of the code. Each node executes a different computation in the data-flow. 
-\\
-
-Since each node is part of a chain of information between the input and output of the system, they must be connected. This information sharing is produced using the ROS topics. 
-
-
-The ROS nodes are simply executables that uses the ROS messaging system to communicate with other nodes. The ROS topics are a messaging units in which the nodes can publish messages. Also, the nodes may subscribe to those topics in order to retrieve the messages already published on them. 
-\\
-
-The messages are pieces of data that the nodes send to each other. In ROS, the messages might be customized combining the already defined standard messages and sensor messages to create the message with the information needed. In this project various custom messages has been defined. More information about those can be found in the \ref{software_messages} section. 
 

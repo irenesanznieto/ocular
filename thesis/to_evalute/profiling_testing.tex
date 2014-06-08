@@ -1,0 +1,64 @@
+	\subsection{Profiling}
+		\label{profiling}
+		The profiling is the analysis of the dynamic behavior of a program. It is used mainly as an aid in the software optimization. There are different techniques to achieve this goal, but the used in the present project is the instrumentation. This technique consists on adding instructions to the target software to collect the information. In some cases, the profiling may cause changes in the performance and lead to inaccurate results. The severity of these problems depend on the information being collected and its level of detail. 
+		\\
+
+		More specifically, it is used a Runtime instrumentation in this software. This type of profiling instruments the code before it is executed. The program running is fully supervised and controlled by the profiling tool. 
+		\\
+
+		Valgrind \cite{valgrind} is the instrumentation framework used for the dynamic analysis of this thesis. It contains some tools that can detect memory management and threading bugs but it also allows to construct new debugging tools. It is Open Source and has numerous tutorials and documentation available online. \\
+
+		The results given by this profiler in the tests performed on the code might be seen in the \ref{results} section. 
+
+
+	\subsection{Testing}
+		\label{technologies_testing}
+		In order to perform the code testing different technologies have been used that are specified in the following paragraphs. 
+		\\
+
+
+		\paragraph {Testing levels}\mbox{} \\
+
+		There are different levels of testing that should be implemented in all software projects. Depending on the level of integration of the code within ROS, it is needed to code until one level or the other. 		\\
+
+		If the software implements some ROS node that publishes or subscribes to a topic, then the three levels of testing are needed. If, on the contrary, it implements a ROS service, it is only necessary to test until the second level. A ROS-free library only needs the first level, the library unit testing. 
+		\begin{itemize}
+
+			\item{\textbf{First level: Library unit test}}\\
+
+		A library unit test should test your code without ROS. If your code functionality is integrated directly with ROS functions, your library probably needs to be re-factored. 
+		\\
+
+		In the software developed the functionality of the nodes are separated from the ROS communication, allowing an easy unit testing. \\
+
+		The library used to perform this unit testing is gtest. More information about that library may be found in the section \ref{gtest}.
+
+			\item{\textbf{Second level: ROS node unit test\\}}
+
+		In order to perform this testing level a library unit test and the rostest tool are needed. Here, the node unit tests start up the node and test its external API, the published and subscribed topics and services. 
+		\\
+
+		The rostest tool is explained in detail in the following \ref{rostest} section.
+
+			\item{\textbf{Third level: ROS node integration / regression test}}\\
+
+			This type of testing is directed to try the functioning of multiple nodes at the same time. 
+			The debugging of a group of ROS nodes is similar to debugging mutithreaded code. \\
+
+			In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. 
+		\end{itemize}
+
+		\paragraph{gtest}\mbox{} \\
+
+		\label{gtest}
+		Gtest (Google Test) is used within the code to perform the first level testing. It is a testing framework for C++ that is cross-platform. It is based in the xUnit architecture and supports automatic test discovery, many different and user-defined assertions, death tests, fatal and non-fatal failures and various options for running the tests as well as XML test report generation. 
+		\\
+
+		Currently is included in ROS as a rosdep package that is installed automatically together with the Operating System. 
+
+
+		\paragraph{rostest}\mbox{} \\
+
+		\label{rostest}
+		Rostest is an extention to roslaunch that allow launch files to be used as test fixtures. 
+		In order to use it, new test nodes must be written that execute unit tests. 
