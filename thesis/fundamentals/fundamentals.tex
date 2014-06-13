@@ -1,14 +1,146 @@
 \chapter{Computer Vision fundamentals}
 
 
+%\addcontentsline{toc}{chapter}{Hardware}
+\section{Hardware}
+
+The advance in the computer vision discipline is greatly linked with the development in the hardware. 
+The hardware components present in a computer vision system are the following: 
+% The main components of a computer vision system are the following: 
+
+\begin{itemize}
+	\item{Power Supply: } Device needed by the other components in order to work. 
+	\item{Acquisition device: } Device that captures the world and represents it as an array of data. That data can be two or three dimensional. 
+	\item{Processing unit:} Receives the information from the acquisition device and processes it. It is usually programmable. Nowadays the most used processing units are PCs. 
+	\item{I/O unit: } Serves as a bridge between the acquisition device and the processing unit if needed. 
+
+\end{itemize}
+
+In this chapter the state of the art of the different acquisition devices is going to be presented. 
+
+\subsection{Acquisition devices}
+There are different acquisition devices being used in the computer vision field. 
+They are usually classified depending on the output data they provide: 
+
+\begin{itemize}
+	\item{Cameras:}	The output data is two-dimensional. 
+	\item{RGB-D sensors:} The output data is three-dimensional. 
+\end{itemize}
+
+The usage of one or another acquisition device depends on the application. 
+The RGB-D sensors provide a higher number of information than the cameras. 
+They reduce the ambiguities produced by the cameras when projecting the three-dimensional world into to dimensions. 
+But also the RGB-D sensors output a higher amount of data. 
+That is why, using three-dimensional information as the input of a software requires a higher-capacity processing unit than using two-dimensional data.
+
+
+
+%%%%%% CAMERAS %%%%%%
+%%\addcontentsline{toc}{section}{Cameras}
+\subsection{Cameras}
+\label{cameras}
+There are many different types of cameras that are used in different applications. 
+They might be classified according to the technology of the camera: 
+\begin{itemize}
+	\item\textbf{{CCD [Charged Coupled Device]:}}\\
+	They have a high resolution but have a main drawback: the blooming. 
+	The blooming is a saturation of the sensor when a high luminosity appears. 
+	The sensor outputs a saturated zone bigger than the actual one, occluding part of the image. 
+	\item\textbf{{CMOS [Complementary Metal Oxide Semiconductor]:}}\\
+	This type of cameras have a semiconductor technology common to other devices such as memories or processors. 
+	This fact makes them cheaper than the previous type. 
+	Also, they have a smaller size and it is possible to access only a region of the image. 
+	Finally, they do not suffer of blooming as the previous ones. 
+\end{itemize}
+
+Dimensions of the sensor: 
+\begin{itemize}
+	\item\textbf{{Linear:}}\\
+	The output of this cameras is a vector of pixels in one dimension. 
+	They are used mainly in industrial environments.
+	Usually they are mounted in a linear actuator in order to cover a line along the region of interest. 
+	They have a high resolution range. 
+	\item\textbf{{Matricial:}}\\
+	They output a matrix of pixels, two-dimensional. 
+	They are used in all kinds of applications, from security to industrial ones. 
+	The resolution in this type of cameras is more expensive than the previous type. 
+	This means that for applications that need a high level of resolution usually linear cameras are preferred due to its cheapness. 
+\end{itemize}
+
+
+According to the number of sensors: 
+\begin{itemize}
+	\item\textbf{{1 sensor:}}\\
+	This type of cameras usually output a black and white image. 
+	Nevertheless, they might have colors if a filter such as the Bayer filter or the RGBW filter is used. 
+	Those filters reduce the sensibility of the camera. 
+	\item\textbf{{3 sensors: }}\\
+	They are color cameras. 
+	Usually there is a prism located inside the camera that reflects the image to each sensor. 
+	Those sensors output the image in one of the RGB components. 
+	Adding up them the final color image is obtained. 
+\end{itemize}
+
+
+The output type: 
+
+\begin{itemize}
+	\item\textbf{{Analog:}}\\
+	Older cameras use this type of output. 
+	Nowadays they are only used in certain applications such as security due to its cheapness. 
+	They have higher level of noise than the next type of output. 
+	\item\textbf{{Digital:}}\\
+	This type of output is the most used currently. 
+
+\end{itemize}
+
+%%%%%% RGB-D SENSORS %%%%%%
+\subsection{3D sensors}
+
+Computer vision is a field that needs specific hardware to retrieve a description of the world. 
+This description has been done for a number of years in two dimensions. 
+3D sensors based on lasers devices existed for a long time but they are expensive. 
+This fact diminished their use in the investigation field. 
+But this changed when the first version of an affordable RGB-D sensor appeared in 2010: the Kinect. 
+This project uses a Kinect RGB-D sensor as the input of the system.
+\\
+
+This sensor was designed to be used in games, but developers soon realized the huge potential of the hardware for Computer Vision.  
+Now, instead of a two-dimensional information as an input it was possible to have three-dimensional information. 
+In November 2010 OpenNI was created. Openni is an open-source software framework that can read the data from RGB-D sensors \cite{openni}.  
+That same year, PrimeSense released their open source drivers and motion tracking middleware called NITE\cite{NITE}. 
+PrimeSense is a company that manufactures RGB-D sensors and, in fact, the Kinect is based on their depth sensing reference. 
+The software released by PrimeSense worked with the Kinect as well. 
+From that time on, the OpenSource software related with the kinect has increased as well as the different models of RGB-D sensors available in the market.
+The Microsoft corporation finally released the SDK (Software Development Kit) on June, 2011 \cite{kinectSDK}.
+
+
+
+\paragraph{RGB-D Sensors or Natural Interaction Devices}\mbox{}\\
+
+\label{rgb-d}
+
+The 3D sensor consists on an infrared projector and an infrared camera. 
+The projector creates an infrared pattern that is captured by the camera.
+Then, it is compared with the references stored in the device and the depth of each point is estimated. 
+Afterwards, the depth data is correlated to a RGB camera. 
+The output can be described then as a point cloud, a type of data that consists on 3-dimensional and color information for each point.  
+\\
+
+It can be easily seen that the use of the infrared spectrum provides a system that can be easily perturbed. 
+As an example, the incandescent light irradiates infrared waves that distorts the output of this type of RGB-D sensors. 
+Also, the sun's IR waves affects the measures. 
+The RGB-D sensors may be used hence only in interiors. 
+
+
 
 \section{Descriptors}
 \label{descriptors}
 % In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
 
 \\
-A feature or descriptor is defined differently depending on the application and context of the computer vision project. 
-In general, it is an interesting or important characteristic, point or region of an image. 
+A feature or descriptor is an interesting or important characteristic, point or region of an image. 
+Since they may be defined differently depending on the application and context of the computer vision project, the definition used within this thesis is the previous one. 
 The application determines which feature describes better the object of study. 
 Descriptors may have different forms and characteristics. 
 For example, if we want to recognize rectangles, its height could be a descriptor.
@@ -17,82 +149,90 @@ If the application needs an scale independent descriptor, the ratio between the 
 This simple example shows how a feature is defined when the sample object is known. 
 But in this thesis I present a system that must be able to recognize all kind of common objects. 
 There is no straight forward method to extract a feature as in the example. 
+This is because there is no structure or characteristic that is repeated in every object a human can hold. 
+ 
 \\
 
 Descriptors may be local or general. 
-A local descriptor is the one that represents a point using the information of the points around it. 
+A local descriptor represents a point using the information of the points around it. 
 Local features from one object may be almost identical to a local feature from a very different object. 
-In order to overcome this problem, general descriptors are computed. 
+An example of local feature could be the color map of a region composed of a certain number of pixels. 
+The same patter could be found in different highly-textured objects such as a book and a map. 
+In order to overcome this problem, general or global descriptors are computed. 
 A general descriptor is usually a set of local descriptors that undergo a transformation. 
-This process is usually performed to obtain a more representative description of the studied object. 
+For example, the local descriptor previously presented could be extracted from four points of the same object located in the borders. 
+The information of the global descriptor would be a combination of the one given by the local descriptors and a parameter relating them, for example the relative distance between them. 
+This creates a patter that is more difficult to reproduce in different objects. 
+Global features are used to obtain a more representative description of the studied object, but they are more computationally expensive. 
+The best feature or descriptor is the one that possess a higher repeatability, i.e the ability of obtaining the same output given different inputs. 
+This is useful when making a feature matching to compare two objects, which is the case in this project. 
+% Hence, it can be seen that the recognition algorithm has as a bottle neck in its performance: the repeatability of the features used to describe the different objects. 
+Recognition algorithms depend directly on the repeatability of the features they use. 
+If the descriptors have a high repeatability, the system performs better than in the case of having a lower repeatability. 
+
 \\
 
-The best feature or descriptor is that which has a higher repeatability, i.e the ability of obtaining the same output given different inputs. 
-This is useful when making a feature matching to compare two object, which is the case in this project. 
-\\
+\subsection{Algorithms for 2D Feature Extraction}
+\label{2d_features}
 
-Hence, it can be seen that the recognition algorithm has as a bottle neck in its performance: the repeatability of the features used to describe the different objects. 
 
 The most used algorithms for general object recognition are presented in this section. 
 % due to their relation between performance, invariantness and speed are exposed below. 
-They appear chronologically and the differences, similarities and improvements between them are explained. 
+They appear in chronological order and the differences, similarities and improvements between them are explained. 
 The selection of one algorithm or another depends on the application.
-\\
 
-\subsection{2D Features}
-\label{2d_features}
 
 \paragraph{SIFT}\mbox{}\\
+\label{sift}
 
 SIFT (Scale Invariant Feature Transform) is a scale and rotation invariant feature descriptor\cite{sift}. 
 
-There are various papers in which the performance of SIFT is compared with other descriptors, such as \cite{Mikolajczyk2005}. In them, it can be seen that SIFT outperforms the others, mainly due to its combination of local information and relative strengths and orientations of gradients. This combination makes it more robust to illumination and viewpoint changes and the addition of noise. 
-\\
-
+There are various papers in which the performance of SIFT is compared with other descriptors and one of the most representative is \cite{Mikolajczyk2005}. In it, it can be seen that SIFT 
+outperforms the previous algorithms, mainly due to its combination of local information and relative strengths and orientations of gradients. This combination makes it more robust to illumination and viewpoint changes and to noise. 
+% Its relation between distinctiveness and speed is good. 
 In order to minimize the cost of extracting such a distinctive features, a cascade filtering approach is used in order to apply the most time-consuming operations only at locations that pass an initial test. 
+It can be used for on-line applications but it still has a latency that was later improved. 
+In order to reduce that lag, there were different approaches previous to the apparition of algorithms such as ORB, that reduced it drastically\cite{orb}. 
+As an example, in \cite{sift_fpga} the SIFT algorithm was implemented on a FPGA (Field Programmable Gate Array), improving its speed by an order of magnitude and thus allowing it to run in real-time.
 \\
 
-Its relation between distinctiveness and speed is good. It can be used for on-line applications but it still has a latency that could be improved. Hence, it is an almost real-time algorithms. As an example, in \cite{sift_fpga} the SIFT algorithm was implemented on a FPGA (Field Programmable Gate Array), improving its speed by an order of magnitude and thus allowing it to run in real-time.
-\\
-
-The main reason of this high computing time, which is acceptable for on-line applications but improvable, is the descriptor vector size. In the aim of creating a highly distinctive descriptor, the vector is over-dimensioned slowing the detection, description and matching processes. 
-\\
-
-In relation with object recognition, this algorithm has a good performance in medium cluttered spaces. If the image is cluttered, there will appear a number of features of the background that do not have a match in the given database. Hence, it will give false positives and the match will have a lower probability. 
+The main reason of the high computing time of SIFT features is the descriptor vector size. 
+In the aim of creating a highly distinctive descriptor, the vector is over-dimensioned slowing the detection, description and matching processes. 
+This over-dimension is patent in the duplication of information that could be easily removed. 
+% In relation with object recognition, this algorithm has a good performance in medium cluttered spaces. If the image is cluttered, there will appear a number of features of the background that do not have a match in the given database. Hence, it will give false positives and the match will have a lower probability. 
 
 
 
 
 \paragraph{SURF}\mbox{}\\
 
-SURF(Speeded Up Robust Features) is a scale and rotation invariant interest point detector and descriptor \cite{surf}. 
+SURF (Speeded Up Robust Features) is a scale and rotation invariant interest point or keypoint detector and descriptor \cite{surf}. 
 It is a proprietary algorithm that simplifies the detection, extraction of the descriptors and matching steps thus obtaining them much faster than previous algorithms without losing repeatability, distinctiveness or robustness. 
 \\
-
-The first step of the algorithm is to identify the interest points such as corners, blobs or T-junctions. As it can be seen, this algorithm will be useful when evaluating a textured object. 
-\\
-
+SURF algorithm is composed of three main steps: 
+The first step of the algorithm is to identify the interest points such as corners, blobs or T-junctions, i.e. a junction were two lines meet forming a T. 
+Therefore, this algorithm will be useful when evaluating a textured object.
 The next step is to represent the neighbourhood of the interest points as a feature vector. 
-\\
-
 The final step is to match the descriptor vectors between different images, in order to stablish a recognition of a pattern. Usually the matching is performed using as a reference the distance between the vectors. 
-In this part, it can be perceived that the size of the descriptor vectors affects directly the performance of the algorithm. SIFT aims to reduce that size without losing distinctiveness in the features. 
+In this part, it can be perceived that the size of the descriptor vectors affects directly the performance of the algorithm. SURF aims to reduce that size without losing distinctiveness in the features. 
 \\
 
-The SURF algorithm appeared after SIFT and hence it is interesting to see the similarities and differences between the two. In the previous chapter it was seen the good results obtained when combining the local information and relative data regarding gradients. This algorithm is based on similar characteristics: 
+The SURF algorithm appeared after SIFT and hence it is interesting to see the similarities and differences between the two. 
+In section \ref{descriptors} it was seen the good results obtained when combining the local information and relative data regarding gradients. This algorithm is based on similar characteristics: 
 First, an orientation based on the information extracted from a circular region with the interest point as its center is obtained. Then, a square region aligned to that orientation is described and the descriptor is extracted from it.  
 \\
 
-From the experiments in \cite{surf} it can be seen that the performance of this descriptors equals and in some cases improves the one of the SIFT descriptors. Also, the SURF descriptors are much faster computed and matched. 
+The experiments in \cite{surf} show that the performance of these descriptors equals and in some cases improves the one of the SIFT descriptors. Also, the SURF descriptors are much faster computed and matched. 
 
 
 \paragraph{ORB}\mbox{}\\
 
 ORB (Oriented FAST and Rotated BRIEF) is a fast rotation invariant, noise resistant binary descriptor based on BRIEF \cite{orb}.
-It is claimed in its presentation paper that it is two orders of magnitude faster than SIFT while matching its performance in many situations. As it can be seen, since ORB is not scale invariant, if the scale difference is noticeable the SURF algorithm will outperform ORB. 
+ORB authors claim that it is two orders of magnitude faster than SIFT while matching its performance in many situations. 
+Nevertheless, since ORB is not scale invariant, if the scale difference is noticeable the SURF algorithm will outperform ORB. 
 \\
 
-The features used in ORB builds on the FAST\cite{fast} keypoint detector and the BRIEF\cite{brief} descriptor. Both of this previous algorithms offer a good performance and computing time relation. Since neither of them had the orientation taken into account, the main improvement made by the ORB developers is to include this feature in the algorithms. Also, the computation of oriented BRIEF features was improved and an analysis of variance and correlation for this features created. 
+The features used in ORB build on the FAST\cite{fast} keypoint detector and the BRIEF\cite{brief} descriptor. Both of this previous algorithms offer a good performance and computing time relation. Since neither of them had the orientation taken into account, the main improvement made by the ORB developers is to include this feature in the algorithm. Also, the computation of oriented BRIEF features was improved and an analysis of variance and correlation for this features created. 
 \\
 
 FAST is mainly used to find keypoints in real-time systems that match visual features. The orientation operator included in this algorithm is the centroid operator described in \cite{orientation_corners}. This technique is not computationally demanding and also, unlike SIFT, it returns a single dominant result. 
@@ -103,20 +243,17 @@ BRIEF uses simple binary tests whose performance is similar to SIFT with regard 
 
 In the different tests in \cite{orb} can be seen that the percentage of inliers obtained with ORB are higher and do not variate as much as those obtained by SIFT or SURF. 
 ORB is then a good alternative for the latter if the application does not need a scale invariant descriptor. 
-\\
-
 Finally, it is noticeable that this algorithm is Open Source, since the previous ones are proprietary. 
 
 
-\subsection{3D Features}
+\subsection{Algorithms for 3D Feature Extraction}
 \label{3d_features}
 
 
-A feature is a characteristic of the data, in this case point clouds, that describes a point inside the data. Features or descriptors can be compared to determine whether the point described is the same in two different inputs. They are used in the object recognition field. 
+Applied to 3D data, a feature is a characteristic that describes a point inside the data. Features or descriptors can be compared to determine whether the point described is the same in two different inputs. They are used in object recognition. 
 There are many different descriptors that can be used. Each of them has a certain speed in its computing and a reliability and robustness associated. Depending on the application in which they appear the developer must select the features depending on the specifications. 
-
-Two of the most used geometric point features are the underlying surface's estimated curvature and the normal at a specific query point. Both are local features and they characterize the point using the information provided by its neighbors. \\
-
+As an example, two geometric point features are the underlying surface's estimated curvature and the normal at a specific query point. 
+Both are local features and they characterize the point using the information provided by its neighbors. 
 There are two types of features: local and global. 
 Local features are less time-expensive but they are less robust. 
 This means that two different objects may obtain very similar local features.
