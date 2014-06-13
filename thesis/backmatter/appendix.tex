@@ -5,6 +5,7 @@
 
 
 	\chapter{Project management}
+	\label{project_management}
 		 The present section describes the project management followed in this thesis. The Gantt diagram created for this purpose can be seen in the following page.
 		 \\
 
@@ -28,8 +29,65 @@
 
 		\begin{figure}[H]
 			\centering
-		    \includegraphics[scale=0.5, angle=90]{img/gantt.eps}
+		    \includegraphics[scale=0.5, angle=90]{img/final.png}
 			\caption[Gantt Diagram]{Gantt Diagram}	
+			\label{gantt_diagram}
 		\end{figure}
+
+\newpage
+	\chapter{Budget}
+		This section presents the estimated budget of the project. 
+		Section \ref{project_management} explained the time management followed in this project and the different phases it underwent. 
+		Figure \ref{phases} shows the summary of the days spent in each of the phases. 
+		The phase that occupied most of the time was the learning phase. 
+		The state of the art learning occupies most of the project since it was performed in parallel with most of the other phases, as can be seen in figure \ref{gantt_diagram}. 
+		The next phase in size is the project programming and then the documentation of the project. 
+		\begin{figure}[H]
+			\centering
+		    \includegraphics[width=0.8\linewidth]{img/budget/phases.png}
+		    \label{phases}
+			\caption[Days and hours per project phase]{Summary of the days and hours spent in each of the project's phases}	
+		\end{figure}
+
+		It can be seen from figure \ref{phases} that the total days spent in the development of this project were 454. 
+		It was assumed that around 60 days between the begin and end dates were not devoted to this thesis. 
+		Also, an average of 3 hours per day were reserved to implementing this system and hence the total hours used were 1362. 
+		The man hours performed by my advisor were calculated as one hour per week as average. 
+		Figure \ref{budget} shows the final budget of the project. 
+		The first two items are the hardware required, then the man hours cost and finally the software cost. 
+		It can be noted that the software total cost was of 0 €. 
+		This is because all software used in this system is Open Source, hence no licenses are paid. 
+
+
+		\begin{figure}[H]
+			\centering
+		    \includegraphics[width=0.8\linewidth]{img/budget/budget.png}
+		    \label{budget}
+			\caption[Project's budget]{Project's budget}	
+		\end{figure}
+
+		Since all the software used is Open Source, I have performed an estimation of the cost of the development of each of the libraries I have used in this project. 
+		Figure \ref{estimations} summarizes the results.  
+
+		\begin{figure}[H]
+			\centering
+		    \includegraphics[width=0.6\linewidth]{img/budget/estimations.png}
+		    \label{estimations}
+			\caption[Open source software cost estimation]{Open source software cost estimation}	
+		\end{figure}
+
+		The estimations are created using the SLOCCount Open Source program \cite{sloccount}. 
+		This software measures the number of lines and automatically estimates the effort, time and money needed to create the software. 
+		The figures in table \ref{estimations} are obtained using the basic COCOMO model. 
+		All defaults were used and the final cost of developing each of the tools are the ones presented in figure \ref{estimations}. 
+		It is important to note that in the case that these projects were not Open Source the cost of using them would not be, of course, the cost of the complete development. 
+		Instead, the right to use of the software is usually given in exchange of the payment of a license. 
+		\\
+
+		The cost estimation of the system developed in this thesis was also performed. 
+		It can be seen the high difference between the real cost and the estimated one. 
+		This is mainly due to the difference in the man-hours cost. 
+		By default, the software assumes a yearly cost per man of around 56 k USD which means an hourly rate of around 20 USD per hour, or 15 €. 
+		The final cost of the developed thesis is less than 13000 €, including all the required hardware. 
 
 \end{appendices}

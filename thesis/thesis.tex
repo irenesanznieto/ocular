@@ -22,44 +22,45 @@
 	\rhead{Page \thepage }
 	\cfoot{}
 
+\usepackage{caption} \usepackage{subcaption}
 
 \setlength{\headsep}{1.5cm}
 	\pagestyle{fancy}
 
-\makeatletter
-\def\@makechapterhead#1{%
-  \vspace*{-20\p@}%
-  {\parindent \z@ \raggedright \normalfont
-    %\ifnum \c@secnumdepth >\m@ne
-    %    \huge\bfseries \@chapapp\space \thechapter
-    %    \par\nobreak
-    %    \vskip 20\p@
-    %\fi
-    \interlinepenalty\@M
-    \Huge \bfseries #1\par\nobreak
-    \vskip 40\p@
-  }}
-  \makeatother
+% \makeatletter
+% \def\@makechapterhead#1{%
+%   \vspace*{-20\p@}%
+%   {\parindent \z@ \raggedright \normalfont
+%     %\ifnum \c@secnumdepth >\m@ne
+%     %    \huge\bfseries \@chapapp\space \thechapter
+%     %    \par\nobreak
+%     %    \vskip 20\p@
+%     %\fi
+%     \interlinepenalty\@M
+%     \Huge \bfseries #1\par\nobreak
+%     \vskip 40\p@
+%   }}
+%   \makeatother
 
-%Hyperrefs without borders
-\usepackage[hidelinks]{hyperref}
 
 %reset the numbering each part
 \makeatletter
 \@addtoreset{chapter}{part}
 \makeatother  
 
+%Hyperrefs without borders
+\usepackage{hyperref}
 %parametros del documento (sus propiedades)
 \hypersetup{
     pdftitle={ OCULAR - In-hand object recognition and on-line learning using 2D and 3D information },
     pdfsubject={Bachelor's Thesis - 2014},
     pdfauthor={Irene Sanz Nieto},
-    pdfkeywords={palabraclave1} {palabraclave2} {palabraclave3},
+    pdfkeywords={OCULAR} {kinect} {recognition},
     colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=blue,
+    urlcolor=blue,
 }
 
 \usepackage{indentfirst} 
@@ -84,7 +85,7 @@
 %\input{frontmatter/acknowledgments}
 
 
-%\input{frontmatter/abstract}
+\input{frontmatter/abstract}
 
 
 %%%%%% TABLE OF CONTENTS %%%%%%

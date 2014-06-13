@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Bachelor's Thesis: 3D Object Recognition Using Kinect " company="UC3M" webLink="" view-date="2012-11-01" view-index="0" gantt-divider-location="427" resource-divider-location="380" version="2.0" locale="en_GB">
+<?xml version="1.0" encoding="UTF-8"?><project name="Bachelor's Thesis: 3D Object Recognition Using Kinect " company="UC3M" webLink="" view-date="2012-12-01" view-index="0" gantt-divider-location="535" resource-divider-location="380" version="2.0" locale="en_GB">
     <description><![CDATA[This Bachelor’s Thesis will consist in the design and development of an open 3D Object Recognition Software.
 The code will be mainly built using the libraries OpenCV and PCL, both of which are included in the ROS (Robotic
 Operating System). This framework will be used in order to obtain a software that could be included in a complex
@@ -7,9 +7,9 @@ maintainable code.
 In the following section the organization of the Thesis will be presented and explained.
 ]]></description>
     <view zooming-state="default:11" id="gantt-chart">
-        <field id="tpd3" name="Name" width="55" order="0"/>
-        <field id="tpd4" name="Begin date" width="22" order="1"/>
-        <field id="tpd5" name="End date" width="22" order="2"/>
+        <field id="tpd3" name="Name" width="50" order="0"/>
+        <field id="tpd4" name="Begin date" width="24" order="1"/>
+        <field id="tpd5" name="End date" width="24" order="2"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="33" order="0"/>
@@ -82,57 +82,56 @@ here presented.
             <depend id="60" type="2" difference="0" hardness="Strong"/>
             <depend id="76" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="59" name="Project Programming" color="#8cb6ce" meeting="false" start="2013-11-22" duration="124" complete="0" expand="true">
-            <task id="60" name="ROI Segmentation" color="#8cb6ce" meeting="false" start="2013-11-22" duration="14" complete="0" expand="true">
+        <task id="59" name="Project Programming" color="#8cb6ce" meeting="false" start="2013-11-22" duration="180" complete="0" expand="true">
+            <task id="60" name="pi_tracker integration: converter" color="#8cb6ce" meeting="false" start="2013-11-22" duration="60" complete="0" expand="true">
                 <notes><![CDATA[In this part the data structure in which the hand parameters will be stored will be decided. 
 
 The section of the code regarding hand localization and segmentation will be implemented.]]></notes>
                 <depend id="58" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="58" name="Feature Extraction" color="#8cb6ce" meeting="false" start="2013-12-06" duration="25" complete="0" expand="true">
+            <task id="58" name="ROI segmentation" color="#8cb6ce" meeting="false" start="2014-01-21" duration="25" complete="0" expand="true">
                 <notes><![CDATA[The code that will extract features (both in PCL and OpenCV) will be implemented.]]></notes>
                 <depend id="74" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="74" name="Dataset Construction" color="#8cb6ce" meeting="false" start="2013-12-31" duration="25" complete="0" expand="true">
+            <task id="74" name="Feature extraction" color="#8cb6ce" meeting="false" start="2014-02-15" duration="54" complete="0" expand="true">
                 <notes><![CDATA[Implementation of database of the objects that will be recognized by the algorithm
 ]]></notes>
                 <depend id="75" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="75" name="Algorithm Training" color="#8cb6ce" meeting="false" start="2014-01-25" duration="10" complete="0" expand="true">
+            <task id="75" name="State machine" color="#8cb6ce" meeting="false" start="2014-04-10" duration="29" complete="0" expand="true">
                 <notes><![CDATA[The algorithm that will recognize and identify the different objects will be implemented. ]]></notes>
                 <depend id="51" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="51" name="Demos" color="#8cb6ce" meeting="false" start="2014-02-04" duration="50" complete="0" expand="true">
+            <task id="51" name="Decision algorithm" color="#8cb6ce" meeting="false" start="2014-05-09" duration="6" complete="0" expand="true">
                 <notes><![CDATA[It will consist in the recording and preparation of demonstrations of the Software performance.]]></notes>
                 <depend id="52" type="2" difference="0" hardness="Strong"/>
-                <depend id="76" type="3" difference="0" hardness="Strong"/>
             </task>
-            <task id="76" name="Test" color="#8cb6ce" meeting="false" start="2013-11-22" duration="124" complete="0" expand="true">
+            <task id="76" name="Test" color="#8cb6ce" meeting="false" start="2013-11-22" duration="180" complete="0" expand="true">
                 <notes><![CDATA[Every piece of code will be tested in order to corroborate its correctness]]></notes>
                 <depend id="52" type="2" difference="0" hardness="Strong"/>
             </task>
         </task>
-        <task id="50" name="Documentation" color="#8cb6ce" meeting="false" start="2014-03-26" duration="108" complete="0" expand="true">
+        <task id="50" name="Documentation" color="#8cb6ce" meeting="false" start="2014-05-21" duration="54" complete="0" expand="true">
             <notes><![CDATA[In this part, the Thesis will be written and the oral presentation prepared. For that oral presentation there will be
 some demos recorded.
 ]]></notes>
-            <task id="52" name="Thesis Writing" color="#8cb6ce" meeting="false" start="2014-03-26" duration="88" complete="0" expand="true">
+            <task id="52" name="Thesis Writing" color="#8cb6ce" meeting="false" start="2014-05-21" duration="33" complete="0" expand="true">
                 <depend id="78" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="78" name="Thesis hand-in" color="#8cb6ce" meeting="true" start="2014-06-22" duration="0" complete="0" expand="true">
+            <task id="78" name="Thesis hand-in" color="#8cb6ce" meeting="true" start="2014-06-23" duration="0" complete="0" expand="true">
                 <depend id="53" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="53" name="Presentation Preparation" color="#8cb6ce" meeting="false" start="2014-06-22" duration="20" complete="0" expand="true">
+            <task id="53" name="Presentation Preparation" color="#8cb6ce" meeting="false" start="2014-06-23" duration="19" complete="0" expand="true">
                 <depend id="54" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="54" name="Thesis Presentation" color="#8cb6ce" meeting="true" start="2014-07-12" duration="0" complete="0" expand="true">
+            <task id="54" name="Thesis Presentation" color="#8cb6ce" meeting="true" start="2014-07-14" duration="0" complete="0" expand="true">
                 <notes><![CDATA[Official Presentation of the Thesis. ]]></notes>
-                <depend id="8" type="3" difference="0" hardness="Strong"/>
             </task>
         </task>
-        <task id="8" name="State of the Art" color="#8cb6ce" meeting="false" start="2013-04-28" duration="437" complete="0" expand="true">
+        <task id="8" name="State of the Art" color="#8cb6ce" meeting="false" start="2013-02-26" duration="500" complete="0" expand="true">
             <notes><![CDATA[It will consist in the study of previous works and papers in the matter in order to make a more original thesis. Also a comparison between the approach to solve the problem in this thesis and the approach of previous works will be carried out. 
 ]]></notes>
+            <depend id="54" type="2" difference="0" hardness="Strong"/>
         </task>
     </tasks>
     <resources>
@@ -168,9 +167,9 @@ some demos recorded.
         <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="234" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="94" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="95" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="270" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="130" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="131" visible="true"/>
     </taskdisplaycolumns>
     <previous/>
     <roles roleset-name="Default"/>

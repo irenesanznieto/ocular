@@ -1,31 +1,124 @@
+
 \section{Motivation}
-Technology has evolved enormously in the past years. The economic situation described above forced many experienced professionals to trying their luck creating start-ups. Many of the ideas of those enterprises are having nowadays a huge impact on the society. 
+
+Technology has evolved enormously in the past years. 
+In particular, robotics has changed and moved from controlled spaces such as factories to human inhabited spaces. 
+In section \ref{context} the reasons behind this shift in the robot's location and function were presented. 
+It was also estated that the importance of the perception systems augmented with the inclusion of robots in human-inhabited areas. 
+% This fact increases the importance of the perception systems being integrated. 
+The correct recognition of objects, persons, areas and situations is key for assistive and social tasks. 
+Nowadays most of the robots being developed are only able to recognize a small part of their environment. 
+Most computer vision systems are currently used to navigate between points or to locate certain objects and grasp them. 
+The decision algorithm of the robots is normally based on the instructions received from the user. 
+Those commands are usually given by voice or inputting the desired task on a certain User Interface (UI).
 \\
 
-One of these open-source projects that appeared was the low-cost 3D printers. These machines have changed the manner of investigating many fields, since they allow to design different pieces easily and have a 3D reproduction in a few hours. 
+% For the robots to act as aiding personnel to take care of elder or sick people, the evolution of this decision algorithm is crucial. 
+The algorithm decision of the robots must be evolved if they are to act as aiding personnel to take care of elder or sick people. 
+They must be able to respond to commands, but also be aware of their environment and respond autonomously to it. 
+As an example, robots must be able to recognize the danger involved in certain objects or situations. 
+Also, they should perceive the environment and the interactions between humans to discern if, for example, they are arguing or if the conversation is not a beneficial one for the patient. 
+This latter example may be seen in the case of an anorexic person who is talking about food and weight with another person. 
+Then, the robot may intervene changing the subject subtly or trying to end the conversation. 
+\\
+When this change has occurred, the robots may successfully perform the assistive tasks now reserved only to humans. 
+But there is still a long way to investigate, mainly around the environment perception. 
+The investment needed for its development is now being held due to the recession that appeared in the late 2000s decade, whose effects are nowadays still present. 
+Nevertheless, this lack of funding may be overcome using open source investigations and code. 
+
+%   \begin{figure}[h]
+% 	\begin{center}
+%     \includegraphics[scale=0.3]{img/intro/osi.eps}
+% 	\caption[Open Source Initiative Logo]{Open Source Initiative Logo}
+% 	\label{osi_logo}
+% 	\end{center}
+% \end{figure}
+
+
+The idea of creating common software, of aiding other investigators to easily replicate the work already done and continue from that point instead of "reinventing the wheel" started in the past century. 
+In 1998 the Open Source Initiative (OSI)\cite{osi} was formed. 
+% Figure \ref{osi_logo} shows the logo of the corporation. 
+Their definition  of Open Source is recognized as the standard: "Open source does not just mean access to the source code. The distribution terms of open-source software must comply with the following criteria: Free Redistribution, Source Code, Derived Works, Integrity of The Author's Source Code, No Discrimination Against Persons or Groups, No Discrimination Against Fields of Endeavor, Distribution of License, License Must Not Be Specific to a Product, License Must Not Restrict Other Software,  License Must Be Technology-Neutral"\cite{osi_def}. 
 \\
 
-Initially, they were used in investigation and more specifically in robotics, but now they are used in many different fields. Among those fields, there are medicine, construction or even food making. 
+I strongly believe in the ideals presented by the Open Source Initiative. 
+This project is intended to be a piece of open source code that helps in the environment perception of robots. 
+As it was previously mentioned, the objects related with the humans may aid in the situation understanding. 
+The objects the user is holding might contain information about the task he is performing. 
+As an example, if the human has a spoon in his hand he is probably going to eat. 
+Another example would be holding a phone or a glass of water. 
+From the objects, the robot may infer that the user is presumably going to talk or to drink, respectively. 
+	% Social and assistive robots are being increasingly integrated in human environments. 
+	% They need to interact with its environment and in order to do so they need to understand it. 
+	% Understanding it means acknowledging the different objects and humans on it and the actions the latter are performing. 
+	% % The actions of the humans are important in the decision of the robot's behaviour.
+	% The interaction between humans and objects gives information about the task being performed by the human. 
+	In \cite{Delaitre}, a study of the human-object interaction in still images was performed in order to relate those objects to actions. 
+	This relation between object and action may also be seen in \cite{Fathi}, in which wearable cameras are used to retrieve the input. 
+	The objects being hand-held are recognized and the action associated to them is learned. 
+	In this thesis I present a system that allows to easily learn and recognize hand-held objects in real time. 
+	It is intended to be the previous step to the association between the object and the action. 
+% Hence, having a system that detects the hand-held objects could be an improvement for situation recognition algorithms. 
+
+
+
+% \subsection{Why recognizing objects in-hand?}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ACTION RECOGNITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\\%[1cm]
+ 
+
+
+
+% The improvements in the situation recognition algorithms ld have a system that detects the hand-held objects. 
 \\
 
-In medicine, they have been a revolution since they allow to create customized and precise pieces in very few time. They have been used for prosthesis and implants for persons of various ages, even for babies. In the prosthesis fields in particular, the 3D printing technology is being a complete revolution. Before, the prosthesis were very expensive and permitted only fixed movements and combinations. The adaptations to each individual were made in the final product itself, trying to make it as comfortable as possible for the wearer. Nowadays, the prosthesis are customized for each patient, reducing the inconveniences and increasing their usability. Also, they can be easily and cheaply adapted for children as an example, who are still experimenting many changes in their bodies. They are much cheaper than they were before, and everyone with a 3D printer may construct one. 
-In order to 3D print a piece a file with its description is needed. There are many web-pages that store open-source designs that ranges from decoration models to complex prosthesis. This fact is decisive because there is not needed a huge amount of knowledge or money to improve the life quality of a person using these technologies. 
-\\
-
-There are numerous open-source projects and developers that put in common their knowledge to improve the technology being used. I have used many of them in the previous years, to learn about 3D printing, robotics or programming among other fields. 
-\\
-
-It is a fact that acquiring knowledge would be much difficult if the Open Source initiative has not been invented. This impulsed me towards developing something useful and that could be used by other people. The idea of creating a software that could be used in robotics investigation but also help people at the same time. 
-\\[0.5cm]
-
-Many of the projects are aimed at aiding physically impaired people, creating sternal skeletons and robotic arms that could aid them. But a personal fact led me to realize that visually impaired people were not having as much attention. The applications developed for them are still rough to use and also it is difficult for a grown person to develop his remaining senses to supply the information lost. 
-\\
-
-Besides, in the robotic field new lines of investigation have appeared. The social robots are now a reality and in the near future we will interact with them everyday. In order to understand the human behavior, the recognition of the objects being handled by them is crucial. 
-\\[0.5cm]
+% To this purpose, I present this thesis that implements an in-hand object detection and tracking using 2D and 3D information. 
+% It is open source and it may be downloaded from this \href{http://github.com/irenesanznieto/ocular}{\color{blue}\underline {link}}. 
+%Further details about its licensing and installations instructions as well as user instructions may be found in the same link. 
 
 
-Computer vision has experience an important improvement in the last years through the upgrade of the hardware and software that compose it. The hardware such as acquisition elements (cameras, depth sensors, etc) and computing elements (PCs or other programmable devices) have experienced a rapid advance in the past years. It allowed to process more data that is now obtained more accurately and with less noise. This increase in the computing power of the equipment created a possibility of introducing more complex libraries and frameworks and even operating systems. 
-\\
 
-Now, the technology is available to solve the problems presented, the aid of visually impaired people and the introduction of new information in the social robotics field. This is how the idea behind this thesis appeared: the creation of a modular software that implements an in-hand object recognition algorithm. 
+% Computer vision has experience an important improvement in the last years through the upgrade of the hardware and software that compose it. 
+% The hardware such as acquisition elements (cameras, depth sensors, etc) and computing elements (PCs or other programmable devices) have experienced a rapid advance as well.
+% It allowed to process more data that is now obtained more accurately and with less noise. 
+% This increase in the computing power of the equipment created a possibility of introducing more complex libraries and frameworks and even operating systems. 
+% \\
+
+
+
+
+
+
+% The economic situation described above forced many experienced professionals to trying their luck creating start-ups. Many of the ideas of those enterprises are having nowadays a huge impact on the society. 
+% \\
+
+% One of these open-source projects that appeared was the low-cost 3D printers. These machines have changed the manner of investigating many fields, since they allow to design different pieces easily and have a 3D reproduction in a few hours. 
+% \\
+
+% Initially, they were used in investigation and more specifically in robotics, but now they are used in many different fields. Among those fields, there are medicine, construction or even food making. 
+% \\
+
+% In medicine, they have been a revolution since they allow to create customized and precise pieces in very few time. They have been used for prosthesis and implants for persons of various ages, even for babies. In the prosthesis fields in particular, the 3D printing technology is being a complete revolution. Before, the prosthesis were very expensive and permitted only fixed movements and combinations. The adaptations to each individual were made in the final product itself, trying to make it as comfortable as possible for the wearer. Nowadays, the prosthesis are customized for each patient, reducing the inconveniences and increasing their usability. Also, they can be easily and cheaply adapted for children as an example, who are still experimenting many changes in their bodies. They are much cheaper than they were before, and everyone with a 3D printer may construct one. 
+% In order to 3D print a piece a file with its description is needed. There are many web-pages that store open-source designs that ranges from decoration models to complex prosthesis. This fact is decisive because there is not needed a huge amount of knowledge or money to improve the life quality of a person using these technologies. 
+% \\
+
+% There are numerous open-source projects and developers that put in common their knowledge to improve the technology being used. I have used many of them in the previous years, to learn about 3D printing, robotics or programming among other fields. 
+% \\
+
+% It is a fact that acquiring knowledge would be much difficult if the Open Source initiative has not been invented. This impulsed me towards developing something useful and that could be used by other people. The idea of creating a software that could be used in robotics investigation but also help people at the same time. 
+% \\[0.5cm]
+
+% Many of the projects are aimed at aiding physically impaired people, creating sternal skeletons and robotic arms that could aid them. But a personal fact led me to realize that visually impaired people were not having as much attention. The applications developed for them are still rough to use and also it is difficult for a grown person to develop his remaining senses to supply the information lost. 
+% \\
+
+% Besides, in the robotic field new lines of investigation have appeared. The social robots are now a reality and in the near future we will interact with them everyday. In order to understand the human behavior, the recognition of the objects being handled by them is crucial. 
+% \\[0.5cm]
+
+
+% Computer vision has experience an important improvement in the last years through the upgrade of the hardware and software that compose it. The hardware such as acquisition elements (cameras, depth sensors, etc) and computing elements (PCs or other programmable devices) have experienced a rapid advance in the past years. It allowed to process more data that is now obtained more accurately and with less noise. This increase in the computing power of the equipment created a possibility of introducing more complex libraries and frameworks and even operating systems. 
+% \\
+
+% Now, the technology is available to solve the problems presented, the aid of visually impaired people and the introduction of new information in the social robotics field. This is how the idea behind this thesis appeared: the creation of a modular software that implements an in-hand object recognition algorithm. 

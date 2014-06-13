@@ -1,226 +1,75 @@
 \section{Object learning and recognition}
 
-This field of study has a huge previous art publications. 
-In this section the most important works related to this thesis are exposed. 
+Object learning and recognition is an active field. 
+In this section the most important works related to that field are presented. 
+Also, the differences and improvements performed in this thesis with respect to the previous art are estated. 
+% In this section the most important works related to this thesis are exposed. 
 
-\paragraph{Object learning and recognition using 2D and 3D input data}\mbox{}\\
+\subsection{Object learning and recognition using 2D and 3D input data}
 
-This special branch in the object learning and recognition field has been investigated for many years. 
-In 1992 there appeared \cite{D.M.Gavrila1991} in which is described a system that performs 3D object recognition using 2D input data. 
-A 3D model was performed and then the new 2D projection was matched to this model.
+This special branch in the object learning and recognition field has been active for many years. 
+One of the first works in the field was the one performed by D.M.Gavrila and F.C.A. Groen. 
+In 1992,  they developed a  system that performs 3D object recognition using 2D input data \cite{D.M.Gavrila1991}.
+A 3D model was created and then the new 2D projection was matched to this model.
 A geometric hashing method of matching was applied to the input 2D projection. 
-If it had an error within certain thresholds to a nearby 2D projection, the image was matched to that model. 
+The image was only matched to a model if the error to a nearby 2D projection was within certain thresholds.
 The testing was performed under a controlled environment and using textured objects. 
 The system would not give the same results in a real environment with noise and loosely defined objects. 
 Also, the use of hashing limits the size of the dataset due to its high computing cost. 
 \\
 
-Later systems as \cite{Sheta2012} explored different descriptors for the objects that resulted less time-consuming. 
-In this case, fuzzy logic was used to match the learned features to the new ones. 
-Those descriptors were a set that included Affine, Zemike and Hu moments invariants among others. 
-The results were promising, obtaining a high percentage of true positives. 
-But, again, the system used a controlled setup:
-The input was collected from three cameras that had a known illumination and orientation. 
-The objects were white with significant form changes and they rested in a black background while learning and recognizing. 
+Later systems as \cite{Sheta2012} explore different descriptors for the objects that result less time-consuming. 
+In this case, fuzzy logic is used to match the learned features to the new ones. 
+Those descriptors are a set that include Affine, Zemike and Hu moments invariants among others. 
+The results are promising, obtaining a high percentage of true positives. 
+But, again, the system uses a controlled setup:
+The input is collected from three cameras that has a known illumination and orientation. 
+The objects are white with significantly different shapes and they rest in a black background during learning and recognition phases. 
 The applications in which it could be used are more related to the industrial field than the robotics field. 
 \\
 
-In outside environments, \cite{Zia2013} demonstrated the effectiveness of two methods when combined: local descriptors and 3D wireframes. 
-The system developed was able to distinguish between cars and bicycles and estimate their pose. 
+Outdoors, \cite{Zia2013} demonstrated the effectiveness of two methods when combined: local descriptors and 3D wireframes. 
+The system was able to distinguish between cars and bicycles and to estimate their pose. 
 The input of the recognition is a single 2D image. 
-Nevertheless, the training of the system was made offline, using a high number of CAD model's views. 
+Nevertheless, the training was made off-line, using a high number of Computer-Aided Design (CAD) model's views. 
 
 These systems differ with the one presented in this thesis in one major aspect: 
 the user-software interaction. 
 This thesis is based on providing an easy and intuitive interface. 
 The learning process is performed easily and on-line and the recognition is real-time. 
 There is no setting needed, no previous processing and care about the environment. 
-The combination of 2D and 3D information in my system makes up for the extra noise added to it.  
+The combination of 2D and 3D information in my system is, to the best of my knowledge, unique. 
+The fact of recognizing the objects using those two different methods and then apply a decision algorithm better the results, reducing the effect of the noise.  
 
 
 
-\paragraph{In-hand object learning and recognition}\mbox{}\\
+\subsection{In-hand object learning and recognition}
 
-Most of the literature in this specific branch of object learning and recognition has been developed using wearable cameras as the input of the system. 
-There are numerous works, among them \cite{Roth2006}.
-The system presented in it consists on a camera used to capture daily objects to construct a dataset more easily. 
+Most of the literature in object learning and recognition has been developed using wearable cameras as the input of the system. 
+One of the most representative works is \cite{Roth2006}, which consists on a camera used to capture daily objects to construct a dataset more easily. 
 Its main feature is that it eliminates the necessity of manually segmenting and labeling the learning datasets for object recognition libraries. 
-It only learns new templates that are later feed to a offline learning algorithm. 
+It only learns new templates that are later feed to a off-line learning algorithm. 
 Another example is \cite{Philipose2009}, in which a benchmarking of an egocentric object recognition system is performed. 
 This in-hand object recognition uses as input an image that has the object used at the center. 
 The background is not segmented in this system. 
 
 \\
 
-In this thesis I present an in-hand object recognition and learning in which the user is located in front of the acquisition device. 
+This thesis presents a different approach: an in-hand object recognition and learning in which the user is located in front of the acquisition device. 
 It is a solution to the same problem, the recognition of an object that a user holds. 
 But the initial setting is different. 
 In my thesis, the user is in front of the camera, because the software is running on a robot. 
 The interaction between the software and the user is different from the previous art on the field. 
 This change in the input creates an additional difficulty due to the hand's segmentation in the input image. 
+Furthermore, to the best of my knowledge there is no previous art in in-hand object learning and recognition using 2D and 3D combined together. 
+All of the algorithms used a camera and hence 2D information as input. 
+The inclusion of 3D and the independence between the 2D and 3D recognition processes improve the noise resistance of my system with respect to the previous art. 
 
-\paragraph{Why recognizing objects in-hand?}\mbox{}\\
-
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ACTION RECOGNITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-	Social and assistive robots are being increasingly integrated in human environments. 
-	They need to interact with its environment and in order to do so they need to understand it. 
-	Understanding it means acknowledging the different objects and humans on it and the actions the latter are performing. 
-	% The actions of the humans are important in the decision of the robot's behaviour.
-
-	The interaction between humans and objects gives information about the task being performed by the human. 
-
-	In \cite{Delaitre}, a study of the human-object interaction in still images was performed in order to relate those objects to actions. 
-	This relation between object and action may also be seen in \cite{Fathi}, in which wearable cameras are used to retrieve the input. 
-	The objects being hand-held are recognized and the action associated to them is learned. 
-	\\
-
-	In this thesis I present a system that allows to easily learn and recognize hand-held objects in real time. 
-	It is intended to be the previous step to the association between the object and the action. 
-\\[1cm]
-
-In the object recognition field the description of the objects is crucial. 
-The quality of the features extracted as the model of the object determine the quality of the algorithm. 
-Due to this importance, the next section is devoted to the descriptors that can be obtained from 2D and 3D data. 
 
 % \paragraph{Template matching}
 
 
+In the object recognition field obtaining good descriptors is of paramount importance. 
+The quality of the features extracted as the model of the object determine the quality of the algorithm. 
+Due to this importance, the next section is devoted to the descriptors that can be obtained from 2D and 3D data.
 
-
-\section{Descriptors}
-\label{descriptors}
-% In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
-
-\\
-A feature or descriptor is defined differently depending on the application and context of the computer vision project. 
-In general, it is an interesting or important characteristic, point or region of an image. 
-The application determines which feature describes better the object of study. 
-Descriptors may have different forms and characteristics. 
-For example, if we want to recognize rectangles, its height could be a descriptor.
-The height is not scale invariant, but it is rotation invariant. 
-If the application needs an scale independent descriptor, the ratio between the height and the width of the rectangle may be used. 
-This simple example shows how a feature is defined when the sample object is known. 
-But in this thesis I present a system that must be able to recognize all kind of common objects. 
-There is no straight forward method to extract a feature as in the example. 
-\\
-
-Descriptors may be local or general. 
-A local descriptor is the one that represents a point using the information of the points around it. 
-Local features from one object may be almost identical to a local feature from a very different object. 
-In order to overcome this problem, general descriptors are computed. 
-A general descriptor is usually a set of local descriptors that undergo a transformation. 
-This process is usually performed to obtain a more representative description of the studied object. 
-\\
-
-The best feature or descriptor is that which has a higher repeatability, i.e the ability of obtaining the same output given different inputs. 
-This is useful when making a feature matching to compare two object, which is the case in this project. 
-\\
-
-Hence, it can be seen that the recognition algorithm has as a bottle neck in its performance: the repeatability of the features used to describe the different objects. 
-
-The most used algorithms for general object recognition are presented in this section. 
-% due to their relation between performance, invariantness and speed are exposed below. 
-They appear chronologically and the differences, similarities and improvements between them are explained. 
-The selection of one algorithm or another depends on the application.
-\\
-
-\subsection{2D Features}
-\label{2d_features}
-
-\paragraph{SIFT}\mbox{}\\
-
-SIFT (Scale Invariant Feature Transform) is a scale and rotation invariant feature descriptor\cite{sift}. 
-
-There are various papers in which the performance of SIFT is compared with other descriptors, such as \cite{Mikolajczyk2005}. In them, it can be seen that SIFT outperforms the others, mainly due to its combination of local information and relative strengths and orientations of gradients. This combination makes it more robust to illumination and viewpoint changes and the addition of noise. 
-\\
-
-In order to minimize the cost of extracting such a distinctive features, a cascade filtering approach is used in order to apply the most time-consuming operations only at locations that pass an initial test. 
-\\
-
-Its relation between distinctiveness and speed is good. It can be used for on-line applications but it still has a latency that could be improved. Hence, it is an almost real-time algorithms. As an example, in \cite{sift_fpga} the SIFT algorithm was implemented on a FPGA (Field Programmable Gate Array), improving its speed by an order of magnitude and thus allowing it to run in real-time.
-\\
-
-The main reason of this high computing time, which is acceptable for on-line applications but improvable, is the descriptor vector size. In the aim of creating a highly distinctive descriptor, the vector is over-dimensioned slowing the detection, description and matching processes. 
-\\
-
-In relation with object recognition, this algorithm has a good performance in medium cluttered spaces. If the image is cluttered, there will appear a number of features of the background that do not have a match in the given database. Hence, it will give false positives and the match will have a lower probability. 
-
-
-
-
-\paragraph{SURF}\mbox{}\\
-
-SURF(Speeded Up Robust Features) is a scale and rotation invariant interest point detector and descriptor \cite{surf}. 
-It is a proprietary algorithm that simplifies the detection, extraction of the descriptors and matching steps thus obtaining them much faster than previous algorithms without losing repeatability, distinctiveness or robustness. 
-\\
-
-The first step of the algorithm is to identify the interest points such as corners, blobs or T-junctions. As it can be seen, this algorithm will be useful when evaluating a textured object. 
-\\
-
-The next step is to represent the neighbourhood of the interest points as a feature vector. 
-\\
-
-The final step is to match the descriptor vectors between different images, in order to stablish a recognition of a pattern. Usually the matching is performed using as a reference the distance between the vectors. 
-In this part, it can be perceived that the size of the descriptor vectors affects directly the performance of the algorithm. SIFT aims to reduce that size without losing distinctiveness in the features. 
-\\
-
-The SURF algorithm appeared after SIFT and hence it is interesting to see the similarities and differences between the two. In the previous chapter it was seen the good results obtained when combining the local information and relative data regarding gradients. This algorithm is based on similar characteristics: 
-First, an orientation based on the information extracted from a circular region with the interest point as its center is obtained. Then, a square region aligned to that orientation is described and the descriptor is extracted from it.  
-\\
-
-From the experiments in \cite{surf} it can be seen that the performance of this descriptors equals and in some cases improves the one of the SIFT descriptors. Also, the SURF descriptors are much faster computed and matched. 
-
-
-\paragraph{ORB}\mbox{}\\
-
-ORB (Oriented FAST and Rotated BRIEF) is a fast rotation invariant, noise resistant binary descriptor based on BRIEF \cite{orb}.
-It is claimed in its presentation paper that it is two orders of magnitude faster than SIFT while matching its performance in many situations. As it can be seen, since ORB is not scale invariant, if the scale difference is noticeable the SURF algorithm will outperform ORB. 
-\\
-
-The features used in ORB builds on the FAST\cite{fast} keypoint detector and the BRIEF\cite{brief} descriptor. Both of this previous algorithms offer a good performance and computing time relation. Since neither of them had the orientation taken into account, the main improvement made by the ORB developers is to include this feature in the algorithms. Also, the computation of oriented BRIEF features was improved and an analysis of variance and correlation for this features created. 
-\\
-
-FAST is mainly used to find keypoints in real-time systems that match visual features. The orientation operator included in this algorithm is the centroid operator described in \cite{orientation_corners}. This technique is not computationally demanding and also, unlike SIFT, it returns a single dominant result. 
-\\
-
-BRIEF uses simple binary tests whose performance is similar to SIFT with regard to robustness to lighting, blur and perspective distortion, but it is sensitive to in-plane rotation. In order to eliminate this drawback, the lowest computing costing solution is to steer BRIEF accordingly with the orientation of the keypoints. 
-\\
-
-In the different tests in \cite{orb} can be seen that the percentage of inliers obtained with ORB are higher and do not variate as much as those obtained by SIFT or SURF. 
-ORB is then a good alternative for the latter if the application does not need a scale invariant descriptor. 
-\\
-
-Finally, it is noticeable that this algorithm is Open Source, since the previous ones are proprietary. 
-
-
-\subsection{3D Features}
-\label{3d_features}
-
-COMPLETE: how 3D features work in PCL  &&  mail [TFG] 3D descriptors
-\\
-
-A feature is a characteristic of the data, in this case point clouds, that describes a point inside the data. Features or descriptors can be compared to determine whether the point described is the same in two different inputs. They are used in the object recognition field. 
-\\
-
-There are many different descriptors that can be used. Each of them has a certain speed in its computing and a reliability and robustness associated. Depending on the application in which they appear the developer must select the features depending on the specifications. 
-\\
-
-Two of the most used geometric point features are the underlying surface's estimated curvature and the normal at a specific query point. Both are local features and they characterize the point using the information provided by its neighbors. \\
-
-The local features are not reliable for the object recognition field since two specific points of different objects might have similar local features. In order to create more powerful descriptors, a global descriptor is needed. Usually global descriptors implement different techniques to 
-
-
-\subsubsection{PFH}
-\label{pfh}
-
-The Point Feature Histogram \cite{Rusu} is a local 3D descriptor. 
-It is fast to compute but its level of detail is limited. 
-They are computed approximating the geometry of a point's k-neighborhood with a few values. 
-This fact results in the possibility of obtaining a similar set of points in a very different object. 
-\\
-
-The PFH descriptors are rotation, position and point cloud density. 
-They also perform well with noisy data. 
-The features are created representing the mean curvature around the query point using a histogram of values. 
-The normals' direction and magnitude of the points in the k-neighborhood of that point are studied. 

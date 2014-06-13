@@ -1,36 +1,42 @@
 \section {Regulatory compliance}
+
 The present section covers the regulatory compliance that affects directly to the system presented. 
+% It must be noted that since the project is a research project, most of the regulations here exposed may not be needed. 
+% Nevertheless, they must be taken into account in the case that the system is commercialized.
 
-	\paragraph{ISO}\mbox{}\\
+	% \paragraph{ISO}\mbox{}\\
 
-	The International Organization for Standardization is an international organism that settles international standards. 
-	It has several joint committees with the International Electrotechnical Commission (IEC). 
-	They develop standards in different technical fields such as the electrical, electronic or IT fields. 
-	\\
+	% The International Organization for Standardization is an international organism that settles international standards. 
+	% It has several joint committees with the International Electrotechnical Commission (IEC). 
+	% They develop standards in different technical fields such as the electrical, electronic or IT fields. 
+	% \\
 
-	The Information Technology (IT) term is related to the use of computers and telecommunications to interchange, store and manipulate data.  
-	It is a broad field in which the present project may be included.
-	The Joint Technical Comittee devoted to this subject is the ISO/IEC JTC 1. 
-	Its main mission is develop, maintain, promote and facilitate IT standards regarding different areas such as the following : 
-	\begin{itemize}
-		\item{Design and development of systems and tools}
-		\item{Define performance and quality standards}
-		\item{Security, interoperability and portability of IT systems and products}
-		\item{Unified tools and environments as well as harmonized IT vocabulary}
-	\end{itemize}
+	% The Information Technology (IT) term is related to the use of computers and telecommunications to interchange, store and manipulate data.  
+	% It is a broad field in which the present project may be included.
+	% The Joint Technical Committee devoted to this subject is the ISO/IEC JTC 1. 
+	% Its main mission is develop, maintain, promote and facilitate IT standards regarding different areas such as the following : 
+	% \begin{itemize}
+	% 	\item{Design and development of systems and tools}
+	% 	\item{Define performance and quality standards}
+	% 	\item{Security, interoperability and portability of IT systems and products}
+	% 	\item{Unified tools and environments as well as harmonized IT vocabulary}
+	% \end{itemize}
 
-
-	%--> http://en.wikipedia.org/wiki/ISO/IEC_JTC_1 [IT projects] 
-	\paragraph{Software regulations}\mbox{}\\
-
-	% --> Open Source software
-	% [blablabla --> intro etc del pdf]
+	% This Committee has recently included the regulations regarding assistive tecnology (AT) \cite{japan1}\cite{japan2}.
+	% %--> http://en.wikipedia.org/wiki/ISO/IEC_JTC_1 [IT projects] 
 
 
+	% \paragraph{Software regulations}\mbox{}\\
+	
+	There are different regulations regarding software. 
+	% This section is centered on the ones related to Open Source systems, since the software developed in this thesis is Open  
+	Since the project is Open Source, the section is centered on presenting the regulations of this type of systems. 
 
-	The software created in this thesis is Open Source. 
-	It is being distributed with a MIT License (MIT). 
-	This license may be found in the repository and states the following: \\
+	Nowadays, the author of the software has the right of sharing it using a contract. 
+	In it he determines which of the author rights he is going to yield and under what conditions. 
+	This type of contract is called a software license. 
+	This project is being distributed with a MIT License (MIT). 
+	This license may be found in this  \href{https://raw.githubusercontent.com/irenesanznieto/ocular/master/LICENSE.md}{\color{blue}\underline {link}}, and states the following: \\
 
 	"Copyright (c) 2014 Irene Sanz Nieto
 
@@ -38,13 +44,23 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software."
+\\
 
-	
-	As it can be seen, the software is available for redistribution and use, but no warranty is provided with it. 
+	The last paragraph is published in uppercase letters, but it was converted to lowercase to avoid a disturbance in the structure of the thesis. 	
+	The license claims that software is available for redistribution and use, but no warranty is provided with it. 
 
 
-	\paragraph{Data protection} 
+	\paragraph{Data protection} \mbox{}
+	\\
 
-	Privacidad y confidencialidad: cualquier investigación que contenga datos de caracter personal tiene que cumplir los preceptos de la legislación de protección de datos. En España la norma que regula estos aspectos es la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, cuayo objeto es 'garantizar y proteger en lo que concierne al tratamiento de los datos personales, las libertades públicas y los derechos fundamentales de las personas físicas, y especialmente de su honor e intimidad personal y familiar”.
-La ley es de aplicación a los datos de carácter personal registrados en cualquier soporte físico. El tratamiento de los datos cubre las actividades de recolección, registro, almacenamiento, recuperación, consulta, uso y diseminación. Para garantizar el derecho a la protección de datos, es necesario informar a las personas implicadas y solicitar su consentimiento para el tratamiento de sus datos. 
+	% Since this project implements a proof of concept, the experiments performed with it were done by the author. 
+	This project involves taking personal information to construct a dataset with which recognize different objects. 
+	In order to observe the data protection Spanish law (Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal), the stored data does not contain any personal data. 
+	Instead of storing an image, the information retrieved is a matrix of numbers containing the descriptors extracted from the objects. 
+	This ensures that the system could be used in commercial software or that further investigations could be performed accordingly with the law. 
+
+	% This law "warrants and protects the personal data treatment, the public liberties and the fundamental rights of the persons, specially their honor and personal and familiar intimacy".
+	% It is applicable to all data stored in a physical support. 
+% 	Privacidad y confidencialidad: cualquier investigación que contenga datos de caracter personal tiene que cumplir los preceptos de la legislación de protección de datos. En España la norma que regula estos aspectos es la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, cuayo objeto es 'garantizar y proteger en lo que concierne al tratamiento de los datos personales, las libertades públicas y los derechos fundamentales de las personas físicas, y especialmente de su honor e intimidad personal y familiar”.
+% La ley es de aplicación a los datos de carácter personal registrados en cualquier soporte físico. El tratamiento de los datos cubre las actividades de recolección, registro, almacenamiento, recuperación, consulta, uso y diseminación. Para garantizar el derecho a la protección de datos, es necesario informar a las personas implicadas y solicitar su consentimiento para el tratamiento de sus datos. 
