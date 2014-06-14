@@ -1,9 +1,34 @@
 \chapter{Computer Vision fundamentals}
+This chapter aims to give a global overview of the main computer vision vocabulary and methods, specially those related with object learning and recognition. 
+Each section present a different processing step. 
+The computing phases are ordered in the same way as they are performed in the system. 
+These phases are the following: 
+\begin {enumerate}
+	\item{\textbf{Data input: Hardware} \\}
+	The data input of the system is performed using a vision acquisition device such as an RGB-D sensor, a camera or a laser. 
+	The first section presents the most used alternatives in robotic computer vision. 
+	Further explanations may be read in section \ref{hardware}.
+
+	\item{\textbf{Raw input data processing}\\}
+	The raw data that comes out of the sensors is not correctly formatted. 
+	Some processing is needed to create a data structure that is easy to handle and useful. 
+	A more complete explanation can be found in section \ref{input_data}
+
+	\item{\textbf{Segmentation}\\}
+	The next step is to segment the input data, that is, reduce it to the Region Of Interest. 
+	For further information please read section \ref{segmentation}.
+
+	\item{\textbf{Object description methods}\\}
+	The input data is not suitable to be matched as they are. 
+	In order to apply recognition and matching algorithms, the extraction of certain relevant data of each object is required. 
+	That extracted information is the one that describes the object using different techniques. 
+	More information can be found in section \ref{descriptors}.
+\end{enumerate}
 
 
 %\addcontentsline{toc}{chapter}{Hardware}
 \section{Hardware}
-
+\label{hardware}
 The advance in the computer vision discipline is greatly linked with the development in the hardware. 
 The hardware components present in a computer vision system are the following: 
 % The main components of a computer vision system are the following: 
@@ -134,11 +159,31 @@ The RGB-D sensors may be used hence only in interiors.
 
 
 
-\section{Descriptors}
+
+\section{Raw RGB-D sensor data processing}
+\label{input_data}
+The Kinect is the sensor that is the input of the system. 
+The output of this device cannot be used directly. 
+A processing step performed by a driver is needed. 
+In the case of this thesis the OpenNI library is being used. 
+For further information of this process, please read section \ref{ros_packages}.
+
+
+\section{Segmentation}
+\label{segmentation}
+The segmentation consists on the extraction of the Region Of Interest from the whole input data. 
+The method applied to this step varies with the application. 
+For example, for object recognition in a table the segmentation would be performed looking first for a flat surface and then extracting the region around it. 
+In the case of this thesis, since the object learning and recognition is done in-hand, these extremities are the one being tracked. 
+First, the hands' center position is obtained and later a fixed square is cropped around it. 
+More information about this process can be found in section \ref{nodes}.
+
+
+
+\section{Object description methods}
 \label{descriptors}
 % In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
-
-\\
+In order to be able to compare two objects, features or descriptors are extracted from them. 
 A feature or descriptor is an interesting or important characteristic, point or region of an image. 
 Since they may be defined differently depending on the application and context of the computer vision project, the definition used within this thesis is the previous one. 
 The application determines which feature describes better the object of study. 
@@ -286,5 +331,3 @@ The Fast Point Feature Histogram (FPFH) \cite{Rusu} descriptor is also a local d
 It is faster because it considers only the direct relations between the query point and its neighbors.
 This fact makes them less robust than the previous descriptors. 
 The Point Feature Histogram descriptors are the ones being used in this thesis. 
-
-

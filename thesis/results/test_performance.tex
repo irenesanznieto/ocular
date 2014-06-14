@@ -8,15 +8,44 @@
 			There is a high difference in the CPU and RAM usage between nodes.
 			The nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption.
 			The nodes that process the input images and point clouds have much higher values. 
-			Figure \ref{node} shows the results of the node benchmarking. 
+			Figure \ref{node_bench} shows the results of the node benchmarking. 
 
-			\begin{figure}[h]
-				\begin{center}
-			    \includegraphics[width=\linewidth]{img/tests/node.png}
-				\caption[Nodes benchmarking]{Nodes benchmarking}
-				\label{node}
-				\end{center}
-			\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Nodes benchmarking}
+\begin{tabular} {l c r@{.}l c r@{.}l c r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{NODES}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\textbf{CPU USAGE(0 - 800)}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\textbf{CPU USAGE(\%)}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\textbf{RAM USAGE(\%)}\end{center}} &\\
+\addlinespace[-3mm]
+\midrule
+Converter && 1&60 && 0&20 && 0&50 \\
+ROI segmenter 2D && 6&70 && 0&84 && 0&50\\
+ROI segmenter 3D && 106&70 && 13&34 && 1&50\\
+Feature extractor 2D && 19&50 && 2&44 && 0&10\\
+Feature extractor 3D && 37&90 && 4&74 && 0&50\\
+Event handler && 1&30 && 0&16 && 0&50 \\
+Learner recognizer && 8&30 && 1&04 && 0&80 \\
+System output && 1&00 && 0&13 && 0&30 \\
+\textbf{TOTAL} && \textbf{183}&\textbf{00} &&\textbf{22}&\textbf{88} && \textbf{4}&\textbf{70} \\
+\bottomrule
+\end{tabular}
+\label{node_bench}
+\end{table}
+
+
+
+			% \begin{figure}[h]
+			% 	\begin{center}
+			%     \includegraphics[width=\linewidth]{img/tests/node.png}
+			% 	\caption[Nodes benchmarking]{Nodes benchmarking}
+			% 	\label{node}
+			% 	\end{center}
+			% \end{figure}
 
 			The total CPU usage is lower than the 23\%, and the RAM usage of the whole software is of less than the 5\%. 
 			\\
@@ -44,13 +73,40 @@
 			Those two are again final object ID and the object ID topic. 
 			The reasons behind this particular behaviour are discussed in the next chapter. 
 
-			\begin{figure}[h]
-				\begin{center}
-			    \includegraphics[width=\linewidth]{img/tests/topic_hz.png}
-				\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
-				\label{hz}
-				\end{center}
-			\end{figure}
+			% \begin{figure}[h]
+			% 	\begin{center}
+			%     \includegraphics[width=\linewidth]{img/tests/topic_hz.png}
+			% 	\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
+			% 	\label{hz}
+			% 	\end{center}
+			% \end{figure}
+
+\begin{table}[H]
+\centering
+\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
+\begin{tabular} {l c r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{TOPIC}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\textbf{AVERAGE [Hz]}\end{center}} &\\
+\addlinespace[-3mm]
+\midrule
+ Hand location && 27&56 \\
+ Segmented  image & & 26&70 \\
+ Segmented  image  with  keypoints & &25&91 \\
+ Segmented  coordinates  (px) & &11&56 \\
+ Segmented  point  cloud & &18&13 \\
+ Descriptors  2D && 25&98 \\
+ Descriptors  3D & &15&29 \\
+Event && 27&72 \\
+ Object ID && 26&40 \\
+ Final  object  ID && 0&75 \\
+\bottomrule
+\end{tabular}
+\label{hz}
+\end{table}
+
+
 
 			The table below shows the bandwidth consumed. 
 			It can be seen a huge difference between topics. 
@@ -58,12 +114,44 @@
 			The nodes using a bandwidth of bytes are segmented coordinates and final object ID. 
 			They are closely followed by the hand location, descriptors 2D, event and object ID topics that are in the kilobytes range. 
 			Finally, the ones using a higher bandwidth are the segmented image with and without keypoints, the segmented point cloud and the descriptors 3D topics. 
-			\begin{figure}[h]
-				\begin{center}
-			    \includegraphics[width=\linewidth]{img/tests/topic_bw.png}
-				\caption[Topic benchmarking - Bandwidth]{Topic benchmarking - Bandwidth}
-				\label{bw}
-				\end{center}
-			\end{figure}
+			% \begin{figure}[h]
+			% 	\begin{center}
+			%     \includegraphics[width=\linewidth]{img/tests/topic_bw.png}
+			% 	\caption[Topic benchmarking - Bandwidth]{Topic benchmarking - Bandwidth}
+			% 	\label{bw}
+			% 	\end{center}
+			% \end{figure}
+
+
+
+
+
+
+\begin{table}[H]
+\centering
+\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
+\begin{tabular} {l  l r@{}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{TOPIC}\end{center}} &
+   \multicolumn{3}{c}{\begin{flushright}\textbf{AVERAGE [MB/s]}\end{flushright}} &\\
+\addlinespace[-3mm]
+\midrule
+
+Hand location && 1.38 & $\cdot10^{-3}$ \\
+Segmented image && $1.79$\\
+Segmented image with keypoints && $1.64$\\
+Segmented coordinates (px) && 2.12&$\cdot10^{-4}$\\
+Segmented point cloud && $1.48$\\
+Descriptors 2D && 2.95&$\cdot10^{-2}$\\
+Descriptors 3D && $2.60$\\
+Event && 1.06&$\cdot10^{-3}$\\
+Object ID && 1.39&$\cdot10^{-3}$\\
+Final object ID && 1.15&$\cdot10^{-6}$\\
+\bottomrule
+\end{tabular}
+\label{hz}
+\end{table}
+
 
 	\end{itemize}

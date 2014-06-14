@@ -1,4 +1,4 @@
-\section {Regulatory compliance}
+\chapter {Regulatory compliance}
 
 The present section covers the regulatory compliance that affects directly to the system presented. 
 % It must be noted that since the project is a research project, most of the regulations here exposed may not be needed. 
@@ -31,10 +31,18 @@ The present section covers the regulatory compliance that affects directly to th
 	There are different regulations regarding software. 
 	% This section is centered on the ones related to Open Source systems, since the software developed in this thesis is Open  
 	Since the project is Open Source, the section is centered on presenting the regulations of this type of systems. 
-
 	Nowadays, the author of the software has the right of sharing it using a contract. 
 	In it he determines which of the author rights he is going to yield and under what conditions. 
 	This type of contract is called a software license. 
+
+
+	\section{OCULAR}
+
+	This project involves taking personal information to construct a dataset with which recognize different objects. 
+	In order to observe the data protection Spanish law (Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal), the stored data does not contain any personal data. 
+	Instead of storing an image, the information retrieved is a matrix of numbers containing the descriptors extracted from the objects. 
+	This ensures that the system could be used in commercial software or that further investigations could be performed accordingly with the law. 
+
 	This project is being distributed with a MIT License (MIT). 
 	This license may be found in this  \href{https://raw.githubusercontent.com/irenesanznieto/ocular/master/LICENSE.md}{\color{blue}\underline {link}}, and states the following: \\
 
@@ -49,16 +57,37 @@ The software is provided "as is", without warranty of any kind, express or impli
 
 	The last paragraph is published in uppercase letters, but it was converted to lowercase to avoid a disturbance in the structure of the thesis. 	
 	The license claims that software is available for redistribution and use, but no warranty is provided with it. 
+	The different algorithms and third-party packages were selected taking into account that their licenses must be compatible with the one being provided by this system. 
+	In the next sections the licenses under which the different packages are distributed are presented. 
 
 
-	\paragraph{Data protection} \mbox{}
+	\section{ROS}
+	All ROS core code is distributed under a BSD license, more specifically a BSD 3-Clause license. 
+	It is very similar to the OCULAR license, the redistribution is permitted under certain conditions. 
+	More information may be found in this \href{http://opensource.org/licenses/BSD-3-Clause}{\color{blue} {webpage}}. 
+	The different ROS packages that are used in this thesis (openni\_camera, openni\_launch and pi\_tracker) are distributed under a BSD license, according to their web pages ( \href{http://wiki.ros.org/openni_camera}{openni\_camera}, \href{http://wiki.ros.org/openni_launch}{openni\_launch}, \href{http://wiki.ros.org/pi_tracker}{pi\_tracker}).
+
+	\section{OpenCV}
+	The Open Source Computer Vision library is released as well under a BSD license. 
+	Hence it is free for both academic and commercial use. 
+	Nevertheless, there are certain algorithms implemented whose license is different from the whole library. 
+	The SIFT or SURF descriptors are two examples of this fact. 
+	These algorithms have a software patent. 
+	This legal figure allows the use of the algorithms for investigation purposes. 
+	But for commercial uses the payment of a fee is imposed. 
+	This was one of the reasons of choosing the ORB algorithm as the descriptor extractor of the system. 
+	ORB has no patent and hence could be used for both commercial and research. 
+
+	\section{PCL}
+	The Point Cloud Library has as well a BSD license. 
+	It is then free for commercial and research use. 
+
+
+	% \paragraph{Data protection} \mbox{}
 	\\
 
 	% Since this project implements a proof of concept, the experiments performed with it were done by the author. 
-	This project involves taking personal information to construct a dataset with which recognize different objects. 
-	In order to observe the data protection Spanish law (Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal), the stored data does not contain any personal data. 
-	Instead of storing an image, the information retrieved is a matrix of numbers containing the descriptors extracted from the objects. 
-	This ensures that the system could be used in commercial software or that further investigations could be performed accordingly with the law. 
+	
 
 	% This law "warrants and protects the personal data treatment, the public liberties and the fundamental rights of the persons, specially their honor and personal and familiar intimacy".
 	% It is applicable to all data stored in a physical support. 
