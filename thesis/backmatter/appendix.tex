@@ -1,250 +1,26 @@
 \begin{appendices}
 
 	\input {backmatter/regulatory_compliance}
+	\input {backmatter/management}
 
-	\chapter{Software requirements specification}
-	\label{requirements}
-			\includepdf[pages={-}]{backmatter/requisites/requisites.pdf}
-			%\input{requisites}
-
-
-	\chapter{Project management}
-	\label{project_management}
-		 The present section describes the project management followed in this thesis. The Gantt diagram created for this purpose can be seen in the following page.
-		 \\
-
-		 The thesis was started on February 7th 2013 and was finished on July 11th 2014.    
-		 The project management has suffered modifications throughout its development.  The final project management chart has three differentiated parts the learning phase, the project programming and the documentation phase. 
-\\
-
-		 \begin{table}[H]
-\centering
-\begin{tabular} {l c c c }
-\toprule
-\addlinespace[3mm]
-   \multicolumn{1}{c}{\begin{center}\textbf{PHASE}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{BEGIN DATE}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{END DATE}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{\hspace*{0.7cm}DAYS}\end{center}} &\\
-\addlinespace[-3mm]
-\midrule
-Planning of the Thesis 	&	07/02/13 	&	25/02/13	&	18 \\	
-State of the art	&	28/04/13	&11/07/14	&	439	\\
-Learning 		&	26/02/13	&	29/10/13	&	185	** \\
-\hspace*{0.5cm}	OpenCV	&	26/02/13 	&	24/04/13 	&	57	\\
-\hspace*{0.5cm}	OpenCV Demo	&	25/04/13	&	25/04/13	&	MILESTONE	\\
-\hspace*{0.5cm}	PCL + ROS	&	25/04/13	&	29/10/13	&	127	**		\\
-\hspace*{0.5cm}	PCL + ROS Demo	&	30/10/13	&	30/10/13	&	MILESTONE	\\
-Project Objectives Definition	&	30/10/13	&	07/11/13	&	8\\	
-Design	&	08/11/13	&	21/11/13 	&	13	\\
-Project Programming		&	22/11/13	&	20/05/14	&	179	\\
-\hspace*{0.5cm}	pi\_tracker integration : converter &	22/11/13	&	20/01/14	&	59\\	
-\hspace*{0.5cm}	ROI segmentation implementation		&	21/01/14	&	20/02/14	&	30	\\
-\hspace*{0.5cm}	Feature extraction implementation	&	21/02/14	&	15/04/14	&	53\\	
-\hspace*{0.5cm}	State machine implementation	&	16/04/14	&	14/05/14	&	28	\\
-\hspace*{0.5cm}	Decision algorithm development	&	15/05/14	&	20/05/14	&	5	\\
-\hspace*{0.5cm}	Tests	&	22/11/13	&	20/05/14	&	179\\	
-Documentation	&	21/05/14	&	11/07/14	&	51	\\
-\hspace*{0.5cm}		Thesis writing	&	21/05/14	&	22/06/14	&	32	\\
-\hspace*{0.5cm}		Thesis hand-in	&	22/06/14	&	22/06/14	&	MILESTONE	\\
-\hspace*{0.5cm}		Presentation preparation		&	23/06/14	&	11/07/14	&	18	\\
-\hspace*{0.5cm}		Thesis presentation		&	11/07/14	&	11/07/14	&	MILESTONE	\\
-
-\addlinespace[3mm]
-\bottomrule
-\addlinespace[3mm]
-
-\textbf{TOTAL DAYS: 	}		&&&\textbf{	454}	\\
-\textbf{TOTAL HOURS (3h per day) :} &&&			\textbf{1362}	\\
-\addlinespace[3mm]
-
-\bottomrule
-\end{tabular}
-\caption[Days and hours per project phase]{Summary of the days and hours spent in each of the project's phases.\\
-** 60 days of holidays are not taken into account in the calculations.}	
-\label{phases}
-
-\end{table}
-\vspace*{0.5cm}
+	\chapter{Appendix: \\Software requirements specification}
+		\label{requirements}
+		% % Author and supervisor
+		\begin{minipage}{0.55\textwidth}
+		\begin{flushleft} \large
+		\emph{Author:}\\
+		Irene Sanz Nieto\\
+		\end{flushleft}
+		\end{minipage}
+		\begin{minipage}{0.4\textwidth}
+		\begin{flushright} \large
+		\emph{Supervisor:}\\
+		Victor González Pacheco\end{flushright}\end{minipage}\vfill
+			% \includepdf[pages={-}]{backmatter/requisites/requisites.pdf}
+		\input{backmatter/requisites/requisites}
 
 
-	Figure \ref{phases} presents a summary of the hours dedicated to each of the phases of the project. 
-	These thesis parts are the following: 
+	\input {backmatter/budget}
 
-		 \begin{itemize}
-		 		\item{\textbf{Planning of the thesis}} \\
-		 		In this phase a first research on computer vision and the different methods and algorithms used in object learning and recognition was performed. 
-		 		The outline of the thesis planning based on the acquired knowledge was created. 
-
-			 	\item{\textbf{State of the art}} \\
-			 	This part is the most time-consuming.
-			 	It consisted on the profound research and understanding of the different methodologies and algorithms devoted to computer vision in general and in-hand object recognition in particular. 
-			 	Also, it includes the learning and understanding of third-party packages in order to use them later on in the project's development. 
-			 	Figure \ref{gantt} shows that this phase was developed in parallel with the other ones. 
-
-			 	\item{\textbf{Learning phase}} \\
-			 	This part consisted on a exploration of all the different technologies that could be used and the different state of the art techniques available. A thorough research on the object recognition and human tracking fields was performed. This research continued until the finishing of the thesis, but the most important part of it was made in this period of time. 
-			 	The methods found were tested through demonstrations and there the main problems and possible solutions were obtained. This phase was crucial for the project, since in it the requisites of the software were defined as well as the technologies used and the general skeleton of the project's design that would later be implemented. 
-			 	\\
-
-			 	\item{\textbf{Project objectives definition}} \\
-
-			 	After the learning and first learning of computer vision algorithms, the objectives of the project were defined. 
-			 	They can be consulted in section \ref{objectives}. 
-
-			 	\item{\textbf{Design}} \\
-			 	This phase consisted on the design of the software that has been developed in this thesis. 
-			 	In this part the project's requirements were created. 
-			 	This document can be found in section \ref{requirements}. 
-			 	The requirements document content was followed during the programming phase. 
-
-			 	\item{\textbf{Project programming}}\\
-			 	In this phase the project was coded and tested. The state of the art algorithms research continued to allow the overcoming of the different difficulties that appear when implementing theoretical concepts. This modified the project's design as well as some of the technologies applied in the thesis. 
-
-			 	\item{\textbf{Documentation}}\\
-			 	This final part of the project consisted on creating the documentation of the project and the present thesis. 
-			 	Also, the presentation documentation was prepared. 
-			 	\\
-		 \end{itemize}
-
-		\begin{figure}[H]
-			\centering
-		    \includegraphics[scale=0.5, angle=90]{img/final.png}
-			\caption[Gantt Diagram]{Gantt Diagram}	
-			\label{gantt_diagram}
-		\end{figure}
-
-\newpage
-	\chapter{Budget}
-		This section presents the estimated budget of the project. 
-		Section \ref{project_management} explained the time management followed in this project and the different phases it underwent. 
-		Figure \ref{phases} shows the summary of the days spent in each of the phases. 
-		The phase that occupied most of the time was the learning phase. 
-		The state of the art learning occupies most of the project since it was performed in parallel with most of the other phases, as can be seen in figure \ref{gantt_diagram}. 
-		The next phase in size is the project programming and then the documentation of the project. 
-		% \begin{figure}[H]
-		% 	\centering
-		%     \includegraphics[width=0.8\linewidth]{img/budget/phases.png}
-		% 	\caption[Days and hours per project phase]{Summary of the days and hours spent in each of the project's phases}	
-		% 		    \label{phases}
-		% \end{figure}
-
-
-
-
-
-		It can be seen from figure \ref{phases} that the total days spent in the development of this project were 454. 
-		It was assumed that around 60 days between the begin and end dates were not devoted to this thesis. 
-		Also, an average of 3 hours per day were reserved to implementing this system and hence the total hours used were 1362. 
-		The man hours performed by my advisor were calculated as one hour per week as average. 
-		Figure \ref{budget} shows the final budget of the project. 
-		The first two items are the hardware required, then the man hours cost and finally the software cost. 
-		It can be noted that the software total cost was of 0 \euro. 
-		This is because all software used in this system is Open Source, hence no licenses are paid. 
-
-
-		% \begin{figure}[H]
-		% 	\centering
-		%     \includegraphics[width=0.8\linewidth]{img/budget/budget.png}
-		% 	\caption[Project's budget]{Project's budget}	
-		%     \label{budget}
-		% \end{figure}
-
-\begin{table}[H]
-\centering
-\begin{tabular} {l c c c c}
-\toprule
-\addlinespace[3mm]
-   \multicolumn{1}{c}{\begin{center}\textbf{ITEM}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{COST (\euro)}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{UNITS}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{QUANTITY}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{TOTAL COST (\euro)}\end{center}} &
-\\
-\addlinespace[-3mm]
-\midrule
-\textbf{Hardware}	&&&&		\\					
-\hspace*{0.5cm}	Kinect 360	&	120	&	\euro/unit	&	1 	&	120 \\
-\hspace*{0.5cm}	Mountain Ivy 11 Laptop	&	1000	&	\euro/unit	&	1	&	1000\\		
-\textbf{Man hours}													&&&&		\\		
-\hspace*{0.5cm}	Senior Engineer 	&	12	&\euro/h	&	56.75	&	681\\
-\hspace*{0.5cm}	Undegraduate Engineer	&	8	&	\euro/h		&	1362	&	10896 \\
-						
-\textbf{Software}			&&&&		\\						
-						
-\hspace*{0.5cm}	Linux	&	0 &	\euro/license	&	1	&	0\\
-\hspace*{0.5cm}	ROS	&	0	&\euro/license&	1	&0\\
-\hspace*{0.8cm}		openni\_camera	&	0	&	\euro/license	&1&		0\\
-\hspace*{0.8cm}		openni\_launch	&	0	&	\euro/license	&1&	0\\
-\hspace*{0.8cm}		pi\_tracker 		&	0	&	\euro/license	&1&	0\\
-\hspace*{0.5cm}	PCL		&	0	&	\euro/license	&	1	&	0\\
-\hspace*{0.5cm}	OpenCV	&	0	&	\euro/license	&	1	&	0\\
-						
-\midrule
-
-\textbf{TOTAL PROJECT'S COST: }			&&&&			\textbf{12697}\\
-
-\bottomrule
-\end{tabular}
-\caption[Project's budget]{Project's budget}
-\label{budget}
-
-\end{table}
-
-
-		Since all the software used is Open Source, I have performed an estimation of the cost of the development of each of the libraries I have used in this project. 
-		Figure \ref{estimations} summarizes the results.  
-
-		% \begin{figure}[H]
-		% 	\centering
-		%     \includegraphics[width=0.6\linewidth]{img/budget/estimations.png}
-		% 	\caption[Open source software cost estimation]{Open source software cost estimation}
-		%     \label{estimations}	
-		% \end{figure}
-
-
-
-
-
-\begin{table}[H]
-\centering
-\begin{tabular} {l c}
-\toprule
-\addlinespace[3mm]
-   \multicolumn{1}{c}{\begin{center}\textbf{SOFTWARE}\end{center}} &
-   \multicolumn{1}{c}{\begin{center}\textbf{TOTAL COST (\euro)}\end{center}} &
-\\
-\addlinespace[-3mm]
-\midrule
-Linux	&	10680392	\\
-ROS		&	2932343.25	\\
-\hspace*{0.5cm}	openni\_camera	&	99315.98	\\
-\hspace*{0.5cm}	openni\_launch	&	5956.98		\\
-\hspace*{0.5cm}	pi\_tracker 	&	74092.69	\\
-PCL	&	13101526.72		\\
-OpenCV	&	36263862.04		\\
-OCULAR	&	58709.439	\\
-
-\bottomrule
-\end{tabular}
-\caption[Open source software cost estimation]{Open source software cost estimation}
-\label{estimations}
-
-\end{table}
-
-
-		The estimations are created using the SLOCCount Open Source program \cite{sloccount}. 
-		This software measures the number of lines and automatically estimates the effort, time and money needed to create the software. 
-		The figures in table \ref{estimations} are obtained using the basic COCOMO model \cite{Boehm}. 
-		All defaults were used and the final cost of developing each of the tools are the ones presented in figure \ref{estimations}. 
-		It is important to note that in the case that these projects were not Open Source the cost of using them would not be, of course, the cost of the complete development. 
-		Instead, the right to use of the software is usually given in exchange of the payment of a license. 
-		\\
-
-		The cost estimation of the system developed in this thesis was also performed. 
-		It can be seen the high difference between the real cost and the estimated one. 
-		This is mainly due to the difference in the man-hours cost. 
-		By default, the software assumes a yearly cost per man of around 56 k USD which means an hourly rate of around 20 USD per hour, or 15 \euro. 
-		The final cost of the developed thesis is less than 13000 \euro, including all the required hardware. 
 
 \end{appendices}

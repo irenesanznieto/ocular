@@ -15,7 +15,7 @@
 \usepackage{tikz}
 
 \usepackage{cmap}   % PRODUCE A SEARCHABLE PDF !! :)
-
+% \usepackage[titletoc]{appendix}
 \usepackage{float}
 
 \usepackage{fancyhdr}
@@ -28,6 +28,25 @@
 
 \setlength{\headsep}{1.5cm}
 	\pagestyle{fancy}
+
+
+\usepackage{enumitem}
+
+
+
+\makeatletter
+\def\threedigits#1{\expandafter\@threedigits\csname c@#1\endcsname}
+\def\@threedigits#1{%
+  \ifnum#1<100 0\fi
+  \ifnum#1<10 0\fi
+  \number#1}
+\makeatother
+\AddEnumerateCounter{\threedigits}{\@threedigits}{100}
+
+
+\setenumerate[1]{}
+
+
 
 % \makeatletter
 % \def\@makechapterhead#1{%

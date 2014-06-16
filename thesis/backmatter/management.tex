@@ -1,0 +1,105 @@
+	\chapter{Appendix: \\Project management}
+	\label{project_management}
+		 The present section describes the project management followed in this thesis. The Gantt diagram created for this purpose can be seen in the following page.
+		 \\
+
+		 The thesis was started on February 7th 2013 and was finished on July 11th 2014.    
+		 The project management has suffered modifications throughout its development.  The final project management chart has three differentiated parts the learning phase, the project programming and the documentation phase. 
+\\
+
+		 \begin{table}[H]
+\centering
+\begin{tabular} {l c c c }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{PHASE}\end{center}} &
+   \multicolumn{1}{c}{\begin{center}\textbf{BEGIN DATE}\end{center}} &
+   \multicolumn{1}{c}{\begin{center}\textbf{END DATE}\end{center}} &
+   \multicolumn{1}{c}{\begin{center}\textbf{\hspace*{0.7cm}DAYS}\end{center}} &\\
+\addlinespace[-3mm]
+\midrule
+Planning of the Thesis 	&	07/02/13 	&	25/02/13	&	18 \\	
+State of the art	&	28/04/13	&11/07/14	&	439	\\
+Learning 		&	26/02/13	&	29/10/13	&	185	** \\
+\hspace*{0.5cm}	OpenCV	&	26/02/13 	&	24/04/13 	&	57	\\
+\hspace*{0.5cm}	OpenCV Demo	&	25/04/13	&	25/04/13	&	MILESTONE	\\
+\hspace*{0.5cm}	PCL + ROS	&	25/04/13	&	29/10/13	&	127	**		\\
+\hspace*{0.5cm}	PCL + ROS Demo	&	30/10/13	&	30/10/13	&	MILESTONE	\\
+Project Objectives Definition	&	30/10/13	&	07/11/13	&	8\\	
+Design	&	08/11/13	&	21/11/13 	&	13	\\
+Project Programming		&	22/11/13	&	20/05/14	&	179	\\
+\hspace*{0.5cm}	pi\_tracker integration : converter &	22/11/13	&	20/01/14	&	59\\	
+\hspace*{0.5cm}	ROI segmentation implementation		&	21/01/14	&	20/02/14	&	30	\\
+\hspace*{0.5cm}	Feature extraction implementation	&	21/02/14	&	15/04/14	&	53\\	
+\hspace*{0.5cm}	State machine implementation	&	16/04/14	&	14/05/14	&	28	\\
+\hspace*{0.5cm}	Decision algorithm development	&	15/05/14	&	20/05/14	&	5	\\
+\hspace*{0.5cm}	Tests	&	22/11/13	&	20/05/14	&	179\\	
+Documentation	&	21/05/14	&	11/07/14	&	51	\\
+\hspace*{0.5cm}		Thesis writing	&	21/05/14	&	22/06/14	&	32	\\
+\hspace*{0.5cm}		Thesis hand-in	&	22/06/14	&	22/06/14	&	MILESTONE	\\
+\hspace*{0.5cm}		Presentation preparation		&	23/06/14	&	11/07/14	&	18	\\
+\hspace*{0.5cm}		Thesis presentation		&	11/07/14	&	11/07/14	&	MILESTONE	\\
+
+\addlinespace[3mm]
+\bottomrule
+\addlinespace[3mm]
+
+\textbf{TOTAL DAYS: 	}		&&&\textbf{	454}	\\
+\textbf{TOTAL HOURS (3h per day) :} &&&			\textbf{1362}	\\
+\addlinespace[3mm]
+
+\bottomrule
+\end{tabular}
+\caption[Days and hours per project phase]{Summary of the days and hours spent in each of the project's phases.\\
+** 60 days of holidays are not taken into account in the calculations.}	
+\label{phases}
+
+\end{table}
+\vspace*{0.5cm}
+
+
+	Figure \ref{phases} presents a summary of the hours dedicated to each of the phases of the project. 
+	These thesis parts are the following: 
+
+		 \begin{itemize}
+		 		\item{\textbf{Planning of the thesis}} \\
+		 		In this phase a first research on computer vision and the different methods and algorithms used in object learning and recognition was performed. 
+		 		The outline of the thesis planning based on the acquired knowledge was created. 
+
+			 	\item{\textbf{State of the art}} \\
+			 	This part is the most time-consuming.
+			 	It consisted on the profound research and understanding of the different methodologies and algorithms devoted to computer vision in general and in-hand object recognition in particular. 
+			 	Also, it includes the learning and understanding of third-party packages in order to use them later on in the project's development. 
+			 	Figure \ref{gantt} shows that this phase was developed in parallel with the other ones. 
+
+			 	\item{\textbf{Learning phase}} \\
+			 	This part consisted on a exploration of all the different technologies that could be used and the different state of the art techniques available. A thorough research on the object recognition and human tracking fields was performed. This research continued until the finishing of the thesis, but the most important part of it was made in this period of time. 
+			 	The methods found were tested through demonstrations and there the main problems and possible solutions were obtained. This phase was crucial for the project, since in it the requisites of the software were defined as well as the technologies used and the general skeleton of the project's design that would later be implemented. 
+			 	\\
+
+			 	\item{\textbf{Project objectives definition}} \\
+
+			 	After the learning and first learning of computer vision algorithms, the objectives of the project were defined. 
+			 	They can be consulted in section \ref{objectives}. 
+
+			 	\item{\textbf{Design}} \\
+			 	This phase consisted on the design of the software that has been developed in this thesis. 
+			 	In this part the project's requirements were created. 
+			 	This document can be found in section \ref{requirements}. 
+			 	The requirements document content was followed during the programming phase. 
+
+			 	\item{\textbf{Project programming}}\\
+			 	In this phase the project was coded and tested. The state of the art algorithms research continued to allow the overcoming of the different difficulties that appear when implementing theoretical concepts. This modified the project's design as well as some of the technologies applied in the thesis. 
+
+			 	\item{\textbf{Documentation}}\\
+			 	This final part of the project consisted on creating the documentation of the project and the present thesis. 
+			 	Also, the presentation documentation was prepared. 
+			 	\\
+		 \end{itemize}
+
+		\begin{figure}[H]
+			\centering
+		    \includegraphics[scale=0.5, angle=90]{img/final.png}
+			\caption[Gantt Diagram]{Gantt Diagram}	
+			\label{gantt_diagram}
+		\end{figure}

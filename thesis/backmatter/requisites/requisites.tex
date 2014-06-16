@@ -1,77 +1,77 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{listings}
-\usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
+% \documentclass{article}
+% \usepackage[utf8]{inputenc}
+% \usepackage{amsmath}
+% \usepackage{graphicx}
+% \usepackage{listings}
+% \usepackage[top=1.55cm, bottom=2.29cm, left=1.6cm, right=1.47cm]{geometry}
 % This is for the fancy title in each page
 %\rhead{Software Requirements Specification}
 %\lhead{}
 %\chead{}
 %\rhead{In-hand object detection and tracking using 2D and 3D information}
-\pagestyle{empty}
+% \pagestyle{empty}
 
-\usepackage{enumitem}
+% \usepackage{enumitem}
 
 
-\makeatletter
-\def\threedigits#1{\expandafter\@threedigits\csname c@#1\endcsname}
-\def\@threedigits#1{%
-  \ifnum#1<100 0\fi
-  \ifnum#1<10 0\fi
-  \number#1}
-\makeatother
-\AddEnumerateCounter{\threedigits}{\@threedigits}{100}
-\usepackage{hyperref}
-\hypersetup{
-    pdfauthor={Irene Sanz Nieto},
-    colorlinks,
-    citecolor=blue,
-    filecolor=blue,
-    linkcolor=blue,
-    urlcolor=blue,
-}
+% \makeatletter
+% \def\threedigits#1{\expandafter\@threedigits\csname c@#1\endcsname}
+% \def\@threedigits#1{%
+%   \ifnum#1<100 0\fi
+%   \ifnum#1<10 0\fi
+%   \number#1}
+% \makeatother
+% \AddEnumerateCounter{\threedigits}{\@threedigits}{100}
+% \usepackage{hyperref}
+% \hypersetup{
+%     pdfauthor={Irene Sanz Nieto},
+%     colorlinks,
+%     citecolor=blue,
+%     filecolor=blue,
+%     linkcolor=blue,
+%     urlcolor=blue,
+% }
 
-\usepackage{float}
+% \usepackage{float}
 
 %\setenumerate[1]{}
 
 
-\begin{document}
+% \begin{document}
 
-%%%% FRONTPAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{titlepage}
+% %%%% FRONTPAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{titlepage}
 
-\begin{center}
-%\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
-\textsc{\huge Bachelor's Thesis:\\[0.5cm]In-hand object detection and tracking using\\[0.5cm]2D and 3D
-information }\\[4cm]
-
-
-% Title
-{\Huge\bfseries{Software Requirements Specification}\\[2cm]}
-
-\Large{Version 1.0}
-\\[11cm]
+% \begin{center}
+% %\includegraphics[width=0.25\textwidth]{./uc3m.jpg}\\[2cm]
+% \textsc{\huge Bachelor's Thesis:\\[0.5cm]In-hand object detection and tracking using\\[0.5cm]2D and 3D
+% information }\\[4cm]
 
 
-% Author and supervisor
-\begin{minipage}{0.55\textwidth}
-\begin{flushleft} \large
-\emph{Author:}\\
-Irene Sanz Nieto\\
-\end{flushleft}
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-\begin{flushright} \large
-\emph{Supervisor:}\\
-Victor González Pacheco\end{flushright}\end{minipage}\vfill
+% % Title
+% {\Huge\bfseries{Software Requirements Specification}\\[2cm]}
 
-% Bottom of the page
-%{\large \today}
+% \Large{Version 1.0}
+% \\[11cm]
 
-\end{center}
-\end{titlepage}
+
+% % Author and supervisor
+% \begin{minipage}{0.55\textwidth}
+% \begin{flushleft} \large
+% \emph{Author:}\\
+% Irene Sanz Nieto\\
+% \end{flushleft}
+% \end{minipage}
+% \begin{minipage}{0.4\textwidth}
+% \begin{flushright} \large
+% \emph{Supervisor:}\\
+% Victor González Pacheco\end{flushright}\end{minipage}\vfill
+
+% % Bottom of the page
+% %{\large \today}
+
+% \end{center}
+% \end{titlepage}
 
 %
 \newpage
@@ -132,7 +132,7 @@ Figure \ref{uc_converter} presents the use case diagram of the node.
 
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{../../img/diagrams/uc_converter.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_converter.eps}
 			\caption[Use case diagram converter node]{Use Case diagram of the converter node}
 		\label{uc_converter}
 \end{center}
@@ -150,7 +150,7 @@ Figure \ref{uc_roi3d} shows the use case diagram of the node.
 
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{../../img/diagrams/uc_roi_segmenter_3d.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_3d.eps}
 			\caption[Use case diagram ROI segmenter 3D node]{Use Case diagram of the ROI segmenter 3D node}
 		\label{uc_roi3d}	
 
@@ -164,7 +164,7 @@ To decrease the computation time, the point clouds do not have the RGB component
 Figure \ref{uc_roi2d} presents the use case of this node. 
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{../../img/diagrams/uc_roi_segmenter_2d.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_2d.eps}
 			\caption[Use case diagram ROI segmenter 2D node]{Use Case diagram of the ROI segmenter 2D node}
 		\label{uc_roi2d}
 \end{center}
@@ -176,7 +176,7 @@ This node is used to extract the descriptors or features from the 2D Region Of I
 The use case diagram may be found in figure \ref{uc_fe2d}
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{../../img/diagrams/uc_feature_extractor_2d.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_2d.eps}
 			\caption[Use case diagram Feature Extractor 2D node]{Use Case diagram of the Feature Extractor 2D node}
 		\label{uc_fe2d}
 \end{center}
@@ -188,7 +188,7 @@ Similarly to the feature extractor 2D node, this node extracts the descriptors f
 Its use case diagram is shown in figure \ref{uc_fe3d}.
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{../../img/diagrams/uc_feature_extractor_3d.eps}
+	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_3d.eps}
 			\caption[Use case diagram Feature Extractor 3D node]{Use Case diagram of the Feature Extractor 3D node}
 		\label{uc_fe3d}
 \end{center}
@@ -199,7 +199,7 @@ Its use case diagram is shown in figure \ref{uc_fe3d}.
 % This node stores the 2D and 3D features of each template of the same object in one file. 
 % \begin{figure}[H]
 % \begin{center}
-% 	\includegraphics[scale=0.4]{../../img/diagrams/uc_data_parser.eps}
+% 	\includegraphics[scale=0.4]{img/diagrams/uc_data_parser.eps}
 % \end{center}
 % \end{figure}
 
@@ -210,7 +210,7 @@ Its use case diagram is shown in figure \ref{uc_fe3d}.
 
 	\begin{figure}[H]
 \begin{center}
-		\includegraphics[scale=0.4]{../../img/diagrams/uc_event_handler.eps}
+		\includegraphics[scale=0.4]{img/diagrams/uc_event_handler.eps}
 
 	\end{center}
 	\caption[Use case diagram Event Handler node]{Use Case diagram of the Event Handler node}
@@ -254,7 +254,7 @@ The object that is finally published in a topic will be the one with a higher pe
 \begin{figure}[H]
 \begin{center}
 
-		\includegraphics[scale=0.4]{../../img/diagrams/uc_learner_recognizer.eps}
+		\includegraphics[scale=0.4]{img/diagrams/uc_learner_recognizer.eps}
 	\end{center}
 \end{figure}
 
@@ -267,7 +267,7 @@ The object that is finally published in a topic will be the one with a higher pe
 
 % \begin{figure}[H]
 % \begin{center}
-% 	\includegraphics[scale=0.4]{../../img/diagrams/uc_recognizer.eps}
+% 	\includegraphics[scale=0.4]{img/diagrams/uc_recognizer.eps}
 % \end{center}
 % \end{figure}
 
@@ -283,13 +283,13 @@ This open-source framework implements different algorithms for n-dimensional poi
 In this project, it is used to filter, extract features and segment the RGB-D's point clouds.
 
 \subsection{Node Interaction}
-%In the following diagram it can be seen the interaction and the information exchanged between nodes.
+In the following diagram it can be seen the interaction and the information exchanged between nodes.
 %\subsubsection{Use Case Diagram}
 %\begin{figure}[H]
-\begin{center}
-%\includegraphics[scale=0.3]{../../img/diagrams/use_case.eps}
-%\end{center}
-\end{figure}
+% \begin{center}
+% %\includegraphics[scale=0.3]{img/diagrams/use_case.eps}
+% %\end{center}
+% \end{figure}
 
 \subsubsection{Sequence Diagram}
 In the following diagram can be seen the interaction between nodes. \\
@@ -298,7 +298,7 @@ The converter, ROI Segmenters and Feature Extractors nodes are continuously work
 Hence, the information needed for the Event Handler, Recognizer and Learner nodes is obtained subscribing to those topics. 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{../../img/diagrams/sequence.eps}
+\includegraphics[width=\textwidth]{img/diagrams/sequence.eps}
 \end{center}
 \end{figure}
 
@@ -306,7 +306,7 @@ Hence, the information needed for the Event Handler, Recognizer and Learner node
 In the following diagram, the flow of the program is represented. 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.25]{../../img/diagrams/flowcharts.eps}
+\includegraphics[width=\textwidth]{img/diagrams/flowcharts.eps}
 \end{center}
 \end{figure}
 
@@ -327,7 +327,7 @@ In the following diagram, the flow of the program is represented.
 	\item The output of the system must be a topic specifying the name of the detected object. 
  
  
-\subsection{Converter}
+\hspace*{-2cm}\subsection{Converter}
 
 \item The information must be received subscribing to the topics of the different third-party packages. 
 \item This node must convert different message formats to the custom message used within this project, serving as an interface. 
