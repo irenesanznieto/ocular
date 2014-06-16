@@ -72,16 +72,16 @@
 		The whole package benchmarking is obtained summing the performances of the different nodes. 
 		This information is important to know the minimum specifications of the computer used in order to obtain a real-time response of the system.  
 
-		The results are being shown in section \ref{results} in a table as the one in figure \ref{node_model}.
+		% The results are being shown in section \ref{results} in a table as the one in figure \ref{node_model}.
 
-		\begin{figure}[H]
-				\begin{center}
-			    \includegraphics[scale=0.48]{img/tests/node_model.png}
-				\caption[Node benchmarking - Table model]{Node benchmarking - Table model}
-								\label{node_model}
+		% \begin{figure}[H]
+		% 		\begin{center}
+		% 	    \includegraphics[scale=0.48]{img/tests/node_model.png}
+		% 		\caption[Node benchmarking - Table model]{Node benchmarking - Table model}
+		% 						\label{node_model}
 
-				\end{center}
-		\end{figure}
+		% 		\end{center}
+		% \end{figure}
 
 		\item{\textbf{Topic Benchmarking}}\\
 		The topics communicate the nodes and allow the exchange of information. 
@@ -91,15 +91,15 @@
 		The bandwidth parameter is the speed at which the data is transmitted. 
 		Its units are kilobytes per second. 
 		The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
-		The results are presented in a table as the one in figure \ref{topic_bw_model}. 
+		% The results are presented in a table as the one in figure \ref{topic_bw_model}. 
 
-		\begin{figure}[H]
-				\begin{center}
-			    \includegraphics[scale=0.35]{img/tests/topic_bw_model.png}
-				\caption[Topic benchmarking - Bandwidth table model]{Topic benchmarking - Bandwidth table model}
-				\label{topic_bw_model}
-				\end{center}
-		\end{figure}
+		% \begin{figure}[H]
+		% 		\begin{center}
+		% 	    \includegraphics[scale=0.35]{img/tests/topic_bw_model.png}
+		% 		\caption[Topic benchmarking - Bandwidth table model]{Topic benchmarking - Bandwidth table model}
+		% 		\label{topic_bw_model}
+		% 		\end{center}
+		% \end{figure}
 		% If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. 
 		\\
 
@@ -108,16 +108,16 @@
 		It is measured in Hz. 
 		There is a command which is similar to the one above that returns the maximum, minimum and the standard deviation of the time between messages in seconds. 
 		Also, it returns the average publishing frequency.  
-		A table like the one in figure \ref{topic_hz_model} is used to present the results.
+		% A table like the one in figure \ref{topic_hz_model} is used to present the results.
 
-		\begin{figure}[H]
-				\begin{center}
-			    \includegraphics[scale=0.35]{img/tests/topic_hz_model.png}
-				\caption[Topic benchmarking - Publishing rate table model]{Topic benchmarking - Publishing rate table model}
-								\label{topic_hz_model}
-				\end{center}
-		\end{figure}
-			\end{itemize}
+		% \begin{figure}[H]
+		% 		\begin{center}
+		% 	    \includegraphics[scale=0.35]{img/tests/topic_hz_model.png}
+		% 		\caption[Topic benchmarking - Publishing rate table model]{Topic benchmarking - Publishing rate table model}
+		% 						\label{topic_hz_model}
+		% 		\end{center}
+		% \end{figure}
+		% 	\end{itemize}
 
 \newpage
 
@@ -256,17 +256,17 @@
 		In order to evaluate the accuracy, a confusion matrix is constructed for each experiment. 
 		This matrix shows the number of times each different object was predicted when each of the real objects were presented to the system. 
 		In this system, each different retrieved a different number of results and hence the matrix is constructed with a ratio from 0 to 1. 
-		The confusion matrix in which the results are being presented is the same as the figure \ref{matrix_model}. 
+		% The confusion matrix in which the results are being presented is the same as the figure \ref{matrix_model}. 
 
 
-		\begin{figure}[H]
-				\begin{center}
-			    \includegraphics[scale=0.35]{img/tests/matrix_model.png}
-				\caption[Confusion matrix model]{Confusion matrix model}
-				\label{matrix_model}
+		% \begin{figure}[H]
+		% 		\begin{center}
+		% 	    \includegraphics[scale=0.35]{img/tests/matrix_model.png}
+		% 		\caption[Confusion matrix model]{Confusion matrix model}
+		% 		\label{matrix_model}
 
-				\end{center}
-		\end{figure}
+		% 		\end{center}
+		% \end{figure}
 
 
 		The precision is the fraction of retrieved results that are relevant.  
@@ -287,16 +287,16 @@
 		\\	
 
 		The precision and recall is computed for each of the six objects conforming the dataset. 
-		Those two parameters together with the F1-score is presented in a table as the one in figure \ref{fscore_model}. 
+		% Those two parameters together with the F1-score is presented in a table as the one in figure \ref{fscore_model}. 
 
-		\begin{figure}[H]
-				\begin{center}
-			    \includegraphics[scale=0.35]{img/tests/fscore_model.png}
-				\caption[F1-score table model]{F1-score table model using precision and recall measurements}
-				\label{fscore_model}
+		% \begin{figure}[H]
+		% 		\begin{center}
+		% 	    \includegraphics[scale=0.35]{img/tests/fscore_model.png}
+		% 		\caption[F1-score table model]{F1-score table model using precision and recall measurements}
+		% 		\label{fscore_model}
 
-				\end{center}
-		\end{figure}
+		% 		\end{center}
+		% \end{figure}
 
 
 

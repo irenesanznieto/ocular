@@ -22,7 +22,17 @@
   \number#1}
 \makeatother
 \AddEnumerateCounter{\threedigits}{\@threedigits}{100}
+\usepackage{hyperref}
+\hypersetup{
+    pdfauthor={Irene Sanz Nieto},
+    colorlinks,
+    citecolor=blue,
+    filecolor=blue,
+    linkcolor=blue,
+    urlcolor=blue,
+}
 
+\usepackage{float}
 
 %\setenumerate[1]{}
 
@@ -69,6 +79,9 @@ Victor González Pacheco\end{flushright}\end{minipage}\vfill
 %%%%%%Table of contents%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
+%%%%%% TABLE OF FIGURES %%%%%%
+\listoffigures
+
 \newpage
 
 
@@ -103,10 +116,10 @@ This node implements the learning sequence of new objects and also the training 
 It uses the features (both 2D and 3D) extracted from the previous node to make the training. 
 
 \item Recogniser:\\ 
-This node implements the recognising sequence. It compares the features extracted at each captured frame using the previously trained algorithms. 
+This node implements the recognizing sequence. It compares the features extracted at each captured frame using the previously trained algorithms. 
 \end{itemize}
    
-The communication between nodes is made using the Robotic Operating System topics. The nodes can publish in a specific topic a certain message or subscribe to that topic to retreive the message. 
+The communication between nodes is made using the Robotic Operating System topics. The nodes can publish in a specific topic a certain message or subscribe to that topic to retrieve the message. 
 There are different types of messages depending on the information that has to be transmitted. There exist certain ROS libraries that define standard messages or geometric messages as an example. It is also possible to create a custom message type. 
 
 
@@ -115,10 +128,15 @@ There are different types of messages depending on the information that has to b
 \subsubsection{Converter Node}
 
 This node converts the messages from other ROS packages to the internal message format used within the code. 
+Figure \ref{uc_converter} presents the use case diagram of the node. 
 
+\begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_converter.eps}
+	\includegraphics[scale=0.4]{../../img/diagrams/uc_converter.eps}
+			\caption[Use case diagram converter node]{Use Case diagram of the converter node}
+		\label{uc_converter}
 \end{center}
+\end{figure}
 	
 \subsubsection{ROI Segmenter Nodes}
 There are two nodes that extract the ROI (Region Of Interest), one for the 2D and the other one for the 3D data.
@@ -126,48 +144,73 @@ There are two nodes that extract the ROI (Region Of Interest), one for the 2D an
 \paragraph {ROI Segmenter 3D Node\\[0.5cm]}
 
 The first region of interest segmented is the 3D. Using the hand's center position obtained from the pi\_ tracker ROS package a prism is extracted around it. Its dimensions are all fixed to an experimental value that is suitable for this purpose. 
-\\
 No outlier filtering is done due to the high computing time required.  
-\\
 The limits of the 3D ROI extracted are converted to pixels and published in a topic. These limits are the inputs of the following node. 
+Figure \ref{uc_roi3d} shows the use case diagram of the node. 
+
+\begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_3d.eps}
+	\includegraphics[scale=0.4]{../../img/diagrams/uc_roi_segmenter_3d.eps}
+			\caption[Use case diagram ROI segmenter 3D node]{Use Case diagram of the ROI segmenter 3D node}
+		\label{uc_roi3d}	
+
 \end{center}
+\end{figure}
 
 \paragraph{ROI Segmenter 2D Node\\[0.5cm]}
 As it was previously mentioned, the 2D ROI dimensions are extracted from the 3D ROI. The original image obtained from the RGB-D sensor is cropped using those points. 
-\\
 The outputs of this node are two topics, one with the 2D ROI (a custom message that includes an image and a name) and the other one with the 3D ROI (a point cloud).
-\\
 To decrease the computation time, the point clouds do not have the RGB component. Thus, the color information is obtained through the 2D ROI. 
-
+Figure \ref{uc_roi2d} presents the use case of this node. 
+\begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_2d.eps}
+	\includegraphics[scale=0.4]{../../img/diagrams/uc_roi_segmenter_2d.eps}
+			\caption[Use case diagram ROI segmenter 2D node]{Use Case diagram of the ROI segmenter 2D node}
+		\label{uc_roi2d}
 \end{center}
+\end{figure}
 
-\subsubsection{Feature Extractor Node}
-This node extracts both 2D and 3D features and publish them. 
-
+\subsubsection{Feature Extractor Nodes}
+\paragraph{Feature Extractor 2D Node \\[0.5cm]}
+This node is used to extract the descriptors or features from the 2D Region Of Interest. 
+The use case diagram may be found in figure \ref{uc_fe2d}
+\begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_2d.eps}
-
-	\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_3d.eps}
-
+	\includegraphics[scale=0.4]{../../img/diagrams/uc_feature_extractor_2d.eps}
+			\caption[Use case diagram Feature Extractor 2D node]{Use Case diagram of the Feature Extractor 2D node}
+		\label{uc_fe2d}
 \end{center}
+\end{figure}
 
 
-\subsubsection{Data Parser Node}
-This node stores the 2D and 3D features of each template of the same object in one file. 
+\paragraph{Feature Extractor 3D Node \\[0.5cm]}
+Similarly to the feature extractor 2D node, this node extracts the descriptors from the 3D ROI. 
+Its use case diagram is shown in figure \ref{uc_fe3d}.
+\begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_data_parser.eps}
+	\includegraphics[scale=0.4]{../../img/diagrams/uc_feature_extractor_3d.eps}
+			\caption[Use case diagram Feature Extractor 3D node]{Use Case diagram of the Feature Extractor 3D node}
+		\label{uc_fe3d}
 \end{center}
+\end{figure}
+
+
+% \subsubsection{Data Parser Node}
+% This node stores the 2D and 3D features of each template of the same object in one file. 
+% \begin{figure}[H]
+% \begin{center}
+% 	\includegraphics[scale=0.4]{../../img/diagrams/uc_data_parser.eps}
+% \end{center}
+% \end{figure}
 
 
 \subsubsection{Event Handler Node}
 	This node identifies the different user's gestures and act accordingly using a State Machine structure. 
-	\begin{center}
-		\includegraphics[scale=0.4]{img/diagrams/uc_event_handler.eps}
+	\begin{figure}[H]
+\begin{center}
+		\includegraphics[scale=0.4]{../../img/diagrams/uc_event_handler.eps}
 	\end{center}
+\end{figure}
 	
 	
 \subsubsection{Object Learner Node}
@@ -181,10 +224,12 @@ First, 3D and 2D descriptors are extracted and written to a file. Then, two algo
 
 The learning of the objects is done in-hand. The training starts when the user extends the hand in front of the body, showing the new object to the RGB-D sensor. Then, the user rotates the object to allow the software to extract the features of different views to obtain a more robust model of the object. This way of learning new objects will allow a more intuitive interaction human-robot. When the user returns the arm to a position which is closer to the body, the algorithm starts learning the new object and after the learning, it comes back to the recognizing mode, which is the default. 
 
+\begin{figure}[H]
 \begin{center}
 
-		\includegraphics[scale=0.4]{img/diagrams/uc_learner.eps}
+		\includegraphics[scale=0.4]{../../img/diagrams/uc_learner.eps}
 	\end{center}
+\end{figure}
 
 \subsubsection{Object Recognizer Node} 
 \hspace{0.5cm}This node tracks the user's hands and recognizes the held objects. 
@@ -201,9 +246,11 @@ Due to this fact, weights for the output of each algorithm will be given. Those 
 \\
 The object that is finally published in a topic will be the one with a higher percentage of similarity. 
 
+\begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{img/diagrams/uc_recognizer.eps}
+	\includegraphics[scale=0.4]{../../img/diagrams/uc_recognizer.eps}
 \end{center}
+\end{figure}
 
 
 \subsection{Third Party Packages}
@@ -219,24 +266,30 @@ In this project, it is used to filter, extract features and segment the RGB-D's 
 \subsection{Node Interaction}
 %In the following diagram it can be seen the interaction and the information exchanged between nodes.
 %\subsubsection{Use Case Diagram}
-%\begin{center}
-%\includegraphics[scale=0.3]{img/diagrams/use_case.eps}
+%\begin{figure}[H]
+\begin{center}
+%\includegraphics[scale=0.3]{../../img/diagrams/use_case.eps}
 %\end{center}
+\end{figure}
 
 \subsubsection{Sequence Diagram}
 In the following diagram can be seen the interaction between nodes. \\
 The Event Handler node triggers the execution of the Recognizer and the Learner nodes. As it was previously mentioned, the triggering event is defined to create a more natural human-machine interaction.
-The converter, ROI Segmenters, Feature Extractors, Data Parser and Display nodes are continuously working and publishing the information on their topics. 
+The converter, ROI Segmenters and Feature Extractors nodes are continuously working and publishing the information on their topics. 
 Hence, the information needed for the Event Handler, Recognizer and Learner nodes is obtained subscribing to those topics. 
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{img/diagrams/sequence.eps}
+\includegraphics[scale=0.3]{../../img/diagrams/sequence.eps}
 \end{center}
+\end{figure}
 
 \subsection{Flowchart}
 In the following diagram, the flow of the program is represented. 
+\begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.25]{img/diagrams/flowcharts.eps}
+\includegraphics[scale=0.25]{../../img/diagrams/flowcharts.eps}
 \end{center}
+\end{figure}
 
 
 
@@ -248,7 +301,7 @@ In the following diagram, the flow of the program is represented.
 
 \begin{enumerate}[label=\textbf{FR\threedigits*}, leftmargin=2cm]
 
-	\item The software must be developed under ROS (Robotic Operating System), using the Groovy distro and rosbuild.
+	\item The software must be developed under ROS (Robotic Operating System), using the Groovy distribution and rosbuild.
 	\item A version control system should be used (GIT) and all the code must be periodically updated in the following github repository:  $https://github.com/irenesanznieto/TFG$
 %	\item The software has to have an interface. Its requirements are specified in the following "Interface Requirements" section. 
 	\item The software must accept as inputs the following RGB-D sensors: Microsoft Kinect, ASUS Xtion PRO, ASUS Xtion PRO Live, PrimeSense PSDK 5.0.
@@ -286,48 +339,48 @@ In the following diagram, the flow of the program is represented.
    \subsubsection{Feature Extractor 2D}
 	\item This node must extract the 2D features. 
 	\item The 2D features will be expressed as a vector of descriptors. %, using the ORB approach. 
-	\item The 2D features of all the views of each object will be stored in a file, using the data parser node.  
+	\item The 2D features of all the views of each object will be stored in a file, using the data parser class.  
   
   \subsubsection{Feature Extractor 3D}
    	\item This node must extract the 3D features. 
 	\item The 3D features will be expressed as a vector of features. %, using the Line-Mod approach.
-	\item The 3D features of all the views of each object will be stored in a file, using the data parser node.  
+	\item The 3D features of all the views of each object will be stored in a file, using the data parser class.  
 
 \subsection{Data Parser}
-\item This node will compress the features obtained to have one data file per object with all the information.
+\item This class compresses the features obtained to have one data file per object with all the information.
  
 \item It has to be able to create a new file for storing the features of a new object. 
 \item It has to be able to delete certain views or a complete file of the dataset. 
 \item It has to be able to add another view to a previously stored object. 
 
-\item This node will also be able to read the files to extract the 2D and 3D features of each object of the dataset. 
+\item This class will also be able to read the files to extract the 2D and 3D features of each object of the dataset. 
 
 \item The name of the file will be the one given to the object. 
 
-\item The datafile structure will be: \\
-		\begin{lstlisting}
-	<view1>
-		<2D>
-			[descriptor information ..]
-		</2D>
-		<3D>
-			[template information ..]
-		</3D>
-	</view1>	
-	...
-	...
-	...		
+% \item The datafile structure will be: \\
+% 		\begin{lstlisting}
+% 	<view1>
+% 		<2D>
+% 			[descriptor information ..]
+% 		</2D>
+% 		<3D>
+% 			[template information ..]
+% 		</3D>
+% 	</view1>	
+% 	...
+% 	...
+% 	...		
 			
-	<viewN>
-		<2D>
-			[descriptor information ..]
-		</2D>
-		<3D>
-			[template information ..]
-		</3D>
-	</viewN>	
+% 	<viewN>
+% 		<2D>
+% 			[descriptor information ..]
+% 		</2D>
+% 		<3D>
+% 			[template information ..]
+% 		</3D>
+% 	</viewN>	
 		
-		\end{lstlisting}
+% 		\end{lstlisting}
 	
 
 
@@ -337,13 +390,13 @@ In the following diagram, the flow of the program is represented.
 \item This node must launch the object learner node or the object recognizer node depending on a triggering event. 
 \item The triggering event occurs when the distance between the hand and the torso is equal or higher than 0.5m.   
  
-\subsection{Display}
+% \subsection{Display}
 
-\item The program must have a window with the output of the camera of the kinect sensor. 
-\item The information as to what mode the program is in has to be shown in the title of the window.
-\item In the recognition mode, the interface must show a square around the detected object and a text label indicating the object's name. Also, two points must be drawn in each of the hands. 
-%\item The learning mode should open a new window where an shpere will appear. The sphere must show a different colour when a template of that zone is made. On the main window, a square should be placed around the new object. 
-\item The learning mode should display the number of views obtained and processed of the object as well as an indication as to how to rotate the object to obtain further views. 
+% \item The program must have a window with the output of the camera of the kinect sensor. 
+% \item The information as to what mode the program is in has to be shown in the title of the window.
+% \item In the recognition mode, the interface must show a square around the detected object and a text label indicating the object's name. Also, two points must be drawn in each of the hands. 
+% %\item The learning mode should open a new window where an shpere will appear. The sphere must show a different colour when a template of that zone is made. On the main window, a square should be placed around the new object. 
+% \item The learning mode should display the number of views obtained and processed of the object as well as an indication as to how to rotate the object to obtain further views. 
 
 
 \subsection{Object Learner}
@@ -351,7 +404,7 @@ In the following diagram, the flow of the program is represented.
 	\item This node must have two algorithms, one for 2D and other for 3D. 
 %	\item The algorithm used with 2D features should be a BruteForce trainer.
 %	\item The algorithm used with 3D features must be the Line-Mod trainer. 	
-	\item This node must send feedback messages to the display with the learning information (number of views of the object processed, information about how to rotate the object).
+	% \item This node must send feedback messages to the display with the learning information (number of views of the object processed, information about how to rotate the object).
 	\item The output of this node will be the trained algorithms, whose parameters must be written to a file. 
 
 \subsection{Object Recognizer}

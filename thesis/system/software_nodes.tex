@@ -81,8 +81,8 @@ In the following sections the processing performed by each node is presented.
 			\begin{center}
 		\includegraphics[width=\linewidth]{img/diagrams/nodes.eps}
 			\caption[System nodes]{System nodes and their interaction.}
-			\end{center}
 			\label{system_nodes}
+			\end{center}
 		\end{figure}
 
 \newpage
@@ -141,12 +141,13 @@ In the following sections the processing performed by each node is presented.
 	The prism vertex coordinates are transformed from world coordinates to pixels. 
 	This is done to allow the ROI Segmenter 2D to perform the cropping of the input image using those pixel values. 
 	That information is the output of the node, together with the segmented point cloud. 
+	Figure \ref{uc_roi3d} shows the use case diagram of the node. 
 
 	\begin{figure}[H]
 		\centering
 	\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_3d.eps}
 		\caption[Use case diagram ROI segmenter 3D node]{Use Case diagram of the ROI segmenter 3D node}
-		
+		\label{uc_roi3d}	
 	\end{figure}
  
 %\newpage
@@ -223,13 +224,13 @@ In the following sections the processing performed by each node is presented.
 			\end{center}
 		\end{figure}
 
-	The picture below shows the use case diagram of the node. 
+	Figure \ref{uc_fe3d} shows the use case diagram of the node. 
 
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_3d.eps}
 			\caption[Use case diagram Feature Extractor 3D node]{Use Case diagram of the Feature Extractor 3D node}
-		
+		\label{uc_fe3d}
 	\end{figure}
 
 %\newpage

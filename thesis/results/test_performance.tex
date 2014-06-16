@@ -8,12 +8,11 @@
 			There is a high difference in the CPU and RAM usage between nodes.
 			The nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption.
 			The nodes that process the input images and point clouds have much higher values. 
-			Figure \ref{node_bench} shows the results of the node benchmarking. 
+			Figure \ref{node} shows the results of the node benchmarking. 
 
 
 \begin{table}[H]
 \centering
-\caption{Nodes benchmarking}
 \begin{tabular} {l c r@{.}l c r@{.}l c r@{.}l }
 \toprule
 \addlinespace[3mm]
@@ -34,7 +33,9 @@ System output && 1&00 && 0&13 && 0&30 \\
 \textbf{TOTAL} && \textbf{183}&\textbf{00} &&\textbf{22}&\textbf{88} && \textbf{4}&\textbf{70} \\
 \bottomrule
 \end{tabular}
-\label{node_bench}
+\caption{Nodes benchmarking}
+\label{node}
+
 \end{table}
 
 
@@ -59,7 +60,7 @@ System output && 1&00 && 0&13 && 0&30 \\
 
 			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
 			
-			\newpage
+			% \newpage
 
 		\item{\textbf{Topic benchmarking}}\\
 
@@ -83,7 +84,6 @@ System output && 1&00 && 0&13 && 0&30 \\
 
 \begin{table}[H]
 \centering
-\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
 \begin{tabular} {l c r@{.}l }
 \toprule
 \addlinespace[3mm]
@@ -103,6 +103,7 @@ Event && 27&72 \\
  Final  object  ID && 0&75 \\
 \bottomrule
 \end{tabular}
+\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
 \label{hz}
 \end{table}
 
@@ -129,7 +130,6 @@ Event && 27&72 \\
 
 \begin{table}[H]
 \centering
-\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
 \begin{tabular} {l  l r@{}l }
 \toprule
 \addlinespace[3mm]
@@ -150,7 +150,9 @@ Object ID && 1.39&$\cdot10^{-3}$\\
 Final object ID && 1.15&$\cdot10^{-6}$\\
 \bottomrule
 \end{tabular}
-\label{hz}
+\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
+\label{bw}
+
 \end{table}
 
 

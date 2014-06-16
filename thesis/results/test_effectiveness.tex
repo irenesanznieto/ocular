@@ -15,21 +15,84 @@ Figure \ref{1view_matrix} shows the confusion matrix obtained with the experimen
 
 The F1-score obtained per object as well as their precision and recall values may be found in figure \ref{1view_fscore}.
 
-	\begin{figure}[H]
-		\begin{center}
-	    \includegraphics[width=\linewidth]{img/tests/1view_matrix.png}
-		\caption[Confusion matrix - templates using 1 view]{Confusion matrix using a template that stores one view per object. The results are given in a 0 to 1 range. }
-		\label{1view_matrix}
-		\end{center}
-	\end{figure}
+	% \begin{figure}[H]
+	% 	\begin{center}
+	%     \includegraphics[width=\linewidth]{img/tests/1view_matrix.png}
+	% 	\caption[Confusion matrix - templates using 1 view]{Confusion matrix using a template that stores one view per object. The results are given in a 0 to 1 range. }
+	% 	\label{1view_matrix}
+	% 	\end{center}
+	% \end{figure}
 
-	\begin{figure}[H]
-		\begin{center}
-		\includegraphics[width=0.55\linewidth]{img/tests/1view_fscore.png}
-		\caption[F1-score - templates using 1 view]{F1-score calculation using the precision and recall parameters. Results for templates using one view per object. }
-		\label{1view_fscore}
-		\end{center}
-	\end{figure}
+	% \begin{figure}[H]
+	% 	\begin{center}
+	% 	\includegraphics[width=0.55\linewidth]{img/tests/1view_fscore.png}
+	% 	\caption[F1-score - templates using 1 view]{F1-score calculation using the precision and recall parameters. Results for templates using one view per object. }
+	% 	\label{1view_fscore}
+	% 	\end{center}
+	% \end{figure}
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
+
+\addlinespace[-3mm]
+
+\midrule
+\textbf{ball}		&	\textbf{0}&\textbf{55}	&	0&00	&	0&03	&	0&14	&	0&28	&	0&00	\\
+\textbf{skull}		&	0&03	&	\textbf{0}&\textbf{45}	&	0&28	&	0&24	&	0&00	&	0&00	\\
+\textbf{cup}		&	0&00	&	0&03	&	\textbf{0}&\textbf{52}	&	0&14	&	0&28	&	0&03	\\
+\textbf{bottle}		&	0&21	&	0&00	&	0&03	&	\textbf{0}&\textbf{59}	&	0&17	&	0&00	\\
+\textbf{mobile}		&	0&14	&	0&03	&	0&14	&	0&10	&	\textbf{0}&\textbf{55}	&	0&03	\\
+\textbf{calculator}	&	0&07	&	0&00	&	0&07	&	0&14	&	0&21	&	\textbf{0}&\textbf{52}	\\
+
+
+\bottomrule
+\end{tabular}
+\caption[Confusion matrix - templates using 1 view]{Confusion matrix using a template that stores one view per object. The results are given in a 0 to 1 range. }
+\label{1view_matrix}
+\end{table}
+
+
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l l r@{.}l r@{.}l l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
+   \multicolumn{3}{c}{\begin{flushright}\textbf{Precision}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{Recall}\end{flushright}} &
+   \multicolumn{3}{c}{\begin{flushright}\hspace*{0.2cm}\textbf{F1 score}\end{flushright}} &\\
+\addlinespace[-3mm]
+
+\midrule
+ball		&&	0&55 	&	0&55	&&	0&55	\\
+skull		&&	0&87	&	0&45	&&	0&59	\\
+cup			&&	0&48	&	0&52	&&	0&50	\\
+bottle		&&	0&44	&	0&59	&&	0&50	\\
+mobile		&&	0&37	&	0&55	&&	0&44	\\
+calculator	&&	0&88	&	0&52	&&	0&65	\\
+
+
+\bottomrule
+\end{tabular}
+\caption[F1-score - templates using 1 view]{F1-score calculation using the precision and recall parameters. Results for templates using one view per object. }
+\label{1view_fscore}
+
+\end{table}
 
 
 
@@ -38,21 +101,79 @@ The F1-score obtained per object as well as their precision and recall values ma
 In this experiment, five views were retrieved per object. 
 The confusion matrix may be seen in figure \ref{5views_matrix}. 
 Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as well as the precision and recall per object. 
-	\begin{figure}[H]
-		\begin{center}
-	    \includegraphics[width=\linewidth]{img/tests/5views_matrix.png}
-		\caption[Confusion matrix - templates using 5 views]{Confusion matrix using a template that stores five views per object. The results are given in a 0 to 1 range. }
-		\label{5views_matrix}
-		\end{center}
-	\end{figure}
+	% \begin{figure}[H]
+	% 	\begin{center}
+	%     \includegraphics[width=\linewidth]{img/tests/5views_matrix.png}
+	% 	\caption[Confusion matrix - templates using 5 views]{Confusion matrix using a template that stores five views per object. The results are given in a 0 to 1 range. }
+	% 	\label{5views_matrix}
+	% 	\end{center}
+	% \end{figure}
 
-	\begin{figure}[H]
-		\begin{center}
-		\includegraphics[width=0.55\linewidth]{img/tests/5views_fscore.png}
-		\caption[F1-score - templates using 5 views]{F1-score calculation using the precision and recall parameters. Results for templates using five views per object. }
-		\label{5views_fscore}
-		\end{center}
-	\end{figure}
+	% \begin{figure}[H]
+	% 	\begin{center}
+	% 	\includegraphics[width=0.55\linewidth]{img/tests/5views_fscore.png}
+	% 	\caption[F1-score - templates using 5 views]{F1-score calculation using the precision and recall parameters. Results for templates using five views per object. }
+	% 	\label{5views_fscore}
+	% 	\end{center}
+	% \end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
+
+\addlinespace[-3mm]
+
+\midrule
+\textbf{ball}		&	\textbf{0}&\textbf{83}	&	0&14	&	0&00	&	0&00	&	0&03	&	0&00	\\
+\textbf{skull}		&	0&34	&	\textbf{0}&\textbf{62}	&	0&0	&	0&00	&	0&00	&	0&03	\\
+\textbf{cup}		&	0&03	&	0&21	&	\textbf{0}&\textbf{66}	&	0&07	&	0&00	&	0&03	\\
+\textbf{bottle}		&	0&14	&	0&14	&	0&00	&	\textbf{0}&\textbf{69}	&	0&00	&	0&03	\\
+\textbf{mobile}		&	0&10	&	0&13	&	0&00	&	0&07	&	\textbf{0}&\textbf{67}	&	0&03	\\
+\textbf{calculator}	&	0&10	&	0&21	&	0&00	&	0&07	&	0&00	&	\textbf{0}&\textbf{62}	\\
+
+
+\bottomrule
+\end{tabular}
+\caption[Confusion matrix - templates using 5 views]{Confusion matrix using a template that stores five views per object. The results are given in a 0 to 1 range. }
+\label{5views_matrix}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l l r@{.}l r@{.}l l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
+   \multicolumn{3}{c}{\begin{flushright}\textbf{Precision}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{Recall}\end{flushright}} &
+   \multicolumn{3}{c}{\begin{flushright}\hspace*{0.2cm}\textbf{F1 score}\end{flushright}} &\\
+\addlinespace[-3mm]
+
+\midrule
+ball		&&	0&53 	&	0&83	&&	0&65	\\
+skull		&&	0&43	&	0&62	&&	0&51	\\
+cup			&&	1&00	&	0&66	&&	0&79	\\
+bottle		&&	0&77	&	0&69	&&	0&73	\\
+mobile		&&	0&95	&	0&67	&&	0&78	\\
+calculator	&&	0&82	&	0&62	&&	0&71	\\
+
+
+\bottomrule
+\end{tabular}
+\caption[F1-score - templates using 5 views]{F1-score calculation using the precision and recall parameters. Results for templates using five views per object. }
+\label{5views_fscore}
+\end{table}
+
 
 
 
@@ -60,21 +181,87 @@ Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as w
 The last experiment was performed introducing ten views per object in the dataset. 
 Figure \ref{10views_matrix} represents the confusion matrix obtained. 
 The F1-score and the precision and recall per object may be found in figure \ref{10views_fscore}.
-	\begin{figure}[H]
-		\begin{center}
-	    \includegraphics[width=\linewidth]{img/tests/10views_matrix.png}
-		\caption[Confusion matrix - templates using 10 views]{Confusion matrix using a template that stores ten views per object. The results are given in a 0 to 1 range. }
-		\label{10views_matrix}
-		\end{center}
-	\end{figure}
+	% \begin{figure}[H]
+	% 	\begin{center}
+	%     \includegraphics[width=\linewidth]{img/tests/10views_matrix.png}
+	% 	\caption[Confusion matrix - templates using 10 views]{Confusion matrix using a template that stores ten views per object. The results are given in a 0 to 1 range. }
+	% 	\label{10views_matrix}
+	% 	\end{center}
+	% \end{figure}
 
-	\begin{figure}[H]
-		\begin{center}
-		\includegraphics[width=0.55\linewidth]{img/tests/10views_fscore.png}
-		\caption[F1-score - templates using 10 views]{F1-score calculation using the precision and recall parameters. Results for templates using ten views per object. }
-		\label{10views_fscore}
-		\end{center}
-	\end{figure}
+	% \begin{figure}[H]
+	% 	\begin{center}
+	% 	\includegraphics[width=0.55\linewidth]{img/tests/10views_fscore.png}
+	% 	\caption[F1-score - templates using 10 views]{F1-score calculation using the precision and recall parameters. Results for templates using ten views per object. }
+	% 	\label{10views_fscore}
+	% 	\end{center}
+	% \end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
+
+\addlinespace[-3mm]
+
+\midrule
+\textbf{ball}		&	\textbf{0}&\textbf{93}	&	0&00	&	0&07	&	0&00	&	0&00	&	0&00	\\
+\textbf{skull}		&	0&31	&	\textbf{0}&\textbf{69}	&	0&00	&	0&00	&	0&00	&	0&00	\\
+\textbf{cup}		&	0&03	&	0&14	&	\textbf{0}&\textbf{76}	&	0&00	&	0&03	&	0&03	\\
+\textbf{bottle}		&	0&03	&	0&14	&	0&00	&	\textbf{0}&\textbf{83}	&	0&00	&	0&00	\\
+\textbf{mobile}		&	0&07	&	0&03	&	0&14	&	0&00	&	\textbf{0}&\textbf{72}	&	0&03	\\
+\textbf{calculator}	&	0&21	&	0&00	&	0&00	&	0&03	&	0&00	&	\textbf{0}&\textbf{76}	\\
+
+
+\bottomrule
+\end{tabular}
+\caption[Confusion matrix - templates using 10 views]{Confusion matrix using a template that stores ten views per object. The results are given in a 0 to 1 range. }
+\label{10views_matrix}
+\end{table}
+
+
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l l r@{.}l r@{.}l l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
+   \multicolumn{3}{c}{\begin{flushright}\textbf{Precision}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{Recall}\end{flushright}} &
+   \multicolumn{3}{c}{\begin{flushright}\hspace*{0.2cm}\textbf{F1 score}\end{flushright}} &\\
+\addlinespace[-3mm]
+
+\midrule
+ball		&&	0&59 	&	0&93	&&	0&72	\\
+skull		&&	0&69	&	0&69	&&	0&69	\\
+cup			&&	0&79	&	0&76	&&	0&77	\\
+bottle		&&	0&96	&	0&83	&&	0&89	\\
+mobile		&&	0&95	&	0&72	&&	0&82	\\
+calculator	&&	0&92	&	0&76	&&	0&83	\\
+
+\bottomrule
+\end{tabular}
+\caption[F1-score - templates using 5 views]{F1-score calculation using the precision and recall parameters. Results for templates using five views per object. }
+\label{10views_fscore}
+\end{table}
+
+
+
+
+
+
+
 
 	\subsection{Comparison of the experiments results using different number of views}
 	In this subsection the results presented in this section are summarized and presented together. 
