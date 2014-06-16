@@ -205,18 +205,28 @@ Its use case diagram is shown in figure \ref{uc_fe3d}.
 
 
 \subsubsection{Event Handler Node}
-	This node identifies the different user's gestures and act accordingly using a State Machine structure. 
+	This node identifies the different user's gestures and publishes the current event.
+	Its use case diagram may be found in figure \ref{uc_event}. 
+
 	\begin{figure}[H]
 \begin{center}
 		\includegraphics[scale=0.4]{../../img/diagrams/uc_event_handler.eps}
+
 	\end{center}
+	\caption[Use case diagram Event Handler node]{Use Case diagram of the Event Handler node}
+		\label{uc_event}
 \end{figure}
 	
 	
-\subsubsection{Object Learner Node}
+\subsubsection{Learner Recognizer Node}
 
-\hspace{0.5cm}This node learns 2D and 3D features extracted from the handheld object using a RGB-D sensor.   
+\hspace{0.5cm}This node implements the state machine algorithm. It has two differentiated modes: learning and recognizing. 
 
+\begin{itemize}
+
+\item{Learning\\}
+
+This mode learns 2D and 3D features extracted from the handheld object using a RGB-D sensor.   
 The sequence of the object learning is the following:
 \\
 First, 3D and 2D descriptors are extracted and written to a file. Then, two algorithms are trained (one for 2D and the other for the 3D template). The parameters of each trained algorithm are stored in a file. There will be hence one file per learned object and one file per algorithm.
@@ -224,33 +234,42 @@ First, 3D and 2D descriptors are extracted and written to a file. Then, two algo
 
 The learning of the objects is done in-hand. The training starts when the user extends the hand in front of the body, showing the new object to the RGB-D sensor. Then, the user rotates the object to allow the software to extract the features of different views to obtain a more robust model of the object. This way of learning new objects will allow a more intuitive interaction human-robot. When the user returns the arm to a position which is closer to the body, the algorithm starts learning the new object and after the learning, it comes back to the recognizing mode, which is the default. 
 
-\begin{figure}[H]
-\begin{center}
 
-		\includegraphics[scale=0.4]{../../img/diagrams/uc_learner.eps}
-	\end{center}
-\end{figure}
+\item{Recognizing\\}
 
-\subsubsection{Object Recognizer Node} 
-\hspace{0.5cm}This node tracks the user's hands and recognizes the held objects. 
+This mode tracks the user's hands and recognizes the held objects. 
 
 There are two different algorithms, one trained with the 2D data and the other one trained with the 3D data. More information about those algorithms may be found in the Functional Requirements section. 
 \\
-The steps done by this node are the following: 
+The steps done by this mode are the following: 
 First, as in the Learning Mode, 2D and 3D descriptors are extracted. Then, the algorithms will compare that information with the learned one. 
 The output of each algorithm will be a percentage of similarity between the dataset and the new object. 
-\\
 The 3D information is more reliable than the 2D. The latter is subjected to inaccuracies due to illumination or view angle that affects the descriptors extracted and hence the object recognition.
-\\
 Due to this fact, weights for the output of each algorithm will be given. Those give a higher importance to the 3D descriptors since they are more robust. 
 \\
 The object that is finally published in a topic will be the one with a higher percentage of similarity. 
 
+
+
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[scale=0.4]{../../img/diagrams/uc_recognizer.eps}
-\end{center}
+
+		\includegraphics[scale=0.4]{../../img/diagrams/uc_learner_recognizer.eps}
+	\end{center}
 \end{figure}
+
+
+
+\end{itemize}
+
+% \subsubsection{Object Recognizer Node} 
+
+
+% \begin{figure}[H]
+% \begin{center}
+% 	\includegraphics[scale=0.4]{../../img/diagrams/uc_recognizer.eps}
+% \end{center}
+% \end{figure}
 
 
 \subsection{Third Party Packages}
