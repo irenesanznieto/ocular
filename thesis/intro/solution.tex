@@ -1,11 +1,11 @@
-\section{The solution: OCULAR}
+\section{Proposed Solution for in-hand object recognition: OCULAR}
 
 In this thesis a software has been developed that is intended to be used in assistive and social robots.
 The name and the logo (figure \ref{ocular_logo}) of the project gives a first idea of the system's goal. 
 The name of the project, OCULAR, is an acronym of "On-line objeCt Learning And Recognition". 
 The first word, on-line, refers to the fact that the learning of new objects is done in real time. % there is no need of a training phase in which the software is not operative. 
 Figure \ref{ocular_logo} presents the logo of the software, which gives two additional pieces of information: 
-The object learning and recognition is performed in-hand and the input of the system an RGB-D sensor, such as a Kinect. 
+The object learning and recognition is performed in-hand and the input of the system an RGB-D (Red, Green, Blue and Depth) sensor, such as a Kinect. 
 This type of sensor provides 2D and 3D information of the user located in front of it. 
 
 \\
@@ -80,8 +80,7 @@ Having the hand closer to the body the recognition mode is triggered and the pro
 
 Apart from switching modes evaluating the user's pose, the system also detects the hand that is holding an object. 
 The software is able to work with one hand at a time and it chooses the one that is higher. 
-
 The present project has been designed to be as modular and reusable as possible making an easier task to develop complementary software such as handbags recognition or hats recognition with slightly modifications. Its structure consists on nodes that run on parallel and minimizes the lag due to the computing processes. It is an Open Source project, meaning that anyone can use and modify it.
 \\
 
-In order to facilitate the usage of the code it has been developed as a ROS \cite{ros} package. The source code and further installation instructions and license details might be found in the following link to the software's \href{http://github.com/irenesanznieto/ocular}{\color{blue}\underline {repository}}. 
+In order to facilitate the usage of the code it has been developed as a Robotic Operating System (ROS) \cite{ros} package. The source code and further installation instructions and license details might be found in the following link to the software's \href{http://github.com/irenesanznieto/ocular}{\color{blue}\underline {repository}}\footnote{http://github.com/irenesanznieto/ocular}. 

@@ -5,13 +5,15 @@ The computing phases are ordered in the same way as they are performed in the sy
 These phases are the following: 
 \begin {enumerate}
 	\item{\textbf{Data input: Hardware} \\}
-	The data input of the system is performed using a vision acquisition device such as an RGB-D sensor, a camera or a laser. 
-	The first section presents the most used alternatives in robotic computer vision. 
-	Further explanations may be read in section \ref{hardware}.
+	The data input of the system is performed using a vision acquisition device. 
+	In this thesis, an RGB-D (Red, Green, Blue and Depth) sensor is being used. 
+	Section \ref{hardware} presents the most used alternatives in robotic computer vision. 
+	% Further explanations may be read in section \ref{hardware}.
 
 	\item{\textbf{Raw input data processing}\\}
-	The raw data that comes out of the sensors is not correctly formatted. 
-	Some processing is needed to create a data structure that is easy to handle and useful. 
+	% The raw data that comes out of the sensors is not correctly formatted. 
+	In most cases, the acquired data needs some preprocessing. 
+	It is needed to create a data structure that is easy to handle and useful. 
 	A more complete explanation can be found in section \ref{input_data}
 
 	\item{\textbf{Segmentation}\\}
@@ -34,10 +36,10 @@ The hardware components present in a computer vision system are the following:
 % The main components of a computer vision system are the following: 
 
 \begin{itemize}
-	\item{Power Supply: } Device needed by the other components in order to work. 
-	\item{Acquisition device: } Device that captures the world and represents it as an array of data. That data can be two or three dimensional. 
-	\item{Processing unit:} Receives the information from the acquisition device and processes it. It is usually programmable. Nowadays the most used processing units are PCs. 
-	\item{I/O unit: } Serves as a bridge between the acquisition device and the processing unit if needed. 
+	\item{Power Supply:}Device needed by the other components in order to work. 
+	\item{Acquisition device:}Device that captures the world and represents it as an array of data. That data can be two or three dimensional. 
+	\item{Processing unit:}Receives the information from the acquisition device and processes it. It is usually programmable. Nowadays the most used processing units are PCs. 
+	\item{I/O unit:}Serves as a bridge between the acquisition device and the processing unit if needed. 
 
 \end{itemize}
 
@@ -53,11 +55,13 @@ They are usually classified depending on the output data they provide:
 \end{itemize}
 
 The usage of one or another acquisition device depends on the application. 
-The RGB-D sensors provide a higher number of information than the cameras. 
-They reduce the ambiguities produced by the cameras when projecting the three-dimensional world into to dimensions. 
-But also the RGB-D sensors output a higher amount of data. 
-That is why, using three-dimensional information as the input of a software requires a higher-capacity processing unit than using two-dimensional data.
-
+The RGB-D sensors provide more information than cameras. 
+% They reduce the ambiguities produced by the cameras when projecting the three-dimensional world into two dimensions. 
+% But also the RGB-D sensors output a higher amount of data. 
+% That is why, using three-dimensional information as the input of a software requires a higher-capacity processing unit than using two-dimensional data.
+While RGB Cameras provide information in 2D, RGB-D provide information of the depth of the scene.
+This added information makes image processing easier because it reduces the ambiguities of the 2D data. 
+Nevertheless, the computation time needed is also much higher. 
 
 
 %%%%%% CAMERAS %%%%%%
@@ -145,7 +149,7 @@ The Microsoft corporation finally released the SDK (Software Development Kit) on
 
 \label{rgb-d}
 
-The 3D sensor consists on an infrared projector and an infrared camera. 
+The 3D sensor consists in an infrared projector and an infrared camera. 
 The projector creates an infrared pattern that is captured by the camera.
 Then, it is compared with the references stored in the device and the depth of each point is estimated. 
 Afterwards, the depth data is correlated to a RGB camera. 
@@ -171,10 +175,10 @@ For further information of this process, please read section \ref{ros_packages}.
 
 \section{Segmentation}
 \label{segmentation}
-The segmentation consists on the extraction of the Region Of Interest from the whole input data. 
+The segmentation consists on the extraction of the Region Of Interest (ROI), that is, separating the interesting parts of the image from the background of the input data. 
 The method applied to this step varies with the application. 
 For example, for object recognition in a table the segmentation would be performed looking first for a flat surface and then extracting the region around it. 
-In the case of this thesis, since the object learning and recognition is done in-hand, these extremities are the one being tracked. 
+In the case of this thesis, since the object learning and recognition is done in-hand, these extremities are being tracked. 
 First, the hands' center position is obtained and later a fixed square is cropped around it. 
 More information about this process can be found in section \ref{nodes}.
 
@@ -202,15 +206,16 @@ Descriptors may be local or general.
 A local descriptor represents a point using the information of the points around it. 
 Local features from one object may be almost identical to a local feature from a very different object. 
 An example of local feature could be the color map of a region composed of a certain number of pixels. 
-The same patter could be found in different highly-textured objects such as a book and a map. 
+The same pattern could be found in different highly-textured objects such as a book and a map. 
 In order to overcome this problem, general or global descriptors are computed. 
 A general descriptor is usually a set of local descriptors that undergo a transformation. 
 For example, the local descriptor previously presented could be extracted from four points of the same object located in the borders. 
 The information of the global descriptor would be a combination of the one given by the local descriptors and a parameter relating them, for example the relative distance between them. 
-This creates a patter that is more difficult to reproduce in different objects. 
+This creates a pattern that is more difficult to reproduce in different objects and hence it is more representative for it. 
 Global features are used to obtain a more representative description of the studied object, but they are more computationally expensive. 
 The best feature or descriptor is the one that possess a higher repeatability, i.e the ability of obtaining the same output given different inputs. 
-This is useful when making a feature matching to compare two objects, which is the case in this project. 
+In this system, repeatability may be described as the ability of obtaining the same predicted object given different views of it. 
+% This feature is useful when making a feature matching to compare two objects, which is the case in this project. 
 % Hence, it can be seen that the recognition algorithm has as a bottle neck in its performance: the repeatability of the features used to describe the different objects. 
 Recognition algorithms depend directly on the repeatability of the features they use. 
 If the descriptors have a high repeatability, the system performs better than in the case of having a lower repeatability. 
@@ -231,7 +236,6 @@ The selection of one algorithm or another depends on the application.
 \label{sift}
 
 SIFT (Scale Invariant Feature Transform) is a scale and rotation invariant feature descriptor\cite{sift}. 
-
 There are various papers in which the performance of SIFT is compared with other descriptors and one of the most representative is \cite{Mikolajczyk2005}. In it, it can be seen that SIFT 
 outperforms the previous algorithms, mainly due to its combination of local information and relative strengths and orientations of gradients. This combination makes it more robust to illumination and viewpoint changes and to noise. 
 % Its relation between distinctiveness and speed is good. 
@@ -277,7 +281,7 @@ ORB authors claim that it is two orders of magnitude faster than SIFT while matc
 Nevertheless, since ORB is not scale invariant, if the scale difference is noticeable the SURF algorithm will outperform ORB. 
 \\
 
-The features used in ORB build on the FAST\cite{fast} keypoint detector and the BRIEF\cite{brief} descriptor. Both of this previous algorithms offer a good performance and computing time relation. Since neither of them had the orientation taken into account, the main improvement made by the ORB developers is to include this feature in the algorithm. Also, the computation of oriented BRIEF features was improved and an analysis of variance and correlation for this features created. 
+The features used in ORB build on the Features from Accelerated Segment Test (FAST)\cite{fast} keypoint detector and the Binary Robust Independent Elementary Features (BRIEF)\cite{brief} descriptor. Both of this previous algorithms offer a good performance and computing time relation. Since neither of them had the orientation taken into account, the main improvement made by the ORB developers is to include this feature in the algorithm. Also, the computation of oriented BRIEF features was improved and an analysis of variance and correlation for this features created. 
 \\
 
 FAST is mainly used to find keypoints in real-time systems that match visual features. The orientation operator included in this algorithm is the centroid operator described in \cite{orientation_corners}. This technique is not computationally demanding and also, unlike SIFT, it returns a single dominant result. 

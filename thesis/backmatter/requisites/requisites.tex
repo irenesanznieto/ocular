@@ -74,20 +74,20 @@
 % \end{titlepage}
 
 %
-\newpage
+%\newpage
 %
 %%%%%%Table of contents%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\tableofcontents
+%\tableofcontents
 %%%%%% TABLE OF FIGURES %%%%%%
-\listoffigures
+%\listoffigures
 
-\newpage
+%\newpage
 
 
 %%%%%%Document%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\subsection{Introduction}
 \hspace{0.5cm}The project consists on an in-hand object learning and recognition software. 
 The project is conceived for being used in a robot. In a robot there are numerous processes that have to run in parallel to avoid a lose of information and be able to work and respond in real time. 
 \\
@@ -195,7 +195,7 @@ Its use case diagram is shown in figure \ref{uc_fe3d}.
 \end{figure}
 
 
-% \subsubsection{Data Parser Node}
+% \paragraph{Data Parser Node}
 % This node stores the 2D and 3D features of each template of the same object in one file. 
 % \begin{figure}[H]
 % \begin{center}
@@ -262,7 +262,7 @@ The object that is finally published in a topic will be the one with a higher pe
 
 \end{itemize}
 
-% \subsubsection{Object Recognizer Node} 
+% \paragraph{Object Recognizer Node} 
 
 
 % \begin{figure}[H]
@@ -284,14 +284,14 @@ In this project, it is used to filter, extract features and segment the RGB-D's 
 
 \subsection{Node Interaction}
 In the following diagram it can be seen the interaction and the information exchanged between nodes.
-%\subsubsection{Use Case Diagram}
+%\paragraph{Use Case Diagram}
 %\begin{figure}[H]
 % \begin{center}
 % %\includegraphics[scale=0.3]{img/diagrams/use_case.eps}
 % %\end{center}
 % \end{figure}
 
-\subsubsection{Sequence Diagram}
+\subsection{Sequence Diagram}
 In the following diagram can be seen the interaction between nodes. \\
 The Event Handler node triggers the execution of the Recognizer and the Learner nodes. As it was previously mentioned, the triggering event is defined to create a more natural human-machine interaction.
 The converter, ROI Segmenters and Feature Extractors nodes are continuously working and publishing the information on their topics. 
@@ -314,9 +314,9 @@ In the following diagram, the flow of the program is represented.
 
 
 
-\section{Functional requirements}
+\subsection{Functional requirements}
 
-\subsection{General requirements}
+\subsubsection{General requirements}
 
 \begin{enumerate}[label=\textbf{FR\threedigits*}, leftmargin=2cm]
 
@@ -327,7 +327,7 @@ In the following diagram, the flow of the program is represented.
 	\item The output of the system must be a topic specifying the name of the detected object. 
  
  
-\hspace*{-2cm}\subsection{Converter}
+\paragraph{Converter} \mbox{}\\
 
 \item The information must be received subscribing to the topics of the different third-party packages. 
 \item This node must convert different message formats to the custom message used within this project, serving as an interface. 
@@ -342,30 +342,31 @@ In the following diagram, the flow of the program is represented.
 %}
 
 
-\subsection{ROI Segmenters}
+\paragraph{ROI Segmenters}\mbox{}\\
 
-   \subsubsection{ROI Segmenter 3D}
+   \paragraph{ROI Segmenter 3D}
 	\item This node must segment the Region Of Interest in 3D (point cloud). 
 	\item The ROI must be a box around the hand's position. 
 	\item The dimensions of the ROI box must be fixed and must have a value suitable for this application.  
-   \subsubsection{ROI Segmenter 2D}
+   \paragraph{ROI Segmenter 2D}
    	\item This node must segment the Region Of Interest in 2D (image).
    	\item The original input image must be the one obtained directly from the RGB-D sensor being used.
    	\item The size of the 2D ROI must be extracted from the 3D ROI x and y dimensions. Those measures must be in pixels. 
 	\item The 2D ROI must be cropped from the original image using the points obtained from the 3D ROI. 
 
-\subsection{Feature Extractors}
-   \subsubsection{Feature Extractor 2D}
+\paragraph{Feature Extractors}\mbox{}\\
+
+   \paragraph{Feature Extractor 2D}\mbox{}\\
 	\item This node must extract the 2D features. 
 	\item The 2D features will be expressed as a vector of descriptors. %, using the ORB approach. 
 	\item The 2D features of all the views of each object will be stored in a file, using the data parser class.  
   
-  \subsubsection{Feature Extractor 3D}
+  \paragraph{Feature Extractor 3D}\mbox{}\\
    	\item This node must extract the 3D features. 
 	\item The 3D features will be expressed as a vector of features. %, using the Line-Mod approach.
 	\item The 3D features of all the views of each object will be stored in a file, using the data parser class.  
 
-\subsection{Data Parser}
+\paragraph{Data Parser}\mbox{}\\
 \item This class compresses the features obtained to have one data file per object with all the information.
  
 \item It has to be able to create a new file for storing the features of a new object. 
@@ -404,7 +405,7 @@ In the following diagram, the flow of the program is represented.
 
 
  
-\subsection{Event Handler}
+\paragraph{Event Handler}
 \item This node must have access to the hand's position information. 
 \item This node must launch the object learner node or the object recognizer node depending on a triggering event. 
 \item The triggering event occurs when the distance between the hand and the torso is equal or higher than 0.5m.   
@@ -418,7 +419,7 @@ In the following diagram, the flow of the program is represented.
 % \item The learning mode should display the number of views obtained and processed of the object as well as an indication as to how to rotate the object to obtain further views. 
 
 
-\subsection{Object Learner}
+\paragraph{Object Learner}
 	\item The input to this node will be the features (both 2D and 3D) extracted from the feature extractor node. 
 	\item This node must have two algorithms, one for 2D and other for 3D. 
 %	\item The algorithm used with 2D features should be a BruteForce trainer.
@@ -426,7 +427,7 @@ In the following diagram, the flow of the program is represented.
 	% \item This node must send feedback messages to the display with the learning information (number of views of the object processed, information about how to rotate the object).
 	\item The output of this node will be the trained algorithms, whose parameters must be written to a file. 
 
-\subsection{Object Recognizer}
+\paragraph{Object Recognizer}
 	\item This node must have two algorithms, one for 2D and other for 3D. 
 %	\item The algorithm used with 2D features should be a BruteForce matcher.
 %	\item The algorithm used with 3D features must be the Line-Mod matcher. 
@@ -444,7 +445,7 @@ In the following diagram, the flow of the program is represented.
 
 
 
-\section{Performance requirements}
+\subsection{Performance requirements}
 
 \begin{enumerate}[label=\textbf{PR\threedigits*}]
 \item The recognition must run on the lowest amount of time possible, to allow a fluid human-robot interaction. This time must be lower than 500 ms. 
@@ -457,7 +458,7 @@ In the following diagram, the flow of the program is represented.
 %\section{Verification requirements}
 %\section{Acceptance testing requirements}	%This is a validation activity; did we build the right thing? Is this what the customer really needs? 
 
-\section{Documentation requirements}
+\subsection{Documentation requirements}
 \begin{enumerate}[label=\textbf{DR\threedigits*}]
 	\item The code must be completely documented, i.e. each class, class function , class member and piece of code should have comments explaining all the aspects. 
 	\item The documentation will be made using Doxygen notation, through the rosdoc\_ lite 
@@ -470,7 +471,7 @@ In the following diagram, the flow of the program is represented.
 %\section{Portability requirements}
 %\section{Quality requirements}
 %\section{Reliability requirements}
-\section{Maintainability requirements}
+\subsection{Maintainability requirements}
 \begin{enumerate}[label=\textbf{MR\threedigits*}]
 	\item The code must be as modular as possible. 
 	\item All the classes' variables that are susceptible of being modified through a inheritance will be declared as protected. 

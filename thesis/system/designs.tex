@@ -1,13 +1,15 @@
 \section{Design alternatives}
-In the present section the steps that were taken in order to obtain the final system for solving the problem are presented. 
-The intermediate designs are analyzed and their pros and cons evaluated. 
+% In the present section the steps that were taken in order to obtain the final system for solving the problem are presented. 
+This section presents the steps that were taken to obtain the final system. 
+% The intermediate designs are analyzed and their pros and cons evaluated. 
+The different intermediate designs are shown and the reasons behind the change from one to another design explained. 
 The final design is explained in detail in section \ref{system_design}.
 \\
 
 \paragraph{First design}
 \mbox{} \\
 
-The first design was based in using a hardware with even lower cost and higher accessibility, a camera. The decision of including that device forced the input information to be two-dimensional. The C++ programming language was selected for its high performance and the OpenCV library was picked to aid in the data processing. It was seen that the two dimensional information was not sufficient to obtain a reliable hand tracking. Also, this task created a high lag due to the high amount of computing it needed. 
+The first design was based in using a hardware with low cost and high accessibility, a camera. The decision of including that device forced the input information to be two-dimensional. The C++ programming language was selected for its high performance and the OpenCV library was picked to aid in the data processing. It was seen that the two dimensional information was not sufficient to obtain a reliable hand tracking. Also, this task created a high lag due to the high amount of computing it needed. 
 \\
 
 
@@ -44,8 +46,6 @@ ROS integrates node communication, threading and many Open Source packages that 
 One of those packages is the \textit{pi\_tracker}, that implements a joint tracking software using the ROS tools. 
 This software that was already present and available was useful because it solved the problem of the hand tracking. 
 The output of the package is a ROS topic with the position of all the user's joints presented in a message. 
-\\
-
 Thereupon the ROS framework was used and all the already created code was adapted properly. 
 But the object learning phase was not yet defined. 
 %Some research on the field revealed various algorithms that needed many input samples and a long off-line period in order to have a good performance. 

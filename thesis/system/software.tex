@@ -1,29 +1,29 @@
 \section{System design}
 \label{system_design}
-Computer vision is a field that involves high time-expensive algorithms. 
+Computer vision is a field that involves high time-consuming algorithms. 
+The processing time required is highly dependent on the type of data the system is managing. 
 The input to a computer vision system may be 2D and 3D information. 
-2D data is structured as a matrix that has for each point 2 coordinates numbers and the color information encoded in RGB components. 
+2D data is structured as a matrix that has, for each point, 2 coordinates and the color information encoded in RGB (Red, Green, Blue).
+This means that it contains two numbers for the coordinates and three more integers for the RGB values per pixel. 
 3D information is a matrix that has 3 coordinates apart from the color of that point, which is described using 3 more integers. 
 The handled data is enormous and the way to reduce the time lag due to those computations is modularizing the computation and executing in parallel those processes. 
 The software was designed to be as modular as was possible so that each node performs an action that could be used in other applications. 
-As an example, the code could be easily changed to recognize hats or shoes, just changing the initial node that extracts the information of the desired joint. 
+As an example, the software could be easily changed to recognize hats or shoes, just changing the initial node that extracts the information of the desired joint. 
 \\
 
-The code was created as a ROS package. 
+% The system has been created as a ROS package. 
 The Robotic Operating System (ROS) is designed to be used in robots. 
-Since this project is intended to be running on a robot, the software was developed as a ROS package. 
-In order to manage 2D and 3D information (images and point clouds) two libraries have been used: OpenCV, and PCL. Those two libraries implement basic and state-of-the-art algorithms that allow a easier and more time-efficient management of the data. Further information about these libraries might be found in section \ref{state_of_the_art}. 
-\\
+Since this project is intended to be running on a robot, the software has been developed as a ROS package. 
+In order to manage 2D and 3D information (images and point clouds) two libraries have been used: OpenCV, and PCL. 
+Both libraries implement basic and state-of-the-art algorithms that allow a easier and more time-efficient management of the data. Further information about these libraries might be found in section \ref{state_of_the_art}. 
 The software is structured in nodes. 
 These nodes have a relatively small functionality and run in parallel. 
 The fact that they run simultaneously improves the efficiency of the code lowering the lag due to time-expensive operations. 
-\\
-
 In the following sections, the nodes' functionalities are be described and the communication between them presented. 
 But first, the overall software work-flow and processing is explained. 
 
 
-\subsection{Solution description}
+\subsection{Description of the proposed solution}
 
 The input of the system is the information coming from the RGB-D sensor. 
 There are two different data used as input: the 2D information, i.e. the raw image detected by the sensor's camera, and the 3D information, i.e. the raw point cloud. 
