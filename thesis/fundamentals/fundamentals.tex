@@ -153,7 +153,7 @@ The 3D sensor consists in an infrared projector and an infrared camera.
 The projector creates an infrared pattern that is captured by the camera.
 Then, it is compared with the references stored in the device and the depth of each point is estimated. 
 Afterwards, the depth data is correlated to a RGB camera. 
-The output can be described then as a point cloud, a type of data that consists on 3-dimensional and color information for each point.  
+The output can be described then as a point cloud, a type of data that consists in 3-dimensional and color information for each point.  
 \\
 
 It can be easily seen that the use of the infrared spectrum provides a system that can be easily perturbed. 
@@ -170,12 +170,30 @@ The Kinect is the sensor that is the input of the system.
 The output of this device cannot be used directly. 
 A processing step performed by a driver is needed. 
 In the case of this thesis the OpenNI library is being used. 
+Two different computing phases are needed. 
+The first is used to transform the raw Kinect's output to a formatted data. 
+The second step transforms the formatted data into a more useful structure such as an image or a point cloud. 
+These structures are easier to use and they contain a more condensed amount of data than the formatted information obtained in the first phase. 
+\\
+
+In this thesis these processing steps are being performed using third-party libraries. 
+The formatted output of the first phase is converted into an image and a point cloud. 
+An image is a matrix of values in which the RGB (Red, Green, Blue) components of each pixel or point is represented. 
+A point cloud is also a matrix similar to the image, but with the difference that each point has also an associated position. 
+The output of the kinect is processed to match the information contained by the image and the point cloud. 
+This processing outputs a more useful data structure : a point cloud with RGB component, that is, a point cloud with color information in it. 
 For further information of this process, please read section \ref{ros_packages}.
 
 
 \section{Segmentation}
 \label{segmentation}
-The segmentation consists on the extraction of the Region Of Interest (ROI), that is, separating the interesting parts of the image from the background of the input data. 
+The segmentation consists in the extraction of the Region Of Interest (ROI), that is, separating the interesting parts of the image from the background of the input data. 
+The segmentation is performed to remove all the useless information from the input data to the system. 
+This results in a reduction of the information size. 
+The fact of reducing the data size is advantageous as well because the time expended in later computations is lowered. 
+Also, less noise is introduced in the system, increasing its performance. 
+\\
+
 The method applied to this step varies with the application. 
 For example, for object recognition in a table the segmentation would be performed looking first for a flat surface and then extracting the region around it. 
 In the case of this thesis, since the object learning and recognition is done in-hand, these extremities are being tracked. 

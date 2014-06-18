@@ -26,13 +26,13 @@ But first, the overall software work-flow and processing is explained.
 \subsection{Description of the proposed solution}
 
 The input of the system is the information coming from the RGB-D sensor. 
-There are two different data used as input: the 2D information, i.e. the raw image detected by the sensor's camera, and the 3D information, i.e. the raw point cloud. 
+It produces two different data used as input: the 2D information, i.e. the raw image detected by the sensor's camera, and the 3D information, i.e. the raw point cloud. 
 Also, there is another input to the system that shows the position of the different user's joints. This data is provided by a third-party package called \textit{pi\_tracker} that is explained in the following chapters. 
 \\
 
 The software was designed to be running on a robot as was previously explained. 
-This implies that there can not be a GUI (Graphical User Interface) on a screen because the robot being used might not have it. 
-Also, the usability and easiness to learn how to interact with the program was important to allow different people not only investigators to use it. 
+This implies that there can not be a GUI (Graphical User Interface) on a screen because the robot might not have it. 
+Also, the usability and easiness to learn how to interact with the program was important to allow different people, not only investigators, to use it. 
 In order to fulfill those requirements, a gestural interface was designed. 
 %It is developed by a separate node so the processing lags will not affect the recognition of the different gestures. This fact also allows an easy change of the gestures being used. 
 \\
@@ -44,16 +44,18 @@ If, on the contrary, the user's hand is located close to the body, the software 
 
 %The upper part of the diagram shows the data acquisition work-flow. 
 Figure \ref{flowchart1} presents the generalized system's flowchart. 
-It can be seen that the learning phase or dataset acquisition mode is started when the event recognized is "learn". 
-On the other hand, if the event is "recognize", the system exploitation phase is started. 
-This latter consists on the recognition of the objects that are inputted to the system until a new "learn" event occurs. 
+The learning phase or dataset acquisition mode is started when the event recognized is \textit{"learn"}.
+This is triggered when the user extends his hand towards the robot. 
+On the other hand, if the event is \textit{"recognize"}, the system exploitation phase is started. 
+This event is triggered when the user pulls his hand to his body.
+This phase consists in the recognition of the objects that are shown to the system until a new "learn" event occurs. 
 In the next sections each of those modes are detailed. 
 
 
 \begin{figure}[H]
 	\begin{center}
 \includegraphics[width=0.8\linewidth]{img/diagrams/flowchart1.eps}
-	\caption[General system's flowchart]{General system's flowchart showing the different modes depending on the event}
+	\caption[General system's flowchart]{General system's flowchart showing the different modes depending on the event.}
 	\label{flowchart1}
 	\end{center}
 \end{figure}
@@ -68,12 +70,12 @@ In the next sections each of those modes are detailed.
 % 	\label{flowchart}
 % \end{figure}
 
-\paragraph{Dataset acquisition or learning mode}\mbox{}
+\subsection{Dataset acquisition or learning mode}\mbox{}
 \\
 
-The first step is to extract the ROI (Region of Interest) from the input raw data. 
-This is a crucial step that allows to reduce noticeably the amount of time due to computation reducing the size of the processed information. 
-
+The first step is to segment or extract the ROI (Region of Interest) from the input raw data. 
+This is a crucial step that allows to reduce noticeably the input data by cropping the image and discarding the parts that are not interesting. 
+This implies that next phases have to operate with a much smaller image size, thus reducing the computation time. 
 Figure \ref{flowchart2} shows the process followed in the segmentation. 
 First, the 3D ROI is extracted, and the limits of that region are transformed into pixel coordinates. 
 Afterwards, the ROI segmenter 2D node crops the 2D region of interest. 
@@ -89,21 +91,27 @@ Afterwards, the ROI segmenter 2D node crops the 2D region of interest.
 
 \\
 
-After the extraction, the 2D and 3D features of the segmented data are obtained. The features or descriptors are characteristics that define and represent the data from where they were created. 
-\\
-That is the end of the data cycle of the learning process. 
+After the extraction, the feature extractor nodes obtain the 2D and 3D features out of the segmented data. 
+As it was said in section \ref{descriptors}, the features or descriptors are characteristics that define and represent the data from where they were created. 
+The 2D and 3D features that are being used in this system are the ORB and PFH descriptors, respectively. 
 This cycle is repeated as many times as number of views has been defined in the system. 
 As an example, if the software is configured to accept five views per object, the process is repeated five times. 
-Between repetitions there is a pause to allow the user to rotate the object and hence obtain as much information as possible. 
+Between repetitions the program stops for a second to allow the user to rotate the object and hence obtain as much information as possible. 
+\\
+
+The number of views influence in the performance of the system. 
+The larger the number of views is, the better the performance. 
+Also, showing very different views of the same objects affects in the robustness of the system. 
+The more different the views are, the more robust to rotation and pose the system is. 
+That is the end of the data cycle of the learning process. 
 
 
-\paragraph{System exploitation or recognition mode}\mbox{}
+\subsection{System exploitation or recognition mode}
 
 
 The recognition mode is triggered when the hand is located near the user's body. 
 Figure \ref{flowchart3} shows the detailed flowchart of the system exploitation. 
-\\
-The steps that compose this part of the software are the following: 
+The steps that compose this part of the software are the following:
 First, the input information is converted to the custom message used within the code. Afterwards, as in the previous mode, the Region Of Interest is segmented from both 2D and 3D original information. Then, the descriptors are extracted exactly the same way as in the previous mode. 
 \\
 
@@ -118,7 +126,9 @@ First, the input information is converted to the custom message used within the 
 
 
 
-The next step is the recognition algorithm. This matches the descriptors from both the image and the point cloud and decides which object of the dataset is more similar to the one that is currently on the user's hand. More details about this algorithm may be found in this section. 
-\\
+% The next step is the recognition algorithm. 
+% This matches the descriptors from both the image and the point cloud and decides which object of the dataset is more similar to the one that is currently on the user's hand. More details about this algorithm may be found in this section. 
+Finally, the learner recognizer node outputs the object identification number. 
+This number is obtained comparing the previously learned descriptors with the ones extracted from the current frame. 
+This data is the output of the system. 
 
-Finally, the object identification number is obtained. This data is the output of the system. 

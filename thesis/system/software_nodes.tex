@@ -4,16 +4,16 @@ In this section the ROS packages that are used in our system are presented.
 All of them are used for the initial processing of the data coming from the RGB-D sensor. 
 The connection between them and the developed nodes are explained in this section and in section \ref{nodes}.
 
-\paragraph{ROS package: openni\_camera}\mbox{} \\
+\subsubsection{ROS package: openni\_camera}
 \label{openni_camera}
 
-This packages implements the RGB-D sensors drivers.
+This package implements the RGB-D sensors drivers.
 % It is needed to connect the kinect to the computer. 
 % The package is composed of nodes that perform different tasks and publish the results in topics. 
 % As an example, a node transforms the raw output information of the kinect into a data array for further processing. 
 The package transforms the input raw data coming from the kinect into structured one. 
 This information is prepared hence for further processing. 
-Figure \ref{diagram_kinect_data} shows the inputs and outputs of this package and its position in the RGB-D sensor data processing chain. 
+Figure \ref{diagram_kinect_data} shows the Connectivity graph of this package and its position in the RGB-D sensor data processing chain. 
  
  		\begin{figure}[H]
 			\begin{center}
@@ -24,30 +24,29 @@ Figure \ref{diagram_kinect_data} shows the inputs and outputs of this package an
 		\end{figure}
 
 
-\paragraph{ROS package: openni\_launch}\mbox{}\\
+\subsubsection{ROS package: openni\_launch}
 \label{openni_launch}
 
-This package provide useful transformations taking as input the openni\_camera topics. %and a launch file that executes nodelets with that information. 
+This package provides useful transformations taking as input the openni\_camera topics. %and a launch file that executes nodelets with that information. 
 It is composed of various nodes that can be executed using a launch file. 
-Each node processes the raw input information from the driver into more complicated and useful data. 
-That data may be a registered point cloud or a disparity image for example. 
+Each node processes the raw input information from the driver into more useful data. 
+This data may be a point cloud with color information or a disparity image for example. 
 The output of the nodes is published into different topics. 
-The developed nodes described in section \ref{nodes} are subscribed to these topics in order to obtain the input point cloud and image. 
+% The developed nodes described in section \ref{nodes} are subscribed to these topics in order to obtain the input point cloud and image. 
+These topics are the input for the nodes that have been developed for this thesis.
 
-
-
-\paragraph{ROS package: pi\_tracker}\mbox{}\\
+\subsubsection{ROS package: pi\_tracker}
 
 This ROS package implements a joint tracker.
 It is used within the system to determine the position and orientation of the user's joints. 
 This task is performed by the skeleton tracker node.  
-Figure \ref{diagram_skeleton} shows the inputs and outputs of this node. 
-The diagram presented in figure \ref{diagram_kinect_data} is simplified in the next figures.  
+Figure \ref{diagram_skeleton} shows the Connectivity graph of this node. 
+% In figure \ref{diagram_skeleton} it may be observed that the diagram presented in figure \ref{diagram_kinect_data} is simplified.  
 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.3\linewidth]{img/diagrams/node_pi_tracker.eps}
-			\caption[Skeleton Tracker I/O]{Inputs and outputs of the Skeleton Tracker node.}
+			\caption[Skeleton Tracker I/O]{Connectivity graph of the Skeleton Tracker node.}
 			\label{diagram_skeleton}
 			\end{center}
 		\end{figure}
@@ -60,28 +59,30 @@ The node outputs the Skeleton message in which the positions and orientations of
 %\newpage
 %%%%%%% SOFTWARE NODES %%%%%%
 %\addcontentsline{toc}{subsection}{Software nodes}
-\subsection{Developed nodes}
+\subsection{Description of the developed nodes}
 \label{nodes}
 
 
-The processing needed to provide all the functionality is divided in nodes. 
-Here they are presented, ordered using the data work-flow. 
-First the ones using the raw input data to the system and afterwards the ones that deliver the output of the system are described.
-Figure \ref{system_nodes} shows a node diagram. 
+The processing of the system is divided in nodes. 
+Figure \ref{nodes_graph} shows the graph of the nodes that have been developed for the project.
+% First the ones using the raw input data to the system and afterwards the ones that deliver the output of the system are described.
 The circles represent the nodes. %Each circle is a node and the name inside them is the one being used in the software. 
 The arrows show the communication between nodes. 
-The names next to the lines are the messages that those processes interchange. 
-The squares with the names serve as separators of the different packages that are being used. 
-All the nodes inside the square with the title "OCULAR" are the ones I developed. 
-In the following sections the processing performed by each node is presented. 
+The names next to the nodes' interconnections are the messages interchanged.  % that those processes interchange. 
+% The squares with the names serve as separators of the different packages that are being used. 
+The square areas define the different ROS packages that have been used.
+The square with the tile "OCULAR" separates the nodes developed in this thesis from third-party nodes. 
+% All the nodes inside the square with the title "OCULAR" are the ones I developed. 
+Sections \ref{converter} to \ref{last_node} present the processing performed by each node. 
 \\
 
 
 		\begin{figure}[H]
 			\begin{center}
-		\includegraphics[width=\linewidth]{img/diagrams/nodes.eps}
+			\includegraphics[width=\linewidth]{img/diagrams/nodes.eps}
 			\caption[System nodes]{System nodes and their interaction.}
-			\label{system_nodes}
+			\label{nodes_graph}
+
 			\end{center}
 		\end{figure}
 
@@ -92,18 +93,21 @@ In the following sections the processing performed by each node is presented.
 %%\newpage
 
 
-\paragraph{Converter}\mbox{}\\
+\subsubsection{Converter node}
 		\label{converter}
 
 	This node is the first step of the developed software. 
-	It transforms the input data from the pi\_tracker package into the custom message used within the software. 
-	Figure \ref{node_converter} represents the inputs and outputs of the node. 
+	It converts the input data containing the skeleton position to a custom message used through the rest of the code. 
+	It allows to easily change the package from which the skeleton is obtained without affecting the whole system. 
+	The converter node transforms the input data from the pi\_tracker package into the custom message used within the software. 
+	It was only implemented a converter for the pi\_tracker package, but it could be easily developed a converter for other packages that retrieve the skeleton position. 
+	Figure \ref{node_converter} represents the Connectivity graph of the node. 
 	The skeleton message enters the node and the custom message containing the hands location is the output. 
 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_converter.png}
-			\caption[Converter node I/O]{Inputs and outputs of the Converter node.}		
+			\caption[Converter node I/O]{Connectivity graph of the Converter node.}		
 			\label{node_converter}
 			\end{center}
 		\end{figure}
@@ -122,16 +126,16 @@ In the following sections the processing performed by each node is presented.
 	
 	%%\newpage
 
-\paragraph{ROI Segmenter 3D}\mbox{}\\
+\subsubsection{3D ROI Segmenter node}
 	\label{roi_segmenter_3d}
 
-	Figure  \ref{node_roi3d} presents the inputs and outputs of the node. 
+	Figure  \ref{node_roi3d} presents the Connectivity graph of the node. 
 	The input of this node is the raw 3D information from the sensor and the hand's locations from the third-party package pi\_tracker, as well as the hand in which the user is holding the object. 
 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_roi3d.eps}
-			\caption[ROI segmenter 3D node I/O]{Inputs and outputs of the ROI segmenter 3D node.}		
+			\caption[ROI segmenter 3D node I/O]{Connectivity graph of the ROI segmenter 3D node.}		
 			\label{node_roi3d}
 			\end{center}
 		\end{figure}
@@ -152,17 +156,17 @@ In the following sections the processing performed by each node is presented.
  
 %%\newpage
 
-\paragraph{ROI Segmenter 2D}\mbox{}\\
+\subsubsection{2D ROI Segmenter node}
 	\label{roi_segmenter_2d}
 	
 	%The present node takes as the input the raw 2D information from the RGB-D sensor and the hand's locations in pixels returned from the ROI segmenter 3D node. 
-	Figure \ref{node_roi2d} depicts the inputs and outputs of this node. 
+	Figure \ref{node_roi2d} depicts the Connectivity graph of this node. 
 	The raw 2D information and the hand location in pixels are inputs to the ROI Segmenter 2D node. 
 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_roi2d.eps}
-			\caption[ROI segmenter 2D node I/O]{Inputs and outputs of the ROI segmenter 2D node.}		
+			\caption[ROI segmenter 2D node I/O]{Connectivity graph of the ROI segmenter 2D node.}		
 			\label{node_roi2d}
 			\end{center}
 		\end{figure}
@@ -184,15 +188,15 @@ In the following sections the processing performed by each node is presented.
 
 %%\newpage
 
-\paragraph{Feature Extractor 2D}\mbox{}\\
+\subsubsection{2D Feature Extractor node}
 
 	This node takes as an input the segmented 2D ROI from the previous nodes and extracts the features. 
-	Figure \ref{node_fe2d} shows the inputs and outputs of the node. 
+	Figure \ref{node_fe2d} shows the Connectivity graph of the node. 
 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_fe2d.eps}
-			\caption[Feature Extractor 2D node I/O]{Inputs and outputs of the Feature Extractor 2D node.}		
+			\caption[Feature Extractor 2D node I/O]{Connectivity graph of the Feature Extractor 2D node.}		
 			\label{node_fe2d}
 			\end{center}
 		\end{figure}
@@ -212,14 +216,14 @@ In the following sections the processing performed by each node is presented.
 
 %%\newpage
 
-\paragraph{Feature Extractor 3D}\mbox{}\\
+\subsubsection{3D Feature Extractor node}
 
-	The input of this node is the segmented point cloud from the ROI Segmenter 3D node. The descriptors are extracted from this information and are published in the output topic. 
+	The input of this node is the segmented point cloud from the ROI Segmenter 3D node (see section \ref{roi_segmenter_3d}. The descriptors are extracted from this information and are published in the output topic. 
 	\\
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_fe3d.eps}
-			\caption[Feature Extractor 3D node I/O]{Inputs and outputs of the Feature Extractor 3D node.}		
+			\caption[Feature Extractor 3D node I/O]{Connectivity graph of the Feature Extractor 3D node.}		
 			\label{node_fe3d}
 			\end{center}
 		\end{figure}
@@ -235,15 +239,15 @@ In the following sections the processing performed by each node is presented.
 
 %%\newpage
 
-\paragraph{Event Handler}\mbox{}\\
+\subsubsection{Event Handler node}
 
 	As it was previously stated, in order to interact with the software some gestures were defined. This is the module that detects those gestures and switches accordingly to the corresponding event. This is the node responsible of detecting the different events that can appear in the system. 
 	\\
-	Figure \ref{node_event} shows the different inputs and outputs of the node. 
+	Figure \ref{node_event} shows the different Connectivity graph of the node. 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_event.eps}
-			\caption[Event Handler 3D node I/O]{Inputs and outputs of the Event Handler node.}		
+			\caption[Event Handler 3D node I/O]{Connectivity graph of the Event Handler node.}		
 			\label{node_event}
 			\end{center}
 		\end{figure}
@@ -261,7 +265,7 @@ In the following sections the processing performed by each node is presented.
 
 %%\newpage
 
-\paragraph{Learner Recognizer}\mbox{}\\
+\subsubsection{Learner-Recognizer node}
 \label{learner_recognizer}
 
 	This node implements the state machine depending on the events recognized by the event handler node. If the event received is "learn", the learning sequence starts. If the event is "recognize", the recognize sequence is triggered. 
@@ -270,12 +274,16 @@ In the following sections the processing performed by each node is presented.
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_lr.eps}
-			\caption[Learner Recognizer node I/O]{Inputs and outputs of the Learner Recognizer node.}		
-			\label{node_lr}
+			\caption[Learner-Recognizer node I/O]{Connectivity graph of the Learner-Recognizer node.}		
 			\end{center}
+						\label{node_lr}
+
 		\end{figure}
 
-	The learn sequence consists on obtaining and storing the features both 2D and 3D and waiting a second allowing the user to move the object to capture a new view of it. 
+	The learn sequence consists in obtaining and storing the features both 2D and 3D and waiting a second allowing the user to move the object to capture a new view of it. 
+	The dataset extracted is saved to a folder when the software is closed, to prevent possible lags in the runtime of the program. 
+	Each view is saved separately. 
+	This node loads the files that are still in the saving folder when the program is restarted. 
 	\\
 
 	The recognition sequence compares the newly obtained features both 2D and 3D with the ones that are stored in the dataset. 
@@ -285,17 +293,17 @@ In the following sections the processing performed by each node is presented.
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_learner_recognizer.eps}
-			\caption[Use case diagram Learner Recognizer node]{Use Case diagram of the Learner Recognizer node}
+			\caption[Use case diagram Learner-Recognizer node]{Use Case diagram of the Learner-Recognizer node}
 			\label{uc_learner_recognizer}
 	\end{figure}
 
 %%\newpage
 
 
-\paragraph{System Output}\mbox{}\\
-
+\subsubsection{System Output node}
+\label{last_node}
 	This nodes implements a buffer and a decision algorithm. 
-	The input of the node is the object ID message from the Learner Recognizer process as can be seen in figure \ref{node_output}.
+	The input of the node is the object ID message from the Learner-Recognizer process as can be seen in figure \ref{node_output}.
 	The node stores thirty values of instantaneous object estimations. 
 	Since the Kinect runs at 30 frames per second, each second a new final object estimation appears. 
 	The output of the node is the final object ID. 
@@ -304,7 +312,7 @@ In the following sections the processing performed by each node is presented.
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_output.eps}
-			\caption[System Output node I/O]{Inputs and outputs of the System Output node.}		
+			\caption[System Output node I/O]{Connectivity graph of the System Output node.}		
 			\label{node_output}
 			\end{center}
 		\end{figure}
