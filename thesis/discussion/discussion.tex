@@ -2,31 +2,35 @@
 \chapter{Evaluation of the system: Discussion}
 \label{discussion}
 
-This chapter covers the discussion of the tests results presented in the previous section, number \ref{results}.
-It follows the same structure than the last two parts. 
-First, the benchmarking of both the nodes and the topics is discussed. 
+This chapter covers the discussion of the tests results presented in section \ref{results}.
+It follows the same structure than chapters \ref{methods} and \ref{results}. 
+First, the computing performance evaluation of both the nodes and the topics is discussed. 
 Afterwards, the results obtained in the accuracy experiment are explained and justified. 
 %\\
 Chapter \ref{conclusions} is devoted to the improvement of the system based on the observations performed on the experiments. 
 
 \section{Computing performance evaluation}
+In this section the results obtained when evaluating the computing performance of the system are discussed. 
+First, the nodes' CPU and RAM usage is evaluated and afterwards the topic network usage, making a separate reference to the publishing rate and the bandwidth measurements. 
+
 	\subsection{Nodes' CPU and RAM usage}
-		\\
 
 			The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D. 
 			Since the 3D data has a higher size, the usage of the nodes using 3D information is much higher than those processing 2D data. 
-			\\
 			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
-			This is because the last ones perform simple conversions and computations of integers and floating data. 
+			This is because these perform simple conversions and computations of integers and floating data. 
 			On the other hand, the learner recognizer node implements the state machine of the software. 
 			This means it has to deal with a higher amount of data than the previous nodes. 
+			\\
+
+			The total CPU usage of the system is of one physical core, and the RAM utilization of less than 1 GB of memory. 
+			This information suggests that the software is able to run on real time with the hardware being used in the experiments. 
+			The percentage of the CPU and RAM usage (23\% and 5\% respectively) show that the system is able to work on real time in a computer with lower RAM and slower CPU than the one used. 
 
 
+		\subsection{Topic network usage}
 
-
-		\paragraph{Topic benchmarking}\mbox{}\\
-
-			Chapter \ref{results} presented the results of the topic benchmarking. 
+			Chapter \ref{results} presented the results of the topic network usage experiment. 
 			Two different characteristics were measured: the publishing rate and the bandwidth used. 
 			That data can be found in the figures \ref{hz} and \ref{bw} respectively. 
 			\\

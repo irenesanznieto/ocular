@@ -82,7 +82,6 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 			\includegraphics[width=\linewidth]{img/diagrams/nodes.eps}
 			\caption[System nodes]{System nodes and their interaction.}
 			\label{nodes_graph}
-
 			\end{center}
 		\end{figure}
 
@@ -101,15 +100,14 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	It allows to easily change the package from which the skeleton is obtained without affecting the whole system. 
 	The converter node transforms the input data from the pi\_tracker package into the custom message used within the software. 
 	It was only implemented a converter for the pi\_tracker package, but it could be easily developed a converter for other packages that retrieve the skeleton position. 
-	Figure \ref{node_converter} represents the Connectivity graph of the node. 
+	Figure \ref{converter_graph} represents the Connectivity graph of the node. 
 	The skeleton message enters the node and the custom message containing the hands location is the output. 
 
 		\begin{figure}[H]
-			\begin{center}
+			\centering
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_converter.png}
 			\caption[Converter node I/O]{Connectivity graph of the Converter node.}		
-			\label{node_converter}
-			\end{center}
+			\label{converter_graph}
 		\end{figure}
 
 	% The information provided by that third-party code contains the position in the space of each joint of the body. 
@@ -303,19 +301,18 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	% This is the node responsible of detecting the different events that the user triggers. 
 	\\
 
-	Figure \ref{node_event_io} shows the connectivity graph of the node. 
+	Figure \ref{node_event} shows the connectivity graph of the node. 
 	Event Handler receives its input from the pi\_tracker package and outputs the event message to the rest of the system. 
+
 		\begin{figure}[H]
-			\begin{center}
+			\centering
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_event.eps}
 			\caption[Event Handler 3D node I/O]{Connectivity graph of the Event Handler node.}		
-			\end{center}
-			\label{node_event_io}
-
+			\label{node_event}
 		\end{figure}
+
 	The input of the system is the skeleton message that is obtained from the third-party package pi\_tracker. This message contains the information of all the joints of the user. The information is screened to detect the height at which each hand is located. The one that is the highest is the one being used in the software. Afterwards, the distance between the body and the chosen hand is computed. When that distance is similar to the distance of the user's arm, the event triggered is "learn". If, otherwise, the hand is located close to the body, the event that is published to the output topic is "recognize". 
 	The distance that triggers the modes is proportional to the distance between the user and the RGB-D sensor in order to obtain a range of use of the software higher. 
-	
 	\\
 
 	Figure \ref{uc_event} is a diagram with the use case of the node. 
