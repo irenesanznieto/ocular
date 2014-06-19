@@ -45,32 +45,44 @@
 	% 	In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. In this project, the tests implemented of this level are the following: 
 
 
-\section{Performance testing}
-	The performance testing is used to benchmark the system.
-	There are different items of the system that are tested. 
-	Since the code is divided in nodes, the performance of each node is evaluated. 
-	The sum of those performances gives the total package benchmarking. 
-	Also, the topics used to communicate the nodes are evaluated. 
-	The details may be found in the sections below. 
-	\\[0.5cm]
+\section{Computing performance evaluation}
 
-	\begin{itemize}
+	This section presents the tests that I performed to evaluate the computing performance of the system. 
+	The main objective of these tests is to demonstrate that the system is able to operate in real-time, so it can be used while interacting with a human.
+	The topics and the nodes of the system are being evaluated measuring their main characteristics. 
+	The nodes computing performance is obtained from their CPU and RAM consumption. 
+	The topics are the means of communication of the nodes. 
+	In the topics the messages are published and more than one node can subscribe to each topic and hence access to those messages. 
+	In this evaluation, the total bandwidth and publishing rate of the topics are measured. 
 
+	% The performance testing is used to benchmark the system.
+	% There are different items of the system that are tested. 
+	% Since the code is divided in nodes, the performance of each node is evaluated. 
+	% The sum of those performances gives the total package benchmarking. 
+	% Also, the topics used to communicate the nodes are evaluated. 
+	% The details may be found in the sections below. 
+	% \\[0.5cm]
+	% \begin{itemize}
+		% \item{\textbf{Nodes' CPU and RAM usage}}
+		% \\
+		\subsection{Nodes' CPU and RAM usage}
 
-		\item{\textbf{Package and node benchmarking}}
-		\\
-		The package developed is composed of different nodes. 
-		Since the computing is distributed, each node has different CPU and RAM usages.
-		That is why in these experiments the particular behavior of each node is evaluated. 
-		The CPU and RAM usages are given in percentages. 
-		The computer used has a i7 processor. 
-		This means that it has four processing cores that uses two threads each, totaling eight virtual cores. 
-		The CPU usage is hence represented from the 0 to the 800\%.
-		The RAM usage is represented from 0 to 100\%.
-		\\[0.5cm]
+		The CPU and RAM consumption of each node is being measured. 
+		The total usage of the whole system can be calculated summing the individual consumptions. 
+		In section \ref{results}, the results of this evaluation are presented. 
+		The CPU and RAM usage are presented in percentage. 
+		% The package developed is composed of different nodes. 
+		% Since the computing is distributed, each node has different CPU and RAM usages.
+		% That is why in these experiments the particular behavior of each node is evaluated. 
+		% The CPU and RAM usages are given in percentages. 
+		% The computer used has a i7 processor. 
+		% This means that it has four processing cores that uses two threads each, totaling eight virtual cores. 
+		% The CPU usage is hence represented from the 0 to the 800\%.
+		% The RAM usage is represented from 0 to 100\%.
+		% % \\[0.5cm]
 
-		The whole package benchmarking is obtained summing the performances of the different nodes. 
-		This information is important to know the minimum specifications of the computer used in order to obtain a real-time response of the system.  
+		% The whole package benchmarking is obtained summing the performances of the different nodes. 
+		% This information is important to know the minimum specifications of the computer used in order to obtain a real-time response of the system.  
 
 		% The results are being shown in section \ref{results} in a table as the one in figure \ref{node_model}.
 
@@ -83,15 +95,26 @@
 		% 		\end{center}
 		% \end{figure}
 
-		\item{\textbf{Topic Benchmarking}}\\
-		The topics communicate the nodes and allow the exchange of information. 
-		The parameters that characterizes the topics are the bandwidth and the publishing frequency.
+		% \item{\textbf{Topic network usage}}\\
+		\subsection{Topic network usage}
+
+		The computing performance tests also evaluate the topic bandwidth (BW) and frequency requirements. 
+		The motivation of this evaluation is the following.
+		ROS is a distributed system that allows spreading the computation across multiple machines. 
+		This allows to create distributed computing systems where the robots carry low-power consuming computers and delegate the CPU intensive computing to remote servers.	
+		The drawback of this approach is that communicating machines consume network resources. 
+		This is specially relevant for image or video tasks, which do consume great amounts of BW. 
+		The need to evaluate the BW and frequency requirements of the system comes from this issue. 
+		Therefore, the purpose of the topic benchmarking test is to evaluate if the system could be distributed across several machines.
+
+		% The topics communicate the nodes and allow the exchange of information. 
+		% The parameters that characterizes the topics are the bandwidth and the publishing frequency.
 	
-		% \paragraph{Bandwidth}\mbox{}\\
-		The bandwidth parameter is the speed at which the data is transmitted. 
-		Its units are kilobytes per second. 
-		The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
-		% The results are presented in a table as the one in figure \ref{topic_bw_model}. 
+		% % \paragraph{Bandwidth}\mbox{}\\
+		% The bandwidth parameter is the speed at which the data is transmitted. 
+		% Its units are kilobytes per second. 
+		% The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
+		% % The results are presented in a table as the one in figure \ref{topic_bw_model}. 
 
 		% \begin{figure}[H]
 		% 		\begin{center}
@@ -106,7 +129,7 @@
 		% \paragraph{Publishing frequency}\mbox{}\\
 		The publishing frequency of a ROS topic is the number of messages published on it over time. 
 		It is measured in Hz. 
-		There is a command which is similar to the one above that returns the maximum, minimum and the standard deviation of the time between messages in seconds. 
+		ROS provides a built-in command that is similar to the one above that returns the maximum, minimum and the standard deviation of the time between messages in seconds. 
 		Also, it returns the average publishing frequency.  
 		% A table like the one in figure \ref{topic_hz_model} is used to present the results.
 
@@ -119,12 +142,14 @@
 		% \end{figure}
 		% 	\end{itemize}
 
-\newpage
+% \newpage
 
-\section{Accuracy experiment}
+\section{Evaluation of the object recognition accuracy}
+\label{accuracy_experiment}
 
 	This experiment is designed to obtain data related to the accuracy of the system. 
-	In the following sections the conditions and parameters that affect the test are shown and explained as well as the testing procedure that is followed. 
+	% In the following sections the conditions and parameters that affect the test are shown and explained as well as the testing procedure that is followed. 
+	Sections \ref{setup}, \ref{set_of_objects}, \ref{procedure} and \ref{accuracy_measurement} explain the conditions and parameters that affect the experiment and also the testing procedure that has been followed. 
 	%\\[0.5cm]
 
 	% \subsection{Environment \& testing conditions}
@@ -143,7 +168,49 @@
 	% 	\end{center}
 	% \end{figure}
 
-	\paragraph{Experiment procedure}\mbox{}\\
+	\subsection{Experimental setup}
+	\label{setup}
+	The experiment was performed in a highly illuminated room with white walls. 
+	The light was a mixture of natural light and artificial light coming from halogens.
+	The experiment was performed at a distance of approximately 1.7 m from the RGB-D (Red, Green, Blue and Depth) sensor. 
+	The background was composed of a white wall with a painting in the right side, a window in the left side and shelves in the middle-left part. 
+
+
+
+	\subsection{Experimental set of objects}
+	\label{set_of_objects}
+		The objects being used in the experiment are common objects. 
+		They can be seen in Figure \ref{dataset}.
+		Using common objects allow to obtain more reliable experiment results, since they were obtained under working conditions. 
+		Common objects are usually featureless. 
+		That characteristic complicates the object recognition, since objects with rich textures usually generate more robust descriptors.
+		In order to overcome this difficulty, different views of each object are obtained and compared when doing the matching. 
+		Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. 
+
+		\begin{figure}[H]
+				\begin{center}
+			    \includegraphics[width=\textwidth]{img/tests/dataset02.jpg}
+				\caption[Experimental dataset]{Experimental dataset. From left to right: ball, skull, cup, mobile and calculator.}
+				\label{dataset}
+
+				\end{center}
+		\end{figure}
+	% \subsection{Dataset}
+
+
+		%This is because the software is intended to be running in a social robot that needs to recognize the most used objects. 
+		%Also, the other possible application of the software is as an aiding software for visually impaired persons. 
+		%In this case it is a requirement the recognition of daily objects as well.  
+		%\\
+		% The ones being used in the present experiment may be seen in figure \ref{dataset}. 
+	
+		This particular dataset is conformed of objects that could be easily confused by a computer vision system using descriptors. 
+		As an example, the 3D shape of the ball and the skull is very similar, a fact that would lead to akin 3D descriptors. 
+		Also, the cup, the bottle and the mobile have comparable 2D texture. 
+		\\%[0.5cm]
+
+	\subsection{Experimental procedure}
+	\label{procedure}
 
 		The testing is performed following this sequence. 
 		% First, the tester shows the first two objects that are going to be learned. 
@@ -180,34 +247,6 @@
 
 
 
-		\begin{figure}[H]
-				\begin{center}
-			    \includegraphics[scale=0.35]{img/tests/dataset.jpg}
-				\caption[Experimental dataset]{Experimental dataset}
-								\label{dataset}
-
-				\end{center}
-		\end{figure}
-	% \subsection{Dataset}
-		The dataset is composed of common objects. 
-
-		%This is because the software is intended to be running in a social robot that needs to recognize the most used objects. 
-		%Also, the other possible application of the software is as an aiding software for visually impaired persons. 
-		%In this case it is a requirement the recognition of daily objects as well.  
-		%\\
-		The ones being used in the present experiment may be seen in figure \ref{dataset}. 
-		
-
-		Using common objects allow to obtain more reliable experiment results, since they were obtained under working conditions. 
-		Common objects are usually featureless. 
-		That characteristic complicates the object recognition, since the most textured objects are the ones that usually generate more robust descriptors. 
-		In order to overcome this difficulty, different views of each object are obtained and compared when doing the matching. 
-		Also, the introduction of both 2D and 3D features diminish the possibilities of false positives and false negatives. 
-		This particular dataset is conformed of objects that could be easily confused by a computer vision system using descriptors. 
-		As an example, the 3D shape of the ball and the skull is very similar, a fact that would lead to akin 3D descriptors. 
-		Also, the cup, the bottle and the mobile have comparable 2D texture. 
-		\\%[0.5cm]
-
 	% \subsection{Effectiveness measurement}
 
 		% The effectiveness is measured differently for the learning mode than for the recognizing mode. 
@@ -221,41 +260,44 @@
 		% Also, a confusion matrix is constructed using the results of this test in order to offer a visual summary of the performance of the code. 	\\
 
 		% Finally, the F-score or F-measure is computed in order to present the accuracy of the of the system developed in this thesis. 
-		\paragraph{Accuracy measurement}\mbox{}\\
-
+		\subsection{Accuracy measurement}
+		\label{accuracy_measurement}
 
 		The accuracy of the system is measured using the F-score or F-measure. 
-		The general formula for a positive real $\beta$ is the following: 
-		\\
+		The general formula for a positive real $\beta$ is described in formula \ref{f_beta}. 
 		\begin{center}
-		$F_\beta=(1+\beta^2)\cdot\frac{precision \cdot recall}{(\beta^2 \cdot precision )+recall}$
+		\begin{equation}
+		\label{f_beta}
+		F_\beta=(1+\beta^2)\cdot\frac{precision \cdot recall}{(\beta^2 \cdot precision )+recall}
+		\end{equation}
 		\end{center}
-		\\
-
-
-
-		
 		% The F-score may be expressed in terms of true and false positives and negatives as shown below: 
 		% \\
 
 		% $F_\beta=\frac{(1+\beta^2)\cdot true\_positives}{(1+\beta^2)\cdot true\_positives +\beta^2 \cdot false\_negatives +false\_positives}$
 		% \\
-
+		The precision and recall are parameters that are described in formulas \ref{precision} and \ref{recall}, respectively. 
 		The $F_1 score$ is used when the weight of having false positives and negatives is the same. 
 		This weight depends on the applications of the system being tested. 
 		For example, in critical systems such as a police face recognition software it is preferable to have false positives than false negatives. 
 		It is obtained from the general formula for $\beta=1$: 	
-		\\
+		
 		\begin{center}
-		$F_1=2\cdot\frac{precision \cdot recall}{precision + recall}$
+		\begin{equation}
+		F_1=2\cdot\frac{precision \cdot recall}{precision + recall}
+		\end{equation}
 		\end{center}
 
-		\\
-
-		In the system there is no difference between both errors and hence the $F_1 score$ is the ratio being used. 
-		In order to evaluate the accuracy, a confusion matrix is constructed for each experiment. 
+		In this system there is not a special need to give more weight neither to false positives nor false negatives. 
+		Hence, the $F_1 score$ has been chosen as the metric for the accuracy evaluation of the system.		
+		Apart from the $F_1 score$, a confusion matrix is constructed for each experiment. 
 		This matrix shows the number of times each different object was predicted when each of the real objects were presented to the system. 
-		In this system, each different retrieved a different number of results and hence the matrix is constructed with a ratio from 0 to 1. 
+		Usually, confusion matrices present the absolute results but in this case they were converted into ratios in a 0 to 1 range. 
+		When the number of views being learned per object increases, the computing time also is higher and then the number of predicted objects for a same amount of time is lower. 
+		In this experiment, for the 1 view per object experiment, the number of results is larger than the 10 views experiment. 
+		This is the reason why the confusion matrix values are given as a ratio, to construct comparable confusion matrices from each of the experiments. 
+
+		% In this system, each different retrieved a different number of results and hence the matrix is constructed with a ratio from 0 to 1. 
 		% The confusion matrix in which the results are being presented is the same as the figure \ref{matrix_model}. 
 
 
@@ -270,23 +312,26 @@
 
 
 		The precision is the fraction of retrieved results that are relevant.  
-		Using a confusion matrix as the one above, the precision is computed from it as follows: 
-		\\
+		Using a confusion matrix as the one above, the precision is computed from it using formula \ref{precision}.
 		\begin{center}
-		$precision_{ij}=\frac{M_{ij}}{\sum M_j}$
+		\begin{equation}
+		\label{precision}
+		precision_{ij}=\frac{M_{ij}}{\sum M_j}
+		\end{equation}
 		\end{center}
 
-		\\
-
+		$M_{ij}$ are the elements of the confusion matrix. 
+		The i represent the rows and the j the columns of the matrix. 
 		The recall is the fraction of the results that are relevant and that have succeeded. 
-		It may be obtained using the confusion matrix with this formula: 
-		\\
+		It may be obtained using the confusion matrix with formula \ref{recall}.
 		\begin{center}
-		$recall_{ij}=\frac{M_{ij}}{\sum M_i}$
+		\begin{equation}
+		\label{recall}
+		recall_{ij}=\frac{M_{ij}}{\sum M_i}
+		\end{equation}
 		\end{center}
-		\\	
 
-		The precision and recall is computed for each of the six objects conforming the dataset. 
+		The precision and recall are computed for each of the six objects conforming the dataset. 
 		% Those two parameters together with the F1-score is presented in a table as the one in figure \ref{fscore_model}. 
 
 		% \begin{figure}[H]

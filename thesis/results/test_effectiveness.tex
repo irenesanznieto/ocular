@@ -1,18 +1,17 @@
-\section{Accuracy measurement}
+\section{ Evaluation of the object recognition accuracy}
 \label{results_accuracy_measurement}
-This sections presents the results obtained in the accuracy measurement experiment. 
+This sections presents the results obtained in the object recognition accuracy experiment. 
 It was previously explained that the different objects may be learned using one or more views per template. 
 The accuracy is analyzed depending on the number of views learned. 
-One, five and ten views were used and the same experiment was performed in each of them. 
-The data in the confusion matrices shown below is normalized to range [0,1].
-This is due to the fact that the publishing rate of the topics varies with the amount of templates. 
-Hence, for an experiment that lasts the same amount of time a larger number of messages would appear when the algorithm has 1 view templates. 
+The experiment was repeated using one, five and ten views in order to evaluate the influence of the number of views in the accuracy of the system. %were used and the same experiment was performed for each of them. 
+The data in the confusion matrices shown below is normalized to range [0,1] to make them comparable.
+% This is due to the fact that the publishing rate of the topics varies with the amount of templates. 
+% Hence, for an experiment that lasts the same amount of time a larger number of messages would appear when the algorithm has 1 view templates. 
 The discussion of the results can be found in section \ref{discussion}.
 
 \subsection{Template using 1 view}
 This experiment was performed adding to the dataset one view per object. 
 Figure \ref{1view_matrix} shows the confusion matrix obtained with the experiment. 
-
 The F1-score obtained per object as well as their precision and recall values may be found in figure \ref{1view_fscore}.
 
 	% \begin{figure}[H]
@@ -264,7 +263,7 @@ calculator	&&	0&92	&	0&76	&&	0&83	\\
 
 
 	\subsection{Comparison of the experiments results using different number of views}
-	In this subsection the results presented in this section are summarized and presented together. 
+	In this subsection the results obtained in the three object recognition accuracy experiments are summarized and presented together. 
 	This is performed to offer a more global view of the system's performance as a function of the number of templates being used. 
 
 	\begin{figure}[H]
@@ -282,3 +281,12 @@ calculator	&&	0&92	&	0&76	&&	0&83	\\
 		\label{comparison_fscore}
 		\end{center}
 	\end{figure}
+
+	Figure \ref{comparison_success} presents the success rate obtained in each of the three experiments for each object. 
+	It can be extracted a correlation between the number of views being learned per object and the success rate of the system. 
+	The graph in figure \ref{comparison_success} shows that the higher the number of views is, the better the success rate is as well. 
+	Figure \ref{comparison} plots the F1 score obtained for each object in every of the experiments being performed on the system. 
+	The relation between the number of views and the F1 score is not as clear as the previous case. 
+	Most of the times, the F1 score ratio increases with the number of views. 
+	Nevertheless, in the case of the skull and the cup this statement is not fulfilled. 
+	A discussion of these comparisons may be found in section \ref{discussion}.

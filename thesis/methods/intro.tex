@@ -4,18 +4,28 @@
 %Those elements are the computer and the RGB-D sensor being used. 
 %The goal of this chapter is to detail the experiments that are performed in the system in order to allow others to replicate them. 
 In this chapter the experiments that are performed in the system are detailed in order to allow others to replicate them. 
-%\\%[0.5cm]
-
 The software has been built in a modular way that allows an easy location of the problems and bottlenecks.
-Different aspects of the code are tested and benchmarked such as the CPU and RAM consumption of the whole code. 
+This modularity also permits the change of the different processing steps without affecting the whole system.  
+Different aspects of the code are tested and benchmarked such as the CPU and RAM consumption. 
 Also, since the computing has been distributed over the different nodes, the test describes the response of each one separately. 
-The nodes are also benchmarked accordingly showing the publishing rate and the bandwidth. 
+The topics that communicate the nodes of the system are also benchmarked. 
+The characteristics being measured in the topics are the publishing rate and the bandwidth. 
+All these are being measured in order to ensure that the system is able to work on real time. 
 \\%[0.5cm]
 
-Apart from the system's performance the accuracy is also being tested. 
-This characteristic is measured taking into account the number of false positive and negatives that appear at the output of the system. 
-The confusion matrix for each experiment is constructed. 
-Using this information, the F1 score of the software is computed. 
+Apart from the system's performance its accuracy is also being tested. 
+In order to do so, three experiments have been performed using a different number of views per object. 
+In each of them, the confusion matrix has been constructed. 
+From the confusion matrix, the success ratio and the precision and recall of the system is obtained. 
+The success ratio is the ratio of true positives returned by the system, that is, the percentage of times the system estimates the object being shown to it correctly. 
+The precision and recall allow to calculate the F1-score of the software for each object. 
+More information about this calculations and the definitions of precision, recall and F1-score may be found in section \ref{accuracy_experiment}.
+\\
+
+The results obtained in the experiments are presented in chapter \ref{results} and later discussed in chapter \ref{discussion}.
+% This feature is measured taking into account the number of false positive and negatives that appear at the output of the system. 
+% The confusion matrix for each experiment is constructed. 
+% Using this information, the F1 score of the software is computed. 
 % This study is conducted to determine the number of true and false positives and negatives.
 % Using that data, in the following chapter the F-score of the software is calculated and the confusion matrix constructed. 
 \\%[0.5cm]

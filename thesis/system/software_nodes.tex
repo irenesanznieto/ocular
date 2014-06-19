@@ -381,8 +381,8 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 
 \subsubsection{System Output node}
 \label{last_node}
-	The output of the Learner-Recognizer node is the predicted object. 
-	This prediction is very noisy due to, for example, sudden changes in the illumination of the room. 
+	The output of the Learner-Recognizer node described in section \ref{learner_recognizer} is the predicted object. 
+	This prediction is very noisy due to different factors such as sudden changes in the illumination of the room. 
 	In order to reduce the noise effect in the system, it was decided to introduce the System Output node. 
 	This nodes is a low-pass filter, which means that it eliminates those results that has a high frequency. 
 	This task is performed using a buffer to store a certain amount of predictions and then managing the stored data. 
@@ -391,8 +391,8 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 
 	The input of the node is the object ID message from the Learner-Recognizer process as can be seen in figure \ref{node_output}.
 	The node stores thirty values of instantaneous object estimations. 
-	Since the Kinect runs at 30 frames per second, each second a new final object estimation appears. 
-	The output of the node is the final object ID. 
+	Since the Kinect runs at 30 frames per second, approximately each second a new final object estimation is outputted. 
+	% The output of the node is the final object ID. 
 
 
 		\begin{figure}[H]
@@ -403,15 +403,17 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 			\end{center}
 		\end{figure}
 
-%%CONTINUE HERE!!
 	The decision is performed as follows. 
-	The input to the algorithm are two vectors containing the 2D and 3D object estimations. 
-	The frequency of each class is obtained. 
+	The thirty 2D and 3D instantaneous object estimations are stored in two vectors. 
+	The frequency is the amount of times each object appears in those vectors. 
+	This frequency is obtained for 2D and 3D separately.  
 	Let us represent as $y'_{2D}$ and $y'_{3D}$ the vectors containing in each element the frequency of the object with $object_id = element$. 
-	Both informations are combined in one vector called $y'$. 
-	\\
+	Both vectors are combined in one, which is called $y'$ using formula \ref{y'}. 
 	\begin{center}
-	$y'=0.6*y'_{2D}+0.4*y'_{3D}$
+	\begin{equation}
+	\label{y'}
+	y'=0.6*y'_{2D}+0.4*y'_{3D}
+	\end{equation}
 	\end{center}
 	The reason of applying the 0.6 and 0.4 constants for 2D and 3D respectively, instead of calculating a simple mean is because we found empirically that the 2D descriptors produced better predictions than the 3D ones.
 	The estimated final object id ($Y$) is obtained as the vector element that has the highest frequency. 

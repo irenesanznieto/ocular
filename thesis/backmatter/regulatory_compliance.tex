@@ -1,7 +1,6 @@
 
-\section {Appendix: \\Regulatory compliance}
+\section {Appendix: Regulatory compliance}
 
-The present section covers the regulatory compliance that affects directly to the system presented. 
 % It must be noted that since the project is a research project, most of the regulations here exposed may not be needed. 
 % Nevertheless, they must be taken into account in the case that the system is commercialized.
 
@@ -28,24 +27,46 @@ The present section covers the regulatory compliance that affects directly to th
 
 
 	% \paragraph{Software regulations}\mbox{}\\
-	
-	There are different regulations regarding software. 
-	% This section is centered on the ones related to Open Source systems, since the software developed in this thesis is Open  
-	Since the project is Open Source, the section is centered on presenting the regulations of this type of systems. 
+		% This section is centered on the ones related to Open Source systems, since the software developed in this thesis is Open  
+	The present section covers the regulatory compliance that affects directly to the system presented. 
+	% There are different regulations regarding software. 
+	% Since the project is Open Source, this section focus on presenting the regulations of this type of systems. \\
 	Nowadays, the author of the software has the right of sharing it using a contract. 
 	In it he determines which of the author rights he is going to yield and under what conditions. 
 	This type of contract is called a software license. 
+	% This project uses a number of third-party libraries that have their own license. 
+	Sections \ref{ocular} to \ref{pcl} show the details of the licenses of this thesis and the third-party libraries being used. 
+
+	\subsection{OpenCV}
+	The Open Source Computer Vision library is released under a BSD license. 
+	Hence it is free for both academic and commercial use. 
+	Nevertheless, there are certain algorithms implemented whose license is different from the whole library. 
+	The SIFT or SURF descriptors are two examples of this fact: they have a software patent. 
+	This legal figure allows the use of the algorithms for investigation purposes, but imposes the payment of a fee for commercial uses. 
+	Since OCULAR is intended to be an Open Source system, neither of these algorithms are used.
+	Instead, the ORB algorithm is utilized in the system.% as the descriptor extractor of the system. 
+	ORB has no patent and hence can be incorporated in software designed for both commercial and research uses. 
+
+	\subsection{PCL}
+	\label{pcl}
+	The Point Cloud Library has as well a BSD license. 
+	It is then free for commercial and research use. 
+	Further information about the library and its license may be found in this \href{http://pointclouds.org}{\color{blue} {webpage}} \footnote{http://pointclouds.org}. 
+
+
+	\subsection{ROS}
+	All ROS core code is distributed under a BSD license, more specifically a BSD 3-Clause license. 
+	It is very similar to the OCULAR license, the redistribution is permitted under certain conditions. 
+	More information may be found in this \href{http://opensource.org/licenses/BSD-3-Clause}{\color{blue} {webpage}}\footnote{http://opensource.org/licenses/BSD-3-Clause}. 
+	The different ROS packages that are used in this thesis (openni\_camera, openni\_launch and pi\_tracker) are distributed under a BSD license, according to their web pages ( \href{http://wiki.ros.org/openni_camera}{openni\_camera}\footnote{http://wiki.ros.org/openni_camera}, \href{http://wiki.ros.org/openni_launch}{openni\_launch}\footnote{http://wiki.ros.org/openni_launch}, \href{http://wiki.ros.org/pi_tracker}{pi\_tracker} \footnote{http://wiki.ros.org/pi\_tracker}).
 
 
 	\subsection{OCULAR}
-
-	This project involves taking personal information to construct a dataset with which recognize different objects. 
-	In order to observe the data protection Spanish law (Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal), the stored data does not contain any personal data. 
-	Instead of storing an image, the information retrieved is a matrix of numbers containing the descriptors extracted from the objects. 
-	This ensures that the system could be used in commercial software or that further investigations could be performed accordingly with the law. 
-
-	This project is being distributed with a MIT License (MIT). 
-	This license may be found in this  \href{https://raw.githubusercontent.com/irenesanznieto/ocular/master/LICENSE.md}{\color{blue}\underline {link}}, and states the following: \\
+	\label{ocular}
+	The license of this system must be coherent with the ones of the third-party libraries it uses.
+	In fact, Open Source packages and libraries were selected to ensure that the whole system could be free for commercial and research use. 
+	This is the reason why this project is being distributed with a MIT License (MIT). 
+	The MIT license may be found in this  \href{https://raw.githubusercontent.com/irenesanznieto/ocular/master/LICENSE.md}{\color{blue}\underline {link}}\footnote{https://raw.githubusercontent.com/irenesanznieto/ocular/master/LICENSE.md}, and states the following: \\
 
 	"Copyright (c) 2014 Irene Sanz Nieto
 
@@ -60,29 +81,15 @@ The software is provided "as is", without warranty of any kind, express or impli
 	The license claims that software is available for redistribution and use, but no warranty is provided with it. 
 	The different algorithms and third-party packages were selected taking into account that their licenses must be compatible with the one being provided by this system. 
 	In the next sections the licenses under which the different packages are distributed are presented. 
+	\\
+
+	Apart from the licensing of the software, it was taken into account in the development of the system that this project needs to store the information learned to be able to use it in later sessions. % involves taking personal information to construct a dataset with which recognize different objects. 
+	In order to observe the data protection Spanish law (Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal), the stored data does not contain any personal information. 
+	Instead of storing, for example, an image of the user, the information retrieved is a matrix of numbers containing the descriptors extracted from the objects. 
+	This ensures that the system could be used in commercial software or that further investigations could be performed accordingly with the law. 
 
 
-	\subsection{ROS}
-	All ROS core code is distributed under a BSD license, more specifically a BSD 3-Clause license. 
-	It is very similar to the OCULAR license, the redistribution is permitted under certain conditions. 
-	More information may be found in this \href{http://opensource.org/licenses/BSD-3-Clause}{\color{blue} {webpage}}. 
-	The different ROS packages that are used in this thesis (openni\_camera, openni\_launch and pi\_tracker) are distributed under a BSD license, according to their web pages ( \href{http://wiki.ros.org/openni_camera}{openni\_camera}, \href{http://wiki.ros.org/openni_launch}{openni\_launch}, \href{http://wiki.ros.org/pi_tracker}{pi\_tracker}).
 
-	\subsection{OpenCV}
-	The Open Source Computer Vision library is released as well under a BSD license. 
-	Hence it is free for both academic and commercial use. 
-	Nevertheless, there are certain algorithms implemented whose license is different from the whole library. 
-	The SIFT or SURF descriptors are two examples of this fact. 
-	These algorithms have a software patent. 
-	This legal figure allows the use of the algorithms for investigation purposes. 
-	But for commercial uses the payment of a fee is imposed. 
-	This was one of the reasons of choosing the ORB algorithm as the descriptor extractor of the system. 
-	ORB has no patent and hence could be used for both commercial and research. 
-
-	\subsection{PCL}
-	The Point Cloud Library has as well a BSD license. 
-	It is then free for commercial and research use. 
-	Further information about the library and its license may be found in this \href{http://pointclouds.org}{\color{blue} {webpage}}. 
 
 
 	% \paragraph{Data protection} \mbox{}

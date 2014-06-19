@@ -1,7 +1,11 @@
-\section{Performance testing}
-
-	\begin{itemize}
-		\item{\textbf{Package and nodes benchmarking}}
+\section{Computing performance evaluation}
+This section presents the results of the computing performance experiment. 
+First, in section \ref{results_nodes}, the CPU and RAM usage of each of the nodes of the system is presented. 
+Afterwards, in section \ref{results_topics}, the bandwidth and the publishing rate of each of the nodes is shown. 
+	% \begin{itemize}
+		% \item{\textbf{Package and nodes benchmarking}}
+		\subsection{Nodes' CPU and RAM usage}
+		\label{results_nodes}
 		\\
 
 			As it was said in chapter \ref{methods}, the benchmarking is made in the different nodes that compose the software. 
@@ -13,24 +17,33 @@
 
 \begin{table}[H]
 \centering
-\begin{tabular} {l c r@{.}l c r@{.}l c r@{.}l }
+\begin{tabular} {l c r@{.}l c r@{.}l }%c r@{.}l }
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{NODES}\end{center}} &
-   \multicolumn{3}{c}{\begin{center}\textbf{CPU USAGE(0 - 800)}\end{center}} &
+   % \multicolumn{3}{c}{\begin{center}\textbf{CPU USAGE(0 - 800)}\end{center}} &
    \multicolumn{3}{c}{\begin{center}\textbf{CPU USAGE(\%)}\end{center}} &
    \multicolumn{3}{c}{\begin{center}\textbf{RAM USAGE(\%)}\end{center}} &\\
 \addlinespace[-3mm]
 \midrule
-Converter && 1&60 && 0&20 && 0&50 \\
-ROI segmenter 2D && 6&70 && 0&84 && 0&50\\
-ROI segmenter 3D && 106&70 && 13&34 && 1&50\\
-Feature extractor 2D && 19&50 && 2&44 && 0&10\\
-Feature extractor 3D && 37&90 && 4&74 && 0&50\\
-Event handler && 1&30 && 0&16 && 0&50 \\
-Learner recognizer && 8&30 && 1&04 && 0&80 \\
-System output && 1&00 && 0&13 && 0&30 \\
-\textbf{TOTAL} && \textbf{183}&\textbf{00} &&\textbf{22}&\textbf{88} && \textbf{4}&\textbf{70} \\
+Converter && %1&60 && 
+0&20 && 0&50 \\
+ROI segmenter 2D && %6&70 && 
+0&84 && 0&50\\
+ROI segmenter 3D && %106&70 &&
+ 13&34 && 1&50\\
+Feature extractor 2D && %19&50 && 
+2&44 && 0&10\\
+Feature extractor 3D && %37&90 &&
+ 4&74 && 0&50\\
+Event handler && %1&30 && 
+0&16 && 0&50 \\
+Learner recognizer &&% 8&30 && 
+1&04 && 0&80 \\
+System output && %1&00 && 
+0&13 && 0&30 \\
+\textbf{TOTAL} && %\textbf{183}&\textbf{00} &&
+\textbf{22}&\textbf{88} && \textbf{4}&\textbf{70} \\
 \bottomrule
 \end{tabular}
 \caption{Nodes benchmarking}
@@ -49,6 +62,9 @@ System output && 1&00 && 0&13 && 0&30 \\
 			% \end{figure}
 
 			The total CPU usage is lower than the 23\%, and the RAM usage of the whole software is of less than the 5\%. 
+			Since the processing unit has 4 physical cores with two threads per core, the system needs less than one physical core to operate in real time. %the CPU consumption is of less than one physical core. 
+			The computer used has 8 GB of RAM as was previously said in section \ref{computer}. 
+			Using that number, the total RAM usage of the system is of 0.4 GB. 
 			\\
 
 
@@ -56,23 +72,23 @@ System output && 1&00 && 0&13 && 0&30 \\
 			The CPU and RAM usage varies from  0.13 to 13.34 and from 0.1 to 1.5 respectively. 
 			That is, there ia a percent variation of 99\% and  93\%  in the CPU and RAM consumption in the nodes. 
 			The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D.
-			\\
-
 			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
 			
 			% \newpage
 
-		\item{\textbf{Topic benchmarking}}\\
+		% \item{\textbf{Topic benchmarking}}\\
+		\subsection{Topic network usage}
+		\label{results_topics}
 
 			The following figures show the publishing rate and bandwidth of the different topics. 
 			In figure \ref{hz} can be appreciated the difference in the average rate between topics. 
 			Also it is noticeable the minimum rate column. 
 			Most of the topics have a minimum publishing rate of 0 seconds.
 			The only one that is different is the final object ID topic. 
-			Another singular fact is the maximum column. 
-			In it, all topics but two have less than 1 second. 
+			Another singular fact can be found in the maximum column. 
+			All topics but two have less than 1 second as maximum publishing rate. 
 			Those two are again final object ID and the object ID topic. 
-			The reasons behind this particular behaviour are discussed in the next chapter. 
+			The reasons behind this particular behaviour are discussed in chapter \ref{discussion}. 
 
 			% \begin{figure}[h]
 			% 	\begin{center}
@@ -84,23 +100,27 @@ System output && 1&00 && 0&13 && 0&30 \\
 
 \begin{table}[H]
 \centering
-\begin{tabular} {l c r@{.}l }
+\begin{tabular} {l r@{.}l r@{.}l r@{.}l  r@{.}l  }
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{TOPIC}\end{center}} &
-   \multicolumn{3}{c}{\begin{center}\textbf{AVERAGE [Hz]}\end{center}} &\\
+   \multicolumn{2}{c}{\begin{center}\textbf{\hspace*{-0.7cm}AVERAGE [Hz]}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{MIN [s]}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{MAX [s]}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{STD DEV [s]}\end{center}} &\\
+
 \addlinespace[-3mm]
 \midrule
- Hand location && 27&56 \\
- Segmented  image & & 26&70 \\
- Segmented  image  with  keypoints & &25&91 \\
- Segmented  coordinates  (px) & &11&56 \\
- Segmented  point  cloud & &18&13 \\
- Descriptors  2D && 25&98 \\
- Descriptors  3D & &15&29 \\
-Event && 27&72 \\
- Object ID && 26&40 \\
- Final  object  ID && 0&75 \\
+ Hand location & 27&56	&	0&00	&	0&04	&  \hspace*{0.5cm}	0&01 \\
+ Segmented  image &  26&70	&	0&00	&	0&50	&	0&04\\
+ Segmented  image  with  keypoints & 25&91	& 	0&00	&	0&50	&	0&03 \\
+ Segmented  coordinates  (px) & 11&56 	&	0&05	&	0&13	&	0&03\\
+ Segmented  point  cloud & 18&18 	&	0&05	&	0&26	&	0&01\\
+ Descriptors  2D & 25&98 	&	0&00	&	0&50	&	0&03\\
+ Descriptors  3D & 15&29 	&	0&00	&	0&42	&	0&05\\
+ Event & 27&72  	&		0&00	&	0&04	&	0&01\\
+ Object ID & 26&40 		&	0&00	&	4&23	&	0&21\\
+ Final  object  ID & 0&75 	&	1&02	&	1&63	&	0&19\\
 \bottomrule
 \end{tabular}
 \caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
@@ -130,27 +150,38 @@ Event && 27&72 \\
 
 \begin{table}[H]
 \centering
-\begin{tabular} {l  l r@{}l }
+\begin{tabular} {l  r@{}l r@{}l r@{}l  }
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{TOPIC}\end{center}} &
-   \multicolumn{3}{c}{\begin{flushright}\textbf{AVERAGE [MB/s]}\end{flushright}} &\\
+   \multicolumn{2}{c}{\begin{flushright}\textbf{AVERAGE [B/s]}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{MIN [B]}\end{flushright}} &
+   \multicolumn{2}{c}{\begin{flushright}\textbf{MAX [B]}\end{flushright}} &\\
+
 \addlinespace[-3mm]
 \midrule
 
-Hand location && 1.38 & $\cdot10^{-3}$ \\
-Segmented image && $1.79$\\
-Segmented image with keypoints && $1.64$\\
-Segmented coordinates (px) && 2.12&$\cdot10^{-4}$\\
-Segmented point cloud && $1.48$\\
-Descriptors 2D && 2.95&$\cdot10^{-2}$\\
-Descriptors 3D && $2.60$\\
-Event && 1.06&$\cdot10^{-3}$\\
-Object ID && 1.39&$\cdot10^{-3}$\\
-Final object ID && 1.15&$\cdot10^{-6}$\\
+Hand location & \hspace*{0.6cm}1.38 & $\cdot10^{3}$ & 0.12 & $\cdot10^{3}$	& 0.12 & $\cdot10^{3}$ \\
+Segmented image & 1.79& $\cdot10^{6}$		&	0.06 & $\cdot10^{6}$	&	0.06 & $\cdot10^{6}$
+\\
+Segmented image with keypoints & $1.64$ & $\cdot10^{3}$		&	0.06 & $\cdot10^{6}$	&	0.06 & $\cdot10^{6}$
+\\
+Segmented coordinates (px) & 212&& 57 && 58 &\\
+Segmented point cloud & $1.48$& $\cdot10^{6}$ & 	0.00 & $\cdot10^{6}$	&	0.83 & $\cdot10^{6}$
+\\
+Descriptors 2D & 29.48&$\cdot10^{3}$	&	0.81 & $\cdot10^{3}$	&	1.26 & $\cdot10^{3}$
+\\
+Descriptors 3D & $2.60$&$\cdot10^{6}$	&	0.14 & $\cdot10^{6}$	&	0.17 & $\cdot10^{6}$
+\\
+Event & 1.06&$\cdot10^{3}$ & 	0.05 & $\cdot10^{3}$	&	0.06 & $\cdot10^{3}$
+\\
+Object ID & 1.39&$\cdot10^{3}$	&		0.03 & $\cdot10^{3}$	&	0.03 & $\cdot10^{3}$
+\\
+Final object ID & 1.15&&		2 & &	2 & 
+\\
 \bottomrule
 \end{tabular}
-\caption[Topic benchmarking - Publishing rate]{Topic benchmarking - Publishing rate}
+\caption[Topic benchmarking - Bandwidth]{Topic benchmarking - Bandwidth}
 \label{bw}
 
 \end{table}
