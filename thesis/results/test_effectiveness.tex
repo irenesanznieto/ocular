@@ -4,14 +4,19 @@ This sections presents the results obtained in the object recognition accuracy e
 It was previously explained that the different objects may be learned using one or more views per template. 
 The accuracy is analyzed depending on the number of views learned. 
 The experiment was repeated using one, five and ten views in order to evaluate the influence of the number of views in the accuracy of the system. %were used and the same experiment was performed for each of them. 
-The data in the confusion matrices shown below is normalized to range [0,1] to make them comparable.
+The data in the confusion matrices shown below is normalized to a zero to one range to make them comparable.
 % This is due to the fact that the publishing rate of the topics varies with the amount of templates. 
 % Hence, for an experiment that lasts the same amount of time a larger number of messages would appear when the algorithm has 1 view templates. 
 The discussion of the results can be found in section \ref{discussion}.
 
 \subsection{Template using 1 view}
-This experiment was performed adding to the dataset one view per object. 
+% This experiment was performed adding to the dataset one view per object. 
+In this experiment, the system was trained using one view per object. 
 Figure \ref{1view_matrix} shows the confusion matrix obtained with the experiment. 
+The diagonal of the matrix are the success rates obtained for the different objects. 
+The success rate is defined as the number of true positives over the total number of estimations returned by the system. 
+From table \ref{1view_matrix} it can be seen that software has around a 50\% of success rate in all objects.
+% This success rate is the ratio of true positives obtained, i.e. the number of times the system outputted the object that was being shown to it.
 The F1-score obtained per object as well as their precision and recall values may be found in figure \ref{1view_fscore}.
 
 	% \begin{figure}[H]
@@ -32,38 +37,67 @@ The F1-score obtained per object as well as their precision and recall values ma
 
 
 
-\begin{table}[H]
-\centering
-\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
-\toprule
-\addlinespace[3mm]
-   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
+		\begin{table}[H]
+		\centering
+		\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
+		\toprule
+		\addlinespace[3mm]
+		   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
+		   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
+		   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
+		   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
+		   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
+		   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
+		   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
 
-\addlinespace[-3mm]
+		\addlinespace[-3mm]
 
-\midrule
-\textbf{ball}		&	\textbf{0}&\textbf{55}	&	0&00	&	0&03	&	0&14	&	0&28	&	0&00	\\
-\textbf{skull}		&	0&03	&	\textbf{0}&\textbf{45}	&	0&28	&	0&24	&	0&00	&	0&00	\\
-\textbf{cup}		&	0&00	&	0&03	&	\textbf{0}&\textbf{52}	&	0&14	&	0&28	&	0&03	\\
-\textbf{bottle}		&	0&21	&	0&00	&	0&03	&	\textbf{0}&\textbf{59}	&	0&17	&	0&00	\\
-\textbf{mobile}		&	0&14	&	0&03	&	0&14	&	0&10	&	\textbf{0}&\textbf{55}	&	0&03	\\
-\textbf{calculator}	&	0&07	&	0&00	&	0&07	&	0&14	&	0&21	&	\textbf{0}&\textbf{52}	\\
+		\midrule
+		\textbf{ball}		&	\textbf{0}&\textbf{55}	&	0&00	&	0&03	&	0&14	&	0&28	&	0&00	\\
+		\textbf{skull}		&	0&03	&	\textbf{0}&\textbf{45}	&	0&28	&	0&24	&	0&00	&	0&00	\\
+		\textbf{cup}		&	0&00	&	0&03	&	\textbf{0}&\textbf{52}	&	0&14	&	0&28	&	0&03	\\
+		\textbf{bottle}		&	0&21	&	0&00	&	0&03	&	\textbf{0}&\textbf{59}	&	0&17	&	0&00	\\
+		\textbf{mobile}		&	0&14	&	0&03	&	0&14	&	0&10	&	\textbf{0}&\textbf{55}	&	0&03	\\
+		\textbf{calculator}	&	0&07	&	0&00	&	0&07	&	0&14	&	0&21	&	\textbf{0}&\textbf{52}	\\
+		\bottomrule
+		\end{tabular}
+		\caption[Confusion matrix - templates using 1 view]{Confusion matrix using a template that stores one view per object. The results are given in a 0 to 1 range. }
+		\label{1view_matrix}
+		\end{table}
+	The bottle is the object with a higher success rate. 
+	Nevertheless, the system recognized this object a high number of times when all the other objects of the dataset were presented to it. 
+	Hence, the precision in the bottle recognition is low, as can be seen in figure \ref{1view_fscore}.
+	Also, its recall is low because different objects such as the ball or the mobile were detected when the bottle was being presented to the software.  
+	\\
 
+	The ball has a precision and recall of exactly the same value. 
+	It is a low value because there were false positives when the ball was being used. 
+	The system recognized the bottle and the mobile a large number of times. 
+	Also, the output of the system showed a ball when the bottle and the mobile were shown with high rates. 
+	It also appeared when the calculator and the skull were presented but a lower and almost negligible amount of times. 
+	\\
 
-\bottomrule
-\end{tabular}
-\caption[Confusion matrix - templates using 1 view]{Confusion matrix using a template that stores one view per object. The results are given in a 0 to 1 range. }
-\label{1view_matrix}
-\end{table}
+	The skull presents a very good precision. 
+	It is almost negligible the amount of times it was detected when other objects were being held in front of the system. 
+	Nevertheless, the recall is worse since the cup and the bottle were outputted a high amount of times when the skull was being used. 
+	It could be because all three objects have very similar 2D texture, leading to matchable 2D descriptors. 
+	\\
 
+	The cup has a success rate of 0.52. Its precision, recall and F1 score values are around that number as well. 
+	This is due to the fact that the system outputted the mobile's and the bottle's identification number a high number of times when the cup was being used. 
+	Also, the software detected the cup when all the other objects were being presented to it. 
+	\\
 
+	The mobile has even a lower precision than the cup and the results are comparable to the previous ones. 
+	The system detected the ball, the cup and the bottle when the mobile was being used a noticeable amount of times.
+	Apart from that, the software recognized the mobile when all the other objects but the skull were presented a very high amount of times. 
+	\\
 
+	The calculator is the object with the best precision and F1 score of the dataset. 
+	It can be seen that it was detected when other objects were shown to the system a negligible amount of times. 
+	Nevertheless, when the calculator was being used the system outputted the mobile, the bottle with a high ratio and the cup and the ball with a lower one.
+	Since the calculator is a heavily 2D textured object, is possible that a descriptor is very similar to other obtained in the mobile or the object. 
+	Also, the 3D shape of calculator, mobile and bottle is similar and could lead to 3D confusions.  
 
 
 \begin{table}[H]
@@ -76,7 +110,6 @@ The F1-score obtained per object as well as their precision and recall values ma
    \multicolumn{2}{c}{\begin{flushright}\textbf{Recall}\end{flushright}} &
    \multicolumn{3}{c}{\begin{flushright}\hspace*{0.2cm}\textbf{F1 score}\end{flushright}} &\\
 \addlinespace[-3mm]
-
 \midrule
 ball		&&	0&55 	&	0&55	&&	0&55	\\
 skull		&&	0&87	&	0&45	&&	0&59	\\
@@ -84,8 +117,6 @@ cup			&&	0&48	&	0&52	&&	0&50	\\
 bottle		&&	0&44	&	0&59	&&	0&50	\\
 mobile		&&	0&37	&	0&55	&&	0&44	\\
 calculator	&&	0&88	&	0&52	&&	0&65	\\
-
-
 \bottomrule
 \end{tabular}
 \caption[F1-score - templates using 1 view]{F1-score calculation using the precision and recall parameters. Results for templates using one view per object. }
@@ -97,7 +128,7 @@ calculator	&&	0&88	&	0&52	&&	0&65	\\
 
 
 \subsection{Template using 5 views}
-In this experiment, five views were retrieved per object. 
+In this experiment, five views were learned per object. 
 The confusion matrix may be seen in figure \ref{5views_matrix}. 
 Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as well as the precision and recall per object. 
 	% \begin{figure}[H]
@@ -146,6 +177,48 @@ Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as w
 \label{5views_matrix}
 \end{table}
 
+	% In figure \ref{5views_matrix} the confusion matrix of this experiment may be seen.
+	% The figure \ref{5views_fscore} represents the F1 score computation per object.  
+	The success rate represented in the diagonal of figure \ref{5views_matrix} is higher than the ones obtained in the previous experiment. 
+	In this test, the object that obtained the highest success rate is the ball. 
+	It can be observed that the system only recognized two different objects when the ball was presented to it: the skull and the mobile. 
+	Nevertheless, the amount of times the software outputted the mobile can be neglected. 
+	% The fraction of confusions because of the mobile are negligible. 
+	\\
+
+	The cup has a higher rate than the skull, a 0.66. 
+	It is noticeable that the system outputted a cup only when it was shown to it. 
+	This leads to the maximum precision possible, 1. %, which can be seen in figure \ref{5views_fscore}.
+	Nevertheless, the system recognized the skull, the bottle and the ball and calculator when the cup was shown to it. 
+	The two last objects were detected a negligible amount of times. \\
+
+	The bottle has a ratio of 0.69. 
+	Both the ball and the skull were outputted when the bottle was shown to the system. 
+	The most probable reason is that all three objects have curved sides that could be almost identical in terms of PFH 3D descriptors. 
+	Also, the calculator was recognized a negligible amount of times. 
+	The bottle was detected when the cup, the mobile and the calculator were presented to the system. 
+	Nevertheless, the ratio for all three of them is low, a 0.07. 
+	\\
+
+	The mobile has a success of 67\%. 
+	It is remarkable that the precision obtained is very high, a 95 \%. 
+	This is due to the fact that the mobile was only detected wrongly when the ball was being used in the experiment. 
+	The recall of the system with this object is much lower, around the 70\%, due to the false positives returned by the software. 
+	The system outputted the ball, the skull, the bottle and the calculator when the mobile was being presented to it. . 
+	% It is remarkable that it was detected wrongly when the ball was shown. 
+	% And in this case, the amount of false recognitions is low, a 0.3. 
+	\\
+
+	Finally, the calculator has a score of 0.62. 
+	It was recognized in all previous measurements except when the ball was shown to the system. 
+	Nonetheless, the ratio of false positives is negligible ( a 3\%). 
+	The objects that were detected when the calculator was presented are the skull, the ball and the bottle. 
+	Since the calculator has a very cluttered 2D texture it is possible that some descriptors are similar to the ones extracted in other objects. 
+	\\
+
+	Figure \ref{5views_fscore} shows that the object with a higher F1 score is the cup, thanks mainly to its extremely high precision.  
+	All testing objects obtained similar scores, around the 70 \% except the skull and the ball. 
+	This is because the high 3D similarity between both. 
 
 \begin{table}[H]
 \centering
@@ -229,6 +302,41 @@ The F1-score and the precision and recall per object may be found in figure \ref
 
 
 
+	The ball is the object with the highest success rate, a 93\%. 
+	This time it was only confused with the cup a 7\%. 
+	When the skull, the calculator and the mobile were presented to the system, the ball was detected a 0.31, 0.21 and 0.07. 
+	Also, the ball was recognized a negligible ratio when the cup and the bottle were shown. 
+	These results are expressed as well in table \ref{10views_fscore}, the precision is much lower than the recall and the final F1 score is around a 70\%. 
+	% Those results are high and may be attributed to the improvable segmentation performed in the system. 
+	% Possible upgrades are explained in chapter \ref{conclusions}.
+	\\
+	
+	The skull was detected correctly a 69\% of times, it was only confused with the ball. %due to their shape similarity already mentioned.
+	The skull was also recognized when the cup, the bottle and the mobile were being used. 
+	\\
+
+	The cup had a success rate of 76\%. 
+	The system recognized wrongly the skull 14 \% and the ball, the mobile and calculator a negligible amount of times. 
+	The skull has a similar 2D texture, a white background with highly defined drawings on it. 
+	This could be the reason of the system's error. 
+	The cup was also detected when the ball and the mobile were shown to the system. 
+	\\
+
+	The bottle obtained a 89\% success rate. 
+	The system only made a false recognition of the bottle when the calculator was being shown to it, and the ratio is negligigle. 
+	The bottle was confused with the skull and the ball, for the sames reasons as the cup. 
+	Those objects, the skull, the cup and the bottle have similar 2D features that may be matched wrongly. 
+	\\
+
+	The mobile obtained a 0.72 rate. 
+	The cup, ball, skull and calculator were recognized badly. 
+	The mobile was wrongly recognized only when the cup was being shown to the system and the ratio is negligible (0.3). 
+	\\
+
+	Finally, the calculator has a 76\% success rate. 
+	The system detected the ball a 21\% of times in this measurement. 
+	It is possible that the dense 2D textures of both the ball and the calculator affected the system in the matching process. 
+	The calculator was recognized a negligible amount of times when the mobile and the cup were being used. 
 
 \begin{table}[H]
 \centering
@@ -257,14 +365,14 @@ calculator	&&	0&92	&	0&76	&&	0&83	\\
 
 
 
-
-
-
-
-
 	\subsection{Comparison of the experiments results using different number of views}
+
 	In this subsection the results obtained in the three object recognition accuracy experiments are summarized and presented together. 
 	This is performed to offer a more global view of the system's performance as a function of the number of templates being used. 
+	Figures \ref{comparison_success} and \ref{comparison_fscore} present a compilation of all the data extracted from the experiments. 
+	\\
+
+
 
 	\begin{figure}[H]
 		\begin{center}
@@ -282,11 +390,22 @@ calculator	&&	0&92	&	0&76	&&	0&83	\\
 		\end{center}
 	\end{figure}
 
-	Figure \ref{comparison_success} presents the success rate obtained in each of the three experiments for each object. 
-	It can be extracted a correlation between the number of views being learned per object and the success rate of the system. 
-	The graph in figure \ref{comparison_success} shows that the higher the number of views is, the better the success rate is as well. 
-	Figure \ref{comparison_fscore} plots the F1 score obtained for each object in every of the experiments being performed on the system. 
-	The relation between the number of views and the F1 score is not as clear as the previous case. 
-	Most of the times, the F1 score ratio increases with the number of views. 
-	Nevertheless, in the case of the skull and the cup this statement is not fulfilled. 
-	A discussion of these comparisons may be found in section \ref{discussion}.
+	% % Figure \ref{comparison_success} presents the success rate obtained in each of the three experiments for each object. 
+	% It can be extracted a correlation between the number of views being learned per object and the success rate of the system. 
+	% The graph in figure \ref{comparison_success} shows that the higher the number of views is, the better the success rate is as well. 
+	% Figure \ref{comparison_fscore} plots the F1 score obtained for each object in every of the experiments being performed on the system. 
+	% The relation between the number of views and the F1 score is not as clear as the previous case. 
+	% Most of the times, the F1 score ratio increases with the number of views. 
+	% Nevertheless, in the case of the skull and the cup this statement is not fulfilled. 
+	% A discussion of these comparisons may be found in section \ref{discussion}.
+
+		In \ref{comparison_success} it can be seen that through the experiments the success rate for the different objects has increased. 
+	The differences in this rate between objects are almost identical from one experiment to the other. 
+	This demonstrates that the errors of the system due to 2D or 3D similarity between objects may be improved using a higher number of views. 
+	On the other hand, figure \ref{comparison_fscore} shows that the improvement of the F1 score with the number of views is not as clear as it was in the case of the success rate. 
+	It is particular the case of the skull. 
+	When the views were increased from one to five, the system outputted the skull more when other objects were being used. 
+	This reduced the skull's precision and even though the recall was improved, the final F1 score was affected and resulted lower than the experiment using 1 view.  
+	The same phenomena occurred with the cup but when the number of views was increased from five to ten. 
+	All the other objects increased their F1 score with the augment of the number of views. 
+	% With lower number of views, the F1 score is lower than with higher amount of views. 

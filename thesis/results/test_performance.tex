@@ -13,7 +13,15 @@ Afterwards, in section \ref{results_topics}, the bandwidth and the publishing ra
 			The nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption.
 			The nodes that process the input images and point clouds have much higher values. 
 			Figure \ref{node} shows the results of the experiment. 
+\\
 
+			The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D. 
+			Since the 3D data has a higher size, the both the CPU and RAM usage of the nodes using 3D information is much higher than those processing 2D data. 
+			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
+			This is because these perform simple conversions and computations of integers and floating data. 
+			On the other hand, the learner recognizer node implements the state machine of the software. 
+			This means it has to deal with a higher amount of data than the previous nodes. 
+	
 
 \begin{table}[H]
 \centering
@@ -65,14 +73,12 @@ System output && %1&00 &&
 			Since the processing unit has 4 physical cores with two threads per core, the system needs less than one physical core to operate in real time. %the CPU consumption is of less than one physical core. 
 			The computer used has 8 GB of RAM as was previously said in section \ref{computer}. 
 			Using that number, the total RAM usage of the system is of 0.4 GB. 
-			\\
 
-
-			The difference between nodes is patent in the table.
-			The CPU and RAM usage varies from  0.13 to 13.34 and from 0.1 to 1.5 respectively. 
-			That is, there ia a percent variation of 99\% and  93\%  in the CPU and RAM consumption in the nodes. 
-			The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D.
-			The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
+			% The difference between nodes is patent in the table.
+			% The CPU and RAM usage varies from  0.13 to 13.34 and from 0.1 to 1.5 respectively. 
+			% That is, there ia a percent variation of 99\% and  93\%  in the CPU and RAM consumption in the nodes. 
+			% The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D.
+			% The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
 			
 			% \newpage
 
@@ -80,8 +86,31 @@ System output && %1&00 &&
 		\subsection{Topic network usage}
 		\label{results_topics}
 
-			The following figures show the publishing rate and bandwidth of the different topics. 
-			In figure \ref{hz} can be appreciated the difference in the average rate between topics. 
+			The following figures \ref{hz} and \ref{bw} show the publishing rate and bandwidth of the different topics. 
+			In figure \ref{hz}, the difference in the average rate between topics can be appreciated. 
+			The publishing rate varies significantly between topics. 
+			The first column shows the average number of messages published in each topic. 
+			% It can be seen that those topics with lower-sized messages experiment a higher average publishing rate. 
+			This is due to the reduced processing time and hence delay between message publishes. 
+			All topics but one have a more or less similar average publishing rate.
+			The bottle neck of the process that establishes the publishing rate is the kinect. 
+			Since the information provided by this sensor is the input to most of the nodes of the system, their publishing rate is similar to the one of the kinect, 30 frames per second.  
+			\\
+
+			The only topic that publishes at a lower rate than the others is the final object ID topic. 
+			This node transmits the output of the system, as was previously explained in section \ref{system_description}.
+			The node that publishes it is buffering the object ID topic messages. 
+			This creates a delay and the node publishes approximately one message per second in the final object ID topic. 
+			% This knowledge matches the average rate observed of 0.75 messages per second. 
+			% It is also confirmed when looking at the next column, in which the minimum time between messages is presented. 
+			% All the previous topics have a zero or almost zero seconds. 
+			% But final object ID observes a minimum time of around one second. 
+				% This is reflected on the standard deviation column. 
+			% The values for both object ID and final object ID, which are dependent on the system's event, are much higher than the rest of the topics. 
+
+			\\
+
+
 			Also it is noticeable the minimum rate column. 
 			Most of the topics have a minimum publishing rate of 0 seconds.
 			The only one that is different is the final object ID topic. 
@@ -89,6 +118,21 @@ System output && %1&00 &&
 			All topics but two have less than 1 second as maximum publishing rate. 
 			Those two are again final object ID and the object ID topic. 
 			The reasons behind this particular behaviour are discussed in chapter \ref{discussion}. 
+			\\
+
+			The maximum column shows that the time between messages increases with the complexity of the processing performed by the node that publishes in that topic. 
+			As an example, the segmented and descriptors topics have similar time, around half a second. 
+			It is remarkable the value of the maximum time obtained by the object ID topic, which is the highest of the column. 
+			% It was previously seen that this topic publishes the instant value of the estimated recognized object. 
+			% The time between messages depend on the previous data transformation required. 
+			% But also the event that the software is undergoing (learning or recognizing) affects that time. 
+			The node that publishes in the object ID topic is the Learner-Recognizer node described in section \ref{learner_recognizer}.
+			This node only publishes a message when the system is recognizing the objects. 
+			If the system is learning new objects, there is no message published. 
+			This could be the cause of the high result in the maximum time between messages column. 
+			% When the system is learning, no estimations of the object ID are performed and hence no messages are published. 
+			% On the other hand, when the system is recognizing, the topic is filled at a rate of almost thirty messages per second. 
+			
 
 			% \begin{figure}[h]
 			% 	\begin{center}
@@ -129,13 +173,13 @@ System output && %1&00 &&
 
 
 
-			The table below shows the bandwidth consumed. 
-			It can be seen a huge difference between topics. 
-			The data ranges from the bytes to megabytes. 
-			The nodes using a bandwidth of bytes are segmented coordinates and final object ID. 
-			They are closely followed by the hand location, descriptors 2D, event and object ID topics that are in the kilobytes range. 
-			Finally, the ones using a higher bandwidth are the segmented image with and without keypoints, the segmented point cloud and the descriptors 3D topics. 
-			% \begin{figure}[h]
+			% Table \ref{bw} shows the bandwidth consumed. 
+			% It can be seen a huge difference between topics. 
+			% The data ranges from the bytes to megabytes. 
+			% The nodes using a bandwidth of bytes are segmented coordinates and final object ID. 
+			% They are closely followed by the hand location, descriptors 2D, event and object ID topics that are in the kilobytes range. 
+			% Finally, the ones using a higher bandwidth are the segmented image with and without keypoints, the segmented point cloud and the descriptors 3D topics. 
+			% % \begin{figure}[h]
 			% 	\begin{center}
 			%     \includegraphics[width=\linewidth]{img/tests/topic_bw.png}
 			% 	\caption[Topic benchmarking - Bandwidth]{Topic benchmarking - Bandwidth}
@@ -179,6 +223,7 @@ Object ID & 1.39&$\cdot10^{3}$	&		0.03 & $\cdot10^{3}$	&	0.03 & $\cdot10^{3}$
 \\
 Final object ID & 1.15&&		2 & &	2 & 
 \\
+\textbf{TOTAL: } & \textbf{6.65}& $\mathbf{\cdot 10^{6}}$ &&&& \\
 \bottomrule
 \end{tabular}
 \caption[Topic network usage - Bandwidth]{Topic network usage - Bandwidth}
@@ -186,5 +231,27 @@ Final object ID & 1.15&&		2 & &	2 &
 
 \end{table}
 
+
+% The  bandwidth results presented in figure \ref{bw} show the different sizes the data used have. 
+			Figure \ref{bw} show the bandwidth measured in each of the system's topics. 
+			There is a huge different in the results for the different topics, the numbers range from the bytes to the megabytes. 
+			Those topics using custom messages use a higher bandwidth than those using a standard message such as a number. 
+			\\
+
+			This fact can be illustrated with the final object ID topic, which publishes integer messages and uses an average bandwidth of approximately 1 B/s. 
+			The segmented coordinates in pixels topic is the one that has the next lowest bandwidth and its messages are vectors that contain two integers. 
+			Its average bandwidth is around 200B/s. 
+			\\
+
+			In the kilobytes range, the hand location, descriptors 2D, event and object ID are located. 
+			All but descriptors 2D are filled with custom made messages. 
+			The data consists in integers and floats mixed with strings. 
+			% For more information about custom messages, please read the chapter \ref{system_description}.
+			It might be noted that the descriptors 2D topic is an order of magnitude higher than the other ones. 
+			This is due to the fact that its messages are images and hence have a higher size than the other ones. 
+			\\
+
+			Finally, the megabytes range houses the segmented image topics as well as the segmented point cloud and the descriptors 3D. 
+			All are filled with heavy messages that store two-dimensional and three-dimensional data.
 
 	\end{itemize}

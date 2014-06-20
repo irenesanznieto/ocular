@@ -3,68 +3,79 @@
 \label{conclusions}
 
 This last chapter is devoted to present the conclusions drawn from the system. 
-Also, the improvements that could be applied to better its performance are enumerated and explained. 
+Also, the improvements that could be applied to enhance the software are enumerated and explained. 
 
 	\section{Conclusions}
 
-	This thesis presented a system capable of detecting and tracking objects that are being hand-held in real time. 
-	It is intended to be running on a robot, as part of the environment perception and recognition module. 
-	The system may be used to evaluate the situations and tasks the humans are performing. 
+	This thesis presented a system capable of detecting and tracking in real time objects that are being hand-held. 
+	The aim of this system is to be installed as part of social and assistive robot's perception system.
+	% The system may be used to evaluate the situations and tasks the humans are performing. 
+	\\
+	Two different sets of experiments were carried out to validate the system. 
+	The first set's goal was to ensure that the system was capable to operate on real time and that it would be possible to implement it using a distributed structure. 
+	The second one was performed to evaluate the accuracy of the system and its relation with the number of views per object being learned. 
+	The results demonstrated that the software is able to operate on real time and that the bandwidth consumption of its nodes, whose total value is less than 7 MB/s, was low enough to allow the implementation in a distributed architecture. 
+	\\
+
+	The experiments carried out to validate the accuracy of the system demonstrated a recognition rate near 80\% when the dataset was created with ten views per object. 
+	The F1 score in these experiment was between the 70\% and 80\%, which is also a high value for this low number of views. 
+	Most object recognition systems obtain their best performance when a large dataset is used, containing training sets per object whose size range from fifty templates per object to hundreds of thousands.
+	\\
+
+	Nevertheless, further experiments may be created to determine the optimum number of views for this system. 
+	The optimum number would be the one that gives a better accuracy and that permits the software to run on real time. 
+	% The comparison between the experiment revealed that the increase in the number of views per object better the success rate of the system. 
+	Further studies may also be performed to evaluate the response of the system to perturbations introduced by the users.
+	Each person holds the different objects and interacts with the robot in a different way. 
+	An study evaluating the performance of the system when different persons use it could be useful to determine future improvements of the software.  
+	% Also the system might be examined with different persons to determine the variations of the F1-score, success rate, precision and recall due to the different ways of holding and showing the objects.
+	% Each person interacts differently with a robot and hence the system's  performance could be tested under these different conditions.  
+	\\
+
+	This system is, to the best of my knowledge, the first in the art to implement an in-hand object learning and recognition algorithm using 2D and 3D information.
+	The fact of using both types of informations improve the robustness of the system to illumination changes or noise in the input data stream.  
+	The goal of the system is to serve as the base for further research on the topic to improve the interaction between humans and robots. 
 	More specifically, it might be used for social or assistive robots as an input. 
 	Evaluating the objects that the humans are holding may help to analyze the context around the robot. 
 	This is a crucial step in the path to the complete autonomy of social and assistive robots. 
-	\\
-
-	The assistive robots are going to be introduced in the houses increasingly. 
-	The population of the First World nations is aging rapidly, and Spain is not an exception. 
-	This fact will produce the eventual majority of elder people that needs cares. 
-	The solution to this approaching problem is robotics, and this project is aimed to help in this solution. 
-	\\
-
-	This system is a proof of concept investigation study. 
-	The experiments performed on it presented an acceptable recognition rate of around 80\% when the dataset was created with ten views per object. 
-	The comparison between the experiment revealed that the increase in the number of views per object better the success rate of the system. 
-	Further studies may be performed to evaluate the response of the system to perturbations. 
-	Also the system might be examined with different persons. 
-	This would present more realistic results and the different ways of showing and holding the objects may be learned by the algorithm. 
-	\\
-
-
-	In the next section the possible improvements that could be applied to the different parts of the software are presented. 
-
+% Extiéndete un poco más en las conclusiones:
+% ¿Cuales han sido tus aportaciones? ¿Por qué son relevantes?
+% ¿Que has hecho que nadie más haya hecho?
+% ¿Como validas que tu sistema funciona como has dicho que funciona?
+% ¿Qué cambios ha producido tu sistema en el estado del arte?	
 
 	\section{Future work}
 
-	The present section contains the upgrades that could be implemented in the software to better different aspects of it. 
-	The improvements could be done in some of the system's tasks.
-	As it was previously explained, each task is performed by a different node. 
-	This creates a modular code that can be easily enhanced. 
+	The present section contains the upgrades that could be implemented in the software to improve different aspects of it. 
+	The improvements could be done in some of the system's nodes.
+	The introduction of this enhancements could be performed easily due to the modular structure of the code. 
+	% As it was previously explained, each task is performed by a different node. 
+	% This creates a modular code that can be easily enhanced. 
 	\\
 
 	This section is divided in subsections to observe the particular upgrades that could be done in each node of the system. 
 
-	\paragraph{Hardware}\mbox{}\\
+	\subsection{Hardware}
 
-	The hardware being used in this thesis is a kinect. 
+	The hardware used in this thesis is a kinect. 
 	It is a type of RGB-D sensor that was launched in 2010. 
 	It has a lower resolution than the recent kinect 2 launched the past year. 
-	When using small objects at the operating distance range of about 1.5m the image and point cloud retrieved have a small size. 
-	This leads to lower quality descriptors.
+	When using small objects at the operating distance range of about 1.5m the images and point clouds that produces have a low resolution 
+	This fact leads to lower quality descriptors.
 	\\
 
-	Another drawback of this devices is the noise. 
+	Another drawback of these devices is the noise. 
 	The sunlight and in summary all light sources that emit infrared radiation affect the output of the sensor. 
 	This noise creates a variation in the depth measures that is translated in erroneous event recognition or even hand recognition. 
 	The improvement in the noise resistance would improve the software's performance. 
 
 
-	\paragraph{Hand location}\mbox{}\\
+	\subsection{Hand location}
 
-	The ROS package used for this task implements a good solution to this problem. 
-	Nevertheless, since it is based on clutters, when a person catches an object it immediately is incorporated to the arm's recognition. 
+	The ROS package used for this task implements a robust solution to this problem for users that are not holding external objects. 
+	Nevertheless, when a person catches an object it is recognized as an extension of the arm.  
 	This means that the returned hand's position is not accurate if there is an object in the hand. 
-	It affects the system in the ROI segmentation stage. 
-	Certain objects are not segmented correctly due to its size.  
+	This affects the ROI segmentation processing of the system because it causes that certain objects are not segmented correctly due to its size.  
 	\\
 
 	The solution would be to implement a new hand location taking into account for example the skin color. 
@@ -74,17 +85,28 @@ Also, the improvements that could be applied to better its performance are enume
 	Assuming the user is holding a medium-sized object, the center of mass of the hand and object cluster is a good approximation to the center of the hand. 
 	\\
 	
-	\paragraph{ROI segmentation}\mbox{}\\
+	\subsection{ROI segmentation}
 
 	It was seen in previous chapters that the ROI segmentation was performed by two separate nodes. 
 	One node computed the 2D segmentation and the other the 3D. 
+	Both segmentations do not take into account the hand, they just crop a squared region around the center of the hand. 
+	Neither of them mask afterwards the hand, a fact that is a source of errors in the system. 
+	2D and 3D descriptors are hence being extracted from the hand as well as from the object it holds. 
+	This means that if two objects are similar and therefore they are grabbed in a similar way the system could match them producing a false positive. 
 	\\
 
-	The 3D segmentation may be improved by removing the hand of the point cloud. 
-	The system uses right now a point cloud without RGB component to reduce the computing load of the node. 
-	Adding that information would allow to segment the hand off the point cloud used to learn and recognize the object. 
-	The hand segmentation may be done by a color segmentation as in the previous paragraph or modeling the hand's form. 
-	The model would be an union of cylinders and conical frustums.
+	This problem may be solved more easily using 3D segmentation than using 2D segmentation, because the first has a higher amount of information than the latter. 
+	% The 3D segmentation may be improved by removing the hand of the point cloud. 
+	% The system uses right now a point cloud without RGB component to reduce the computing load of the node. 
+	% Adding that information would allow to segment the hand off the point cloud used to learn and recognize the object. 
+	The hand segmentation may be done through a color segmentation or modeling the hand's form, searching for that pattern in the point cloud and subtracting it. 
+	The first option could be performed in 2D and 3D in the same way but since the skin's color range is wide and colors depend heavily on the illumination of the scene a correct segmentation is not guaranteed.  
+	The second option would be the most robust to illumination and pose changes. 
+	It consists on modeling the hand as an union of cylinders and conical frustums and search for these geometrical figures in the input point cloud. 
+	Nevertheless, this option would need a higher amount of processing time than the first one. 
+	An even more robust and complete solution would be to combine both options, but an evaluation of the CPU and RAM cost of using both methods must be performed.
+	After locating the hand, its contour may be obtained, transformed from world to pixel coordinates and finally published in a topic.
+	The 2D ROI segmenter would then use the contour to apply a mask to eliminate the hand from the 2D information as well. 
 	\\
 
 	The introduction of noise to the system would be highly reduced.
@@ -92,7 +114,7 @@ Also, the improvements that could be applied to better its performance are enume
 	\\
 
 	Regarding 2D segmentation, a mask could be performed from the 3D hand segmentation. 
-	This way the hand would be removed and the same improvements than in the 3D segmentation would appear. 
+	This way the hand would be removed obtaining the same improvements than in the 3D segmentation. 
 	In 2D segmentation the background is kept in the image. 
 	It was not removed due to the problems derived from using a background subtractor. 
 	Those problems are that the foreground could be considered background after a certain time. 
@@ -105,7 +127,7 @@ Also, the improvements that could be applied to better its performance are enume
 
 
 
-	\paragraph{Feature extraction}\mbox{}\\
+	\subsection{Feature extraction}
 
 	As in the previous point, the feature extraction in the system is performed in 2D and 3D data. 
 	The 2D features are the state-of-the-art best solution for this application. 
@@ -114,21 +136,27 @@ Also, the improvements that could be applied to better its performance are enume
 	Hence, they are less representative and is easier to obtain matches of features from different objects. 
 	\\
 
-	The main improvement in this field would be then to better the 3D features. 
-	It is a field that is still being investigated for object recognition.
-	Some new algorithms such as the one described in \cite{Hinterstoisser2012} are appearing. 
+	The main upgrade in this field would be then to improve the 3D features. 
+	It is a field that is still being an open question for object recognition.
+	Some new algorithms such as LINEMOD \cite{Hinterstoisser2012} are appearing. 
 	In this particular one, new descriptors for texture-less objects are defined. 
-	The inclusion of a feature extractor similar to this one would improve the system's output. 
+	The inclusion of a feature extractor similar to this one would improve the system's output, since most common objects do not have a marked texture.
 	Many of the common objects do not posses a marked texture. 
 	\\ 
 
-	\paragraph{Learning and recognizing methods}\mbox{}\\
+	\subsection{Learning and recognizing methods}
 
 	This system implements a recognizing procedure using template matching. 
-	That methodology does not contemplate a learning of the algorithm. 
-	The descriptors extracted in each frame are matched against the ones stored as templates. 
-	The one that is more similar is the output of the system. 
+	This methodology does not contemplate a learning of the algorithm. 
+	The descriptors extracted in each frame are compared with the previously stored and the identification number of the best match is the output of the system.  
+	% The one that is more similar is the output of the system. 
 	There exists other machine learning algorithms that could be used for the learning and recognizing phase. 
-	\\
+	As an example, random forests \cite{Gall2012} or Support Vector Machines (SVMs) \cite{Pontil1998} might be implemented in order to upgrade the system's performance over time. 
 
-	As an example, random forests (\cite{Gall2012}) or SVMs (\cite{Pontil1998}) might be implemented in order to upgrade the system's performance over time. 
+	\subsection{Interaction with the system}
+
+	The interaction of the user's with the system could be improved using a voice interface that complements the gestural interface. 
+	Through voice commands the human could be able to label the newly learned objects and the system could output directly the name of the recognized object instead of an identification number. 
+	Also, the interaction could improve the recognizing procedure of the system in the following way. 
+	If two objects have obtained a similar matching ratio and either of them could be the real object the user is presenting, the system may ask the human to show another view of the object to allow a more accurate recognition. 
+	This simple confirmation step could improve the F1 score obtained in the different experiments since the software would keep matching characteristics of different views until a more distinctive one is found and the best match is obtained. 
