@@ -48,83 +48,89 @@ The hardware components present in a computer vision system are the following:
 
 In this chapter the state of the art of the different acquisition devices is going to be presented. 
 
-\subsection{Acquisition devices}
-There are different acquisition devices being used in the object learning and recognition field. 
-They are usually classified depending on the output data they provide: 
-
-\begin{itemize}
-	\item{Cameras:}	The output data is two-dimensional. 
-	\item{RGB-D sensors:} The output data is three-dimensional. 
-\end{itemize}
-
-The usage of one or another acquisition device depends on the application. 
-The RGB-D sensors provide more information than cameras. 
-% They reduce the ambiguities produced by the cameras when projecting the three-dimensional world into two dimensions. 
-% But also the RGB-D sensors output a higher amount of data. 
-% That is why, using three-dimensional information as the input of a software requires a higher-capacity processing unit than using two-dimensional data.
+\subsection{Acquisition devices used in object learning and recognition}
+The two most used devices in object learning and recognition are the RGB-D (Red, Green, Blue and Depth) sensors and the cameras. 
 While RGB Cameras provide information in 2D, RGB-D provide information of the depth of the scene.
 This added information makes image processing easier because it reduces the ambiguities of the 2D data. 
 Nevertheless, the computation time needed is also much higher. 
+\\
+
+% They are usually classified depending on the output data they provide: 
+% \begin{itemize}
+% 	\item{Cameras:}	The output data is two-dimensional. 
+% 	\item{RGB-D sensors:} The output data is three-dimensional. 
+% \end{itemize}
+The usage of one or another acquisition device depends on the application. 
+For example,  if a more precise information is needed, the RGB-D sensor is selected and if the computational cost must be low, a camera is used. 
+The cameras are usually classified according to the technology of the camera, the dimensions of the sensor, the number of sensors and the output type. 
+In object learning and recognition and in general in computer vision applied for robotics, the cameras used are Complementary Metal Oxide Semiconductor (CMOS), matricial cameras with 3 sensors and digital output. 
+Each of the sensors is calibrated to detect one of the color components of the final image (RGB, Red, Green and Blue). 
+In this system, a RGB-D (Red, Green, Blue and Depth) sensor has been used. 
+% The RGB-D sensors provide more information than cameras. 
+% They reduce the ambiguities produced by the cameras when projecting the three-dimensional world into two dimensions. 
+% But also the RGB-D sensors output a higher amount of data. 
+% That is why, using three-dimensional information as the input of a software requires a higher-capacity processing unit than using two-dimensional data.
+
 
 
 %%%%%% CAMERAS %%%%%%
 %%\addcontentsline{toc}{section}{Cameras}
-\subsection{Cameras}
-\label{cameras}
-There are many different types of cameras that are used in different applications. 
-They might be classified according to the technology of the camera: 
-\begin{itemize}
-	\item\textbf{{CCD [Charged Coupled Device]:}}\\
-	They have a high resolution but have a main drawback: the blooming. 
-	The blooming is a saturation of the sensor when a high luminosity appears. 
-	The sensor outputs a saturated zone bigger than the actual one, occluding part of the image. 
-	\item\textbf{{CMOS [Complementary Metal Oxide Semiconductor]:}}\\
-	This type of cameras have a semiconductor technology common to other devices such as memories or processors. 
-	This fact makes them cheaper than the previous type. 
-	Also, they have a smaller size and it is possible to access only a region of the image. 
-	Finally, they do not suffer of blooming as the previous ones. 
-\end{itemize}
+% \subsection{Cameras}
+% \label{cameras}
+% There are many different types of cameras that are used in different applications. 
+% They might be classified according to the technology of the camera: 
+% \begin{itemize}
+% 	\item\textbf{{CCD [Charged Coupled Device]:}}\\
+% 	They have a high resolution but have a main drawback: the blooming. 
+% 	The blooming is a saturation of the sensor when a high luminosity appears. 
+% 	The sensor outputs a saturated zone bigger than the actual one, occluding part of the image. 
+% 	\item\textbf{{CMOS [Complementary Metal Oxide Semiconductor]:}}\\
+% 	This type of cameras have a semiconductor technology common to other devices such as memories or processors. 
+% 	This fact makes them cheaper than the previous type. 
+% 	Also, they have a smaller size and it is possible to access only a region of the image. 
+% 	Finally, they do not suffer of blooming as the previous ones. 
+% \end{itemize}
 
-Dimensions of the sensor: 
-\begin{itemize}
-	\item\textbf{{Linear:}}\\
-	The output of this cameras is a vector of pixels in one dimension. 
-	They are used mainly in industrial environments.
-	Usually they are mounted in a linear actuator in order to cover a line along the region of interest. 
-	They have a high resolution range. 
-	\item\textbf{{Matricial:}}\\
-	They output a matrix of pixels, two-dimensional. 
-	They are used in all kinds of applications, from security to industrial ones. 
-	The resolution in this type of cameras is more expensive than the previous type. 
-	This means that for applications that need a high level of resolution usually linear cameras are preferred due to its cheapness. 
-\end{itemize}
-
-
-According to the number of sensors: 
-\begin{itemize}
-	\item\textbf{{1 sensor:}}\\
-	This type of cameras usually output a black and white image. 
-	Nevertheless, they might have colors if a filter such as the Bayer filter or the RGBW filter is used. 
-	Those filters reduce the sensibility of the camera. 
-	\item\textbf{{3 sensors: }}\\
-	They are color cameras. 
-	Usually there is a prism located inside the camera that reflects the image to each sensor. 
-	Those sensors output the image in one of the RGB components. 
-	Adding up them the final color image is obtained. 
-\end{itemize}
+% Dimensions of the sensor: 
+% \begin{itemize}
+% 	\item\textbf{{Linear:}}\\
+% 	The output of this cameras is a vector of pixels in one dimension. 
+% 	They are used mainly in industrial environments.
+% 	Usually they are mounted in a linear actuator in order to cover a line along the region of interest. 
+% 	They have a high resolution range. 
+% 	\item\textbf{{Matricial:}}\\
+% 	They output a matrix of pixels, two-dimensional. 
+% 	They are used in all kinds of applications, from security to industrial ones. 
+% 	The resolution in this type of cameras is more expensive than the previous type. 
+% 	This means that for applications that need a high level of resolution usually linear cameras are preferred due to its cheapness. 
+% \end{itemize}
 
 
-The output type: 
+% According to the number of sensors: 
+% \begin{itemize}
+% 	\item\textbf{{1 sensor:}}\\
+% 	This type of cameras usually output a black and white image. 
+% 	Nevertheless, they might have colors if a filter such as the Bayer filter or the RGBW filter is used. 
+% 	Those filters reduce the sensibility of the camera. 
+% 	\item\textbf{{3 sensors: }}\\
+% 	They are color cameras. 
+% 	Usually there is a prism located inside the camera that reflects the image to each sensor. 
+% 	Those sensors output the image in one of the RGB components. 
+% 	Adding up them the final color image is obtained. 
+% \end{itemize}
 
-\begin{itemize}
-	\item\textbf{{Analog:}}\\
-	Older cameras use this type of output. 
-	Nowadays they are only used in certain applications such as security due to its cheapness. 
-	They have higher level of noise than the next type of output. 
-	\item\textbf{{Digital:}}\\
-	This type of output is the most used currently. 
 
-\end{itemize}
+% The output type: 
+
+% \begin{itemize}
+% 	\item\textbf{{Analog:}}\\
+% 	Older cameras use this type of output. 
+% 	Nowadays they are only used in certain applications such as security due to its cheapness. 
+% 	They have higher level of noise than the next type of output. 
+% 	\item\textbf{{Digital:}}\\
+% 	This type of output is the most used currently. 
+
+% \end{itemize}
 
 %%%%%% RGB-D SENSORS %%%%%%
 \subsection{3D sensors}
@@ -137,8 +143,8 @@ But this changed when the first version of an affordable RGB-D sensor appeared i
 This project uses a Kinect RGB-D sensor as the input of the system.
 \\
 
-This sensor was designed to be used in games, but developers soon realized the huge potential of the hardware for Computer Vision.  
-Now, instead of a two-dimensional information as an input it was possible to have three-dimensional information. 
+This sensor was designed to be used in games, but developers soon realized the enormous potential of the hardware for Computer Vision.  
+Now, instead of a two-dimensional information as an input, it was possible to have three-dimensional information. 
 In November 2010 OpenNI was created. Openni is an open-source software framework that can read the data from RGB-D sensors \cite{openni}.  
 That same year, PrimeSense released their open source drivers and motion tracking middleware called NITE\cite{NITE}. 
 PrimeSense is a company that manufactures RGB-D sensors and, in fact, the Kinect is based on their depth sensing reference. 
@@ -148,7 +154,7 @@ The Microsoft corporation finally released the SDK (Software Development Kit) on
 
 
 
-\paragraph{RGB-D Sensors or Natural Interaction Devices}\mbox{}\\
+\paragraph{RGB-D Sensors}\mbox{}\\
 
 \label{rgb-d}
 
@@ -169,7 +175,7 @@ The RGB-D sensors may be used hence only in interiors.
 
 \section{Raw RGB-D sensor data processing}
 \label{input_data}
-The Kinect is the sensor that is the input of the system. 
+The Kinect is the sensor which acts as the input of the system. 
 The output of this device cannot be used directly. 
 A processing step performed by a driver is needed. 
 In the case of this thesis the OpenNI library is being used. 
@@ -193,7 +199,7 @@ For further information of this process, please read section \ref{ros_packages}.
 The segmentation consists in the extraction of the Region Of Interest (ROI), that is, separating the interesting parts of the image from the background of the input data. 
 The segmentation is performed to remove all the useless information from the input data to the system. 
 This results in a reduction of the information size. 
-The fact of reducing the data size is advantageous as well because the time expended in later computations is lowered. 
+The fact of reducing the data size is advantageous as well because the time expended in later computations is reduced. 
 Also, less noise is introduced in the system, increasing its performance. 
 \\
 
@@ -235,6 +241,7 @@ The information of the global descriptor would be a combination of the one given
 This creates a pattern that is more difficult to reproduce in different objects and hence it is more representative for it. 
 Global features are used to obtain a more representative description of the studied object, but they are more computationally expensive. 
 \\
+\newpage
 
 The best feature or descriptor is the one that possess a higher repeatability, i.e the ability of obtaining the same output given different inputs. 
 In this system, repeatability may be described as the ability of obtaining the same predicted object given different views of it. 
@@ -242,6 +249,4 @@ In this system, repeatability may be described as the ability of obtaining the s
 % Hence, it can be seen that the recognition algorithm has as a bottle neck in its performance: the repeatability of the features used to describe the different objects. 
 Recognition algorithms depend directly on the repeatability of the features they use. 
 If the descriptors have a high repeatability, the system performs better than in the case of having a lower repeatability. 
-\\
-
 Chapter \ref{state_of_the_art} presents a description of the state-of-the-art feature extraction algorithms and the differences between them. 

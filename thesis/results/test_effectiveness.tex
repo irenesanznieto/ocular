@@ -1,3 +1,4 @@
+\newpage
 \section{ Evaluation of the object recognition accuracy}
 \label{results_accuracy_measurement}
 This sections presents the results obtained in the object recognition accuracy experiment. 
@@ -39,27 +40,26 @@ The F1-score obtained per object as well as their precision and recall values ma
 
 		\begin{table}[H]
 		\centering
-		\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
-		\toprule
-		\addlinespace[3mm]
-		   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
-		   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
-		   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
-		   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
-		   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
-		   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
-		   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
-
-		\addlinespace[-3mm]
-
-		\midrule
-		\textbf{ball}		&	\textbf{0}&\textbf{55}	&	0&00	&	0&03	&	0&14	&	0&28	&	0&00	\\
-		\textbf{skull}		&	0&03	&	\textbf{0}&\textbf{45}	&	0&28	&	0&24	&	0&00	&	0&00	\\
-		\textbf{cup}		&	0&00	&	0&03	&	\textbf{0}&\textbf{52}	&	0&14	&	0&28	&	0&03	\\
-		\textbf{bottle}		&	0&21	&	0&00	&	0&03	&	\textbf{0}&\textbf{59}	&	0&17	&	0&00	\\
-		\textbf{mobile}		&	0&14	&	0&03	&	0&14	&	0&10	&	\textbf{0}&\textbf{55}	&	0&03	\\
-		\textbf{calculator}	&	0&07	&	0&00	&	0&07	&	0&14	&	0&21	&	\textbf{0}&\textbf{52}	\\
-		\bottomrule
+		\begin{tabular} {l !{\vrule width .08em} c r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
+\noalign{\hrule height 0.08em}
+\\
+		   \multicolumn{1}{c!{\vrule width .08em}}{\begin{center}\textbf{Real} \backslash \textbf{Predicted}\end{center}} &
+		   \multicolumn{3}{c}{\begin{center}\hspace*{0.6cm}\textbf{ball}\end{center}} &
+		   \multicolumn{2}{c}{\begin{center}\hspace*{0.1cm}\textbf{skull}\end{center}} &
+		   \multicolumn{2}{c}{\begin{center}\hspace*{0.2cm}\textbf{cup}\end{center}} &
+		   \multicolumn{2}{c}{\begin{center}\textbf{bottle}\end{center}} &
+		   \multicolumn{2}{c}{\begin{center}\textbf{mobile}\end{center}} &
+		   \multicolumn{2}{c}{\begin{center}\textbf{calculator}\end{center}} &\\
+\noalign{\hrule height 0.08em}
+		\\
+		\textbf{ball}		&&	\textbf{0}&\textbf{55}	&	0&00	&	0&03	&	0&14	&	0&28	& \hspace*{0.3cm}	0&00	\\
+		\textbf{skull}		&&	0&03	&	\textbf{0}&\textbf{45}	&	0&28	&	0&24	&	0&00	&	0&00	\\
+		\textbf{cup}		&&	0&00	&	0&03	&	\textbf{0}&\textbf{52}	&	0&14	&	0&28	&	0&03	\\
+		\textbf{bottle}		&&	0&21	&	0&00	&	0&03	&	\textbf{0}&\textbf{59}	&	0&17	&	0&00	\\
+		\textbf{mobile}		&&	0&14	&	0&03	&	0&14	&	0&10	&	\textbf{0}&\textbf{55}	&	0&03	\\
+		\textbf{calculator}	&&	0&07	&	0&00	&	0&07	&	0&14	&	0&21	&	\textbf{0}&\textbf{52}	\\
+		\\
+\noalign{\hrule height 0.08em}
 		\end{tabular}
 		\caption[Confusion matrix - templates using 1 view]{Confusion matrix using a template that stores one view per object. The results are given in a 0 to 1 range. }
 		\label{1view_matrix}
@@ -106,9 +106,9 @@ The F1-score obtained per object as well as their precision and recall values ma
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
-   \multicolumn{3}{c}{\begin{flushright}\textbf{Precision}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{Recall}\end{flushright}} &
-   \multicolumn{3}{c}{\begin{flushright}\hspace*{0.2cm}\textbf{F1 score}\end{flushright}} &\\
+   \multicolumn{3}{c}{\begin{center}\textbf{Precision}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{Recall}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\hspace*{0.2cm}\textbf{F1 score}\end{center}} &\\
 \addlinespace[-3mm]
 \midrule
 ball		&&	0&55 	&	0&55	&&	0&55	\\
@@ -149,29 +149,28 @@ Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as w
 
 \begin{table}[H]
 \centering
-\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
-\toprule
-\addlinespace[3mm]
-   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
+\begin{tabular} {l !{\vrule width .08em} c r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
+\noalign{\hrule height 0.08em}
+\\
+   \multicolumn{1}{c!{\vrule width .08em}}{\begin{center}\textbf{Real} \backslash \textbf{Predicted}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\hspace*{0.6cm}\textbf{ball}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\hspace*{0.1cm}\textbf{skull}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\hspace*{0.2cm}\textbf{cup}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{bottle}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{mobile}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{calculator}\end{center}} &\\
+\noalign{\hrule height 0.08em}
+\\
+\textbf{ball}		&&	\textbf{0}&\textbf{83}	&	0&14	&	0&00	&	0&00	&	0&03	&	\hspace*{0.3cm}0&00	\\
+\textbf{skull}		&&	0&34	&	\textbf{0}&\textbf{62}	&	0&00	&	0&00	&	0&00	&	0&03	\\
+\textbf{cup}		&&	0&03	&	0&21	&	\textbf{0}&\textbf{66}	&	0&07	&	0&00	&	0&03	\\
+\textbf{bottle}		&&	0&14	&	0&14	&	0&00	&	\textbf{0}&\textbf{69}	&	0&00	&	0&03	\\
+\textbf{mobile}		&&	0&10	&	0&13	&	0&00	&	0&07	&	\textbf{0}&\textbf{67}	&	0&03	\\
+\textbf{calculator}	&&	0&10	&	0&21	&	0&00	&	0&07	&	0&00	&	\textbf{0}&\textbf{62}	\\
 
-\addlinespace[-3mm]
+\\
+\noalign{\hrule height 0.08em}
 
-\midrule
-\textbf{ball}		&	\textbf{0}&\textbf{83}	&	0&14	&	0&00	&	0&00	&	0&03	&	0&00	\\
-\textbf{skull}		&	0&34	&	\textbf{0}&\textbf{62}	&	0&0	&	0&00	&	0&00	&	0&03	\\
-\textbf{cup}		&	0&03	&	0&21	&	\textbf{0}&\textbf{66}	&	0&07	&	0&00	&	0&03	\\
-\textbf{bottle}		&	0&14	&	0&14	&	0&00	&	\textbf{0}&\textbf{69}	&	0&00	&	0&03	\\
-\textbf{mobile}		&	0&10	&	0&13	&	0&00	&	0&07	&	\textbf{0}&\textbf{67}	&	0&03	\\
-\textbf{calculator}	&	0&10	&	0&21	&	0&00	&	0&07	&	0&00	&	\textbf{0}&\textbf{62}	\\
-
-
-\bottomrule
 \end{tabular}
 \caption[Confusion matrix - templates using 5 views]{Confusion matrix using a template that stores five views per object. The results are given in a 0 to 1 range. }
 \label{5views_matrix}
@@ -211,7 +210,7 @@ Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as w
 
 	Finally, the calculator has a score of 0.62. 
 	It was recognized in all previous measurements except when the ball was shown to the system. 
-	Nonetheless, the ratio of false positives is negligible ( a 3\%). 
+	Nonetheless, the ratio of false positives is negligible (a 3\%). 
 	The objects that were detected when the calculator was presented are the skull, the ball and the bottle. 
 	Since the calculator has a very cluttered 2D texture it is possible that some descriptors are similar to the ones extracted in other objects. 
 	\\
@@ -226,9 +225,9 @@ Figure \ref{5views_fscore} shows the F1-score obtained in this measurement, as w
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
-   \multicolumn{3}{c}{\begin{flushright}\textbf{Precision}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{Recall}\end{flushright}} &
-   \multicolumn{3}{c}{\begin{flushright}\hspace*{0.2cm}\textbf{F1 score}\end{flushright}} &\\
+   \multicolumn{3}{c}{\begin{center}\textbf{Precision}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{Recall}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\hspace*{0.2cm}\textbf{F1 score}\end{center}} &\\
 \addlinespace[-3mm]
 
 \midrule
@@ -271,29 +270,32 @@ The F1-score and the precision and recall per object may be found in figure \ref
 
 \begin{table}[H]
 \centering
-\begin{tabular} {l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
-\toprule
-\addlinespace[3mm]
-   \multicolumn{1}{c}{\begin{center}\textbf{Real} \mid \textbf{Predicted}\end{center}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{ball}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{skull}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{cup}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{bottle}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{mobile}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{calculator}\end{flushright}} &\\
+\begin{tabular} {l !{\vrule width .08em} c r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l r@{.}l }
+\noalign{\hrule height 0.08em}
+% \specialrule{.1em}{.1em}{.1em} 
+% \addlinespace[3mm]
+% \toprule
+\\
+   \multicolumn{1}{c!{\vrule width .08em}}{\begin{center}\textbf{Real} \backslash \textbf{Predicted}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\hspace*{0.6cm}\textbf{ball}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\hspace*{0.1cm}\textbf{skull}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\hspace*{0.2cm}\textbf{cup}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{bottle}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{mobile}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{calculator}\end{center}} &\\
+\noalign{\hrule height 0.08em}
+\\
+\textbf{ball}		&&	\textbf{0}&\textbf{93}	&	0&00	&	0&07	&	0&00	&	0&00	&	\hspace*{0.3cm}0&00	\\
+\textbf{skull}		&&	0&31	&	\textbf{0}&\textbf{69}	&	0&00	&	0&00	&	0&00	&	0&00	\\
+\textbf{cup}		&&	0&03	&	0&14	&	\textbf{0}&\textbf{76}	&	0&00	&	0&03	&	0&03	\\
+\textbf{bottle}		&&	0&03	&	0&14	&	0&00	&	\textbf{0}&\textbf{83}	&	0&00	&	0&00	\\
+\textbf{mobile}		&&	0&07	&	0&03	&	0&14	&	0&00	&	\textbf{0}&\textbf{72}	&	0&03	\\
+\textbf{calculator}	&&	0&21	&	0&00	&	0&00	&	0&03	&	0&00	&	\textbf{0}&\textbf{76}	\\
+\\
+% \hline
+\noalign{\hrule height 0.08em}
 
-\addlinespace[-3mm]
-
-\midrule
-\textbf{ball}		&	\textbf{0}&\textbf{93}	&	0&00	&	0&07	&	0&00	&	0&00	&	0&00	\\
-\textbf{skull}		&	0&31	&	\textbf{0}&\textbf{69}	&	0&00	&	0&00	&	0&00	&	0&00	\\
-\textbf{cup}		&	0&03	&	0&14	&	\textbf{0}&\textbf{76}	&	0&00	&	0&03	&	0&03	\\
-\textbf{bottle}		&	0&03	&	0&14	&	0&00	&	\textbf{0}&\textbf{83}	&	0&00	&	0&00	\\
-\textbf{mobile}		&	0&07	&	0&03	&	0&14	&	0&00	&	\textbf{0}&\textbf{72}	&	0&03	\\
-\textbf{calculator}	&	0&21	&	0&00	&	0&00	&	0&03	&	0&00	&	\textbf{0}&\textbf{76}	\\
-
-
-\bottomrule
+% \bottomrule
 \end{tabular}
 \caption[Confusion matrix - templates using 10 views]{Confusion matrix using a template that stores ten views per object. The results are given in a 0 to 1 range. }
 \label{10views_matrix}
@@ -344,9 +346,9 @@ The F1-score and the precision and recall per object may be found in figure \ref
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
-   \multicolumn{3}{c}{\begin{flushright}\textbf{Precision}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{Recall}\end{flushright}} &
-   \multicolumn{3}{c}{\begin{flushright}\hspace*{0.2cm}\textbf{F1 score}\end{flushright}} &\\
+   \multicolumn{3}{c}{\begin{center}\textbf{Precision}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{Recall}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\hspace*{0.2cm}\textbf{F1 score}\end{center}} &\\
 \addlinespace[-3mm]
 
 \midrule

@@ -44,7 +44,7 @@
 	% \subsection{Third level: ROS node integration / regression test}
 	% 	In order to perform a third-level testing, both a unit testing library and the rostest tool are needed. In this project, the tests implemented of this level are the following: 
 
-
+\vspace{1cm}
 \section{Computing performance evaluation}
 
 	This section presents the tests that I performed to evaluate the computing performance of the system. 
@@ -95,6 +95,7 @@
 		% 		\end{center}
 		% \end{figure}
 
+\newpage
 		% \item{\textbf{Topic network usage}}\\
 		\subsection{Topic network usage}
 
@@ -106,16 +107,13 @@
 		This is specially relevant for image or video tasks, which do consume great amounts of BW. 
 		The need to evaluate the BW and frequency requirements of the system comes from this issue. 
 		Therefore, the purpose of the topic network usage measurement is to evaluate if the system could be distributed across several machines.
-
 		% The topics communicate the nodes and allow the exchange of information. 
 		% The parameters that characterizes the topics are the bandwidth and the publishing frequency.
-	
 		% % \paragraph{Bandwidth}\mbox{}\\
 		% The bandwidth parameter is the speed at which the data is transmitted. 
 		% Its units are kilobytes per second. 
 		% The ROS framework has a built-in command that allows to retrieve the maximum, minimum, mean and average bandwidth of a topic. 
 		% % The results are presented in a table as the one in figure \ref{topic_bw_model}. 
-
 		% \begin{figure}[H]
 		% 		\begin{center}
 		% 	    \includegraphics[scale=0.35]{img/tests/topic_bw_model.png}
@@ -126,7 +124,6 @@
 		% If there are network connectivity problems or rostopic cannot keep up with the publisher, the reported bandwidth might be lower than the actual one. 
 		\\
 
-		% \paragraph{Publishing frequency}\mbox{}\\
 		The publishing frequency of a ROS topic is the number of messages published on it over time. 
 		It is measured in Hz. 
 		ROS provides a built-in command that is similar to the one above that returns the maximum, minimum and the standard deviation of the time between messages in seconds. 
@@ -142,7 +139,6 @@
 		% \end{figure}
 		% 	\end{itemize}
 
-% \newpage
 
 \section{Evaluation of the object recognition accuracy}
 \label{accuracy_experiment}
@@ -174,6 +170,16 @@
 	The light was a mixture of natural light and artificial light coming from halogens.
 	The experiment was performed at a distance of approximately 1.7 m from the RGB-D (Red, Green, Blue and Depth) sensor. 
 	The background was composed of a white wall with a painting in the right side, a window in the left side and shelves in the middle-left part. 
+	Figure \ref{experimental_setup} presents an sketch of the experimental setup. 
+
+	\begin{figure}[H]
+		\begin{center}
+	    \includegraphics[scale=0.3]{img/setup.png}
+		\caption[Experimental setup sketch]{Experimental setup sketch. }
+				\label{experimental_setup}
+
+		\end{center}
+	\end{figure}
 
 
 
@@ -216,14 +222,11 @@
 		% First, the tester shows the first two objects that are going to be learned. 
 		% Afterwards, the recognition mode is tested identifying and storing in a file the output of the matching for both 2D and 3D. 
 		% \\
-
 		% Then, another new object is learned and again the recognition is tested. 
 		% This sequence is iterated until there are no new objects to be learned. 
 		% \\
-
 		% The reason behind this incremental learning is to observe the differences on the effectiveness and the benchmarking of the system when the dataset size changes. 
 		% \\
-
 		First, the objects are stored in the program's dataset. 
 		In order to do so, each object is recorded using the data acquisition mode of the software. 
 		It is done turning the the object in the process in order to obtain as many different views as possible. 
@@ -233,13 +236,12 @@
 		The objects are positioned still during 10 seconds in the most natural grasping position. 
 		Then, they are rotated during the remaining 20 seconds. 
 		This is done to measure the robustness of the system to rotation changes. 
+\\
 
 		% It is then when the accuracy of the system is measured. 
 		The software's output is recorded to a file for further processing. 
 		That data is presented in chapter \ref{results}.
-		\\
-
-		The software allows to specify the number of views being taken per object in the data acquisition phase. 
+		The system allows to specify the number of views being taken per object in the data acquisition phase. 
 		Taking advantage of this feature, the whole procedure described above is repeated for one, five and ten object views.
 		Theoretically, decreasing the number of views should worse the effectiveness of the recognition. %but better the performance of the system, since the processing needed is reduced.
 		This experiment is designed to confirm this intuition. 
@@ -296,25 +298,19 @@
 		This matrix shows the percentage each different object was predicted when each of the real objects were presented to the system. 
 		This percentage is shown transformed to a zero to one scale. 
 		% \\
-
 		% Usually, confusion matrices present the absolute results but in this case they were converted into ratios in a 0 to 1 range. 
 		% When the number of views being learned per object increases, the computing time also is higher and then the number of predicted objects for a same amount of time is lower. 
 		% In this experiment, for the 1 view per object experiment, the number of results is larger than the 10 views experiment. 
 		% This is the reason why the confusion matrix values are given as a ratio, to construct comparable confusion matrices from each of the experiments. 
-
 		% In this system, each different retrieved a different number of results and hence the matrix is constructed with a ratio from 0 to 1. 
 		% The confusion matrix in which the results are being presented is the same as the figure \ref{matrix_model}. 
-
-
 		% \begin{figure}[H]
 		% 		\begin{center}
 		% 	    \includegraphics[scale=0.35]{img/tests/matrix_model.png}
 		% 		\caption[Confusion matrix model]{Confusion matrix model}
 		% 		\label{matrix_model}
-
 		% 		\end{center}
 		% \end{figure}
-
 		The precision is the fraction of retrieved results that are relevant.  
 		Using a confusion matrix as the one above, the precision is computed from it using formula \ref{precision}.
 		\begin{center}
@@ -328,6 +324,8 @@
 		The i represent the rows and the j the columns of the matrix. 
 		The recall is the fraction of the results that are relevant and that have succeeded. 
 		It may be obtained using the confusion matrix with formula \ref{recall}.
+		The precision and recall are computed for each of the six objects conforming the dataset. 
+
 		\begin{center}
 		\begin{equation}
 		\label{recall}
@@ -335,7 +333,6 @@
 		\end{equation}
 		\end{center}
 
-		The precision and recall are computed for each of the six objects conforming the dataset. 
 		% Those two parameters together with the F1-score is presented in a table as the one in figure \ref{fscore_model}. 
 
 		% \begin{figure}[H]

@@ -15,8 +15,8 @@ First, the nodes' CPU and RAM usage is evaluated and afterwards the topic networ
 
 	\subsection{Nodes' CPU and RAM usage}
 
-			The total CPU usage of the system is of one physical core, and the RAM utilization of less than 1 GB of memory. 
-			This information suggests that the software is able to run on real time with the hardware being used in the experiments. 
+			The total CPU usage of the system is of a 25\%, which is roughly a single core of the CPU, and the RAM utilization of less than 1 GB of memory. 
+			This information suggests that the software is able to run on real time with the hardware used in the experiments. 
 			The percentage of the CPU and RAM usage (23\% and 5\% respectively) show that the system would able to work on real time in a computer with lower RAM and slower or smaller CPU than the one used. 
 			That is, the minimum requirements for a computer to be able to run this system on real time would be to have at least 1GB of RAM memory and a 1 core processor with a minimum speed of 2,40 GHz or equivalent processing unit.  
 
@@ -37,14 +37,19 @@ First, the nodes' CPU and RAM usage is evaluated and afterwards the topic networ
 				In fact, the publishing rate of the output of the system was lowered up to approximately one result per second.
 				This reduction of the publishing rate was performed to filter the instantaneous results and hence reduce the noise of the system without damaging its performance.
 				Outputting one result per second is fast enough to permit a natural information exchange between the system and its users.
-
+\newpage
 			\item{\textbf{Bandwidth}}\\
 
 				The ROS framework allows the distribution of the processing among different devices that are interconnected. 
 				The total bandwidth measured in the system is below 7 MB/s, a figure that allows the implementation of this system using a distributed architecture. 
 				Nevertheless, the bandwidth of the different network types and technologies must be checked previously to ensure that their bandwidth is high enough. 
+				\\
+
 				As an example, a LAN, WAN or MAN network might be introduced to communicate the system since their maximum bandwidth is in the range of the hundreds of megabytes per second. 
-				Nevertheless, the communication could not be performed on a Internet network using the 802.11 protocol, whose bandwidth has a maximum of 2 MB/s.
+				Nevertheless, the communication could not be performed on a Internet network using the 802.11b protocol, whose bandwidth has a maximum of 2 MB/s.
+				This does not mean that the system is not able to communicate through the Internet. 
+				Other protocols created later such as the 802.11n have a much higher maximum bandwidth, in the range of the hundreds of megabits per second.
+
 			% Si los nodos permiten un cómputo en tiempo real y si la carga del sistema a la red permite que se pueda distribuir (al menos sobre el papel)  los nodos de tu sistema entre varias máquinas. 
 
 
@@ -90,6 +95,7 @@ First, the nodes' CPU and RAM usage is evaluated and afterwards the topic networ
 	% Most of the 40\% of recognitions were ball. 
 	This results supports the theory that the 3D similarity between those objects, which may be seen in figure \ref{comparison2} may lead to very similar 3D descriptors. 
 
+\vspace{0.5cm}
 	\begin{figure}[h]
 		\begin{center}
 	    \includegraphics[width=\linewidth]{img/discussion/comparison2.png}
@@ -99,12 +105,12 @@ First, the nodes' CPU and RAM usage is evaluated and afterwards the topic networ
 	\end{figure}
 
 
+\vspace{0.5cm}
 	The skull was recognized a ratio of 0.2 when the cup was being shown to the system, which is a high value. 
 	The reason behind it could be the similarity in the 2D texture of skull and cup. 
 	Both are white objects with drawings that contrast with that background, as can be seen in figure \ref{comparison1}. 
+	\\
 	
-		The skull is similar to the ball in its 3D form, which could be the reason behind those false recognitions. 
-
 	Figure \ref{5views_matrix} shows that when the mobile was shown to the system, the skull, the ball and the bottle were detected. 
 	The mobile has rounded corners and sides that could make 3D descriptors on those locations be similar to the previous objects. 
 	Also, the mobile is white with details represented in the 2D texture. 
@@ -112,6 +118,7 @@ First, the nodes' CPU and RAM usage is evaluated and afterwards the topic networ
 	For certain positions of the cup and the mobile the 2D projection could be similar and lead to obtain less representative descriptors of the object. 
 	These similarities between the skull and the bottle may be seen in figure \ref{comparison1}.
 
+\newpage
 
 	\subsection{Template using 10 views}
 	The results of this experiment may be found in figures \ref{10views_matrix} and \ref{10views_fscore}. 
@@ -128,10 +135,12 @@ First, the nodes' CPU and RAM usage is evaluated and afterwards the topic networ
 	The ball was detected wrongly a high amount of times when the skull and the calculator were being shown.
 	The first case was already explained in section \ref{discussion_5views}: the ball and the skull have very similar 3D form. 
 	The second case might be because of the fact that both objects have high 2D texture composed of straight lines and the 2D descriptors extracted might have been very similar. 
-
-
-	\subsection{Comparison of the experiments results using different number of views}
+	\\
 
 	The results of the experiment using ten views are very promising. 
-	Further measurements with higher amount of views could be performed to determine the optimum balance between F1 score and processing requirements. 
+	Since there is an almost proportional relation between the F1 score and the number of views learned per object, further measurements could be performed to determine the optimum balance between F1 score and processing requirements. 
 	
+	
+
+	% \subsection{Comparison of the experiments results using different number of views}
+

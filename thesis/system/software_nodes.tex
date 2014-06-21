@@ -1,3 +1,4 @@
+\newpage
 \subsection{Third party libraries that process the input data to the system}
 \label{ros_packages}
 In this section the ROS packages that are used in our system are presented. 
@@ -15,14 +16,13 @@ The package transforms the input raw data coming from the kinect into structured
 This information is prepared hence for further processing. 
 Figure \ref{diagram_kinect_data} shows the Connectivity graph of this package and its position in the RGB-D sensor data processing chain. 
  
- 		\begin{figure}[H]
+	\begin{figure}[H]
 			\begin{center}
-			\includegraphics[width=0.5\linewidth]{img/diagrams/kinect_data.eps}
+			\includegraphics[width=0.4\linewidth]{img/diagrams/kinect_data.eps}
 			\caption[Kinect data processing]{Kinect data processing using the openni ROS packages (openni\_camera and openni\_launch).}
 			\label{diagram_kinect_data}
 			\end{center}
 		\end{figure}
-
 
 \subsubsection{ROS package: openni\_launch}
 \label{openni_launch}
@@ -31,9 +31,8 @@ This package provides useful transformations taking as input the openni\_camera 
 It is composed of various nodes that can be executed using a launch file. 
 Each node processes the raw input information from the driver into more useful data. 
 This data may be a point cloud with color information or a disparity image for example. 
-The output of the nodes is published into different topics. 
+The output of the nodes is published into different topics, which are the input for the nodes that have been developed for this thesis.
 % The developed nodes described in section \ref{nodes} are subscribed to these topics in order to obtain the input point cloud and image. 
-These topics are the input for the nodes that have been developed for this thesis.
 
 \subsubsection{ROS package: pi\_tracker}
 \label{pi_tracker}
@@ -41,18 +40,17 @@ This ROS package implements a joint tracker.
 It is used within the system to determine the position and orientation of the user's joints. 
 This task is performed by the skeleton tracker node.  
 Figure \ref{diagram_skeleton} shows the Connectivity graph of this node. 
+The node takes as input the output data of the openni\_launch ROS package. 
+The node outputs the Skeleton message in which the positions and orientations of the joints are represented. 
 % In figure \ref{diagram_skeleton} it may be observed that the diagram presented in figure \ref{diagram_kinect_data} is simplified.  
-
-		\begin{figure}[H]
+	\begin{figure}[H]
 			\begin{center}
-			\includegraphics[width=0.3\linewidth]{img/diagrams/node_pi_tracker.eps}
+			\includegraphics[width=0.26\linewidth]{img/diagrams/node_pi_tracker.eps}
 			\caption[Skeleton Tracker I/O]{Connectivity graph of the Skeleton Tracker node.}
 			\label{diagram_skeleton}
 			\end{center}
 		\end{figure}
 
-It can be seen that the node takes as input the output data of the openni\_launch ROS package. 
-The node outputs the Skeleton message in which the positions and orientations of the joints are represented. 
 
 
 
@@ -70,14 +68,14 @@ The circles represent the nodes. %Each circle is a node and the name inside them
 The arrows show the communication between nodes. 
 The names next to the nodes' interconnections are the messages interchanged.  % that those processes interchange. 
 % The squares with the names serve as separators of the different packages that are being used. 
-The square areas define the different ROS packages that have been used.
-The square with the tile "OCULAR" separates the nodes developed in this thesis from third-party nodes. 
+
 % All the nodes inside the square with the title "OCULAR" are the ones I developed. 
-Sections \ref{converter} to \ref{last_node} present the processing performed by each node. 
-\\
+\vspace{0.5cm}
 
 
-		\begin{figure}[H]
+
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=\linewidth]{img/diagrams/nodes.eps}
 			\caption[System nodes]{System nodes and their interaction.}
@@ -85,12 +83,15 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 			\end{center}
 		\end{figure}
 
-%\newpage
+\vspace{0.5cm}
 
 
+The square areas define the different ROS packages that have been used.
+The pink square with the label "OCULAR" separates the nodes developed in this thesis from third-party nodes. 
+The nodes are represented in the order that follows the data-flow. 
+Sections \ref{converter} to \ref{last_node} present the processing performed by each node. 
 
-%%\newpage
-
+\newpage
 
 \subsubsection{Converter node}
 		\label{converter}
@@ -98,12 +99,15 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	This node is the first step of the developed software, a translator to isolate the OCULAR package from third party packages. 
 	It converts the input data containing the skeleton position to a custom message used through the rest of the code. 
 	It allows to easily change the package from which the skeleton is obtained without affecting the whole system. 
+	\\
+
 	The converter node transforms the input data from the pi\_tracker package into the custom message used within the software. 
 	It was only implemented a converter for the pi\_tracker package, but the software is designed to easily develop and add more converters in case it is necessary. s
 	Figure \ref{converter_graph} represents the Connectivity graph of the node. 
 	The skeleton message enters the node and the custom message containing the hands location is the output. 
 
-		\begin{figure}[H]
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_converter.png}
 			\caption[Converter node I/O]{Connectivity graph of the Converter node.}		
@@ -121,26 +125,32 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	This is the conversion step of the node, in which the information from the third-party package is parsed and the data relevant to the system's nodes is extracted. 
 	Finally, the last case is to publish the location of the user's hands. 
 	This is the output of the system, the custom message used within the system in which the hands location is specified. 
+	\vspace{0.5cm}
+
+
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.4]{img/diagrams/uc_converter.eps}
 		\caption[Use case diagram converter node]{Use Case diagram of the converter node}
 		\label{uc_converter}
 	\end{figure}
+\vspace{0.5cm}
+
 
 	
-	%%\newpage
+	\newpage
 
 \subsubsection{3D ROI Segmenter node}
 	\label{roi_segmenter_3d}
 
 	This node extracts the 3D Region Of Interest from the input point cloud. 
-	This process is useful to eliminate useless information and hence reduce the size of the 3D data used by the system.  
+	This process is convenient to eliminate useless information and hence reduce the size of the 3D data used by the system.  
 	Having a smaller 3D data size also lowers the computing time of the following nodes that use this information. 
-	Figure  \ref{node_roi3d} presents the Connectivity graph of the node. 
+	Figure  \ref{node_roi3d} presents the connectivity graph of the node. 
 	The input of this node is the raw 3D information from the sensor and the hand's locations from the third-party package pi\_tracker, as well as the hand in which the user is holding the object. 
 
-		\begin{figure}[H]
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_roi3d.eps}
 			\caption[ROI segmenter 3D node I/O]{Connectivity graph of the ROI segmenter 3D node.}		
@@ -154,15 +164,10 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	This is the reason why this node segments a prism around the selected hand's center from the input point cloud.
 	\\
 
-	The 3D ROI Segmenter node provides information to two different nodes: the 3D Feature Extractor (see section \ref{fe3d}) and the 2D ROI Segmenter node (see section \ref{roi_segmenter_2d}). 
-	The segmented point cloud is passed to the 3D Feature Extractor and the segmented coordinates are shared with the 2D ROI Segmenter node. 
-	This latter needs the values of the prism vertex coordinates in order to crop the input image. 
-	Nevertheless, the coordinates in the 3D ROI Segmenter node are in world units and hence they need to be converted into pixels. 
-	This step can be observed in Figure \ref{uc_roi3d}, which shows the use case diagram of the node. 
-	% The prism vertex coordinates are transformed from world coordinates to pixels. 
-	% To allow the ROI Segmenter 2D to perform the cropping of the input image using those pixel values. 
-	% That information is the output of the node, together with the segmented point cloud. 
+
 	
+\vspace{0.5cm}
+
 
 	\begin{figure}[H]
 		\centering
@@ -170,25 +175,40 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 		\caption[Use case diagram ROI segmenter 3D node]{Use Case diagram of the ROI segmenter 3D node}
 		\label{uc_roi3d}	
 	\end{figure}
- 
+ \vspace{0.5cm}
+
+\newpage
+The 3D ROI Segmenter node provides information to two different nodes: the 3D Feature Extractor (see section \ref{fe3d}) and the 2D ROI Segmenter node (see section \ref{roi_segmenter_2d}). 
+	The segmented point cloud is passed to the 3D Feature Extractor and the segmented coordinates are shared with the 2D ROI Segmenter node. 
+	This latter needs the values of the prism vertex coordinates in order to crop the input image. 
+	Nevertheless, the coordinates in the 3D ROI Segmenter node are in world units and hence they need to be converted into pixels. 
+	This step can be observed in Figure \ref{uc_roi3d}, which shows the use case diagram of the node. 
+	% The prism vertex coordinates are transformed from world coordinates to pixels. 
+	% To allow the ROI Segmenter 2D to perform the cropping of the input image using those pixel values. 
+	% That information is the output of the node, together with the segmented point cloud. 
+\\
+	
 	In Figure \ref{uc_roi3d} the different cases of this node are shown. 
 	Since this node is more complex than the previous Converter node (section \ref{converter}), there are more cases in which the program may be. 
 	The first three present the reception of information: the raw point cloud from the kinect, the hand's location in the custom message used within the system from the converter node and the event from the event handler node. 
 	This last piece of information is used to determine which hand is being used in the software. 
 	Afterwards, the processing cases is presented: the segmentation of the 3D Region Of Interest from the input point cloud and the transformation of the boundary coordinates from world to pixel units. 
 	Finally, the node publishes the segmented point cloud and the 2D ROI coordinates. 
+
+
 %%\newpage
 
 \subsubsection{2D ROI Segmenter node}
 	\label{roi_segmenter_2d}
 	
 	%The present node takes as the input the raw 2D information from the RGB-D sensor and the hand's locations in pixels returned from the ROI segmenter 3D node. 
-	Similarly to the previous node described in section \ref{roi_segmenter_3d}, this node is used to extract the Region Of Interest with the difference that this is segmented from the input 2D data, an image. 
-	The reasons behind this operation are the same: eliminating the non-important part of the information allows to obtain a smaller data that reduces the computation times and also lowers the noise introduced to the system. 
-	Figure \ref{node_roi2d} depicts the Connectivity graph of this node. 
+	Similarly to the previous node described in section \ref{roi_segmenter_3d}, this executable is used to extract the Region Of Interest with the difference that this is segmented from the input 2D data, an image. 
+	The reasons behind this operation are the same: eliminating the non-important part of the information allows to obtain a smaller data that reduces the computation times and also lowers the noise introduced into the system. 
+	Figure \ref{node_roi2d} depicts the connectivity graph of this node. 
 	The raw 2D information and the hand location in pixels are inputs to the ROI Segmenter 2D node. 
 
-		\begin{figure}[H]
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_roi2d.eps}
 			\caption[ROI segmenter 2D node I/O]{Connectivity graph of the ROI segmenter 2D node.}		
@@ -204,18 +224,25 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	If the user is outside the range, it is considered a background object and hence the node does not track his skeleton. 
 	%Since due to the RGB-D sensor's current resolutions the user must remain at a fixed distance from the sensor, the difference in the scale due to the distance is negligible and hence the size can be fixed. 
 	\\
+
+	In figure \ref{uc_roi2d} the use case diagram of the node can be observed.
+	The first two cases show the reception of information from other nodes such as the 2D ROI location from the 3D ROI Segmenter node, the raw image from the Kinect. 
+	Then, the processing case is presented which is the segmentation or extraction of the 2D Region Of Interest. 
+	Finally, the last case involves the publishing of that segmented information. 
+\newpage
+
+	\vspace{0.5cm}
+
+
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_roi_segmenter_2d.eps}
 			\caption[Use case diagram ROI segmenter 2D node]{Use Case diagram of the ROI segmenter 2D node}
 		\label{uc_roi2d}
 	\end{figure}
+\vspace{0.5cm}
 
-	In figure \ref{uc_roi2d} the use case diagram of the node can be observed.
-	The first two cases show the reception of information from other nodes such as the 2D ROI location from the 3D ROI Segmenter node, the raw image from the Kinect. 
-	Then, the processing case is presented which is the segmentation or extraction of the 2D Region Of Interest. 
-	Finally, the last case involves the publishing of that segmented information. 
-%%\newpage
+
 
 \subsubsection{2D Feature Extractor node}
 \label{fe2d}
@@ -223,34 +250,37 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	These features are used in later nodes to match two objects and determine whether they are the same one or not. 
 	The 2D Feature Extractor node is hence the last part of the 2D data processing in the system. 
 	% This node takes as an input the segmented 2D ROI from the previous nodes and extracts the features. 
-	Figure \ref{node_fe2d} shows the Connectivity graph of the node. 
+	Figure \ref{node_fe2d} shows the connectivity graph of the node. 
+	There are two output messages of this node, the segmented images with keypoints and the 2D ORB descriptors matrix. 
+	This matrix is used in the rest of the system. 
+	The segmented image with the keypoints drawn on it is outputted for debugging and development reasons. 
 
-		\begin{figure}[H]
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_fe2d.eps}
 			\caption[Feature Extractor 2D node I/O]{Connectivity graph of the Feature Extractor 2D node.}		
 			\label{node_fe2d}
 			\end{center}
 		\end{figure}
-
-	There are two output messages of this node, the segmented images with keypoints and the 2D ORB descriptors matrix. 
-	This matrix is used in the rest of the system. 
-	The segmented image with the keypoints drawn on it is outputted for debugging and development reasons. 
-	\\
+	\vspace{0.5cm}
 
 	Figure  \ref{uc_fe2d} represents the use case diagram of this node. 
 	The first case shows the reception of the segmented image. 
 	The two cases in the middle reflect the extraction of 2D features and the saving of those features to a file. 
 	This last operation is only performed when the system is shut down to avoid a lag in the software in runtime. 
 	Finally, the last case contains the publishing of the 2D features, which is used by the learner-recognizer node (see section \ref{learner_recognizer}) and the segmented image with keypoints, which is only used for debugging and developing. 
+\newpage
+	\vspace{0.5cm}
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_2d.eps}
 			\caption[Use case diagram Feature Extractor 2D node]{Use Case diagram of the Feature Extractor 2D node}
 		\label{uc_fe2d}
 	\end{figure}
+\vspace{0.5cm}
 
-%%\newpage
+
 
 \subsubsection{3D Feature Extractor node}
 \label{fe3d}
@@ -259,7 +289,8 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	This comparison is performed in the Learner-Recognizer node (see section \ref{learner_recognizer}).
 	Figure \ref{node_fe3d} shows that the input of this node is the segmented point cloud from the ROI Segmenter 3D node (see section \ref{roi_segmenter_3d}). The descriptors are extracted from this information and are published in the output topic. 
 	\\
-		\begin{figure}[H]
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_fe3d.eps}
 			\caption[Feature Extractor 3D node I/O]{Connectivity graph of the Feature Extractor 3D node.}		
@@ -272,12 +303,18 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	The two following cases are the processing of the node: the extraction of 3D features and the saving of this features to files in the system's shut down. 
 	The final case involves the publishing of these 3D features. 
 
+\newpage
+\vspace{0.5cm}
+
+
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_feature_extractor_3d.eps}
 			\caption[Use case diagram Feature Extractor 3D node]{Use Case diagram of the Feature Extractor 3D node}
 		\label{uc_fe3d}
 	\end{figure}
+\vspace{0.5cm}
+
 
 %%\newpage
 
@@ -299,12 +336,11 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	% As it was previously stated, in order to interact with the software some gestures were defined. 
 	% This is the module that detects those gestures and switches the event message accordingly to the corresponding event. 
 	% This is the node responsible of detecting the different events that the user triggers. 
-	\\
-
 	Figure \ref{node_event} shows the connectivity graph of the node. 
 	Event Handler receives its input from the pi\_tracker package and outputs the event message to the rest of the system. 
 
-		\begin{figure}[H]
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_event.eps}
 			\caption[Event Handler 3D node I/O]{Connectivity graph of the Event Handler node.}		
@@ -314,17 +350,20 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	The input of the system is the skeleton message that is obtained from the third-party package pi\_tracker. This message contains the information of all the joints of the user. The information is screened to detect the height at which each hand is located. The one that is the highest is the one being used in the software. Afterwards, the distance between the body and the chosen hand is computed. When that distance is similar to the distance of the user's arm, the event triggered is "learn". If, otherwise, the hand is located close to the body, the event that is published to the output topic is "recognize". 
 	The distance that triggers the modes is proportional to the distance between the user and the RGB-D sensor in order to obtain a range of use of the software higher. 
 	\\
-
+\newpage
 	Figure \ref{uc_event} is a diagram with the use case of the node. 
 	The first case shows the input of the information about the relative hand's position from the pi\_tracker node. 
 	Afterwards, the event being triggered is decided and finally published. 
 	The information of the events is used in the Learner-Recognizer node (section \ref{learner_recognizer}).
+	\vspace{0.5cm}
 	\begin{figure}[H]
 		\centering
 			\includegraphics[scale=0.4]{img/diagrams/uc_event_handler.eps}
 			\caption[Use case diagram Event Handler node]{Use Case diagram of the Event Handler node}
 		\label{uc_event}
 	\end{figure}
+\vspace{0.5cm}
+
 
 %%\newpage
 
@@ -336,8 +375,11 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	If the event received is "Learn", the learning sequence starts. If the event is "Recognize", the recognize sequence is triggered. 
 	These events are detected by the Event Handler node, described in section \ref{event_handler}
 	\\
+\vspace{0.5cm}
 
-		\begin{figure}[H]
+
+	\vspace{0.5cm}
+	\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_lr.eps}
 			\caption[Learner-Recognizer node I/O]{Connectivity graph of the Learner-Recognizer node.}		
@@ -345,13 +387,13 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 						\label{node_lr}
 
 		\end{figure}
+\vspace{0.5cm}
 
-	The learn sequence consists in obtaining and storing the features both 2D and 3D and waiting a second allowing the user to move the object to capture a new view of it. 
+
+	The learn sequence consists in obtaining and storing the features both 2D and 3D and waiting a second, allowing the user to move the object to capture a new view of it. 
 	The dataset extracted is saved to a folder when the software is closed, to prevent possible lags in the runtime of the program. 
 	Each view is saved separately. 
 	This node loads the files that are still in the saving folder when the program is restarted. 
-	\\
-
 	The recognition sequence compares the newly obtained features both 2D and 3D with the ones that are stored in the dataset. 
 	Afterwards, the result of the recognition for both types of descriptors are published in the output topic. 
 	Figure \ref{uc_learner_recognizer} presents the use case diagram of the node. 
@@ -389,10 +431,8 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	The input of the node is the object ID message from the Learner-Recognizer process as can be seen in figure \ref{node_output}.
 	The node stores thirty values of instantaneous object estimations. 
 	Since the Kinect runs at 30 frames per second, approximately each second a new final object estimation is outputted. 
-	% The output of the node is the final object ID. 
 
-
-		\begin{figure}[H]
+	\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=0.5\linewidth]{img/diagrams/node_output.eps}
 			\caption[System Output node I/O]{Connectivity graph of the System Output node.}		
@@ -404,7 +444,7 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	The thirty 2D and 3D instantaneous object estimations are stored in two vectors. 
 	The frequency is the amount of times each object appears in those vectors. 
 	This frequency is obtained for 2D and 3D separately.  
-	Let us represent as $y'_{2D}$ and $y'_{3D}$ the vectors containing in each element the frequency of the object with $object_id = element$. 
+	Let us represent as $y'_{2D}$ and $y'_{3D}$ the vectors containing in each element the frequency of the object with $object\_id = element$. 
 	Both vectors are combined in one, which is called $y'$ using formula \ref{y'}. 
 	\begin{center}
 	\begin{equation}
@@ -416,13 +456,17 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	The estimated final object id ($Y$) is obtained as the vector element that has the highest frequency. 
 	That is, the final prediction is the object\_id whose frequency is higher among the latest 30 predictions.
 	This number is $Y$, which is the output of the whole system. 
-
-	\\
 	\begin{center}
-		$Y'= argmax(y')$
+	\begin{equation}
+	\label{Y'}
+	Y'= argmax(y')
+	\end{equation}
 	\end{center} 
-	\\
 	Figure \ref{uc_output} shows the use case diagram of this node. 
+	Since this node is very simple, there are only three cases. 
+	The first one involves the reception of the object ID message. 
+	The case in the middle represents the buffering and later decision processing of the node. 
+	The last one is the publishing of the resulting object ID, which is the output of the whole OCULAR system. 
 
 	\begin{figure}[H]
 		\centering

@@ -8,7 +8,7 @@ Afterwards, in section \ref{results_topics}, the bandwidth and the publishing ra
 		\label{results_nodes}
 		\\
 
-			As it was said in chapter \ref{methods}, the CPU and RAM usage is measured in the different nodes that compose the software. 
+			As it was explained in chapter \ref{methods}, the CPU and RAM usage is measured in the different nodes that compose the software. 
 			There is a high difference in the CPU and RAM usage between nodes.
 			The nodes that only perform a transformation of the data such as the converter node have a lower CPU and RAM consumption.
 			The nodes that process the input images and point clouds have much higher values. 
@@ -21,7 +21,17 @@ Afterwards, in section \ref{results_topics}, the bandwidth and the publishing ra
 			This is because these perform simple conversions and computations of integers and floating data. 
 			On the other hand, the learner recognizer node implements the state machine of the software. 
 			This means it has to deal with a higher amount of data than the previous nodes. 
-	
+	\\
+
+			The total CPU usage is lower than the 23\%, and the RAM usage of the whole software is of less than the 5\%. 
+			Since the processing unit has 4 physical cores with two threads per core, the system needs less than one core to operate in real time. %the CPU consumption is of less than one physical core. 
+			The computer used has 8 GB of RAM. 
+			Using that number, the total RAM usage of the system is of 0.4 GB. 
+			Figure \ref{node} shows that the CPU and RAM consumption of the third-party packages is very high. 
+			The total CPU and RAM usage including the third-party packages is almost the double of the total of the OCULAR nodes. 
+			This means that it is needed a computer featuring less than two cores (at 2.4 GHz) and less than 1 GB of RAM to be able to run the whole system on real time. 
+
+\newpage 
 
 \begin{table}[H]
 \centering
@@ -50,10 +60,15 @@ Learner recognizer &&% 8&30 &&
 1&04 && 0&80 \\
 System output && %1&00 && 
 0&13 && 0&30 \\
-
 \midrule
-\textbf{TOTAL} && %\textbf{183}&\textbf{00} &&
+\textbf{TOTAL OCULAR NODES: } && %\textbf{183}&\textbf{00} &&
 \textbf{22}&\textbf{88} && \textbf{4}&\textbf{70} \\
+\midrule
+pi\_tracker node: skeleton\_tracker && 4&86 && 3&2\\
+openni\_launch nodelet && 16&19 && 1&00\\
+\midrule
+\textbf{TOTAL WITH THIRD-PARTY PACKAGES:} && %\textbf{183}&\textbf{00} &&
+\textbf{43}&\textbf{84} && \textbf{8}&\textbf{90} \\
 \bottomrule
 \end{tabular}
 \caption[Nodes' CPU and RAM usage]{Nodes' CPU and RAM usage}
@@ -70,19 +85,6 @@ System output && %1&00 &&
 			% 	\label{node}
 			% 	\end{center}
 			% \end{figure}
-
-			The total CPU usage is lower than the 23\%, and the RAM usage of the whole software is of less than the 5\%. 
-			Since the processing unit has 4 physical cores with two threads per core, the system needs less than one physical core to operate in real time. %the CPU consumption is of less than one physical core. 
-			The computer used has 8 GB of RAM as was previously said in section \ref{computer}. 
-			Using that number, the total RAM usage of the system is of 0.4 GB. 
-
-			% The difference between nodes is patent in the table.
-			% The CPU and RAM usage varies from  0.13 to 13.34 and from 0.1 to 1.5 respectively. 
-			% That is, there ia a percent variation of 99\% and  93\%  in the CPU and RAM consumption in the nodes. 
-			% The nodes with a higher computing consumption are the ROI segmenters and the feature extractors both 2D and 3D.
-			% The learner recognizer node also has a higher consumption than the converter, event handler or system output nodes. 
-			
-			% \newpage
 
 		% \item{\textbf{Topic benchmarking}}\\
 		\subsection{Topic network usage}
@@ -143,6 +145,8 @@ System output && %1&00 &&
 			% 	\label{hz}
 			% 	\end{center}
 			% \end{figure}
+
+			\newpage
 
 \begin{table}[H]
 \centering

@@ -16,11 +16,11 @@ As an example, the software could be easily changed to recognize hats or shoes, 
 The Robotic Operating System (ROS) is designed to be used in robots. 
 Since this project is intended to be running on a robot, the software has been developed as a ROS package. 
 In order to manage 2D and 3D information (images and point clouds) two libraries have been used: OpenCV, and PCL. 
-Both libraries implement basic and state-of-the-art algorithms that allow a easier and more time-efficient management of the data. Further information about these libraries might be found in section \ref{state_of_the_art}. 
+Both libraries implement basic and state-of-the-art algorithms that allow a easier and more time-efficient management of the data. Further information about these libraries might be found in section \ref{libraries_and_technologies}. 
 The software is structured in nodes. 
 These nodes have a relatively small functionality and run in parallel. 
 The fact that they run simultaneously improves the efficiency of the code lowering the lag due to time-expensive operations. 
-In the following sections, the nodes' functionalities are be described and the communication between them presented. 
+In the following sections, the nodes' functionalities are described and the communication between them presented. 
 But first, the overall software work-flow and processing is explained. 
 
 
@@ -28,7 +28,7 @@ But first, the overall software work-flow and processing is explained.
 
 The input of the system is the information coming from the RGB-D sensor. 
 It produces two different data used as input: the 2D information, i.e. the raw image detected by the sensor's camera, and the 3D information, i.e. the raw point cloud. 
-Also, there is another input to the system that shows the position of the different user's joints. This data is provided by a third-party package called \textit{pi\_tracker} that is explained in the following chapters. 
+Also, there is another input to the system that shows the position of the different user's joints. This data is provided by a third-party package called pi\_tracker that is explained in the following chapters. 
 \\
 
 The software was designed to be running on a robot as was previously explained. 
@@ -51,7 +51,7 @@ On the other hand, if the event is \textit{"recognize"}, the system exploitation
 This event is triggered when the user pulls his hand to his body.
 This phase consists in the recognition of the objects that are shown to the system until a new "learn" event occurs. 
 In the next sections each of those modes are detailed. 
-
+\newpage
 
 \begin{figure}[H]
 	\begin{center}
@@ -90,9 +90,9 @@ Afterwards, the ROI segmenter 2D node crops the 2D region of interest.
 
 
 \\
-
+\newpage
 After the extraction, the feature extractor nodes obtain the 2D and 3D features out of the segmented data. 
-As it was said in section \ref{descriptors}, the features or descriptors are characteristics that define and represent the data from where they were created. 
+As it was explained in section \ref{descriptors}, the features or descriptors are characteristics that define and represent the data from where they were created. 
 The 2D and 3D features that are being used in this system are the ORB and PFH descriptors, respectively. 
 This cycle is repeated as many times as number of views has been defined in the system. 
 As an example, if the software is configured to accept five views per object, the process is repeated five times. 
@@ -112,7 +112,7 @@ That is the end of the data cycle of the learning process.
 The recognition mode is triggered when the hand is located near the user's body. 
 Figure \ref{flowchart3} shows the detailed flowchart of the system exploitation. 
 The steps that compose this part of the software are the following:
-First, the input information is converted to the custom message used within the code. Afterwards, as in the previous mode, the Region Of Interest is segmented from both 2D and 3D original information. Then, the descriptors are extracted exactly the same way as in the previous mode. 
+first, the input information is converted to the custom message used within the code. Afterwards, as in the previous mode, the Region Of Interest is segmented from both 2D and 3D original information. Then, the descriptors are extracted exactly the same way as in the previous mode. 
 \\
 
 \begin{figure}[H]

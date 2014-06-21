@@ -7,14 +7,21 @@ Also, the improvements that could be applied to enhance the software are enumera
 
 	\section{Conclusions}
 
-	This thesis presented a system capable of detecting and tracking in real time objects that are being hand-held. 
-	The aim of this system is to be installed as part of social and assistive robot's perception system.
+	% This thesis presented a system capable of detecting and tracking in real time objects that are being hand-held. 
+	% The aim of this system is to be installed as part of social and assistive robot's perception system.
+	This system is, to the best of my knowledge, the first in the art to implement an in-hand object learning and recognition algorithm using 2D and 3D information.
+	The fact of using both types of informations improve the robustness of the system to illumination changes or noise in the input data stream.  
+	The goal of the system is to serve as the base for further research on the topic to improve the interaction between humans and robots. 
+	More specifically, it might be used for social or assistive robots as an input. 
+	Evaluating the objects that the humans are holding may help to analyze the context around the robot. 
+	This is a crucial step in the path to the complete autonomy of social and assistive robots. 
 	% The system may be used to evaluate the situations and tasks the humans are performing. 
 	\\
+
 	Two different sets of experiments were carried out to validate the system. 
-	The first set's goal was to ensure that the system was capable to operate on real time and that it would be possible to implement it using a distributed structure. 
-	The second one was performed to evaluate the accuracy of the system and its relation with the number of views per object being learned. 
-	The results demonstrated that the software is able to operate on real time and that the bandwidth consumption of its nodes, whose total value is less than 7 MB/s, was low enough to allow the implementation in a distributed architecture. 
+	The first  goal was to ensure that the system was capable of operating in real time and that it would be possible to implement it using a distributed structure. 
+	The second one was performed to evaluate the accuracy of the system and its relation with the number of views per object learned. 
+	The results demonstrated that the software is able to run on real time and that the bandwidth consumption of its nodes, whose total value is less than 7 MB/s, was low enough to allow the implementation in a distributed architecture. 
 	\\
 
 	The experiments carried out to validate the accuracy of the system demonstrated a recognition rate near 80\% when the dataset was created with ten views per object. 
@@ -30,20 +37,14 @@ Also, the improvements that could be applied to enhance the software are enumera
 	An study evaluating the performance of the system when different persons use it could be useful to determine future improvements of the software.  
 	% Also the system might be examined with different persons to determine the variations of the F1-score, success rate, precision and recall due to the different ways of holding and showing the objects.
 	% Each person interacts differently with a robot and hence the system's  performance could be tested under these different conditions.  
-	\\
 
-	This system is, to the best of my knowledge, the first in the art to implement an in-hand object learning and recognition algorithm using 2D and 3D information.
-	The fact of using both types of informations improve the robustness of the system to illumination changes or noise in the input data stream.  
-	The goal of the system is to serve as the base for further research on the topic to improve the interaction between humans and robots. 
-	More specifically, it might be used for social or assistive robots as an input. 
-	Evaluating the objects that the humans are holding may help to analyze the context around the robot. 
-	This is a crucial step in the path to the complete autonomy of social and assistive robots. 
 % Extiéndete un poco más en las conclusiones:
 % ¿Cuales han sido tus aportaciones? ¿Por qué son relevantes?
 % ¿Que has hecho que nadie más haya hecho?
 % ¿Como validas que tu sistema funciona como has dicho que funciona?
 % ¿Qué cambios ha producido tu sistema en el estado del arte?	
 
+\newpage
 	\section{Future work}
 
 	The present section contains the upgrades that could be implemented in the software to improve different aspects of it. 
@@ -51,8 +52,6 @@ Also, the improvements that could be applied to enhance the software are enumera
 	The introduction of this enhancements could be performed easily due to the modular structure of the code. 
 	% As it was previously explained, each task is performed by a different node. 
 	% This creates a modular code that can be easily enhanced. 
-	\\
-
 	This section is divided in subsections to observe the particular upgrades that could be done in each node of the system. 
 
 	\subsection{Hardware}
@@ -95,7 +94,7 @@ Also, the improvements that could be applied to enhance the software are enumera
 	This means that if two objects are similar and therefore they are grabbed in a similar way the system could match them producing a false positive. 
 	\\
 
-	This problem may be solved more easily using 3D segmentation than using 2D segmentation, because the first has a higher amount of information than the latter. 
+	This problem may be solved more easily using 3D segmentation than using 2D segmentation, because the first has a higher amount of information than the latter.
 	% The 3D segmentation may be improved by removing the hand of the point cloud. 
 	% The system uses right now a point cloud without RGB component to reduce the computing load of the node. 
 	% Adding that information would allow to segment the hand off the point cloud used to learn and recognize the object. 
@@ -104,11 +103,11 @@ Also, the improvements that could be applied to enhance the software are enumera
 	The second option would be the most robust to illumination and pose changes. 
 	It consists on modeling the hand as an union of cylinders and conical frustums and search for these geometrical figures in the input point cloud. 
 	Nevertheless, this option would need a higher amount of processing time than the first one. 
+	\\
+	\newpage
 	An even more robust and complete solution would be to combine both options, but an evaluation of the CPU and RAM cost of using both methods must be performed.
 	After locating the hand, its contour may be obtained, transformed from world to pixel coordinates and finally published in a topic.
 	The 2D ROI segmenter would then use the contour to apply a mask to eliminate the hand from the 2D information as well. 
-	\\
-
 	The introduction of noise to the system would be highly reduced.
 	The hand's position and location would only have an effect in the keypoints occlusion in the image. 
 	\\
@@ -157,6 +156,8 @@ Also, the improvements that could be applied to enhance the software are enumera
 
 	The interaction of the user's with the system could be improved using a voice interface that complements the gestural interface. 
 	Through voice commands the human could be able to label the newly learned objects and the system could output directly the name of the recognized object instead of an identification number. 
+	\\
+
 	Also, the interaction could improve the recognizing procedure of the system in the following way. 
 	If two objects have obtained a similar matching ratio and either of them could be the real object the user is presenting, the system may ask the human to show another view of the object to allow a more accurate recognition. 
 	This simple confirmation step could improve the F1 score obtained in the different experiments since the software would keep matching characteristics of different views until a more distinctive one is found and the best match is obtained. 
