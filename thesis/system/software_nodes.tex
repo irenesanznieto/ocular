@@ -99,7 +99,7 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	It converts the input data containing the skeleton position to a custom message used through the rest of the code. 
 	It allows to easily change the package from which the skeleton is obtained without affecting the whole system. 
 	The converter node transforms the input data from the pi\_tracker package into the custom message used within the software. 
-	It was only implemented a converter for the pi\_tracker package, but it could be easily developed a converter for other packages that retrieve the skeleton position. 
+	It was only implemented a converter for the pi\_tracker package, but the software is designed to easily develop and add more converters in case it is necessary. s
 	Figure \ref{converter_graph} represents the Connectivity graph of the node. 
 	The skeleton message enters the node and the custom message containing the hands location is the output. 
 
@@ -414,7 +414,7 @@ Sections \ref{converter} to \ref{last_node} present the processing performed by 
 	\end{center}
 	The reason of applying the 0.6 and 0.4 constants for 2D and 3D respectively, instead of calculating a simple mean is because we found empirically that the 2D descriptors produced better predictions than the 3D ones.
 	The estimated final object id ($Y$) is obtained as the vector element that has the highest frequency. 
-	That is, the final prediction is the object_id whose frequency is higher among the latest 30 predictions.
+	That is, the final prediction is the object\_id whose frequency is higher among the latest 30 predictions.
 	This number is $Y$, which is the output of the whole system. 
 
 	\\

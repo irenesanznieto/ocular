@@ -1,20 +1,19 @@
 \chapter{Computer Vision fundamentals}
 \label{fundamentals}
-This chapter aims to give a global overview of the main computer vision vocabulary and methods, specially those related with object learning and recognition. 
+This chapter aims to give a global overview of the main computer vision vocabulary and methods related with object learning and recognition. 
 Each section present a different processing step. 
-The computing phases are ordered in the same way as they are performed in the system. 
-These phases are the following: 
+The main processing phases of an object learning and recognition system are: 
 \begin {enumerate}
 	\item{\textbf{Data input: Hardware} \\}
 	The data input of the system is performed using a vision acquisition device. 
 	In this thesis, an RGB-D (Red, Green, Blue and Depth) sensor is being used. 
-	Section \ref{hardware} presents the most used alternatives in robotic computer vision. 
+	Section \ref{hardware} presents the most used vision sensors in robotic computer vision. 
 	% Further explanations may be read in section \ref{hardware}.
 
 	\item{\textbf{Raw input data processing}\\}
 	% The raw data that comes out of the sensors is not correctly formatted. 
-	In most cases, the acquired data needs some preprocessing. 
-	It is needed to create a data structure that is easy to handle and useful. 
+	Usually, the acquired information needs some preprocessing. 
+	This step transforms the input data coming from the sensor into a data structure that is easy to handle and useful for posterior processing.
 	A more complete explanation can be found in section \ref{input_data}
 
 	\item{\textbf{Segmentation}\\}
@@ -22,12 +21,15 @@ These phases are the following:
 	For further information please read section \ref{segmentation}.
 
 	\item{\textbf{Object description methods}\\}
-	The input data is not suitable to be matched as they are. 
-	In order to apply recognition and matching algorithms, the extraction of certain relevant data of each object is required. 
-	That extracted information is the one that describes the object using different techniques. 
+	The input data is not suitable to be matched as it is. 
+	In order to apply recognition and matching algorithms, the extraction of certain relevant information of each object is required. 
+	That extracted information is the one that describes the object and that can be used in matching algorithms. % using different techniques. 
 	More information can be found in section \ref{descriptors}.
 \end{enumerate}
 
+% The computing phases are ordered in the same way as they are performed in the software developed for this thesis. 
+The different phases appear in the same order in the software developed in this thesis. 
+Further details about the processing steps may be found in section \ref{system_design}.
 
 %\addcontentsline{toc}{chapter}{Hardware}
 \section{Hardware}
@@ -37,17 +39,17 @@ The hardware components present in a computer vision system are the following:
 % The main components of a computer vision system are the following: 
 
 \begin{itemize}
-	\item{Power Supply:}Device needed by the other components in order to work. 
-	\item{Acquisition device:}Device that captures the world and represents it as an array of data. That data can be two or three dimensional. 
-	\item{Processing unit:}Receives the information from the acquisition device and processes it. It is usually programmable. Nowadays the most used processing units are PCs. 
-	\item{I/O unit:}Serves as a bridge between the acquisition device and the processing unit if needed. 
+	\item{Power Supply:} Device needed by the other components in order to work. 
+	\item{Acquisition device:} Device that captures the world and represents it as an array of data. That data can be two or three dimensional. 
+	\item{Processing unit:} Receives the information from the acquisition device and processes it. It is usually programmable. Nowadays the most used processing units are PCs. 
+	\item{I/O unit:} Serves as a bridge between the acquisition device and the processing unit if needed. 
 
 \end{itemize}
 
 In this chapter the state of the art of the different acquisition devices is going to be presented. 
 
 \subsection{Acquisition devices}
-There are different acquisition devices being used in the computer vision field. 
+There are different acquisition devices being used in the object learning and recognition field. 
 They are usually classified depending on the output data they provide: 
 
 \begin{itemize}
@@ -207,30 +209,33 @@ More information about this process can be found in section \ref{nodes}.
 \label{descriptors}
 % In this section the most important algorithms regarding object learning and recognition and joint detection and tracking related to this bachelor's thesis are going to be presented.
 In order to be able to compare two objects, features or descriptors are extracted from them. 
-A feature or descriptor is an interesting or important characteristic, point or region of an image. 
-Since they may be defined differently depending on the application and context of the computer vision project, the definition used within this thesis is the previous one. 
-The application determines which feature describes better the object of study. 
+The definition of feature changes depending on the application and context of the computer vision project. In this thesis, the definition that is going to be used is the following:
+a feature or descriptor is an interesting or important characteristic, point or region of an image. 
+\\
+
+he application determines which feature describes better the object of study. 
 Descriptors may have different forms and characteristics. 
 For example, if we want to recognize rectangles, its height could be a descriptor.
 The height is not scale invariant, but it is rotation invariant. 
 If the application needs an scale independent descriptor, the ratio between the height and the width of the rectangle may be used. 
 This simple example shows how a feature is defined when the sample object is known. 
 But in this thesis I present a system that must be able to recognize all kind of common objects. 
-There is no straight forward method to extract a feature as in the example. 
-This is because there is no structure or characteristic that is repeated in every object a human can hold. 
+There is no straight forward method to extract a feature as in the example, because there is no structure or characteristic that is repeated in every object a human can hold. 
 \\
 
 Descriptors may be local or general. 
 A local descriptor represents a point using the information of the points around it. 
 Local features from one object may be almost identical to a local feature from a very different object. 
 An example of local feature could be the color map of a region composed of a certain number of pixels. 
-The same pattern could be found in different highly-textured objects such as a book and a map. 
+The same pattern might be found in different highly-textured objects such as a book and a map. 
 In order to overcome this problem, general or global descriptors are computed. 
 A general descriptor is usually a set of local descriptors that undergo a transformation. 
 For example, the local descriptor previously presented could be extracted from four points of the same object located in the borders. 
 The information of the global descriptor would be a combination of the one given by the local descriptors and a parameter relating them, for example the relative distance between them. 
 This creates a pattern that is more difficult to reproduce in different objects and hence it is more representative for it. 
 Global features are used to obtain a more representative description of the studied object, but they are more computationally expensive. 
+\\
+
 The best feature or descriptor is the one that possess a higher repeatability, i.e the ability of obtaining the same output given different inputs. 
 In this system, repeatability may be described as the ability of obtaining the same predicted object given different views of it. 
 % This feature is useful when making a feature matching to compare two objects, which is the case in this project. 

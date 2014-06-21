@@ -7,6 +7,59 @@
 
 
 \chapter{Abstract}
+
+% Part 1: What is the problem? What is the topic of this paper?
+
+This thesis presents a system that is able to learn and recognize objects that are being held by a human. 
+Robots are being introduced increasingly in human-inhabited areas and they need a perception system able to detect the actions the humans around it are performing in order to act accordingly in this changing environment.
+The information about the objects the humans are holding is useful to determine the activities they are undergoing.  
+% This information can be useful for the robot's interaction with its environment. 
+% In particular, the introduction of robots to assist humans could improve our quality of life. 
+% However, current robots have a limited perception of their environment, which impedes them to provide proper assistance. 
+% The goal of this thesis is to remedy this problem. 
+% In order to perform complicated tasks related to human aiding, the robot's perception systems should be improved. 
+% The robot should be able to recognize tasks being performed and adapt its behaviour accordingly.
+% For example, if one is reading, i.e. holding a book, one should not be disturbed unless necessary.
+% Having a system that identifies the objects being held can improve the robot's response. 
+\\
+
+% Part 2: How is the problem solved (methodology)?
+
+This thesis presents a system that is able to track the user's hand and, by means of a gestural interface, learn or recognize the object being held. 
+When instructed to learn, the software extracts key information about the object and stores it with a unique identification number for later recognition. 
+If the user triggers the recognition mode, the system compares the current object's information with the data previously stored and outputs the best match.
+
+
+\\
+% Part 3: What are the specific results? How well is the problem solved?
+
+% The experiments carried out to validate the system reveal that the software is able to differentiate between similar objects reliably and that the accuracy of the system increases linearly with the amount of data obtained.
+The experiments carried out to validate the system reveal a F1 score value augment with the increase of views per object being learned. 
+This is supported by the fact that the highest F1 score (more than 80\% for all the experimental objects) was obtained when using the maximum number of views per object of the experiments (10 views per object). 
+The computing performance evaluation revealed that the total bandwidth used is lower than 7 MB/s, which allows its implementation in a distributed system. 
+This evaluation showed as well that the minimum computer requirements for the system to run on real time are of roughly one physical core (at 2.4 GHz) and less than 1 GB of RAM memory. 
+
+% The learning and recognizing stages were optimized to allow the software to operate in real time, which is key to obtain a good interaction with the robot. 
+
+
+
+\\
+% Part 4: So what? How useful is this to science or to the reader?
+This system could be integrated as part of the perception mechanism of social and assistive robots to improve its response to the changing conditions of its environment. 
+It could help to create a more natural human-robot interaction and understanding by providing information about the robots that are hand-held. 
+
+% Therefore, having the capability to introduce common objects to the robot's knowledge can enhance its response to different scenarios. 
+% This upgrade in the decision making process may allow robots to assist humans more appropriately. 
+
+
+
+
+
+
+
+
+%%% COMMENTED OUT PARTS
+
 % This bachelor's thesis consists in a software that implements an in-hand object learning and recognition using 2D and 3D information. 
 % The code is Open-Source and it was designed to be running inside a robot. 
 % The idea is to create a new stand-alone module that could be included in different robots. 
@@ -23,41 +76,24 @@
 
 % The analysis of the system demonstrated an increase of the accuracy with the increment of views per object acquired.
 % The results depicted the robustness of the system as well, since it is able to differentiate between similar objects a high number of times  
-
-
-
-This thesis presents a system that is able to learn new objects that are being held by a human, and recognize previously learned objects. 
-This information can be useful for the robot's interaction with its environment. 
-In particular, the introduction of robots to assist humans could improve our quality of life. 
 % The first world's population is ageing. 
 % This fact is going to affect the economy of these countries since elder people need more care and are not able to work. 
 % The introduction of robots to assist in the care of elder people could help in this situation. 
 % 1)However, todays robots are limited in perception, and hence need an advanced recognition syste
 % 2)However, current robots have a limited environment perception. 
 % This fact handicaps them and thus an updated perception system could allow them to interact with its environment more efficiently. 
-However, current robots have a limited perception of their environment, which impedes them to provide proper assistance.  %which is what this system tackles
 % Nevertheless, nowadays most robots are able to interact with its environment in a limited way. 
-The goal of this thesis is to remedy this problem. 
-\\
 
-In order to perform complicated tasks related to human aiding, the robot's perception systems should be improved. 
-The robot should be able to recognize tasks being performed and adapt its behaviour accordingly.
-For example, if one is reading, i.e. holding a book, one should not be disturbed unless necessary.
+
+
 % The recognition of the tasks the human is performing could be useful to determine the%is important to understand the situations. 
 % The objects the person is holding gives a huge amount of information about the task being performed, i.e. if he is holding a book, he is probably going to read. 
-Having a system that identifies the objects being held can improve the robot's response. %situation recognition of the robot. 
-\\
 
-This thesis presents a system that is able to track the user's hand and, by means of a gestural interface, learn or recognize the object being held. 
 % Since it is intended to be running in a robot, the most natural way of interacting with it is through gestures. 
 % A gestural interface has been developed that allows to switch between the learning and recognizing modes. 
 %, when instructed through the pose interface, store information about the object being held. 
 % The software incorporates an easy and intuitive pose interface that allows to easily l. 
-When instructed to learn, the software extracts key information about the object and stores it with a unique identification number for later recognition. 
-If the user triggers the recognition mode, the system compares the current object's information with the data previously stored and outputs the best match.
-The experiments carried out reveal that the software is able to differentiate between similar objects reliably and that the accuracy of the system increases linearly with the amount of data obtained.% from the object. %in the learning phase. 
-% The experiments performed on the system reveal a good robustness when comparing similar objects and also a better performance when increasing the data stored in the learning phase. 
-The learning and recognizing stages were optimized to allow the software to operate in real time, which is key to obtain a good interaction with the robot. 
+
 % The software is able to easily learn new objects. 
 % It is possible to obtain a defined number of views per object to improve the later recognition. 
 % The system also incorporates an easy and intuitive pose interface to interact with it. 
@@ -71,9 +107,7 @@ The learning and recognizing stages were optimized to allow the software to oper
 % It is able to effectively learn and recognize objects that are hand-held, giving information that can be key to determine the tasks the human is developing. 
 % It could be a piece of information useful to develop a better human-robot interaction for social and assistive robots. 
 % It may, in fact, be introduced in the robot that probably will take care of us when we are older. 
-Therefore, having the capability to introduce common objects to the robot's knowledge can enhance its response to different scenarios. 
-This upgrade in the decision making process may allow robots to assist humans more appropriately. 
-
+% The experiments performed on the system reveal a good robustness when comparing similar objects and also a better performance when increasing the data stored in the learning phase. 
 
 
 \end{abstract}

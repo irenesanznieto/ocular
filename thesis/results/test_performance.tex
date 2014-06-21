@@ -10,7 +10,7 @@ Afterwards, in section \ref{results_topics}, the bandwidth and the publishing ra
 
 			As it was said in chapter \ref{methods}, the CPU and RAM usage is measured in the different nodes that compose the software. 
 			There is a high difference in the CPU and RAM usage between nodes.
-			The nodes that only perform a transformation of the data such as the converter node has a lower CPU and RAM consumption.
+			The nodes that only perform a transformation of the data such as the converter node have a lower CPU and RAM consumption.
 			The nodes that process the input images and point clouds have much higher values. 
 			Figure \ref{node} shows the results of the experiment. 
 \\
@@ -50,6 +50,8 @@ Learner recognizer &&% 8&30 &&
 1&04 && 0&80 \\
 System output && %1&00 && 
 0&13 && 0&30 \\
+
+\midrule
 \textbf{TOTAL} && %\textbf{183}&\textbf{00} &&
 \textbf{22}&\textbf{88} && \textbf{4}&\textbf{70} \\
 \bottomrule
@@ -194,37 +196,40 @@ System output && %1&00 &&
 
 \begin{table}[H]
 \centering
-\begin{tabular} {l  r@{}l r@{}l r@{}l  }
+\begin{tabular} {l  c c c  }
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{TOPIC}\end{center}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{AVERAGE [B/s]}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{MIN [B]}\end{flushright}} &
-   \multicolumn{2}{c}{\begin{flushright}\textbf{MAX [B]}\end{flushright}} &\\
+   \multicolumn{1}{c}{\begin{flushright}\textbf{AVERAGE [kB/s]}\end{flushright}} &
+   \multicolumn{1}{c}{\begin{flushright}\textbf{MIN [kB]}\end{flushright}} &
+   \multicolumn{1}{c}{\begin{flushright}\textbf{MAX [kB]}\end{flushright}} &\\
 
 \addlinespace[-3mm]
 \midrule
 
-Hand location & \hspace*{0.6cm}1.38 & $\cdot10^{3}$ & 0.12 & $\cdot10^{3}$	& 0.12 & $\cdot10^{3}$ \\
-Segmented image & 1.79& $\cdot10^{6}$		&	0.06 & $\cdot10^{6}$	&	0.06 & $\cdot10^{6}$
+Hand location & 1.38 &  0.12 	& 0.12  \\
+Segmented image & 1.79$\cdot10^{3}$		&	60	&	60
 \\
-Segmented image with keypoints & $1.64$ & $\cdot10^{3}$		&	0.06 & $\cdot10^{6}$	&	0.06 & $\cdot10^{6}$
+Segmented image with keypoints & $1.64$	&	60	&	60
 \\
-Segmented coordinates (px) & 212&& 57 && 58 &\\
-Segmented point cloud & $1.48$& $\cdot10^{6}$ & 	0.00 & $\cdot10^{6}$	&	0.83 & $\cdot10^{6}$
+Segmented coordinates (px) & 212& 57 & 58 \\
+Segmented point cloud & $1.48\cdot10^{3}$ & 	0	&	830
 \\
-Descriptors 2D & 29.48&$\cdot10^{3}$	&	0.81 & $\cdot10^{3}$	&	1.26 & $\cdot10^{3}$
+Descriptors 2D & 29.48	&	0.81 &	1.26 
 \\
-Descriptors 3D & $2.60$&$\cdot10^{6}$	&	0.14 & $\cdot10^{6}$	&	0.17 & $\cdot10^{6}$
+Descriptors 3D & $2.60\cdot10^{3}$	&	140	&	170
 \\
-Event & 1.06&$\cdot10^{3}$ & 	0.05 & $\cdot10^{3}$	&	0.06 & $\cdot10^{3}$
+Event & 1.06&	0.05 &	0.06 
 \\
-Object ID & 1.39&$\cdot10^{3}$	&		0.03 & $\cdot10^{3}$	&	0.03 & $\cdot10^{3}$
+Object ID & 1.39	&		0.03 & 		0.03 
 \\
-Final object ID & 1.15&&		2 & &	2 & 
+Final object ID & 1.15$\cdot10^{3}$	&		2$\cdot10^{3}$	&	2$\cdot10^{3}$	
 \\
-\textbf{TOTAL: } & \textbf{6.65}& $\mathbf{\cdot 10^{6}}$ &&&& \\
+\midrule
+
+\textbf{TOTAL: } & \textbf{6.65}$\mathbf{\cdot 10^{3}}$ && \\
 \bottomrule
+
 \end{tabular}
 \caption[Topic network usage - Bandwidth]{Topic network usage - Bandwidth}
 \label{bw}

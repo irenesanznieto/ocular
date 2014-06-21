@@ -2,8 +2,8 @@
 % In the present section the steps that were taken in order to obtain the final system for solving the problem are presented. 
 This section presents the steps that were taken to obtain the final system. 
 % The intermediate designs are analyzed and their pros and cons evaluated. 
-The different intermediate designs are shown and the reasons behind the change from one to another design explained. 
-The final design is explained in detail in section \ref{system_design}.
+The different intermediate designs are shown and the reasons behind the change from one to another are explained. 
+The final design can be found in section \ref{system_design}.
 \\
 
 \paragraph{First design}
@@ -17,12 +17,14 @@ The first design was based in using a hardware with low cost and high accessibil
 \mbox{} \\
 
 In order to reduce the time spent in the hand tracking, it was decided to take advantage of the 3D capabilities of the RGB-D sensors. 
-In this case, a Kinect is used which is a low cost device. 
+In this case, a Kinect is used, which is a low cost device. 
 %The fact of having the information of the absolute position of the points in the space gave the new possibility of segmenting using the depth parameter. 
-This type of sensors return a point cloud, a data matrix that presents the objects in front of it using three-dimensional points. 
+This type of sensors return a point cloud, a data matrix that presents the objects in front of it using three-dimensional information. 
 This fact allowed to segment the scene using the depth parameter, reducing the amount of data that needed processing. 
+\\
+
 At this point, it was necessary to create a hand-tracker before starting the project itself, that is, the object learning and recognition nodes. 
-Also, the introduction of the new coordinate created a problem. OpenCV is designed to deal only with 2D images, another library with state-of-the-art algorithms was needed. At this point it was decided to use PCL to deal with the 3D input data. 
+Also, the introduction of the new coordinate created a problem. OpenCV is designed to deal only with 2D images and hence another library that implements state-of-the-art algorithms for 3D processing was needed : the Point Cloud Library (PCL).
 \\
 
 
@@ -30,9 +32,9 @@ Also, the introduction of the new coordinate created a problem. OpenCV is design
 \mbox{} \\
 
 After coding some test cases it became evident that the lag created by the data processing was large enough to difficult the human-machine interaction. 
-If the software was supposed to run on real time, it cannot be sequential. 
+If the software was supposed to run on real time, it could be not sequential. 
 It was then when, the decision of distributing the tasks between nodes was made. 
-Nevertheless, this decision created a new problem: the communication between nodes. 
+Nevertheless, this decision created a new problem: the communication between them. 
 This could be solved using pipes, sockets and shared memory but it obviously complicated the code programming. 
 \\
 
@@ -43,7 +45,7 @@ This could be solved using pipes, sockets and shared memory but it obviously com
 To overcome this difficulty the Robotic Operating System (ROS) programming framework was introduced in the design.
 ROS integrates node communication, threading and many Open Source packages that could be useful. 
 %Among those packages, the pi\_tracker was discovered. 
-One of those packages is the \textit{pi\_tracker}, that implements a joint tracking software using the ROS tools. 
+One of those packages is the pi\_tracker, that implements a joint tracking software using the ROS tools. 
 This software that was already present and available was useful because it solved the problem of the hand tracking. 
 The output of the package is a ROS topic with the position of all the user's joints presented in a message. 
 Thereupon the ROS framework was used and all the already created code was adapted properly. 
@@ -61,7 +63,7 @@ But the object learning phase was not yet defined.
 The interaction between the software and the user is key. 
 The system must work on real time and be able to learn new objects as quickly as possible. 
 This fact was determinant in choosing the learning method of the software. 
-It was decided to implement a template matching which do not compromise the efficiency of the software for small sized datasets and allowed a on-line learning. 
+It was decided to implement a template matching which do not compromise the efficiency of the software for small sized datasets and allowed to have an on-line learning. 
 \\
 
 The templates extracted in the code were initially to be only in 2D. 
@@ -81,11 +83,14 @@ In section \ref{state_of_the_art} the different descriptor extraction methods fo
 \\
 
 The feature extraction in 2D is done using the Oriented FAST and Rotated BRIEF (ORB) \cite{orb} algorithm. 
-It was chosen because it is faster than the Scale-invariant feature transform (SIFT)\cite{sift} and the Speeded Up Robust Features (SURF)\cite{surf} algorithms extracting the descriptors of the image. 
+It was chosen because it is faster than the Scale-invariant feature transform (SIFT) \cite{sift} and the Speeded Up Robust Features (SURF) \cite{surf} algorithms extracting the descriptors of the image. 
 The drawback it has is that it is not scale invariant. 
 Nevertheless, in the program presented in this thesis the user must remain within one and two meters and a half from the Kinect. 
-In this range, the size of the object seen from the sensor does not change significantly. 
+In this range, the size of the object seen from the sensor does not change significantly and hence a scale-invariant algorithm is not necessary. 
 \\
 
 On the other hand, the algorithm chosen for the 3D descriptor extraction is the Point Feature Histograms (PFH) \cite{Rusu} algorithm. 
-Its relation between robustness and extraction speed is compliant with the project's requisites. It is fast and the features extracted are computed using just a few neighboring points. Due to this fact there might appear similar clusters in different input data that produce false positives and negatives. The problem when using point clouds is the high amount of data that needs processing. Since the code is running in a personal computer, the computing capability is limited and hence the descriptor extraction must be as fast as possible. Nowadays the research on the field is centered in creating and improving the performance of the 3D information and hence probably in the following years this method could be substituted by another more efficient.  
+Its relation between robustness and extraction speed is compliant with the project's requisites. It is fast and the features extracted are computed using just a few neighboring points. Due to this fact there might appear similar clusters in different input data that produce false positives and negatives. 
+\\
+\newpage
+The problem when using point clouds is the high amount of data that needs processing. Since the code is running in a personal computer, the computing capability is limited and hence the descriptor extraction must be as fast as possible. Nowadays the research on the field is centered in creating and improving the performance of the 3D information and hence probably in the following years this method could be substituted by another more efficient.  

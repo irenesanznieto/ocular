@@ -1,11 +1,11 @@
-\section{Proposed Solution for in-hand object recognition: OCULAR}
+\section{Proposed solution for in-hand object recognition: \\OCULAR}
 
 In this thesis a software has been developed that is intended to be used in assistive and social robots.
 The name and the logo (figure \ref{ocular_logo}) of the project gives a first idea of the system's goal. 
 The name of the project, OCULAR, is an acronym of "On-line objeCt Learning And Recognition". 
 The first word, on-line, refers to the fact that the learning of new objects is done in real time. % there is no need of a training phase in which the software is not operative. 
 Figure \ref{ocular_logo} presents the logo of the software, which gives two additional pieces of information: 
-The object learning and recognition is performed in-hand and the input of the system an RGB-D (Red, Green, Blue and Depth) sensor, such as a Kinect. 
+the object learning and recognition is performed in-hand and the input of the system is a RGB-D (Red, Green, Blue and Depth) sensor, such as a Kinect. 
 This type of sensor provides 2D and 3D information of the user located in front of it. 
 
 \\
@@ -28,18 +28,20 @@ The system is able to detect the change of the mode using the pose of the user a
 In order to trigger the learning mode, the user only needs to extend his arm towards the sensor, showing the item to it (figure \ref{learn}. 
 This is a natural gesture usually performed between humans when introducing new objects to one another. 
 Having the hand closer to the body the recognition mode is triggered and the program outputs a unique id for the learned object (figure \ref{recognize}). 
+\\
 
-% \vspace*{0.5cm}
+Apart from switching modes evaluating the user's pose, the system also detects the hand that is holding an object. 
+The software is able to work with one hand at a time and it chooses the one that is higher. 
+The present project has been designed to be as modular and reusable as possible making an easier task to develop complementary software such as handbags recognition or hats recognition with slightly modifications. Its structure consists in nodes that run on parallel and minimizes the lag due to the computing processes. It is an Open Source project, meaning that anyone can use and modify it.
 
-
-
+\newpage
 	
 \begin{figure}[H]
    \centering
    \begin{subfigure}[H]{0.45\textwidth}
        \centering
 		\includegraphics[width=\textwidth]{img/intro/learn.png}
-		\caption[Learning Mode Triggering]{\textbf{Learning mode} triggering using the gestural interface. The learning phase starts when the user stretches the arm towards the RGB-D sensor. The system takes a definable number of views of each object, with a delay between views of 1 second. This allows the user to change the object's pose. }    	 
+		\caption[Learning Mode Triggering]{\textbf{Learning mode} triggering using the gestural interface. The learning phase starts when the user stretches the arm towards the RGB-D sensor. The system takes a definable number of views of each object, with a delay between views of 1 second. This allows the user to change the object's pose to learn a different view of the object. }    	 
 		\label{learn}
    \end{subfigure}
    \hfill
@@ -78,9 +80,7 @@ Having the hand closer to the body the recognition mode is triggered and the pro
 
 % \vspace*{0.5cm}
 
-Apart from switching modes evaluating the user's pose, the system also detects the hand that is holding an object. 
-The software is able to work with one hand at a time and it chooses the one that is higher. 
-The present project has been designed to be as modular and reusable as possible making an easier task to develop complementary software such as handbags recognition or hats recognition with slightly modifications. Its structure consists in nodes that run on parallel and minimizes the lag due to the computing processes. It is an Open Source project, meaning that anyone can use and modify it.
+
 \\
 
 In order to facilitate the usage of the code it has been developed as a Robotic Operating System (ROS) \cite{ros} package. The source code and further installation instructions and license details might be found in the following link to the software's \href{http://github.com/irenesanznieto/ocular}{\color{blue}\underline {repository}}\footnote{http://github.com/irenesanznieto/ocular}. 

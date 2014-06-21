@@ -1,6 +1,6 @@
 	\section{Appendix: Budget}
 		This appendix presents the estimated budget of the project. 
-		Section \ref{project_management} explained the time management followed in this project and the different phases it underwent. 
+		Appendix \ref{project_management} explained the time management followed in this project and the different phases it underwent. 
 		Figure \ref{phases} shows the summary of the days spent in each of the phases. 
 		The phase that occupied most of the time was the learning phase. 
 		The state of the art learning occupies most of the project since it was performed in parallel with most of the other phases, as can be seen in figure \ref{gantt_diagram}. 
@@ -19,7 +19,7 @@
 		It can be seen from figure \ref{phases} that the total days spent in the development of this project were 454. 
 		It was assumed that around 60 days between the begin and end dates were not devoted to this thesis. 
 		Also, an average of 3 hours per day were reserved to implementing this system and hence the total hours used were 1362. 
-		The man hours performed by my advisor were calculated as one hour per week as average. 
+		% The man hours performed by my advisor were calculated as one hour per week as average. 
 		Figure \ref{budget} shows the final budget of the project. 
 		The first two items are the hardware required, then the man hours cost and finally the software cost. 
 		It can be noted that the software total cost was of 0 \euro. 
@@ -50,7 +50,7 @@
 \hspace*{0.5cm}	Kinect 360	&	120	&	\euro/unit	&	1 	&	120 \\
 \hspace*{0.5cm}	Mountain Ivy 11 Laptop	&	1000	&	\euro/unit	&	1	&	1000\\		
 \textbf{Man hours}													&&&&		\\		
-\hspace*{0.5cm}	Senior Engineer 	&	12	&\euro/h	&	56.75	&	681\\
+% \hspace*{0.5cm}	Senior Engineer 	&	12	&\euro/h	&	56.75	&	681\\
 \hspace*{0.5cm}	Undegraduate Engineer	&	8	&	\euro/h		&	1362	&	10896 \\
 						
 \textbf{Software}			&&&&		\\						
@@ -65,7 +65,7 @@
 						
 \midrule
 
-\textbf{TOTAL PROJECT'S COST: }			&&&&			\textbf{12697}\\
+\textbf{TOTAL PROJECT'S COST: }			&&&&			\textbf{12016}\\
 
 \bottomrule
 \end{tabular}
@@ -91,7 +91,7 @@
 
 \begin{table}[H]
 \centering
-\begin{tabular} {l c}
+\begin{tabular} {l r}
 \toprule
 \addlinespace[3mm]
    \multicolumn{1}{c}{\begin{center}\textbf{SOFTWARE}\end{center}} &
@@ -99,22 +99,25 @@
 \\
 \addlinespace[-3mm]
 \midrule
-Linux	&	10680%.392
+Linux	(Ubuntu 13.04, 64 bits) &	10680%.392
 	\\
-ROS		&	2932%.34325	
+ROS		(ROS Groovy (v1.9.50))&	2932%.34325	
 \\
-\hspace*{0.5cm}	openni\_camera	&	99%.315.98	
+\hspace*{0.5cm}	openni\_camera	(v1.8.9)&	99%.315.98	
 \\
-\hspace*{0.5cm}	openni\_launch	&	6%5.95698		
+\hspace*{0.5cm}	openni\_launch	(v1.8.3)&	6%5.95698		
 \\
-\hspace*{0.5cm}	pi\_tracker 	&	74%09269	
+\hspace*{0.5cm}	pi\_tracker 	(Groovy release)&	74%09269	
 \\
-PCL	&	13101%.526.72		
+PCL	(v1.7.1)	&	13101%.526.72		
 \\
-OpenCV	&	36264	%36263862.04		
+OpenCV	(v2.3.1)	&	36264	%36263862.04		
 \\
 OCULAR	&	59 	%58.709439
 	\\
+\midrule
+
+\textbf{TOTAL ESTIMATED COST: } & \textbf{63216}\\
 
 \bottomrule
 \end{tabular}
@@ -126,7 +129,7 @@ OCULAR	&	59 	%58.709439
 
 		The estimations are created using the SLOCCount Open Source program \cite{sloccount}. 
 		This software measures the number of lines and automatically estimates the effort, time and money needed to create the software. 
-		The figures in table \ref{estimations} are obtained using the basic COCOMO model \cite{Boehm}. 
+		The figures in table \ref{estimations} are obtained using the basic COnstructive COst MOdel (COCOMO model) \cite{Boehm}. 
 		All defaults were used and the final cost of developing each of the tools are the ones presented in figure \ref{estimations}. 
 		It is important to note that in the case that these projects were not Open Source the cost of using them would not be, of course, the cost of the complete development. 
 		Instead, the right to use of the software is usually given in exchange of the payment of a license. 

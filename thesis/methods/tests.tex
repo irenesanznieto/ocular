@@ -67,7 +67,7 @@
 		% \\
 		\subsection{Nodes' CPU and RAM usage}
 
-		The CPU and RAM consumption of each node is being measured. 
+		The CPU and RAM consumption of each node was measured. 
 		The total usage of the whole system can be calculated summing the individual consumptions. 
 		In section \ref{results}, the results of this evaluation are presented. 
 		The CPU and RAM usage are presented in percentage. 
@@ -101,7 +101,7 @@
 		The computing performance tests also evaluate the topic bandwidth (BW) and frequency requirements. 
 		The motivation of this evaluation is the following.
 		ROS is a distributed system that allows spreading the computation across multiple machines. 
-		This allows to create distributed computing systems where the robots carry low-power consuming computers and delegate the CPU intensive computing to remote servers.	
+		This allows to create distributed computing systems where the robots carry low-power consuming computers and delegate the CPU intensive tasks to remote servers.	
 		The drawback of this approach is that communicating machines consume network resources. 
 		This is specially relevant for image or video tasks, which do consume great amounts of BW. 
 		The need to evaluate the BW and frequency requirements of the system comes from this issue. 
@@ -231,7 +231,7 @@
 		Afterwards, the recognition mode is used.
 		Each of the objects are presented to the system the same amount of time, 30 seconds. 
 		The objects are positioned still during 10 seconds in the most natural grasping position. 
-		Then, they are rotated the remaining 20 seconds. 
+		Then, they are rotated during the remaining 20 seconds. 
 		This is done to measure the robustness of the system to rotation changes. 
 
 		% It is then when the accuracy of the system is measured. 
@@ -276,26 +276,31 @@
 
 		% $F_\beta=\frac{(1+\beta^2)\cdot true\_positives}{(1+\beta^2)\cdot true\_positives +\beta^2 \cdot false\_negatives +false\_positives}$
 		% \\
+		The $\beta$ is a weight whose value depends on the applications of the system being tested. 
+		For example, in critical systems such as a police face recognition software it is preferable to have false positives than false negatives.
+		Since in this system the weight being given to the precision is the same that the one being given to the recall, $\beta=1$. 
+		This special case is called the $F_1 score$, and its formula may be found in equation \ref{f1}.
 		The precision and recall are parameters that are described in formulas \ref{precision} and \ref{recall}, respectively. 
-		The $F_1 score$ is used when the weight of having false positives and negatives is the same. 
-		This weight depends on the applications of the system being tested. 
-		For example, in critical systems such as a police face recognition software it is preferable to have false positives than false negatives. 
-		It is obtained from the general formula for $\beta=1$: 	
+	
 		
 		\begin{center}
 		\begin{equation}
 		F_1=2\cdot\frac{precision \cdot recall}{precision + recall}
+		\label{f1}
 		\end{equation}
 		\end{center}
 
-		In this system there is not a special need to give more weight neither to false positives nor false negatives. 
-		Hence, the $F_1 score$ has been chosen as the metric for the accuracy evaluation of the system.		
+		% In this system there is not a special need to give more weight neither to false positives nor false negatives. 
+		% Hence, the $F_1 score$ has been chosen as the metric for the accuracy evaluation of the system.		
 		Apart from the $F_1 score$, a confusion matrix is constructed for each experiment. 
-		This matrix shows the number of times each different object was predicted when each of the real objects were presented to the system. 
-		Usually, confusion matrices present the absolute results but in this case they were converted into ratios in a 0 to 1 range. 
-		When the number of views being learned per object increases, the computing time also is higher and then the number of predicted objects for a same amount of time is lower. 
-		In this experiment, for the 1 view per object experiment, the number of results is larger than the 10 views experiment. 
-		This is the reason why the confusion matrix values are given as a ratio, to construct comparable confusion matrices from each of the experiments. 
+		This matrix shows the percentage each different object was predicted when each of the real objects were presented to the system. 
+		This percentage is shown transformed to a zero to one scale. 
+		% \\
+
+		% Usually, confusion matrices present the absolute results but in this case they were converted into ratios in a 0 to 1 range. 
+		% When the number of views being learned per object increases, the computing time also is higher and then the number of predicted objects for a same amount of time is lower. 
+		% In this experiment, for the 1 view per object experiment, the number of results is larger than the 10 views experiment. 
+		% This is the reason why the confusion matrix values are given as a ratio, to construct comparable confusion matrices from each of the experiments. 
 
 		% In this system, each different retrieved a different number of results and hence the matrix is constructed with a ratio from 0 to 1. 
 		% The confusion matrix in which the results are being presented is the same as the figure \ref{matrix_model}. 
@@ -309,7 +314,6 @@
 
 		% 		\end{center}
 		% \end{figure}
-
 
 		The precision is the fraction of retrieved results that are relevant.  
 		Using a confusion matrix as the one above, the precision is computed from it using formula \ref{precision}.
