@@ -134,7 +134,7 @@ This over-dimension is patent in the duplication of information that could be re
 SURF (Speeded Up Robust Features) is a scale and rotation invariant interest point or keypoint detector and descriptor \cite{surf}. 
 It is a proprietary algorithm that simplifies the detection, extraction of the descriptors and matching steps thus obtaining them much faster than previous algorithms without losing repeatability, distinctiveness or robustness. 
 \\
-
+\newpage
 SURF algorithm is composed of three main steps: 
 The first step of the algorithm is to identify the interest points such as corners, blobs or T-junctions, i.e. a junction were two lines meet forming a T. 
 Therefore, this algorithm will be useful when evaluating a textured object.
@@ -142,7 +142,7 @@ The next step is to represent the neighbourhood of the interest points as a feat
 The final step is to match the descriptor vectors between different images, in order to stablish a recognition of a pattern. Usually the matching is performed using as a reference the distance between the vectors. 
 In this part, it can be perceived that the size of the descriptor vectors affects directly the performance of the algorithm. SURF aims to reduce that size without losing distinctiveness in the features. 
 \\
-\newpage
+
 The SURF algorithm appeared after SIFT and hence it is interesting to see the similarities and differences between the two. 
 In section \ref{descriptors} it was seen the good results obtained when combining the local information and relative data regarding gradients. This algorithm is based on similar characteristics: 
 First, an orientation based on the information extracted from a circular region with the interest point as its center is obtained. Then, a square region aligned to that orientation is described and the descriptor is extracted from it.  
@@ -172,7 +172,7 @@ ORB is then a good alternative for the latter if the application does not need a
 Finally, it is noticeable that this algorithm is Open Source.
 Both SIFT and SURF are patent protected and the use for research is permitted, but for commercial uses the payment of a fee is needed. % is since the previous ones are proprietary. 
 For all the above reasons, the ORB algorithm is the one being used in the system developed in this thesis. 
-
+\newpage
 
 \subsection{Algorithms for 3D Feature Extraction}
 \label{3d_features}

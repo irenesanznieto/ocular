@@ -239,14 +239,13 @@
 \\
 
 		% It is then when the accuracy of the system is measured. 
-		The software's output is recorded to a file for further processing. 
+		The information about the 2D and 3D separate recognitions and the final software's output is recorded to a file for further processing. 
 		That data is presented in chapter \ref{results}.
 		The system allows to specify the number of views being taken per object in the data acquisition phase. 
 		Taking advantage of this feature, the whole procedure described above is repeated for one, five and ten object views.
 		Theoretically, decreasing the number of views should worse the effectiveness of the recognition. %but better the performance of the system, since the processing needed is reduced.
 		This experiment is designed to confirm this intuition. 
 		\\%[0.5cm]
-
 
 
 	% \subsection{Effectiveness measurement}
@@ -332,25 +331,3 @@
 		recall_{ij}=\frac{M_{ij}}{\sum M_i}
 		\end{equation}
 		\end{center}
-
-		% Those two parameters together with the F1-score is presented in a table as the one in figure \ref{fscore_model}. 
-
-		% \begin{figure}[H]
-		% 		\begin{center}
-		% 	    \includegraphics[scale=0.35]{img/tests/fscore_model.png}
-		% 		\caption[F1-score table model]{F1-score table model using precision and recall measurements}
-		% 		\label{fscore_model}
-
-		% 		\end{center}
-		% \end{figure}
-
-
-
-
-		% Since the experiments retrieve the true and false positives and negatives, the formula that is used is the one below: 
-		% \\
-
-
-		% $F_\beta=\frac{2\cdot true\_positives}{2\cdot true\_positives + false\_negatives +false\_positives}$
-		% \\
-

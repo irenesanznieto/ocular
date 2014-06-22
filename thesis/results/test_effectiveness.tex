@@ -361,7 +361,7 @@ calculator	&&	0&92	&	0&76	&&	0&83	\\
 
 \bottomrule
 \end{tabular}
-\caption[F1-score - templates using 5 views]{F1-score calculation using the precision and recall parameters. Results for templates using five views per object. }
+\caption[F1-score - templates using 10 views]{F1-score calculation using the precision and recall parameters. Results for templates using ten views per object. }
 \label{10views_fscore}
 \end{table}
 
@@ -411,3 +411,102 @@ calculator	&&	0&92	&	0&76	&&	0&83	\\
 	The same phenomena occurred with the cup but when the number of views was increased from five to ten. 
 	All the other objects increased their F1 score with the augment of the number of views. 
 	% With lower number of views, the F1 score is lower than with higher amount of views. 
+
+
+	\subsection{Comparison of the 2D and 3D independent recognition results and the system's output}
+	\label{results_2d_3d}
+	It was previously described in chapter \ref{system_description} that the system perform a 2D and 3D independent match. 
+	The output of the whole software is a combination of these instantaneous 2D and 3D predictions. 
+	In order to confirm that the final system's response improves the 2D and 3D independent recognitions, this section presents a comparison of the precision, recall and F1 score values of each type of recognition. 
+	
+\begin{table}[H]
+\centering
+\begin{tabular} {l l r@{.}l r@{.}l l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\textbf{Precision}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{Recall}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\hspace*{0.2cm}\textbf{F1 score}\end{center}} &\\
+\addlinespace[-3mm]
+
+\midrule
+ball		&&	0&49 	&	0&84	&&	0&62	\\
+skull		&&	0&65	&	0&69	&&	0&67	\\
+cup			&&	0&52	&	0&73	&&	0&61	\\
+bottle		&&	0&61	&	0&87	&&	0&72	\\
+mobile		&&	0&73	&	0&79	&&	0&76	\\
+calculator	&&	0&89	&	0&82	&&	0&85	\\
+
+\bottomrule
+\end{tabular}
+\caption[F1-score - 2D recognition]{F1-score calculation of the independent 2D recognition using the precision and recall parameters. Results for templates using 10 views per object. }
+\label{2d_fscore}
+\end{table}
+
+\newpage
+
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l l r@{.}l r@{.}l l r@{.}l }
+\toprule
+\addlinespace[3mm]
+   \multicolumn{1}{c}{\begin{center}\textbf{Object}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\textbf{Precision}\end{center}} &
+   \multicolumn{2}{c}{\begin{center}\textbf{Recall}\end{center}} &
+   \multicolumn{3}{c}{\begin{center}\hspace*{0.2cm}\textbf{F1 score}\end{center}} &\\
+\addlinespace[-3mm]
+
+\midrule
+ball		&&	0&62 	&	0&79	&&	0&69	\\
+skull		&&	0&53	&	0&42	&&	0&47	\\
+cup			&&	0&43	&	0&64	&&	0&51	\\
+bottle		&&	0&56	&	0&72	&&	0&63	\\
+mobile		&&	0&45	&	0&63	&&	0&53	\\
+calculator	&&	0&66	&	0&82	&&	0&73	\\
+
+\bottomrule
+\end{tabular}
+\caption[F1-score - 3D recognition]{F1-score calculation of the independent 3D recognition using the precision and recall parameters. Results for templates using 10 views per object. }
+\label{3d_fscore}
+\end{table}
+
+The experiment used for the comparison is the one in which ten views per object are learned. 
+It is the one that obtained better F1 score values and hence the most representative of the system. 
+Figure \ref{2d_fscore} shows the results obtained in the independent 2D object recognition, and Figure \ref{3d_fscore} the ones of the 3D object recognition. 
+Since the most important parameter in the accuracy evaluation of the system is the F1 score, Figure \ref{comparison_fscore_23d} was created to summarize the results. 
+
+
+\begin{table}[H]
+\centering
+\begin{tabular} {l c c c }
+\toprule
+\addlinespace[3mm]
+
+   % \multicolumn{1}{c}{\begin{center}\textbf{Object} \backslash \textbf{ F1 score}\end{center}} &
+   % \multicolumn{1}{c}{\begin{center}\textbf{2D}\end{center}} &
+   % \multicolumn{1}{c}{\begin{center}\textbf{3D}\end{center}} &
+   % \multicolumn{2}{c}{\begin{center}\textbf{System's output(2D+3D)}\end{center}} &\\
+
+% \textbf{Object} \backslash \textbf{ F1 score} & \textbf{2D}	& \textbf{3D} & \textbf{System's output(2D+3D) \\
+\textbf{Object} \backslash \textbf{ F1 score} & \textbf{2D} & \textbf{3D} & \textbf{System's output}\\&&& \textbf{(2D+3D)} \\
+% \addlinespace[-3mm]
+
+\midrule
+ball		&	0.62 	&		0.69		&	0.72\\
+skull		&	0.67	&		0.47		&	0.69\\
+cup			&	0.61	&		0.51		&	0.77\\
+bottle		&	0.72	&		0.63		&	0.89\\
+mobile		&	0.76	&		0.53		&	0.82\\
+calculator	&	0.85	&		0.73		&	0.83\\
+
+\bottomrule
+\end{tabular}
+\caption[F1-score comparison 2D, 3D and 2D+3D results]{F1-score comparison of the independent 2D and 3D recognitions and the final output of the system combining them. Results for templates using 10 views per object. }
+\label{comparison_fscore_23d}
+\end{table}
+
+
+The results in \ref{comparison_fscore_23d} show that the system's output F1 score is in all cases but one higher than the ones obtained in the independent 2D and 3D recognitions. 
+Only in the last object, the calculator, the 2D matching process obtained a higher F1 score, but even in this case the difference is only of a 2\%. 

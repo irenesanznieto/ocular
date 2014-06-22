@@ -140,7 +140,13 @@ First, the nodes' CPU and RAM usage is evaluated and afterwards the topic networ
 	The results of the experiment using ten views are very promising. 
 	Since there is an almost proportional relation between the F1 score and the number of views learned per object, further measurements could be performed to determine the optimum balance between F1 score and processing requirements. 
 	
-	
+	\subsection{Comparison of the 2D and 3D independent recognition results and the system's output}
 
-	% \subsection{Comparison of the experiments results using different number of views}
+	The comparison performed of the F1 score results for the 2D and 3D independent recognition processes and the final system's output, which combines both of them showed that the combination of results improves the F1 score. 
+	It is noticeable that the 3D algorithm obtained lower results in all the cases but one than the 2D. 
+	This fact corroborates the usefulness and correctness of the decision step performed in the system, in which a higher importance was given to the 2D predictions (see section \ref{last_node}).
+	\\
 
+	It is also important to remark that further experiments may be performed to adapt better the importance given to each algorithm in the decision procedure.
+	It is possible to even adapt it to the different situations and objects that could appear. 
+	Further details are explained in section \ref{future_decision}.

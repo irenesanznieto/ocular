@@ -161,3 +161,22 @@ Also, the improvements that could be applied to enhance the software are enumera
 	Also, the interaction could improve the recognizing procedure of the system in the following way. 
 	If two objects have obtained a similar matching ratio and either of them could be the real object the user is presenting, the system may ask the human to show another view of the object to allow a more accurate recognition. 
 	This simple confirmation step could improve the F1 score obtained in the different experiments since the software would keep matching characteristics of different views until a more distinctive one is found and the best match is obtained. 
+
+
+	\subsection{Combination of 2D and 3D matching information}
+	\label{future_decision}
+
+	The results obtained (section \ref{results_2d_3d}) demonstrated that the weights being applied to each of the algorithms (2D and 3D) improved the system's output. 
+	Nevertheless, it is possible to apply a different weighting that varies with the user's pose or the object's size or 3D form to improve this important decision step. 
+	\\
+
+	The user's pose is important because each object is usually held in a different manner. 
+	This gives information about the size and form of the object the human is presenting. 
+	This data could be obtained as well from the point cloud, and mixing both decide whether the 3D figure is large and hence the 3D matching has a higher importance or if the object is small, the 2D texture becomes more relevant.
+	\\
+
+	Another improvement that could be performed in this step is to calculate the precision and recall of the 2D and 3D predicted objects and from them obtain the F1 score for each algorithm. 
+	Then, the weightings for 2D and 3D could be directly the F1 score or a mixture of the F1 score and other factors such as the size or the amount of 2D texture of the object.
+	This approach would probably obtain better results, but the computational cost of these calculations may be studied to ensure that the system still works on real time.  
+
+
