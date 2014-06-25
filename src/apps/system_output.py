@@ -3,7 +3,7 @@
 import rospy
 from collections import Counter
 import operator
-from ocular.msg import RecognizedObject
+from ocular.msg import *
 from std_msgs.msg import Int16
 import numpy as np
 
@@ -57,7 +57,12 @@ def decision(v2d, k2d, v3d, k3d):
 		max_value = (max(xrange(len(values)), key=values.__getitem__))
 		#print (v2d, v3d, values)
 		#print ('Final decision: ', keys[max_value])
-		return keys[max_value]
+		
+		ret=SystemOutput()
+		ret.id_2d_plus_3d=keys[max_value]
+		ret.id_2d=k2d[max(xrange(len(values)), key=v2d.__getitem__)]
+		ret.id_3d=k3d[max(xrange(len(values)), key=v3d.__getitem__)]
+		return ret
 		
 	else: 
 		print 'wrong len'
@@ -112,7 +117,7 @@ def callback(data):
 
 
 if __name__ == "__main__":
-    pub = rospy.Publisher('final_object_id',Int16)
+    pub = rospy.Publisher('final_object_id',SystemOutput)
     rospy.init_node('system_output',anonymous=True)
     r=rospy.Rate(10)
     rospy.Subscriber("object_id", RecognizedObject, callback)

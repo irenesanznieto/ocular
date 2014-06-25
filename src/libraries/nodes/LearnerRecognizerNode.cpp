@@ -13,8 +13,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
 
     //Inintialize the number of view to be taken for each template
-    this->number_views2D=10; //the total number of views to be extracted of each object
-    this->number_views3D=10; //the total number of views to be extracted of each object
+    this->number_views2D=2; //the total number of views to be extracted of each object
+    this->number_views3D=2; //the total number of views to be extracted of each object
 
 
     //Set the number of views to be taken for each object and load the previous templates;
@@ -47,7 +47,7 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 
 void LearnerRecognizerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
 {
-    std::cerr<<"setevent: "<<msg->event<<std::endl<<std::flush;
+//    std::cerr<<"setevent: "<<msg->event<<std::endl<<std::flush;
 
     if (msg->event=="learn" )
     {
