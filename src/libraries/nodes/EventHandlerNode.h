@@ -26,7 +26,7 @@ private:
         * Also, decides which mode (learner or recognizer) is active depending on the hand's position. If it is extended towards the RGB-D sensor,
         *the learner mode will be activated. Otherwise, the recognizer mode will be activated.
         */
-    void event_cb(const pi_tracker::SkeletonConstPtr &);
+    void event_cb(const skeleton_markers::SkeletonConstPtr &);
 
     std::vector<ocular::EventHandler> previous_events;
 

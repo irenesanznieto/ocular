@@ -23,6 +23,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 
+#include <pcl_conversions/pcl_conversions.h>
+
 //Msgs
 #include <sensor_msgs/PointCloud2.h>
 

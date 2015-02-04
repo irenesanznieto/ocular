@@ -5,7 +5,7 @@ Converter::Converter()
 {}
 
 
-ocular::HandLoc Converter::handCoordinatesExtractor(const pi_tracker::Skeleton &msg)
+ocular::HandLoc Converter::handCoordinatesExtractor(const skeleton_markers::Skeleton &msg)
 {
 
    ocular::HandLoc hand_location;

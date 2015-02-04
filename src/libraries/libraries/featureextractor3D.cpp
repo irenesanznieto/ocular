@@ -6,8 +6,8 @@ FeatureExtractor3D::FeatureExtractor3D()
 
 
 
-        pcl::PCLPointCloud2   FeatureExtractor3D:: extract_features(std::string name, const
-        pcl::PCLPointCloud2ConstPtr & msg)
+pcl::PCLPointCloud2 FeatureExtractor3D::extract_features(std::string name,
+                                                         const pcl::PCLPointCloud2ConstPtr & msg)
 {
     if (name=="pfh")
         return extract_features_pfh(msg);
@@ -21,15 +21,13 @@ FeatureExtractor3D::FeatureExtractor3D()
 
 }
 
-        pcl::PCLPointCloud2   FeatureExtractor3D:: extract_features_vhf(const
-        pcl::PCLPointCloud2ConstPtr & msg_in)
+pcl::PCLPointCloud2 FeatureExtractor3D::extract_features_vhf(
+        const pcl::PCLPointCloud2ConstPtr & msg_in)
 {
 
-        pcl::PCLPointCloud2Ptr msg (new
-        pcl::PCLPointCloud2 ());
+    pcl::PCLPointCloud2Ptr msg (new pcl::PCLPointCloud2 ());
     //Downsample point cloud:
-    pcl::VoxelGrid<
-        pcl::PCLPointCloud2 > sor;
+    pcl::VoxelGrid<pcl::PCLPointCloud2> sor;
     sor.setInputCloud (msg_in);
     sor.setLeafSize (0.01f, 0.01f, 0.01f);
     sor.filter (*msg);
@@ -41,8 +39,19 @@ FeatureExtractor3D::FeatureExtractor3D()
     // Object for storing the VFH descriptor.
     pcl::PointCloud<pcl::VFHSignature308>::Ptr descriptor(new pcl::PointCloud<pcl::VFHSignature308>);
 
+// //////////////////////////////////////////////////////////////////////////////////////////////
+// // VGonPa Modified this. Please uncomment first line and remove the rest to undo changes    //
+// //////////////////////////////////////////////////////////////////////////////////////////////
     pcl::fromROSMsg(*msg, *object);
+// //////////////////////////////////////////////////////////////////////////////////////////////
+//    object = pcl_conversions::toPCL(*msg);
+//    pcl_conversions::toPCL(*msg, *object);
 
+// Function signatures
+//    void pcl::fromROSMsg        (const sensor_msgs::PointCloud2 & msg, pcl::PointCloud<PointT> & cloud)
+//    void pcl_conversions::toPCL	(const sensor_msgs::PointCloud2 & pc2, pcl::PCLPointCloud2 & pcl_pc2)
+
+// //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Estimate the normals.
     pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> normalEstimation;
