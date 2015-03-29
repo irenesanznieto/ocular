@@ -17,6 +17,9 @@ find_package(PCL REQUIRED)
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
 rosbuild_init()
+# rosbuild_find_ros_package(sensor_msgs)
+# rosbuild_find_ros_package(geometry_msgs)
+
 
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
