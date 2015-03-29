@@ -1,4 +1,7 @@
 <launch>
+  <arg name="event_topic" default="ocular/EVENTHANDLER/event"/>
+  <arg name="interactive_event_topic" default="ocular/EVENTHANDLER/interactive_event"/>
+
 <!--
     <arg name="fixed_frame" value="camera_depth_frame"/>
     <param name="robot_description" command="$(find xacro)/xacro.py '$(find pi_tracker)/urdf/pi_robot.urdf.xacro'"/>
@@ -46,7 +49,7 @@
                 hand_location:=/ocular/CONVERTER/hand_location
                 segmented_pc:=/ocular/ROI3D/segmented_pc
                 segmented_coordinates_px:=/ocular/ROI3D/segmented_coordinates_px
-                event:=/ocular/EVENTHANDLER/event"/>
+                event:=$(arg interactive_event_topic)"/>
     
 <!-- 2D -->
     <node pkg="ocular"
@@ -78,7 +81,7 @@
     <node pkg="ocular"
           type="event_handler"
           name="event_handler"
-          args="event:=/ocular/EVENTHANDLER/event
+          args="event:=$(arg event_topic)
                 skeleton:=/skeleton"/>
 
 <!--  LEARNER RECOGNIZER-->
@@ -87,7 +90,7 @@
           name="learner_recognizer"
           args="descriptors2D:=/ocular/FE2D/descriptors2D
                 object_id:=/ocular/object_id
-                event:=/ocular/EVENTHANDLER/event
+                event:=$(arg interactive_event_topic)
                 descriptors3D:=/ocular/FE3D/descriptors3D"/>
 
 
