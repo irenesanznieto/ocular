@@ -45,10 +45,8 @@ void Algorithm3D::load_templates()
 
 void Algorithm3D::next_object()
 {
-    descriptors.push_back(std::vector<
-        pcl::PCLPointCloud2 > ());
+    descriptors.push_back(std::vector<pcl::PCLPointCloud2> ());
     this->object_number=descriptors.size()-1;
-
 }
 
 void Algorithm3D::set_number_views (int number_views)
@@ -142,8 +140,6 @@ std::pair <int, float> Algorithm3D::match(const pcl::PCLPointCloud2ConstPtr & ms
     ROS_INFO_STREAM("ratio[matched_object_id]: " << ratio[matched_object_id]);
 
     return std::make_pair(matched_object_id, ratio[matched_object_id]);
-
-
 }
 
 int Algorithm3D::get_number_template()
