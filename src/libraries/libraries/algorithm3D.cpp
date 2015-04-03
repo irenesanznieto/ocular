@@ -134,13 +134,12 @@ std::pair <int, float> Algorithm3D::match(const pcl::PCLPointCloud2ConstPtr & ms
         this->matched_object_id=-1;
 
     if(matched_object_id>0)
-        std::cerr<<"ratio[max_elem]: "<<ratio[matched_object_id]<<std::endl;
+        ROS_DEBUG_STREAM("ratio[max_elem]: " << ratio[matched_object_id]);
 
     for (int k=0; k<ratio.size(); k++)
-        std::cerr<<"ratio[]: "<<ratio[k]<<std::endl;
+        ROS_DEBUG_STREAM("ratio[]: " << ratio[k]);
 
-    std::cerr<<"ratio[matched_object_id]: "<<ratio[matched_object_id]<<std::endl;
-
+    ROS_INFO_STREAM("ratio[matched_object_id]: " << ratio[matched_object_id]);
 
     return std::make_pair(matched_object_id, ratio[matched_object_id]);
 
