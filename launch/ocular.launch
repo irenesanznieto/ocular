@@ -1,6 +1,7 @@
 <launch>
   <arg name="event_topic" default="ocular/EVENTHANDLER/event"/>
-  <arg name="interactive_event_topic" default="ocular/EVENTHANDLER/interactive_event"/>
+  <!-- <arg name="interactive_event_topic" default="ocular/EVENTHANDLER/interactive_event"/> -->
+  <arg name="interactive_event_topic" default="ocular/EVENTHANDLER/event"/>
 
 <!--
     <arg name="fixed_frame" value="camera_depth_frame"/>
