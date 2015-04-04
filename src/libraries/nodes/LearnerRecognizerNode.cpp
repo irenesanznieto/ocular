@@ -4,8 +4,8 @@ LearnerRecognizerNode::LearnerRecognizerNode()
 {
 
     object_pub =    nh.advertise<ocular::RecognizedObject>("object_id", 1);
-    learned2d_pub = nh.advertise<std_msgs::Int32>("learn2D_finished", 1);
-    learned3d_pub = nh.advertise<std_msgs::Int32>("learn3D_finished", 1);
+    learned_pub = nh.advertise<ocular::LearningFinished>("learning_finished", 1);
+
 
     descriptors2D = nh.subscribe<ocular::HandImage>
                                 ("descriptors2D", 1,
@@ -103,9 +103,10 @@ void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & m
             learning_2D = false;
 
             // Notify that 2D learning for this object has finished
-            std_msgs::Int32 object_id_2d;
-            object_id_2d.data = alg2D.get_number_template();
-            learned2d_pub.publish(object_id_2d);
+            ocular::LearningFinished finished_msg;
+            finished_msg.learner = "2D";
+            finished_msg.object_id = alg2D.get_number_template();
+            learned_pub.publish(finished_msg);
 
             alg2D.next_object();
 
@@ -166,9 +167,10 @@ void LearnerRecognizerNode::descriptors3D_cb(const pcl::PCLPointCloud2ConstPtr &
             learning_3D = false;
 
             // Notify that 3D learning for this object has finished
-            std_msgs::Int32 object_id_3d;
-            object_id_3d.data = alg3D.get_number_template();
-            learned3d_pub.publish(object_id_3d);
+            ocular::LearningFinished finished_msg;
+            finished_msg.learner = "3D";
+            finished_msg.object_id = alg3D.get_number_template();
+            learned_pub.publish(finished_msg);
 
             alg3D.next_object();
 

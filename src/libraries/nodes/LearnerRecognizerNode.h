@@ -7,6 +7,7 @@
 #include <ocular/RecognizedObject.h>
 #include <ros/ros.h>
 #include <ocular/EventHandler.h>
+#include <ocular/LearningFinished.h>
 
 class LearnerRecognizerNode
 {
@@ -22,8 +23,7 @@ private:
     ros::Subscriber event_sub;
 
     ros::Publisher object_pub;
-    ros::Publisher learned2d_pub;
-    ros::Publisher learned3d_pub;
+    ros::Publisher learned_pub;
 
     void descriptors2D_cb(const ocular::HandImageConstPtr & );
 
