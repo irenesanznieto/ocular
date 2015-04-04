@@ -22,13 +22,12 @@ private:
     ros::Subscriber event_sub;
 
     ros::Publisher object_pub;
-
-
+    ros::Publisher learned2d_pub;
+    ros::Publisher learned3d_pub;
 
     void descriptors2D_cb(const ocular::HandImageConstPtr & );
 
-    void descriptors3D_cb(const
-        pcl::PCLPointCloud2ConstPtr & );
+    void descriptors3D_cb(const pcl::PCLPointCloud2ConstPtr & );
 
     void resulting_id();
 

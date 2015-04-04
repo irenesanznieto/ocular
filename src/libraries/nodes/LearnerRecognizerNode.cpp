@@ -3,14 +3,18 @@
 LearnerRecognizerNode::LearnerRecognizerNode()
 {
 
-    object_pub=nh.advertise<ocular::RecognizedObject>("object_id", 1);
+    object_pub =    nh.advertise<ocular::RecognizedObject>("object_id", 1);
+    learned2d_pub = nh.advertise<std_msgs::Int32>("learn2D_finished", 1);
+    learned3d_pub = nh.advertise<std_msgs::Int32>("learn3D_finished", 1);
 
-    descriptors2D=nh.subscribe<ocular::HandImage>("descriptors2D", 1, &LearnerRecognizerNode::descriptors2D_cb, this);
-
-    descriptors3D=nh.subscribe<pcl::PCLPointCloud2 >("descriptors3D",1,&LearnerRecognizerNode::descriptors3D_cb, this);
-
-    event_sub=nh.subscribe<ocular::EventHandler>("event", 1, &LearnerRecognizerNode::setEvent, this);
-
+    descriptors2D = nh.subscribe<ocular::HandImage>
+                                ("descriptors2D", 1,
+                                 &LearnerRecognizerNode::descriptors2D_cb, this);
+    descriptors3D = nh.subscribe<pcl::PCLPointCloud2 >
+                                ("descriptors3D", 1,
+                                 &LearnerRecognizerNode::descriptors3D_cb, this);
+    event_sub = nh.subscribe<ocular::EventHandler>
+                            ("event", 1, &LearnerRecognizerNode::setEvent, this);
 
     //Inintialize the number of view to be taken for each template
     this->number_views2D=5; //the total number of views to be extracted of each object
@@ -19,7 +23,6 @@ LearnerRecognizerNode::LearnerRecognizerNode()
     //Set the number of views to be taken for each object and load the previous templates;
     this->alg2D.set_number_views(this->number_views2D); //pass the number of views to the algorithm 2D
     this->alg2D.load_templates();
-
 
     //Set the number of views to be taken for each object and load the previous templates;
     this->alg3D.set_number_views(this->number_views3D); //pass the number of views to the algorithm 3D
@@ -48,19 +51,20 @@ void LearnerRecognizerNode::setEvent(const ocular::EventHandlerConstPtr & msg)
     ROS_WARN("msg.event: %s", msg->event.c_str());
     ROS_WARN("msg.last_event: %s", msg->last_event.c_str());
     ROS_WARN("msg.hand: %s", msg->hand.c_str());
-    if (msg->event=="learn" )
+    if (msg->event == "learn" )
     {
-        if (msg->last_event=="recognize")   //If last event was recognize
+        if (msg->last_event == "recognize")   // If last event was recognize
         {
             ROS_WARN("LearnerRecognizerNode: Start Learning");
-            this->learn_2D=true;
-            this->learn_3D=true;
+            this->learn_2D = true;
+            this->learn_3D = true;
         }
     }
-    else if (msg->event=="recognize" && !learning_2D && !learning_3D)   //If the event is recognize
+    //If the event is recognize
+    else if (msg->event=="recognize" && !learning_2D && !learning_3D)
     {
-        this->learn_2D=false;
-        this->learn_3D=false;
+        this->learn_2D = false;
+        this->learn_3D = false;
     }
     ROS_WARN("Exiting event callback");
 }
@@ -76,32 +80,32 @@ void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & m
 
 //        std::cerr << "2D: " << number_views_it_2D
 //                  << " / " << number_views2D << std::endl << std::flush;
-
-        if (number_views_it_2D<number_views2D)
+        if (number_views_it_2D < number_views2D)
         {
-            int result=-1;
+            int result = -1;
             do{
-                learning_2D=true;
+                learning_2D = true;
                 std::cerr << "*** 2D *** ----> TRAINING OBJECT "
                           << alg2D.get_number_template()
                           << " VIEW  " << number_views_it_2D
                           << std::endl << std::flush;
                 result = alg2D.add_descriptors(*msg);
             }while(result<0);
-
-            number_views_it_2D ++;
+            number_views_it_2D++;
             sleep(1);
-
         }
-        else if (number_views_it_2D==number_views2D)
+        else if (number_views_it_2D == number_views2D)
         {
             // when the iterator == to total num of views, reset the iterator
             number_views_it_2D = 0;
-
             // Stop the learning until a new recognize - learn events happen
-            this->learn_2D=false;
+            this->learn_2D = false;
+            learning_2D = false;
 
-            learning_2D=false;
+            // Notify that 2D learning for this object has finished
+            std_msgs::Int32 object_id_2d;
+            object_id_2d.data = alg2D.get_number_template();
+            learned2d_pub.publish(object_id_2d);
 
             alg2D.next_object();
 
@@ -114,8 +118,6 @@ void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & m
                       << "than the total number of views"
                       << std::endl;
     }
-
-
     else if (!this->learn_2D)  // If the mode is recognize
     {
         this->object_id_2D = alg2D.match(msg);
@@ -124,7 +126,6 @@ void LearnerRecognizerNode::descriptors2D_cb(const ocular::HandImageConstPtr & m
     }
 //    ROS_WARN("Exiting DESCRIPTORS 2D callback");
 }
-
 
 
 void LearnerRecognizerNode::descriptors3D_cb(const pcl::PCLPointCloud2ConstPtr & msg)
@@ -160,11 +161,14 @@ void LearnerRecognizerNode::descriptors3D_cb(const pcl::PCLPointCloud2ConstPtr &
         {
             //when the iterator is equal to the total number of views, reset the iterator
             number_views_it_3D = 0;
-
             //stop the learning until a new recognize - learn events happen
             this->learn_3D = false;
-
             learning_3D = false;
+
+            // Notify that 3D learning for this object has finished
+            std_msgs::Int32 object_id_3d;
+            object_id_3d.data = alg3D.get_number_template();
+            learned3d_pub.publish(object_id_3d);
 
             alg3D.next_object();
 
@@ -183,7 +187,7 @@ void LearnerRecognizerNode::descriptors3D_cb(const pcl::PCLPointCloud2ConstPtr &
 //        ROS_WARN("In recognize mode");
         this->object_id_3D=alg3D.match(msg);
 //        std::cerr << "RECOGNIZED 3D: " << object_id_3D
-//                    << std::endl << std::flush;
+//                  << std::endl << std::flush;
         this->resulting_id();
     }
 //    ROS_WARN("Exiting DESCRIPTORS 3D callback");
