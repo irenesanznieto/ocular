@@ -1,6 +1,4 @@
 Header header
-string name   # Supported: '2D' and '3D'
-int32 id2D
-int32 id3D  # Id of the object learned. 
-                 # It is also used to identify the template name of the object.
-
+string learner    # Supported: '2D' and '3D'.
+                  # Identifies wether the object_id belongs to the 2D or the 3D template.
+int32 object_id   # ID of the template for this learner.
