@@ -53,13 +53,15 @@ public:
 
     bool add_descriptors(ocular::HandImage);
 
-    int match(const ocular::HandImageConstPtr & msg);
+    std::pair <int, float> match(const ocular::HandImageConstPtr & msg);
 
     void set_number_views (int);
 
     int get_number_views ();
 
     int get_number_template();  /** Returns the number of the template being currently learned */
+
+    int get_number_templates();
 
     void next_object();
     void load_templates();
@@ -73,7 +75,7 @@ private:
 
     DataParser dataparser;  /**DataParser object that will store and load the algorithms and templates information*/
 
-    int flann_comparison (cv::Mat , float);
+    float flann_comparison (cv::Mat , float);
 
 
     bool new_object;    /**Boolean that is set to true whenever the new view is of a new object*/
@@ -82,7 +84,7 @@ private:
 
     int matched_object_id;  /** Number that represents the object being matched by the algorithm. **/
 
-    int matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
+    float matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
 
     int number_views;
 

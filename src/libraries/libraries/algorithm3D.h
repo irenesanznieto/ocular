@@ -52,7 +52,7 @@ public:
 
     ~Algorithm3D();
 
-    int match(const sensor_msgs::PointCloud2ConstPtr &);
+    std::pair<int, float> match(const sensor_msgs::PointCloud2ConstPtr &);
 
     void set_start_training(bool training);     /** Sets the value of the private boolean train*/
 
@@ -84,7 +84,7 @@ private:
 
     int matched_object_id;  /** Number that represents the object being matched by the algorithm. **/
 
-    int matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
+    float matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
 
     int object_number;
 
