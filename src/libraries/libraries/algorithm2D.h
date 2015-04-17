@@ -61,6 +61,8 @@ public:
 
     int get_number_template();  /** Returns the number of the template being currently learned */
 
+    int get_number_templates();
+
     void next_object();
     void load_templates();
 
@@ -82,7 +84,7 @@ private:
 
     int matched_object_id;  /** Number that represents the object being matched by the algorithm. **/
 
-    int matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
+    float matched_object_ratio;  /** Number that represents the ratio obtained by the recognized object**/
 
     int number_views;
 

@@ -2,7 +2,9 @@ bin/
 build/
 lib/
 devel/
-data/*
+data/templates
+data/test
+
 *.aux
 *.dvi
 *.log
@@ -21,9 +23,7 @@ data/*
 *.ps
 msg_gen/
 img/
-
 *.pyc
-
 msg_gen/*
 src/ocular/*
 

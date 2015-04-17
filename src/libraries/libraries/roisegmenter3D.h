@@ -35,6 +35,7 @@
 #include <ocular/HandLocPx.h>
 #include <ocular/HandLoc.h>
 #include <sensor_msgs/PointCloud.h>
+
 //* RoiSegmenter3D class 
 /**
 * Segments an input point cloud and extracts the Region Of Interest

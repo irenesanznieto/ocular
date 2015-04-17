@@ -15,7 +15,8 @@ Algorithm2D::~Algorithm2D()
 {
     std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm2D]   SAVING TEMPLATES 2D: "<<std::endl<<std::flush;
 
-//    std::cerr<<std::endl<<"2D descriptors.size(): "<<descriptors.size()<<std::endl<<std::flush;
+//    std::cerr<<std::endl<<"2D descriptors.size(): "<<descriptors.size()<<std::endl<<
+//               "descriptors[0].size: "<<descriptors[0].size()<<std::endl<<std::flush;
 
 
     for (unsigned int i=0; i<descriptors.size(); i++)
@@ -24,11 +25,18 @@ Algorithm2D::~Algorithm2D()
 //                << " -----------> number_views: "<<number_views<<std::endl<<std::flush;
         if(descriptors[i].size()<this->number_views)
         {
-            descriptors.erase(descriptors.begin()+i-1);
+//            std::cerr<<"    removed template: "<<i<<std::endl<<std::flush;
+//            descriptors.erase(descriptors.begin()+i-1);
+            do{
+                descriptors[i].push_back(descriptors[i][0]);
+                dataparser.save_template_2D(descriptors[i],i);
+            }while(descriptors[i].size()<this->number_views);
+            std::cerr<<"    template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
+
         }
         else
         {
-            dataparser.save_template(descriptors[i],i);
+            dataparser.save_template_2D(descriptors[i],i);
             std::cerr<<"    template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
         }
     }
@@ -98,9 +106,12 @@ bool Algorithm2D::add_descriptors( ocular::HandImage msg)
     else if(!image_cv.empty())
     {
         descriptors[this->object_number].push_back(image_cv);
+
+//        if(descriptors[this->object_number].size()==this->number_views)
+//                dataparser.save_template_2D(descriptors[this->object_number],this->object_number);
+
         return 0;
     }
-
 }
 
 
@@ -134,11 +145,12 @@ std::pair <int, float> Algorithm2D :: match(const ocular::HandImageConstPtr & ms
         catch(std::exception & e)
         {}
     }
+//    std::cerr<<"2D matched object ratio: "<<matched_object_ratio<<std::endl<<std::flush;
 
     return std::make_pair(matched_object_id,matched_object_ratio);
 }
 
-float Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
+float Algorithm2D::flann_comparison(cv::Mat  desc1,float threshold)
 {
     //vector that will store the ratios of similarity between the new image and the templates
     std::vector< float> ratio;
@@ -182,6 +194,7 @@ float Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
         if (matches[object_number].size()>0)
         {
             ratio[object_number]=(float)(good_matches[object_number].size())/(float)(matches[object_number].size());
+//            std::cerr<<"ratio that victor said : "<<(float)matches[object_number].size()/ (float)descriptors[object_number].size()<<std::endl<<std::flush;
         }
         else if (matches[object_number].size()<=0)
         {
@@ -199,4 +212,9 @@ float Algorithm2D:: flann_comparison (cv::Mat  desc1,float threshold)
 int Algorithm2D::get_number_template()
 {
     return this->object_number;
+}
+
+int Algorithm2D::get_number_templates()
+{
+    return this->descriptors.size();
 }
