@@ -2,8 +2,10 @@
 
 RoiSegmenter3DNode::RoiSegmenter3DNode()
 {
-    point_cloud_sub= nh.subscribe <sensor_msgs::PointCloud2> ("original_pc", 1, &RoiSegmenter3DNode::point_cloud_cb, this);
-    point_cloud_pub=nh.advertise <sensor_msgs::PointCloud2> ("segmented_pc", 1);
+    point_cloud_sub= nh.subscribe <
+        pcl::PCLPointCloud2 > ("original_pc", 1, &RoiSegmenter3DNode::point_cloud_cb, this);
+    point_cloud_pub=nh.advertise <
+        pcl::PCLPointCloud2 > ("segmented_pc", 1);
 
     coord_pub= nh.advertise <ocular::HandLocPx> ("segmented_coordinates_px", 1);
 
@@ -18,9 +20,12 @@ void RoiSegmenter3DNode:: hand_name_cb(const ocular::EventHandlerConstPtr & msg)
     roiSegmenter3D.setHandName(msg->hand);
 }
 
-void RoiSegmenter3DNode :: point_cloud_cb (const sensor_msgs::PointCloud2ConstPtr &msg)
+void RoiSegmenter3DNode :: point_cloud_cb (const
+        pcl::PCLPointCloud2ConstPtr &msg)
 {
-    sensor_msgs::PointCloud2 result=roiSegmenter3D.segment(msg);
+  /* pcl::PCLPointCloud2ConstPtr msg_pcl;
+   pcl_conversions::toPCL(msg,msg_pcl);*/
+    pcl::PCLPointCloud2  result=roiSegmenter3D.segment(msg/*_pcl*/);
     if (!result.data.empty())
         point_cloud_pub.publish(result);
 

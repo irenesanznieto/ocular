@@ -48,11 +48,7 @@ public:
     * the above brief description.
     * \param msg       The pi_tracker::Skeleton message provided by the ROS package pi_tracker
     */
-<<<<<<< HEAD:src/libraries/libraries/converter.h
     ocular::HandLoc handCoordinatesExtractor(const skeleton_markers::Skeleton & msg);
-=======
-    ocular::HandLoc handCoordinatesExtractor(const pi_tracker::Skeleton & msg);
->>>>>>> 982197c1772db2b0512905277958f7444f086853:src/libraries/libraries/converter.h
 
 };
 #endif // CONVERTER_H

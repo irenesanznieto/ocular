@@ -29,7 +29,7 @@ private:
 
     void descriptors3D_cb(const pcl::PCLPointCloud2ConstPtr & );
 
-    void resulting_id(string name);
+    void resulting_id(std::string name);
 
     void train3D_cb();
 
@@ -56,8 +56,8 @@ private:
     std::pair <int, float> object_id_3D;
 =======
 */
-    std::vector <std::pair <int, float>> object_id_2D;
-    std::vector <std::pair <int, float>> object_id_3D;
+    std::vector< std::pair<int, float> > object_id_2D;
+    std::vector< std::pair<int, float> > object_id_3D;
 
     std::pair <int, float> last_object_id_2D;
     std::pair <int, float> last_object_id_3D;
