@@ -109,6 +109,20 @@
           name="hand_image"
           args="image:=/ocular/ROI2D/segmented_image_ROS_type"/>
 
+<!-- WRITE TO FILE-->
+<!-- 
+    <node pkg="ocular"
+          type="write_to_file.py"
+          name="write_to_file"
+          args="object_id:=/final_object_id"/>
+-->
+
+<!-- FREQUENCY COUNTER-->
+    <node pkg="ocular"
+          type="system_output.py"
+          name="system_output"
+          args="object_id:=/ocular/object_id"/>
+
 
 <!-- VIEW 2D KEYPOINTS -->
 <!--    
