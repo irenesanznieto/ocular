@@ -123,6 +123,15 @@
           name="system_output"
           args="object_id:=/ocular/object_id"/>
 
+<!-- FREQUENCY COUNTER-->
+    <node pkg="ocular"
+          type="ocular_estimator.py"
+          name="ouput_averager"
+          args="object_id:=/ocular/object_id
+                final_object_id:=/ocular/final_object_id">
+        <param name="rate" value="30"/>
+    </node>
+
 
 <!-- VIEW 2D KEYPOINTS -->
 <!--    
