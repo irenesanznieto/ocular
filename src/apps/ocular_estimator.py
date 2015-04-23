@@ -68,13 +68,17 @@ class Accumulator(object):
 
         Example:
 
-            >>> acc = Acumulator(3)
+            >>> acc = Accumulator(3)
             >>> acc.append(1)   # Also acc(1)
+            [1]
             >>> acc.append(2)
+            [1, 2]
             >>> acc.append(3)
+            [1, 2, 3]
             >>> acc.get()       # Also acc()
-            [1,2,3]
+            [1, 2, 3]
             >>> acc.append(4)
+            [4]
             >>> acc.get()
             [4]
 
@@ -123,15 +127,18 @@ class Accumulator(object):
         return not self.isempty(self)
 
     def __call__(self, item=None):
-        """ Add an element if item != None else returns the list.
+        """
+        Add an element if item != None else returns the list.
 
-        Example
+        Example:
 
-            >>> acc = Acumulator(3)
+            >>> acc = Accumulator(3)
             >>> acc(1)
+            [1]
             >>> acc(2)
+            [1, 2]
             >>> acc()
-            [1,2]
+            [1, 2]
         """
         if item:
             return self.append(item)
@@ -173,12 +180,40 @@ def accumulator_coroutine(target, max_items):
 
 
 def estimate(predictions_rgb, predictions_pcloud, weights=(0.6, 0.4)):
-    """Return max of each matcher (rgb, pcloud and weighted sum of them)."""
+    """Return ids of object that appears more times in each matcher.
+
+    That is, returns the id of the item with higher frequency in
+    the rgb predictions, the point cloud predictions and
+    the item with higer frequency in a weighted sum of rgb and pcloud preds.
+
+    Args:
+        predictions_rgb: list of predictions of the RGB matcher
+        predictions_pcloud: list of predictions of the point cloud matcher
+        weights: tuple to indicate relative weights of the matchers.
+            Default=(0.6, 0.4)
+
+    Return:
+        tuple with (id_of_weighted_sum, id_rgb, id_pcloud)
+
+    Example:
+
+        >>> estimate([1, 1, 1, 2, 2], [1, 0, 2, 2, 1])
+        (1, 1, 1)
+        >>> estimate([1, 1, 1, 2, 2], [1, 0, 2, 2, 2])
+        (2, 1, 2)
+        >>> estimate([1, 1, 1, 2, 2], [1, 0, 0, 0, 2])
+        (1, 1, 0)
+        >>> estimate([1, 1, 1, 2, 2], [2, 2, 2, 2, 2], weights=(1,0))
+        (1, 1, 2)
+    """
     w_rgb, w_pcloud = weights
     freqs_rgb = pd.Series(frequencies(predictions_rgb))
     freqs_pcloud = pd.Series(frequencies(predictions_pcloud))
-    freqs = w_rgb * freqs_rgb + w_pcloud * freqs_pcloud
-    return (freqs.max(), freqs_rgb.max(), freqs_pcloud.max())
+    freqs = pd.Series.add(w_rgb * freqs_rgb,
+                          w_pcloud * freqs_pcloud, fill_value=0)
+    return (freqs.nlargest(1).index[0],
+            freqs_rgb.nlargest(1).index[0],
+            freqs_pcloud.nlargest(1).index[0])
 
 
 class Estimator():
@@ -212,6 +247,8 @@ class Estimator():
         """Callback that publishes updated predictions when new msg is recv."""
         self.accumulator.append(data.object_id)
         if self.accumulator.isfull():
+            rospy.logwarn("Accumulator full. Printing all predictions")
+            rospy.logwarn("{}".format(self.accumulator))
             predictions_rgb, predictions_pcloud = zip(*self.accumulator)
             y, y_rgb, y_pcloud = estimate(predictions_rgb, predictions_pcloud)
             output_msg = SystemOutput(id_2d_plus_3d=y,
