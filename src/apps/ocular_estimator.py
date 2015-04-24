@@ -26,7 +26,8 @@ from itertools import chain, islice
 from toolz import frequencies
 import pandas as pd
 
-import roslib; roslib.load_manifest('ocular')
+import roslib
+roslib.load_manifest('ocular')
 import rospy
 from rospy import (Publisher, Subscriber)
 from rospy import loginfo, logfatal
@@ -247,8 +248,8 @@ class Estimator():
         """Callback that publishes updated predictions when new msg is recv."""
         self.accumulator.append(data.object_id)
         if self.accumulator.isfull():
-            rospy.logwarn("Accumulator full. Printing all predictions")
-            rospy.logwarn("{}".format(self.accumulator))
+            rospy.logdebug("Accumulator full. Printing all predictions")
+            rospy.logdebug("{}".format(self.accumulator))
             predictions_rgb, predictions_pcloud = zip(*self.accumulator)
             y, y_rgb, y_pcloud = estimate(predictions_rgb, predictions_pcloud)
             output_msg = SystemOutput(id_2d_plus_3d=y,
