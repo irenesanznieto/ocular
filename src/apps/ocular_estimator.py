@@ -89,11 +89,6 @@ class Accumulator(object):
             self.l = []
         self.l.append(item)
         return self
-        # return self.l
-
-    # def insert(self, seq):
-    #     self.l = self.b_insert(self.l, seq)
-    #     return self
 
     def insert(self, seq):
         """
