@@ -118,10 +118,12 @@
 -->
 
 <!-- FREQUENCY COUNTER-->
-    <node pkg="ocular"
-          type="system_output.py"
-          name="system_output"
-          args="object_id:=/ocular/object_id"/>
+<!--     
+  <node pkg="ocular"
+        type="system_output.py"
+        name="system_output"
+        args="object_id:=/ocular/object_id"/>
+-->
 
 <!-- FREQUENCY COUNTER-->
     <node pkg="ocular"
@@ -134,16 +136,16 @@
 
 
 <!-- VIEW 2D KEYPOINTS -->
-<!--    
+  
     <node pkg="image_view"
           type="image_view"
           name="hand_image_with_keypoints"
           args="image:=/ocular/ROI2D/segmented_image_with_keypoints"/>
--->
+
     
     
 <!--  KINECT ORIGINAL IMAGE-->
-<!--    
+<!--
     <node pkg="image_view"
           type="image_view"
           name="kinect_image"
