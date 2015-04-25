@@ -13,34 +13,57 @@ Algorithm2D::Algorithm2D()
 
 Algorithm2D::~Algorithm2D()
 {
-    std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm2D]   SAVING TEMPLATES 2D: "<<std::endl<<std::flush;
+    std::cerr << std::endl
+              << "[LearnerRecognizer -- Algorithm2D]   SAVING TEMPLATES 2D: "
+              << std::endl << std::flush;
 
-//    std::cerr<<std::endl<<"2D descriptors.size(): "<<descriptors.size()<<std::endl<<
-//               "descriptors[0].size: "<<descriptors[0].size()<<std::endl<<std::flush;
+//      std::cerr << std::endl
+//                << "2D descriptors.size(): "
+//                << descriptors.size()
+//                << std::endl
+//                << "descriptors[0].size: "
+//                << descriptors[0].size()
+//                << std::endl << std::flush;
 
 
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
-//        std::cerr<<"Iteration "<<i<<"---------> Descriptors[i].size: "<<descriptors[i].size()
-//                << " -----------> number_views: "<<number_views<<std::endl<<std::flush;
+//          std::cerr << "Iteration "
+//                    << i
+//                    << "---------> Descriptors[i].size: "
+//                    << descriptors[i].size()
+//                    << " -----------> number_views: "
+//                    << number_views
+//                    << std::endl << std::flush;
+
         if(descriptors[i].size()<this->number_views)
         {
-//            std::cerr<<"    removed template: "<<i<<std::endl<<std::flush;
+//              std::cerr << "    removed template: "
+//                        << i
+//                        << std::endl << std::flush;
 //            descriptors.erase(descriptors.begin()+i-1);
             do{
                 descriptors[i].push_back(descriptors[i][0]);
                 dataparser.save_template_2D(descriptors[i],i);
             }while(descriptors[i].size()<this->number_views);
-            std::cerr<<"    template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
+            std::cerr << "    template: "
+                      << i
+                      << " , number of views: "
+                      << descriptors[i].size()
+                      << std::endl << std::flush;
 
         }
         else
         {
             dataparser.save_template_2D(descriptors[i],i);
-            std::cerr<<"    template: "<<i<<" , number of views: "<<descriptors[i].size()<<std::endl<<std::flush;
+            std::cerr << "    template: "
+                      << i
+                      << " , number of views: "
+                      << descriptors[i].size()
+                      << std::endl << std::flush;
         }
     }
-    std::cerr<<std::endl<<std::flush;
+    std::cerr << std::endl << std::flush;
 
 }
 
@@ -61,7 +84,11 @@ void Algorithm2D::load_templates()
 
         this->alg2D.resize(descriptors.size());
 
-        std::cerr<<std::endl<<"[LearnerRecognizer -- Algorithm2D]   LOADED "<<descriptors.size()-1<< " TEMPLATES 2D "<<std::endl<<std::endl<<std::flush;
+        std::cerr << std::endl
+                  << "[LearnerRecognizer -- Algorithm2D]   LOADED "
+                  << descriptors.size() - 1
+                  << " TEMPLATES 2D "
+                  << std::endl << std::endl << std::flush;
     }
 }
 
