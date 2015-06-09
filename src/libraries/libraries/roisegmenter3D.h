@@ -26,7 +26,7 @@
 //#include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/passthrough.h>
-#include <pcl/ros/conversions.h>
+#include <pcl/conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 
@@ -34,6 +34,7 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <ocular/HandLocPx.h>
 #include <ocular/HandLoc.h>
+#include <sensor_msgs/PointCloud.h>
 
 //* RoiSegmenter3D class 
 /**
@@ -57,7 +58,8 @@ public:
     *
     * In this case, there are two segmented regions (both the right and left hands). The point cloud of interest is a cube with fixed dimensions extracted from the original point cloud.
     */
-    sensor_msgs::PointCloud2 segment(const sensor_msgs::PointCloud2ConstPtr &);
+
+        pcl::PCLPointCloud2  segment(const   pcl::PCLPointCloud2ConstPtr &);
 
 
     /*!

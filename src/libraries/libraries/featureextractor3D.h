@@ -23,6 +23,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 
+#include <pcl_conversions/pcl_conversions.h>
+
 //Msgs
 #include <sensor_msgs/PointCloud2.h>
 
@@ -72,13 +74,21 @@ class FeatureExtractor3D
 public:
 
     FeatureExtractor3D();
-    sensor_msgs::PointCloud2  extract_features(std::string, const sensor_msgs::PointCloud2ConstPtr& msg);
+
+        pcl::PCLPointCloud2   extract_features(std::string, const
+        pcl::PCLPointCloud2ConstPtr& msg);
 
 private:
-    sensor_msgs::PointCloud2  extract_features_pfh(const sensor_msgs::PointCloud2ConstPtr& msg);
-    sensor_msgs::PointCloud2  extract_features_fpfh(const sensor_msgs::PointCloud2ConstPtr& msg);
 
-   sensor_msgs::PointCloud2  extract_features_vhf(const sensor_msgs::PointCloud2ConstPtr& msg);
+        pcl::PCLPointCloud2   extract_features_pfh(const
+        pcl::PCLPointCloud2ConstPtr& msg);
+
+        pcl::PCLPointCloud2   extract_features_fpfh(const
+        pcl::PCLPointCloud2ConstPtr& msg);
+
+
+        pcl::PCLPointCloud2   extract_features_vhf(const
+        pcl::PCLPointCloud2ConstPtr& msg);
 
 
 };

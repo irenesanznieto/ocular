@@ -3,14 +3,16 @@
 RoiSegmenter3D::RoiSegmenter3D()
 {}
 
-sensor_msgs::PointCloud2 RoiSegmenter3D::segment( const sensor_msgs::PointCloud2ConstPtr &cloud )
+
+        pcl::PCLPointCloud2 RoiSegmenter3D::segment( const pcl::PCLPointCloud2ConstPtr &cloud )
 {
 //    if (!coord.position.empty() && !this->hand_name.empty())
 //    {
-        sensor_msgs::PointCloud2 cloud_filtered;
+
+        pcl::PCLPointCloud2 cloud_filtered;
 
         //make 3 passThrough filters, one for each coordinate
-        pcl::PassThrough<sensor_msgs::PointCloud2> x, y, z;
+        pcl::PassThrough<pcl::PCLPointCloud2 > x, y, z;
 
         //set input cloud
         x.setInputCloud(cloud);

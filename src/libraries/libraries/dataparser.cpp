@@ -72,7 +72,7 @@ std::vector <std::string> DataParser::get_file_names (std::string path)
 }
 
 
-void DataParser::save_template(std::vector<cv::Mat> & descriptors, int number_object)
+void DataParser::save_template_2D(std::vector<cv::Mat> & descriptors, int number_object)
 {
     //NAME CODE:
     std::stringstream path;
@@ -82,12 +82,15 @@ void DataParser::save_template(std::vector<cv::Mat> & descriptors, int number_ob
 
     //    //create a folder in the templates_path with the number of the position of the object in the vector
 
+
     std::stringstream filename;
     //Store each matrix of descriptors corresponding to different views of the object in a different yml file inside the same object's folder
     for (unsigned int i=0; i<descriptors.size(); i++)
     {
+
         //remove the contents of the stringstream filename for the next iteration
         filename.str(std::string());
+
 
         //add the path to the filename
         filename<<path.str();
@@ -96,6 +99,7 @@ void DataParser::save_template(std::vector<cv::Mat> & descriptors, int number_ob
 
         //write the descriptors to the filestorage
         this->save_descriptor(descriptors[i], filename.str());
+
     }
 }
 
@@ -129,7 +133,8 @@ void DataParser::save_template(cv::Mat descriptors, int number_object, int numbe
 }
 
 //3D
-void DataParser::save_template(std::vector<sensor_msgs::PointCloud2> & descriptors, int number_object)
+void DataParser::save_template(std::vector<
+        pcl::PCLPointCloud2 > & descriptors, int number_object)
 {
     //NAME CODE:
     std::stringstream path;
@@ -153,7 +158,8 @@ void DataParser::save_template(std::vector<sensor_msgs::PointCloud2> & descripto
 
 }
 
-void DataParser::save_descriptor(sensor_msgs::PointCloud2 &descriptors, std::string filename)
+void DataParser::save_descriptor(
+        pcl::PCLPointCloud2  &descriptors, std::string filename)
 {
     pcl::io::savePCDFile(filename, descriptors);
 }
@@ -168,7 +174,8 @@ void DataParser::save_descriptor(cv::Mat &descriptors, std::string filename)
 void DataParser::save_algorithm_2D(cv::FlannBasedMatcher & alg2D, int object_number)
 {
     std::stringstream filename;
-    filename<<algorithms_2D_path<<object_number<<".yml";
+//    filename<<algorithms_2D_path<<object_number<<".yml";
+    filename<<algorithms_2D_path<<object_number<<".xml";
 
     cv::FileStorage fs(filename.str(), cv::FileStorage::WRITE);
     alg2D.write(fs);
@@ -210,9 +217,11 @@ cv::Mat DataParser::load_descriptor (std::string filename)
 }
 
 
-sensor_msgs::PointCloud2 DataParser::load_descriptor3D(std::string filename)
+
+        pcl::PCLPointCloud2  DataParser::load_descriptor3D(std::string filename)
 {
-    sensor_msgs::PointCloud2 descriptors;
+
+        pcl::PCLPointCloud2  descriptors;
     pcl::PointCloud<pcl::PFHSignature125> descriptors_pcl;
     pcl::io::loadPCDFile(filename, descriptors_pcl);
 
@@ -280,7 +289,8 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<cv::Ma
 
 
 //3D
-void DataParser:: getTemplates (int number_views, std::vector<std::vector<sensor_msgs::PointCloud2> > & descriptors)
+void DataParser:: getTemplates (int number_views, std::vector<std::vector<
+        pcl::PCLPointCloud2 > > & descriptors)
 {
     //obtain the names of all the objects in the templates folder [the names of all the folders, i.e. the ID of all the objects learned]
     std::vector<std::string> templates=this->get_file_names(templates_path_3D);
@@ -298,7 +308,8 @@ void DataParser:: getTemplates (int number_views, std::vector<std::vector<sensor
         //the size of the descriptors matrix will be the same as the objects in the folder
         descriptors.resize(total_objects);
 
-        sensor_msgs::PointCloud2 a;
+
+        pcl::PCLPointCloud2  a;
 
         int counter=0;
 

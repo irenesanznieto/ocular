@@ -20,7 +20,7 @@
 #define CONVERTER_NODE_H
 
 #include <ros/ros.h>
-#include <pi_tracker/Skeleton.h>
+#include <skeleton_markers/Skeleton.h>
 #include <ocular/HandLoc.h>
 
 #include "../libraries/converter.h"
@@ -62,7 +62,7 @@ private:
     *
     * This method stores the Skeleton message provided by the pi_tracker package and uses the Converter object to convert it to the custom message ocular::HandLoc
     */
-    void converter_cb(const pi_tracker::SkeletonConstPtr &);
+    void converter_cb(const skeleton_markers::SkeletonConstPtr &);
 
 };
 #endif // CONVERTER_NODE_H

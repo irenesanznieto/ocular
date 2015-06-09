@@ -7,7 +7,7 @@ Author:
    [Irene Sanz Nieto](https://github.com/irenesanznieto)
    
 Branch: 
-	groovy-devel
+    hydro-devel
    
 Index
 -------
@@ -52,7 +52,7 @@ Another ROS package also used is the pi_tracker (http://wiki.ros.org/pi_tracker)
 2.2.1. Using the terminal
 
 Open a terminal (Ctrl + Alt + t)
-Enter the command : rosmake TFG
+Enter the command : rosmake ocular
 
 This command will build the whole project
 The compilation is done using Rosbuild. 
@@ -60,7 +60,7 @@ The compilation is done using Rosbuild.
 
 2.2.1. Using QtCreator
 
-To open the software as a QtCreator project, the only thing needed is to open the main CMakeLists.txt (sandbox/TFG/CMakeLists.txt) with QtCreator. This will parse the whole project. Afterwards, press the "build" icon to build the project.
+To open the software as a QtCreator project, the only thing needed is to open the main CMakeLists.txt (sandbox/ocular/CMakeLists.txt) with QtCreator. This will parse the whole project. Afterwards, press the "build" icon to build the project.
 
 
 2.3 Running
@@ -68,7 +68,7 @@ To open the software as a QtCreator project, the only thing needed is to open th
 The code may be runned more easily through a launch file. In order to do so, 
 enter the following command in a terminal: 
 
-roslaunch TFG TFG.launch
+roslaunch ocular ocular.launch
 
 This launch file will open all the executables and nodes and nodelets needed for the project. 
 

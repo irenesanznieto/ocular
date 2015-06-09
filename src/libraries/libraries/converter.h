@@ -18,7 +18,7 @@
 #ifndef CONVERTER_H
 #define CONVERTER_H
 #include <ros/ros.h>
-#include <pi_tracker/Skeleton.h>
+#include <skeleton_markers/Skeleton.h>
 #include <ocular/HandLoc.h>
 #include <std_msgs/String.h>
 
@@ -48,7 +48,7 @@ public:
     * the above brief description.
     * \param msg       The pi_tracker::Skeleton message provided by the ROS package pi_tracker
     */
-    ocular::HandLoc handCoordinatesExtractor(const pi_tracker::Skeleton & msg);
+    ocular::HandLoc handCoordinatesExtractor(const skeleton_markers::Skeleton & msg);
 
 };
 #endif // CONVERTER_H

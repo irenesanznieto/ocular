@@ -5,7 +5,8 @@ EventHandler::EventHandler()
     this->last_event="recognize";
 }
 
-ocular::EventHandler EventHandler::select_event_hand( pi_tracker::Skeleton msg)
+
+ocular::EventHandler EventHandler::select_event_hand( skeleton_markers::Skeleton msg)
 {
     ocular::EventHandler event;
 

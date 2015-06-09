@@ -20,12 +20,15 @@
 
 #include "../libraries/featureextractor3D.h"
 #include <ros/ros.h>
+#include <pcl_conversions/pcl_conversions.h>
+
 //* FeatureExtractor3DNode class
 /**
 * Connects the methods implemented in the FeatureExtractor3D class with the other packages using ROS topics.
 * \author Irene Sanz Nieto ( https://github.com/irenesanznieto )
 * \date Feb 18th, 2014
 */
+
 class FeatureExtractor3DNode
 {
 public:

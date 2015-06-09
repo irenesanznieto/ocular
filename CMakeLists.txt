@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 find_package(OpenCV REQUIRED)
+find_package(PCL REQUIRED)
 
 
 #rosbuild_find_ros_package(actionlib_msgs)
@@ -16,6 +17,9 @@ find_package(OpenCV REQUIRED)
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
 rosbuild_init()
+# rosbuild_find_ros_package(sensor_msgs)
+# rosbuild_find_ros_package(geometry_msgs)
+
 
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -26,6 +30,10 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 rosbuild_genmsg()
 #uncomment if you have defined services
 rosbuild_gensrv()
+
+include_directories(${PCL_INCLUDE_DIRS})
+
+add_definitions(-DEIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET)
 
 #common commands for building c++ executables and libraries
 #rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
@@ -58,7 +66,7 @@ rosbuild_add_executable(image_view src/apps/image_view.cpp)
 #LIBRARIES: 
 FILE(GLOB LIBRARIES_SRCS src/libraries/libraries/*.cpp src/libraries/nodes/*.cpp)
 rosbuild_add_library(custom_libs ${LIBRARIES_SRCS})
-target_link_libraries(custom_libs ${OpenCV_LIBS})
+target_link_libraries(custom_libs ${OpenCV_LIBS} ${PCL_LIBRARIES})
 
 
 #LINKING:

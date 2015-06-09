@@ -21,6 +21,7 @@
 
 #include "../libraries/roisegmenter3D.h"
 #include <ocular/EventHandler.h>
+#include <pcl_conversions/pcl_conversions.h>
 
 //* RoiSegmenter3DNode class
 /**
@@ -55,7 +56,8 @@ private:
     /*!
     * \brief Callback function that extracts and publishes the 3D ROI from the original point cloud using a function of the RoiSegmenter3D object
     */
-    void point_cloud_cb (const sensor_msgs::PointCloud2ConstPtr &);
+    void point_cloud_cb (const
+        pcl::PCLPointCloud2ConstPtr &);
 
 
     /*!
